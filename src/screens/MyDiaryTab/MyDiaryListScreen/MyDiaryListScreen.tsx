@@ -94,7 +94,6 @@ const MyDiaryListScreen: React.FC<ScreenType> = ({
     setRefreshing,
     getNewDiary,
     loadNextPage,
-    resetBuage,
   } = useMyDiaryList({
     uid: user.uid,
     fetchInfo,
@@ -110,7 +109,6 @@ const MyDiaryListScreen: React.FC<ScreenType> = ({
   useEffect(() => {
     const f = async (): Promise<void> => {
       await getNewDiary();
-      await resetBuage();
     };
     f();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -120,8 +118,7 @@ const MyDiaryListScreen: React.FC<ScreenType> = ({
     setRefreshing(true);
     await getNewDiary();
     setRefreshing(false);
-    await resetBuage();
-  }, [getNewDiary, resetBuage, setRefreshing]);
+  }, [getNewDiary, setRefreshing]);
 
   useFirstScreen({
     localStatus,

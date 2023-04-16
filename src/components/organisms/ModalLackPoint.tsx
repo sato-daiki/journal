@@ -55,13 +55,22 @@ const ModalLackPoint: React.FC<Props> = ({
           })}
         </Text>
         <Space size={32} />
-        <SubmitButton title={I18n.t('modalLackPoint.submit')} onPress={onPressSubmit} />
+        <SubmitButton
+          title={I18n.t('modalLackPoint.submit')}
+          onPress={onPressSubmit}
+        />
         <Space size={16} />
-        <WhiteButton title={I18n.t('modalLackPoint.close')} onPress={onPressClose} />
+        <WhiteButton
+          title={I18n.t('modalLackPoint.close')}
+          onPress={onPressClose}
+        />
         {!!onPressWatchAd && (
           <>
             <Space size={16} />
-            <WhiteButton title={I18n.t('modalLackPoint.watchAd')} onPress={onPressWatchAd} />
+            <WhiteButton
+              title={I18n.t('modalLackPoint.watchAd')}
+              onPress={onPressWatchAd}
+            />
           </>
         )}
       </View>

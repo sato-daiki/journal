@@ -87,12 +87,6 @@ const getSentences = ({
     case 'ja':
       newExpressions = expressions.ja;
       break;
-    case 'ko':
-      newExpressions = expressions.ko;
-      break;
-    case 'zh':
-      newExpressions = expressions.zh;
-      break;
     default:
       return null;
   }
@@ -182,12 +176,6 @@ const getStyleSentences = ({
       break;
     case 'ja':
       newExamples = examples.ja;
-      break;
-    case 'ko':
-      newExamples = examples.ko;
-      break;
-    case 'zh':
-      newExamples = examples.zh;
       break;
     default:
       return null;
@@ -281,7 +269,7 @@ export const getWords = ({
 
   const array = [...Array(num)].map((_, i) => i + 1);
 
-  const sentences = array.map(item => {
+  const sentences = array.map((item) => {
     const i18nText = `${themeCategory}.${themeSubcategory}.word${item}`;
     return {
       id: item,

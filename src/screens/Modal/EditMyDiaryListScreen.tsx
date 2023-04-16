@@ -24,7 +24,9 @@ import EditMyDiaryListItem from '@/components/organisms/EditMyDiaryListItem';
 import { borderLightColor, fontSizeS, softRed } from '@/styles/Common';
 import Algolia from '@/utils/Algolia';
 import { alert } from '@/utils/ErrorAlert';
-import { ModalConfirm } from '@/components/organisms';
+import ModalConfirm from '@/components/organisms/ModalConfirm';
+import { deleteDoc, doc } from '@firebase/firestore';
+import { db } from '@/constants/firebase';
 
 export interface Props {
   user: User;
@@ -146,15 +148,9 @@ const EditMyDiaryListScreen: React.FC<ScreenType> = ({
   const onDeleteDiaries = useCallback(async () => {
     if (checkedIds.current.length === 0) return;
     setIsLoading(true);
-
-    const batch = firebase.firestore().batch();
-
-    checkedIds.current.forEach((id) => {
-      const ref = firebase.firestore().collection('diaries').doc(id);
-      batch.delete(ref);
+    checkedIds.current.forEach(async (id) => {
+      await deleteDoc(doc(db, 'diaries', id));
     });
-
-    await batch.commit();
     setIsLoading(false);
 
     checkedIds.current.forEach((id) => {

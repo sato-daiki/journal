@@ -16,7 +16,6 @@ import { logAnalytics, events } from '../../utils/Analytics';
 import I18n from '../../utils/I18n';
 import { alert } from '../../utils/ErrorAlert';
 import { getVersionText } from '../../utils/common';
-import { ModalConfirm } from '../../components/organisms';
 import {
   MyPageTabStackParamList,
   MyPageTabNavigationProp,
@@ -25,6 +24,7 @@ import {
 import { User } from '../../types';
 import { auth } from '@/constants/firebase';
 import { signOut as firebaseSignOut } from 'firebase/auth';
+import ModalConfirm from '@/components/organisms/ModalConfirm';
 
 export interface Props {
   user: User;

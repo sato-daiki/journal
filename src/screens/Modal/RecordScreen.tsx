@@ -28,9 +28,9 @@ import {
   subTextColor,
 } from '@/styles/Common';
 import { uploadStorageAsync } from '@/utils/storage';
-import { ModalConfirm } from '@/components/organisms';
 import { doc, serverTimestamp, updateDoc } from '@firebase/firestore';
 import { db } from '@/constants/firebase';
+import ModalConfirm from '@/components/organisms/ModalConfirm';
 
 export type Props = {
   diary?: Diary;

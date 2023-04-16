@@ -16,13 +16,13 @@ import {
   offWhite,
 } from '../../styles/Common';
 import { alert } from '../../utils/ErrorAlert';
-import { ModalConfirm } from '../../components/organisms';
 import {
   MyPageTabNavigationProp,
   MyPageTabStackParamList,
 } from '../../navigations/MyPageTabNavigator';
 import { auth, db } from '@/constants/firebase';
 import { addDoc, collection, serverTimestamp } from '@firebase/firestore';
+import ModalConfirm from '@/components/organisms/ModalConfirm';
 
 export interface Props {
   user: User;

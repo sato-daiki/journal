@@ -4,7 +4,6 @@ import { alert } from '@/utils/ErrorAlert';
 import Algolia from '@/utils/Algolia';
 import { Diary, LocalStatus } from '@/types';
 import { FetchInfoState } from '@/stores/reducers/diaryList';
-import { getUnreadCorrectionNum } from '@/utils/localStatus';
 
 const HIT_PER_PAGE_LIST = 20;
 const HIT_PER_PAGE_CALENDAR = 20;
@@ -32,15 +31,6 @@ export const useMyDiaryList = ({
 }: Props) => {
   const [isInitialLoading, setIsInitialLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
-
-  const resetBuage = useCallback(async (): Promise<void> => {
-    // ユーザ情報を更新し直す（badgeのカウントの対応のため）
-    const newUnreadCorrectionNum = await getUnreadCorrectionNum(uid);
-    if (newUnreadCorrectionNum !== null) {
-      Notifications.setBadgeCountAsync(newUnreadCorrectionNum);
-      setUnreadCorrectionNum(newUnreadCorrectionNum);
-    }
-  }, [setUnreadCorrectionNum, uid]);
 
   const loadNextPage = useCallback(async (): Promise<void> => {
     console.log('loadNextPage');
@@ -164,6 +154,5 @@ export const useMyDiaryList = ({
     setRefreshing,
     getNewDiary,
     loadNextPage,
-    resetBuage,
   };
 };

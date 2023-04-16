@@ -9,7 +9,6 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
 import { Audio } from 'expo-av';
 
-import { ModalConfirm } from '@/components/organisms';
 import {
   LoadingModal,
   HeaderIcon,
@@ -34,6 +33,7 @@ import {
   updateDoc,
 } from '@firebase/firestore';
 import { db } from '@/constants/firebase';
+import ModalConfirm from '@/components/organisms/ModalConfirm';
 
 export interface Props {
   error: boolean;

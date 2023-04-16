@@ -1989,7 +1989,7 @@
   resolved "https://registry.yarnpkg.com/@firebase/storage-types/-/storage-types-0.8.0.tgz#f1e40a5361d59240b6e84fac7fbbbb622bfaf707"
   integrity sha512-isRHcGrTs9kITJC0AVehHfpraWFui39MPaU7Eo8QfWlqW7YPymBmRgjDrlOgFdURh6Cdeg07zmkLP5tzTKRSpg==
 
-"@firebase/storage@0.11.2":
+"@firebase/storage@0.11.2", "@firebase/storage@^0.11.2":
   version "0.11.2"
   resolved "https://registry.yarnpkg.com/@firebase/storage/-/storage-0.11.2.tgz#c5e0316543fe1c4026b8e3910f85ad73f5b77571"
   integrity sha512-CtvoFaBI4hGXlXbaCHf8humajkbXhs39Nbh6MbNxtwJiCqxPy9iH3D3CCfXAvP0QvAAwmJUTK3+z9a++Kc4nkA==

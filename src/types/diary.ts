@@ -1,5 +1,4 @@
 import { FieldValue } from '@firebase/firestore';
-import { Language } from './user';
 import { ThemeCategory, ThemeSubcategory } from './user';
 // import firebase from 'firebase';
 
