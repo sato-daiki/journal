@@ -6,7 +6,6 @@ import { StyleSheet } from 'react-native';
 import { CompositeNavigationProp } from '@react-navigation/native';
 // import { mainColor, maxLayoutChange } from '../styles/Common';
 import I18n from '../utils/I18n';
-import { TabIcon } from '../components/molecules';
 import PostDiaryScreenContainer from '../containers/PostDiaryScreenContainer';
 import MyDiaryTabNavigator, {
   MyDiaryTabStackParamList,
@@ -54,12 +53,7 @@ const HomeBottomTabNavigator = () => {
         options={{
           tabBarLabel: I18n.t('mainTab.myDiary'),
           tabBarIcon: ({ color }: { color: string }) => (
-            <TabIcon
-              name='book-open'
-              size={25}
-              color={color}
-              badgeMode='myDiary'
-            />
+            <MaterialCommunityIcons name='book-open' size={25} color={color} />
           ),
         }}
       />

@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 import { DiaryTitle, Hoverable } from '@/components/atoms';
-import { MyDiaryStatus, ProfileIcons } from '@/components/molecules';
+import { MyDiaryStatus } from '@/components/molecules';
 
 import {
   fontSizeS,
@@ -55,22 +55,10 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     flex: 1,
   },
-  icon: {
-    paddingLeft: 6,
-  },
 });
 
-const DiaryListItem = ({ mine = false, item, onPressUser, onPressItem }: Props) => {
-  const {
-    createdAt,
-    title,
-    text,
-    correction,
-    correction2,
-    correction3,
-    themeCategory,
-    themeSubcategory,
-  } = item;
+const DiaryListItem = ({ mine = false, item, onPressItem }: Props) => {
+  const { createdAt, title, text, themeCategory, themeSubcategory } = item;
   const postDay = getAlgoliaDay(createdAt);
 
   const onPressRow = useCallback(() => {
@@ -78,27 +66,25 @@ const DiaryListItem = ({ mine = false, item, onPressUser, onPressItem }: Props) 
   }, [item, onPressItem]);
 
   return (
-    <Hoverable hoverStyle={styles.hover} style={styles.container} onPress={onPressRow}>
+    <Hoverable
+      hoverStyle={styles.hover}
+      style={styles.container}
+      onPress={onPressRow}
+    >
       <View style={styles.header}>
         <Text style={styles.postDayText}>{postDay}</Text>
         {/* プロフィール画面からはステータスは表示しないようにする */}
         {mine ? <MyDiaryStatus diary={item} /> : null}
       </View>
-      <DiaryTitle themeCategory={themeCategory} themeSubcategory={themeSubcategory} title={title} />
+      <DiaryTitle
+        themeCategory={themeCategory}
+        themeSubcategory={themeSubcategory}
+        title={title}
+      />
       <View style={styles.content}>
         <Text style={styles.text} ellipsizeMode='tail' numberOfLines={3}>
           {text}
         </Text>
-        {correction ? (
-          <View style={styles.icon}>
-            <ProfileIcons
-              correction={correction}
-              correction2={correction2}
-              correction3={correction3}
-              onPressUser={onPressUser}
-            />
-          </View>
-        ) : null}
       </View>
     </Hoverable>
   );

@@ -75,11 +75,8 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
   navigation,
   user,
   diary,
-  localStatus,
   deleteDiary,
   editDiary,
-  setUser,
-  setLocalStatus,
 }) => {
   const initFairCopyTitle = useCallback((): string => {
     if (diary === undefined) return '';
@@ -222,15 +219,6 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
     });
   }, [diary, headerLeft, headerRight, navigation]);
 
-  const onPressUser = useCallback(
-    (_uid: string, userName: string): void => {
-      navigation.navigate('UserProfile', {
-        userName,
-      });
-    },
-    [navigation],
-  );
-
   const checkPermissions = useCallback(async (): Promise<boolean> => {
     const { status } = await Audio.requestPermissionsAsync();
 
@@ -292,14 +280,7 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
       if (!diary) return null;
       switch (route.key) {
         case 'posted':
-          return (
-            <Posted
-              user={user}
-              diary={diary}
-              isEditing={isEditing}
-              onPressUser={onPressUser}
-            />
-          );
+          return <Posted user={user} diary={diary} />;
         case 'fairCopy':
           return !isEditing ? (
             <FairCopy
@@ -333,7 +314,6 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
       onChangeTextText,
       onChangeTextTitle,
       onFocusFairCopyEdit,
-      onPressUser,
       user,
     ],
   );

@@ -1,6 +1,3 @@
-export { default as AddButton } from './AddButton';
-export { default as AutoHeightTextInput } from './AutoHeightTextInput';
-export { default as Avatar } from './Avatar';
 export { default as Checkbox } from './Checkbox';
 export { default as DefaultHeaderBack } from './DefaultHeaderBack';
 export { default as DiaryTitle } from './DiaryTitle';
@@ -26,7 +23,6 @@ export { default as Note } from './Note';
 export { default as OriginalText } from './OriginalText';
 export { default as Pill } from './Pill';
 export { default as RadioBox } from './RadioBox';
-export { default as ScoreStar } from './ScoreStar';
 export { default as ShareButton } from './ShareButton';
 export { default as SmallButtonSubmit } from './SmallButtonSubmit';
 export { default as SmallButtonWhite } from './SmallButtonWhite';
