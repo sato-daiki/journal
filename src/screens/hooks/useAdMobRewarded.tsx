@@ -1,5 +1,8 @@
 import { useCallback, useState, useEffect } from 'react';
-// import { AdMobRewarded, setTestDeviceIDAsync } from 'expo-ads-admob';
+import {
+  RewardedAd,
+  RewardedAdEventType,
+} from 'react-native-google-mobile-ads';
 
 import { Platform } from 'react-native';
 import { commonAlert } from '@/utils/locales/alert';
@@ -9,8 +12,8 @@ type Props = {
   handleDidEarnReward: () => Promise<void>;
 };
 
-const IOS_AD_UNIT_ID = 'ca-app-pub-0770181536572634/8533486206';
-const ANDROID_AD_UNIT_ID = 'ca-app-pub-0770181536572634/7603547919';
+const IOS_AD_UNIT_ID = 'ca-app-pub-0770181536572634/6050230343';
+const ANDROID_AD_UNIT_ID = 'ca-app-pub-0770181536572634/2143323663';
 
 export const useAdMobRewarded = ({ handleDidEarnReward }: Props) => {
   const [isLoading, setIsLoading] = useState(false);

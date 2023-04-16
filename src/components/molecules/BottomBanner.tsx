@@ -1,11 +1,7 @@
 import * as React from 'react';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { StyleSheet, View, Platform } from 'react-native';
-// import {
-//   AdMobBanner,
-//   setTestDeviceIDAsync,
-//   requestPermissionsAsync,
-// } from 'expo-ads-admob';
+import { BannerAd, BannerAdSize } from 'react-native-google-mobile-ads';
 
 const styles = StyleSheet.create({
   adMobBanner: {
@@ -13,27 +9,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const IOS_AD_UNIT_ID = 'ca-app-pub-0770181536572634/3644229404';
-const ANDROID_AD_UNIT_ID = 'ca-app-pub-0770181536572634/3113100884';
+const IOS_AD_UNIT_ID = 'ca-app-pub-0770181536572634/6920458887';
+const ANDROID_AD_UNIT_ID = 'ca-app-pub-0770181536572634/3456405335';
 
 const BottomBanner: React.FC = () => {
   const [loadingAdmobError, setLoadingAdmobError] = useState(false);
-  const [isPermission, setIsPermission] = useState(false);
-
-  useEffect(() => {
-    // const f = async () => {
-    //   if (Platform.OS === 'web') return;
-    //   const { status } = await requestPermissionsAsync();
-    //   console.log('status', status);
-    //   if (status !== 'granted') {
-    //     setIsPermission(false);
-    //   } else {
-    //     setIsPermission(true);
-    //   }
-    //   await setTestDeviceIDAsync('EMULATOR');
-    // };
-    // f();
-  }, []);
 
   const onErrorLoadingAdMob = useCallback(() => {
     setLoadingAdmobError(true);
@@ -47,20 +27,20 @@ const BottomBanner: React.FC = () => {
     if (!loadingAdmobError) {
       return (
         <View style={styles.adMobBanner}>
-          {/* <AdMobBanner
-            bannerSize='smartBannerPortrait'
-            adUnitID={
-              Platform.OS === 'ios' ? IOS_AD_UNIT_ID : ANDROID_AD_UNIT_ID
-            }
-            servePersonalizedAds={isPermission}
-            onDidFailToReceiveAdWithError={onErrorLoadingAdMob}
-          /> */}
+          <BannerAd
+            unitId={Platform.OS === 'ios' ? IOS_AD_UNIT_ID : ANDROID_AD_UNIT_ID}
+            size={BannerAdSize.FULL_BANNER}
+            requestOptions={{
+              requestNonPersonalizedAdsOnly: true,
+            }}
+            onAdFailedToLoad={onErrorLoadingAdMob}
+          />
         </View>
       );
     }
 
     return null;
-  }, [isPermission, loadingAdmobError, onErrorLoadingAdMob]);
+  }, [loadingAdmobError, onErrorLoadingAdMob]);
 
   return <View>{renderAds()}</View>;
 };

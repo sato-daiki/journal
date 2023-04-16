@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "jounal",
-    "slug": "jounal",
+    "name": "journal",
+    "slug": "journal",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -15,19 +15,31 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.daiki123456.journal"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.daiki123456.journal"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
       "expo-localization"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "a2dbb076-8eaa-4b94-a914-3c9fbb032a3f"
+      }
+    }
+  },
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-0770181536572634~4285684545",
+    "ios_app_id": "ca-app-pub-0770181536572634~6266401506",
+    "delay_app_measurement_init": true
   }
 }
