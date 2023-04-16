@@ -21,7 +21,7 @@ import {
   AuthStackParamList,
 } from '@/navigations/AuthNavigator';
 import { auth, db } from '@/constants/firebase';
-import { Profile, User } from '@/types';
+import { User } from '@/types';
 import {
   primaryColor,
   fontSizeM,
@@ -44,7 +44,7 @@ import {
 import { doc, serverTimestamp, setDoc } from '@firebase/firestore';
 
 export interface Props {
-  profile: Profile;
+  user: User;
 }
 
 interface DispatchProps {
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
  */
 const SignUpScreen: React.FC<ScreenType> = ({
   navigation,
-  profile,
+  user,
   signIn,
   setUser,
 }) => {
@@ -126,7 +126,7 @@ const SignUpScreen: React.FC<ScreenType> = ({
   const createUser = useCallback(
     async (credentUser: FirebaseUser): Promise<void> => {
       const userInfo = {
-        learnLanguage: profile.learnLanguage,
+        learnLanguage: user.learnLanguage,
         diaryPosted: false,
         tutorialPostDiary: false,
         tutorialTeachDiaryList: false,
@@ -156,7 +156,7 @@ const SignUpScreen: React.FC<ScreenType> = ({
       setUser({ ...userInfo, uid: credentUser.uid });
       logAnalytics(events.CREATED_USER);
     },
-    [profile.learnLanguage, setUser, signIn],
+    [user.learnLanguage, setUser, signIn],
   );
 
   const onPressSkip = useCallback(async (): Promise<void> => {

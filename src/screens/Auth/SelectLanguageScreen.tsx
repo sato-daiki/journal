@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { View, Text, StyleSheet, Platform } from 'react-native';
-import { Profile } from '@/types';
+import { User } from '@/types';
 import {
   AuthNavigationProp,
   AuthStackParamList,
@@ -8,18 +8,19 @@ import {
 import { CompositeNavigationProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import { Language, languages } from '@/types';
-import { RadioBox, Space, SubmitButton } from '@/components/atoms';
+import { Space, SubmitButton } from '@/components/atoms';
 
-import { primaryColor, fontSizeL, mainColor } from '@/styles/Common';
+import { primaryColor, fontSizeL } from '@/styles/Common';
 import I18n from '@/utils/I18n';
+import LanguageRadioboxes from '@/components/organisms/LanguageRadioboxes';
+import { Language } from '@/types/profile';
 
 export interface Props {
-  profile: Profile;
+  user: User;
 }
 
 interface DispatchProps {
-  setProfile: (profile: Profile) => void;
+  setUser: (user: User) => void;
 }
 
 export type SelectLanguageNavigationProp = CompositeNavigationProp<
@@ -37,34 +38,26 @@ export type ScreenType = {
  */
 const SelectLanguageScreen: React.FC<ScreenType> = ({
   navigation,
-  profile,
-  setProfile,
+  user,
+  setUser,
 }) => {
   const [learnLanguage, setLearnLanguage] = useState<Language>('en');
 
   const onPressNext = useCallback((): void => {
-    setProfile({
-      ...profile,
+    setUser({
+      ...user,
       learnLanguage,
     });
     navigation.navigate('SignUp');
-  }, []);
+  }, [learnLanguage, navigation, setUser, user]);
 
   return (
     <View style={styles.contaner}>
       <Text style={styles.title}>{I18n.t('selectLanguage.title')}</Text>
-      <View style={styles.radioBoxWrapper}>
-        {languages.map((language, index) => (
-          <View key={index} style={styles.radioBox}>
-            <RadioBox
-              checked={learnLanguage === language}
-              color={mainColor}
-              text={I18n.t(`language.${language}`)}
-              onPress={(): void => setLearnLanguage(language)}
-            />
-          </View>
-        ))}
-      </View>
+      <LanguageRadioboxes
+        learnLanguage={learnLanguage}
+        setLearnLanguage={setLearnLanguage}
+      />
       <Space size={32} />
       <SubmitButton title={I18n.t('common.next')} onPress={onPressNext} />
     </View>
@@ -84,15 +77,6 @@ const styles = StyleSheet.create({
     fontSize: fontSizeL,
     fontWeight: 'bold',
     paddingBottom: 16,
-  },
-  radioBoxWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flexWrap: 'wrap',
-  },
-  radioBox: {
-    marginRight: 8,
-    marginBottom: 8,
   },
 });
 
