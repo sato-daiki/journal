@@ -2,23 +2,17 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { StyleSheet } from 'react-native';
 import { CompositeNavigationProp } from '@react-navigation/native';
-// import { mainColor, maxLayoutChange } from '../styles/Common';
 import I18n from '../utils/I18n';
 import PostDiaryScreenContainer from '../containers/PostDiaryScreenContainer';
 import MyDiaryTabNavigator, {
   MyDiaryTabStackParamList,
 } from './MyDiaryTabNavigator';
-// import TeachDiaryTabNavigator, {
-//   TeachDiaryTabStackParamList,
-// } from './TeachDiaryTabNavigator';
 import MyPageTabNavigator, {
   MyPageTabStackParamList,
 } from './MyPageTabNavigator';
 import { MainStackParamList, MainNavigationProp } from './MainNavigator';
-// import CustomDrawerContent from '../components/web/organisms/CustomDrawerContent';
-// import { DrawerLabel } from '../components/web/molecules';
+import { mainColor, subTextColor } from '@/styles/Common';
 
 export type HomeBottomNavigationProp = CompositeNavigationProp<
   StackNavigationProp<MainStackParamList, 'Home'>,
@@ -26,26 +20,21 @@ export type HomeBottomNavigationProp = CompositeNavigationProp<
 >;
 
 export type HomeBottomParamList = {
-  // MyDiaryTab: { screen: keyof MyDiaryTabStackParamList };
-  // PostDiaryTab: undefined;
-  // TeachDiaryTab: { screen: keyof TeachDiaryTabStackParamList };
-  // MyPageTab: { screen: keyof MyPageTabStackParamList };
+  MyDiaryTab: { screen: keyof MyDiaryTabStackParamList };
+  PostDiaryTab: undefined;
+  MyPageTab: { screen: keyof MyPageTabStackParamList };
 };
-
-const styles = StyleSheet.create({
-  itemStyle: {
-    backgroundColor: undefined,
-    height: 54,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
 
 const HomeBottomTabNavigator = () => {
   const HomeBottom = createBottomTabNavigator<HomeBottomParamList>();
   return (
     <HomeBottom.Navigator
-    // tabBarOptions={{ activeTintColor: mainColor, keyboardHidesTabBar: true }}
+      screenOptions={{
+        tabBarActiveTintColor: mainColor,
+        tabBarInactiveTintColor: subTextColor,
+        tabBarHideOnKeyboard: true,
+        headerShown: false,
+      }}
     >
       <HomeBottom.Screen
         name='MyDiaryTab'
