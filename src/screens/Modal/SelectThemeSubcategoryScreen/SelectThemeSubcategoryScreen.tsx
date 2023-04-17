@@ -81,7 +81,6 @@ const SelectThemeSubcategoryScreen: React.FC<ScreenType> = ({
     <View style={styles.contaner}>
       <FlatList
         data={first({
-          nativeLanguage: user.nativeLanguage,
           learnLanguage: user.learnLanguage,
         })}
         keyExtractor={keyExtractor}

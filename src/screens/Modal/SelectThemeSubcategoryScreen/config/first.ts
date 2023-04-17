@@ -12,15 +12,13 @@ import I18n from '@/utils/I18n';
 import { ThemeSubcategoryInfo } from '../interface';
 
 interface FirstProps {
-  nativeLanguage: Language;
   learnLanguage: Language;
 }
 export const first = ({
-  nativeLanguage,
   learnLanguage,
 }: FirstProps): ThemeSubcategoryInfo[] => {
   const nativeOption = {
-    locale: nativeLanguage,
+    // locale: nativeLanguage,
   };
   const learnOption = {
     locale: learnLanguage,
@@ -32,11 +30,11 @@ export const first = ({
       themeSubcategory: 'selfIntroduction',
       nativeTitle: I18n.t(
         'selectThemeSubcategory.firstList.selfIntroduction',
-        nativeOption
+        nativeOption,
       ),
       learnTitle: I18n.t(
         'selectThemeSubcategory.firstList.selfIntroduction',
-        learnOption
+        learnOption,
       ),
       source: President,
     },
@@ -45,7 +43,7 @@ export const first = ({
       themeSubcategory: 'hobby',
       nativeTitle: I18n.t(
         'selectThemeSubcategory.firstList.hobby',
-        nativeOption
+        nativeOption,
       ),
       learnTitle: I18n.t('selectThemeSubcategory.firstList.hobby', learnOption),
 
@@ -63,7 +61,7 @@ export const first = ({
       themeSubcategory: 'study',
       nativeTitle: I18n.t(
         'selectThemeSubcategory.firstList.study',
-        nativeOption
+        nativeOption,
       ),
       learnTitle: I18n.t('selectThemeSubcategory.firstList.study', learnOption),
       source: Grind,
@@ -73,7 +71,7 @@ export const first = ({
       themeSubcategory: 'dream',
       nativeTitle: I18n.t(
         'selectThemeSubcategory.firstList.dream',
-        nativeOption
+        nativeOption,
       ),
       learnTitle: I18n.t('selectThemeSubcategory.firstList.dream', learnOption),
       source: GraduationSpeech,
@@ -83,7 +81,7 @@ export const first = ({
       themeSubcategory: 'trip',
       nativeTitle: I18n.t(
         'selectThemeSubcategory.firstList.trip',
-        nativeOption
+        nativeOption,
       ),
       learnTitle: I18n.t('selectThemeSubcategory.firstList.trip', learnOption),
       source: Airplane,
@@ -93,11 +91,11 @@ export const first = ({
       themeSubcategory: 'reborn',
       nativeTitle: I18n.t(
         'selectThemeSubcategory.firstList.reborn',
-        nativeOption
+        nativeOption,
       ),
       learnTitle: I18n.t(
         'selectThemeSubcategory.firstList.reborn',
-        learnOption
+        learnOption,
       ),
       source: Skull,
     },

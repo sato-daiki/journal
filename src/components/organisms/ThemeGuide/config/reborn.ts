@@ -8,11 +8,9 @@ const WORD_NUM = 4;
 export const reborn = ({
   expressions,
   examples,
-  nativeLanguage,
   learnLanguage,
 }: GetParams): Entry[] => {
   const words = getWords({
-    nativeLanguage,
     learnLanguage,
     num: WORD_NUM,
     themeCategory: 'first',

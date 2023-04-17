@@ -28,6 +28,7 @@ export const useAdMobRewarded = ({ handleDidEarnReward }: Props) => {
     const unsubscribeLoaded = rewarded.addAdEventListener(
       RewardedAdEventType.LOADED,
       () => {
+        console.log('addAdEventListener');
         setIsLoading(false);
         loaded.current = true;
         showAdReward();
@@ -51,16 +52,18 @@ export const useAdMobRewarded = ({ handleDidEarnReward }: Props) => {
   const loadAdReward = useCallback(async () => {
     setIsLoading(true);
     loaded.current = false;
+    console.log('rewarded.load');
+
     rewarded.load();
     setTimeout(() => {
       setIsLoading(false);
-      if (loaded.current === false) {
-        commonAlert({
-          title: I18n.t('common.error'),
-          message: I18n.t('errorMessage.video'),
-          options: { cancelable: false },
-        });
-      }
+      // if (loaded.current === false) {
+      //   commonAlert({
+      //     title: I18n.t('common.error'),
+      //     message: I18n.t('errorMessage.video'),
+      //     options: { cancelable: false },
+      //   });
+      // }
     }, 6000);
   }, []);
 

@@ -6,7 +6,6 @@ import * as Linking from 'expo-linking';
 import * as Sharing from 'expo-sharing';
 import I18n from './I18n';
 import { alert } from './ErrorAlert';
-import { Language } from '../types';
 import { Timestamp } from '@firebase/firestore';
 import { EmailAuthProvider, fetchSignInMethodsForEmail } from 'firebase/auth';
 import { auth } from '@/constants/firebase';
@@ -111,10 +110,7 @@ export const getVersionText = (): string => {
   return versionText;
 };
 
-export const diaryShare = async (
-  nativeLanguage: Language,
-  imageUrl: string,
-): Promise<void> => {
+export const diaryShare = async (imageUrl: string): Promise<void> => {
   const shareUrl = encodeURI(url);
   const message = `#Interchao ${shareUrl}`;
   if (Platform.OS === 'ios') {
@@ -127,7 +123,7 @@ export const diaryShare = async (
   }
 };
 
-export const appShare = async (nativeLanguage: Language): Promise<void> => {
+export const appShare = async (): Promise<void> => {
   // androidは画像のシェアができない
   const shareUrl = encodeURI(url);
 
@@ -137,16 +133,14 @@ export const appShare = async (nativeLanguage: Language): Promise<void> => {
   });
 };
 
-export const twitterShare = async (nativeLanguage: Language): Promise<void> => {
+export const twitterShare = async (): Promise<void> => {
   const shareMessage = encodeURI(url);
   Linking.openURL(
     `https://www.facebook.com/sharer/sharer.php?u=${shareMessage}`,
   );
 };
 
-export const facebookShare = async (
-  nativeLanguage: Language,
-): Promise<void> => {
+export const facebookShare = async (): Promise<void> => {
   const shareMessage = encodeURI(url);
   Linking.canOpenURL('twitter://post')
     .then(() => {

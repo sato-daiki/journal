@@ -189,12 +189,12 @@ const FairCopy: React.FC<Props> = ({
   const onPressShare = useCallback(async (): Promise<void> => {
     if (viewShotRef?.current?.capture) {
       const imageUrl = await viewShotRef.current.capture();
-      diaryShare(user.nativeLanguage, imageUrl);
+      diaryShare(imageUrl);
       return;
     }
 
-    appShare(user.nativeLanguage);
-  }, [user.nativeLanguage]);
+    appShare();
+  }, []);
 
   const iconHeader = useMemo(
     () => (

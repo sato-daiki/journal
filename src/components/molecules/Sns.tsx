@@ -7,10 +7,6 @@ import { twitterShare, facebookShare } from '../../utils/common';
 import { Language } from '../../types';
 import { Hoverable } from '../atoms';
 
-interface Props {
-  nativeLanguage: Language;
-}
-
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
@@ -37,13 +33,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const Sns: React.FC<Props> = ({ nativeLanguage }) => {
+const Sns: React.FC<Props> = () => {
   const onPressFacebook = (): void => {
-    facebookShare(nativeLanguage);
+    facebookShare();
   };
 
   const onPressTwitter = (): void => {
-    twitterShare(nativeLanguage);
+    twitterShare();
   };
 
   return (
@@ -54,14 +50,14 @@ const Sns: React.FC<Props> = ({ nativeLanguage }) => {
           <MaterialCommunityIcons
             size={28}
             color={primaryColor}
-            name="facebook"
+            name='facebook'
           />
         </Hoverable>
         <Hoverable style={styles.icon} onPress={onPressTwitter}>
           <MaterialCommunityIcons
             size={24}
             color={primaryColor}
-            name="twitter"
+            name='twitter'
           />
         </Hoverable>
       </View>

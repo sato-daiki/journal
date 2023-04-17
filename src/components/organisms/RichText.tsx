@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const RichText = ({ style, text, nativeLanguage, textLanguage }: Props) => {
+const RichText = ({ style, text, textLanguage }: Props) => {
   const [displayText, setDisplayText] = useState(text);
   const [isTranslated, setIsTranslated] = useState(false);
 
@@ -30,25 +30,25 @@ const RichText = ({ style, text, nativeLanguage, textLanguage }: Props) => {
     } else {
       if (!text) return;
       const mentionRemovedText = text.replace(/@\w+\s/g, '');
-      if (nativeLanguage) {
-        const targetLanguage =
-          nativeLanguage === textLanguage ? textLanguage : nativeLanguage;
-        const translatedText = await googleTranslate(
-          mentionRemovedText,
-          targetLanguage,
-        );
-        if (translatedText && translatedText.length > 0) {
-          setDisplayText(translatedText);
-          setIsTranslated(true);
-        }
-      }
+      // if (nativeLanguage) {
+      //   const targetLanguage =
+      //     nativeLanguage === textLanguage ? textLanguage : nativeLanguage;
+      //   const translatedText = await googleTranslate(
+      //     mentionRemovedText,
+      //     targetLanguage,
+      //   );
+      //   if (translatedText && translatedText.length > 0) {
+      //     setDisplayText(translatedText);
+      //     setIsTranslated(true);
+      //   }
+      // }
     }
-  }, [isTranslated, text, nativeLanguage, textLanguage]);
+  }, [isTranslated, text]);
 
   return (
     <TextMenu
       displayText={displayText || ''}
-      textLanguage={isTranslated ? nativeLanguage : textLanguage}
+      textLanguage={textLanguage}
       onPressTranslate={onPressTranslate}
     >
       <Text style={[styles.text, style]}>{displayText}</Text>

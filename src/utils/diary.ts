@@ -109,11 +109,10 @@ export const getLanguageNum = (): number => {
 // すでに選択された言語、ネイティブ言語、勉強中の言語を除く
 export const getTargetLanguages = (
   learnLanguage,
-  nativeLanguage,
   spokenLanguages,
 ): Language[] => {
   return allLanguage.filter((item) => {
-    if (item === learnLanguage || item === nativeLanguage) return false;
+    if (item === learnLanguage) return false;
     if (spokenLanguages) {
       for (let i = 0; i <= spokenLanguages.length; i += 1) {
         if (spokenLanguages[i] === item) return false;
@@ -129,14 +128,8 @@ export const getLanguage = (language: Language): string => {
 
 export const getBasePoints = (language: Language): number => {
   switch (language) {
-    case 'ja':
-      return 300;
     case 'en':
       return 600;
-    case 'zh':
-      return 300;
-    case 'ko':
-      return 300;
     default:
       return 600;
   }
@@ -149,20 +142,6 @@ export const getExceptUser = (uids: string[]): string => {
   for (let i = 0; i < uids.length; i += 1) {
     fillterText += ` AND NOT user.uid: ${uids[i]}`;
   }
-  return fillterText;
-};
-
-export const getFillterLanguages = (
-  nativeLanguage: Language,
-  spokenLanguages: Language[] | null | undefined,
-): string => {
-  let fillterText = `(user.learnLanguage: ${nativeLanguage}`;
-  if (spokenLanguages) {
-    for (let i = 0; i < spokenLanguages.length; i += 1) {
-      fillterText += ` OR user.learnLanguage: ${spokenLanguages[i]} `;
-    }
-  }
-  fillterText += ')';
   return fillterText;
 };
 
@@ -393,49 +372,6 @@ export const updateYet = async (
   });
 
   batch.commit();
-};
-
-export const checkSelectLanguage = (
-  nationalityCode: CountryCode | null | undefined,
-  learnLanguage: Language,
-  nativeLanguage: Language,
-  spokenLanguages: Language[],
-): { result: boolean; errorMessage: string } => {
-  if (!nationalityCode) {
-    return {
-      result: false,
-      errorMessage: I18n.t('selectLanguage.nationalityCodeAlert'),
-    };
-  }
-
-  if (learnLanguage === nativeLanguage) {
-    return {
-      result: false,
-      errorMessage: I18n.t('selectLanguage.sameLanguageAlert'),
-    };
-  }
-
-  if (spokenLanguages) {
-    for (let i = 0; i < spokenLanguages.length; i += 1) {
-      if (spokenLanguages[i] === learnLanguage) {
-        return {
-          result: false,
-          errorMessage: I18n.t('selectLanguage.sameSpokenAlert'),
-        };
-      }
-
-      if (spokenLanguages[i] === nativeLanguage) {
-        return {
-          result: false,
-          errorMessage: I18n.t('selectLanguage.sameSpokenAlert'),
-        };
-      }
-    }
-  }
-  return {
-    result: true,
-    errorMessage: I18n.t('selectLanguage.sameSpokenAlert'),
-  };
 };
 
 // 投稿済みの時はpublishedAt、下書きの時または以前verの時はcreatedAt

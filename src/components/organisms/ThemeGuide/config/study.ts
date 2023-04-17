@@ -9,13 +9,11 @@ const WORD_NUM = 7;
 export const study = ({
   expressions,
   examples,
-  nativeLanguage,
   learnLanguage,
 }: GetParams): Entry[] => {
   const strLearnLanguage = getLanguage(learnLanguage);
 
   const words = getWords({
-    nativeLanguage,
     learnLanguage,
     num: WORD_NUM,
     themeCategory: 'first',

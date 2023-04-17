@@ -103,7 +103,6 @@ const ThemeGuideScreen: React.FC<ScreenType> = ({
           return (
             <ThemeGuideTip
               params={item.params}
-              nativeLanguage={user.nativeLanguage}
               textLanguage={user.learnLanguage}
             />
           );
@@ -115,7 +114,7 @@ const ThemeGuideScreen: React.FC<ScreenType> = ({
           return null;
       }
     },
-    [onPressEnd, user.learnLanguage, user.nativeLanguage],
+    [onPressEnd, user.learnLanguage],
   );
 
   return (

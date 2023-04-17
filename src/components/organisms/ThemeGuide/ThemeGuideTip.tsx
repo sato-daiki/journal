@@ -16,7 +16,6 @@ import RichText from '../RichText';
 interface Props {
   params: TipParams;
   textLanguage: Language;
-  nativeLanguage: Language;
 }
 
 const styles = StyleSheet.create({

@@ -33,14 +33,12 @@ import { Entry, Sentence, StyleSentence, StyleText } from './interface';
 export interface GetParams {
   expressions: Sentence[];
   examples: StyleSentence[];
-  nativeLanguage: Language;
   learnLanguage: Language;
 }
 
 interface GetEntriesParams {
   themeCategory: ThemeCategory;
   themeSubcategory: ThemeSubcategory;
-  nativeLanguage: Language;
   learnLanguage: Language;
 }
 
@@ -48,13 +46,11 @@ interface GetExamples {
   themeCategory: ThemeCategory;
   themeSubcategory: ThemeSubcategory;
   learnLanguage: Language;
-  nativeLanguage: Language;
 }
 
 interface GetWordsParams {
   themeCategory: ThemeCategory;
   themeSubcategory: ThemeSubcategory;
-  nativeLanguage: Language;
   learnLanguage: Language;
   num: number;
 }
@@ -105,11 +101,10 @@ export const getExpressions = ({
   themeCategory,
   themeSubcategory,
   learnLanguage,
-  nativeLanguage,
 }: GetExamples): Sentence[] | null => {
   const params = {
     nativeOption: {
-      locale: nativeLanguage,
+      // locale: nativeLanguage,
     },
     i18nTextHeader: `${themeCategory}.${themeSubcategory}.expression`,
   };
@@ -174,9 +169,6 @@ const getStyleSentences = ({
     case 'en':
       newExamples = examples.en;
       break;
-    case 'ja':
-      newExamples = examples.ja;
-      break;
     default:
       return null;
   }
@@ -195,11 +187,10 @@ export const getExamples = ({
   themeCategory,
   themeSubcategory,
   learnLanguage,
-  nativeLanguage,
 }: GetExamples): StyleSentence[] | null => {
   const params = {
     nativeOption: {
-      locale: nativeLanguage,
+      // locale: nativeLanguage,
     },
     i18nTextHeader: `${themeCategory}.${themeSubcategory}.example`,
   };
@@ -256,12 +247,11 @@ export const getExamples = ({
 export const getWords = ({
   themeCategory,
   themeSubcategory,
-  nativeLanguage,
   learnLanguage,
   num,
 }: GetWordsParams): Sentence[] => {
   const nativeOption = {
-    locale: nativeLanguage,
+    // locale: nativeLanguage,
   };
   const learnOption = {
     locale: learnLanguage,
@@ -284,7 +274,6 @@ export const getWords = ({
 export const getEntries = ({
   themeCategory,
   themeSubcategory,
-  nativeLanguage,
   learnLanguage,
 }: GetEntriesParams): Entry[] | null => {
   let entries: Entry[] | null = null;
@@ -293,14 +282,12 @@ export const getEntries = ({
     themeCategory,
     themeSubcategory,
     learnLanguage,
-    nativeLanguage,
   });
 
   const examples = getExamples({
     themeCategory,
     themeSubcategory,
     learnLanguage,
-    nativeLanguage,
   });
 
   if (!expressions || !examples) return null;
@@ -308,7 +295,6 @@ export const getEntries = ({
   const params = {
     expressions,
     examples,
-    nativeLanguage,
     learnLanguage,
   };
 

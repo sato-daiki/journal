@@ -138,8 +138,6 @@ const InquiryScreen: React.FC<ScreenType> = ({ navigation, user }) => {
       try {
         await addDoc(collection(db, 'inquiries'), {
           uid: user.uid,
-          userName: user.userName,
-          nativeLanguage: user.nativeLanguage,
           email,
           message,
           createdAt: serverTimestamp(),

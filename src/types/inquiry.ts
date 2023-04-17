@@ -1,11 +1,8 @@
-import { Language } from './user';
-// import firebase from 'firebase';
+import { FieldValue } from '@firebase/firestore';
 
 export interface Inquiry {
   uid: string;
-  userName: string;
-  nativeLanguage: Language;
   email: string;
   message: string;
-  // createdAt: firebase.firestore.FieldValue;
+  createdAt: FieldValue;
 }

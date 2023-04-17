@@ -20,10 +20,6 @@ const BottomBanner: React.FC = () => {
   }, []);
 
   const renderAds = useCallback(() => {
-    if (Platform.OS === 'web') {
-      return null;
-    }
-
     if (!loadingAdmobError) {
       return (
         <View style={styles.adMobBanner}>
