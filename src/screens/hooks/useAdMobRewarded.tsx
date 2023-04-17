@@ -1,10 +1,10 @@
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useState, useEffect, useRef } from 'react';
 import {
   RewardedAd,
   RewardedAdEventType,
 } from 'react-native-google-mobile-ads';
-
 import { Platform } from 'react-native';
+
 import { commonAlert } from '@/utils/locales/alert';
 import I18n from '@/utils/I18n';
 
@@ -12,62 +12,74 @@ type Props = {
   handleDidEarnReward: () => Promise<void>;
 };
 
-const IOS_AD_UNIT_ID = 'ca-app-pub-0770181536572634/6050230343';
-const ANDROID_AD_UNIT_ID = 'ca-app-pub-0770181536572634/2143323663';
+const IOS_AD_REWARD = 'ca-app-pub-0770181536572634/6050230343';
+const ANDROID_AD_REWARD = 'ca-app-pub-0770181536572634/2143323663';
+
+const adUnitId = Platform.OS === 'ios' ? IOS_AD_REWARD : ANDROID_AD_REWARD;
+const rewarded = RewardedAd.createForAdRequest(adUnitId, {
+  requestNonPersonalizedAdsOnly: true,
+});
 
 export const useAdMobRewarded = ({ handleDidEarnReward }: Props) => {
   const [isLoading, setIsLoading] = useState(false);
+  const loaded = useRef<boolean>(false);
+
   useEffect(() => {
-    // if (Platform.OS === 'web') return;
-    // const f = async () => {
-    //   AdMobRewarded.addEventListener(
-    //     'rewardedVideoUserDidEarnReward',
-    //     rewardedVideoUserDidEarnReward,
-    //   );
-    //   AdMobRewarded.addEventListener(
-    //     'rewardedVideoDidFailToLoad',
-    //     rewardedVideoDidFailToLoad,
-    //   );
-    // };
-    // f();
-    // return (): void => {
-    //   AdMobRewarded.removeAllListeners();
-    // };
+    const unsubscribeLoaded = rewarded.addAdEventListener(
+      RewardedAdEventType.LOADED,
+      () => {
+        setIsLoading(false);
+        loaded.current = true;
+        showAdReward();
+      },
+    );
+    const unsubscribeEarned = rewarded.addAdEventListener(
+      RewardedAdEventType.EARNED_REWARD,
+      () => {
+        // 獲得後
+        handleDidEarnReward();
+      },
+    );
+
+    return () => {
+      unsubscribeLoaded();
+      unsubscribeEarned();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const rewardedVideoUserDidEarnReward = useCallback(async () => {
-    console.log('rewardedVideoUserDidEarnReward');
-    // 広告をみた人が実行できる処理
-    handleDidEarnReward();
-  }, [handleDidEarnReward]);
-
-  const rewardedVideoDidFailToLoad = useCallback(() => {
-    // commonAlert({
-    //   title: I18n.t('common.error'),
-    //   message: I18n.t('errorMessage.video'),
-    //   options: { cancelable: false },
-    // });
+  const loadAdReward = useCallback(async () => {
+    setIsLoading(true);
+    loaded.current = false;
+    rewarded.load();
+    setTimeout(() => {
+      setIsLoading(false);
+      if (loaded.current === false) {
+        commonAlert({
+          title: I18n.t('common.error'),
+          message: I18n.t('errorMessage.video'),
+          options: { cancelable: false },
+        });
+      }
+    }, 6000);
   }, []);
 
   const showAdReward = useCallback(async () => {
-    // setIsLoading(true);
-    // try {
-    //   await setTestDeviceIDAsync('EMULATOR');
-    //   await AdMobRewarded.setAdUnitID(
-    //     Platform.OS === 'ios' ? IOS_AD_UNIT_ID : ANDROID_AD_UNIT_ID,
-    //   );
-    //   await AdMobRewarded.requestAdAsync();
-    //   await AdMobRewarded.showAdAsync();
-    // } catch (err: any) {
-    //   console.warn(err);
-    //   rewardedVideoDidFailToLoad();
-    // }
-    // setIsLoading(false);
-  }, [rewardedVideoDidFailToLoad]);
+    try {
+      console.log('showAdReward');
+      await rewarded.show();
+      console.log('showAdReward end');
+    } catch (err: any) {
+      commonAlert({
+        title: I18n.t('common.error'),
+        message: I18n.t('errorMessage.video'),
+        options: { cancelable: false },
+      });
+    }
+  }, []);
 
   return {
     isLoading,
-    showAdReward,
+    loadAdReward,
   };
 };

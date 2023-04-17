@@ -115,12 +115,12 @@ const MyPageScreen: React.FC<ScreenType> = ({ navigation, user, setUser }) => {
     setIsModalAdPointsGet(true);
   }, [setUser, user]);
 
-  const { isLoading, showAdReward } = useAdMobRewarded({
+  const { isLoading, loadAdReward } = useAdMobRewarded({
     handleDidEarnReward,
   });
   const onPressAdPointGet = useCallback(() => {
-    showAdReward();
-  }, [showAdReward]);
+    loadAdReward();
+  }, [loadAdReward]);
 
   useEffect(() => {
     navigation.setOptions({
