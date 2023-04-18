@@ -62,7 +62,7 @@ const PostDiaryKeyboard: React.FC<PostDiaryKeyboardProps> = ({
       />
       <TextInputText
         value={text}
-        maxLength={getMaxPostText(learnLanguage)}
+        maxLength={getMaxPostText()}
         onFocus={onFocusText}
         onChangeText={onChangeTextText}
         onBlur={onBlurText}

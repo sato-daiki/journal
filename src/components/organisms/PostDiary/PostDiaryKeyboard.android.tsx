@@ -81,7 +81,7 @@ const PostDiaryKeyboard: React.FC<PostDiaryKeyboardProps> = ({
       <KeyboardAvoidingView
         keyboardVerticalOffset={-180}
         style={styles.container}
-        behavior="height"
+        behavior='height'
       >
         <View style={styles.inner}>
           <TextInputTitle
@@ -93,7 +93,7 @@ const PostDiaryKeyboard: React.FC<PostDiaryKeyboardProps> = ({
           <TextInputText
             style={styles.textInput}
             value={text}
-            maxLength={getMaxPostText(learnLanguage)}
+            maxLength={getMaxPostText()}
             onChangeText={onChangeTextText}
             onFocus={onFocusText}
             onBlur={onBlurText}
@@ -124,7 +124,7 @@ const PostDiaryKeyboard: React.FC<PostDiaryKeyboardProps> = ({
           <MaterialCommunityIcons
             size={24}
             color={mainColor}
-            name="keyboard-close"
+            name='keyboard-close'
           />
         </Hoverable>
       ) : null}

@@ -95,7 +95,7 @@ const PostDiary: React.FC<PostDiaryProps> = ({
     setIsForce(true);
   }, []);
 
-  const maxPostText = getMaxPostText(learnLanguage);
+  const maxPostText = getMaxPostText();
 
   const onBlurText = useCallback((): void => setIsForce(false), []);
 

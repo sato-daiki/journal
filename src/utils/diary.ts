@@ -164,9 +164,12 @@ export const updateUnread = async (
     });
 };
 
-export const getMaxPostText = (learnLanguage: Language): number => {
-  const basePoints = getBasePoints(learnLanguage);
-  return basePoints * 4;
+export const getMaxPostText = (): number => {
+  // maximum number of characters per minute: 75,000 (free) / 300,000 (Premium)
+  // maximum number of characters per request: 20,000 (free) / 60,000 (Premium)
+  // とりあえず2000に設定しておく
+  // https://languagetool.org/http-api/swagger-ui/#!/default/post_check
+  return 2000;
 };
 
 export const getUsePoints = (
