@@ -3,11 +3,8 @@ import { Keyboard } from 'react-native';
 import { logAnalytics, events } from '@/utils/Analytics';
 import { DiaryStatus, User, Diary } from '@/types';
 import {
-  getUsePoints,
-  getDisplayProfile,
   getRunningDays,
   getRunningWeeks,
-  getPublishMessage,
   getThemeDiaries,
 } from '@/utils/diary';
 import { alert } from '@/utils/ErrorAlert';
@@ -24,6 +21,7 @@ import {
   updateDoc,
 } from '@firebase/firestore';
 import { db } from '@/constants/firebase';
+import spellChecker from '@/utils/spellChecker';
 
 interface UsePostDraftDiary {
   user: User;
@@ -44,34 +42,20 @@ export const usePostDraftDiary = ({
   const { item } = route.params;
 
   const {
-    isModalLack,
     isModalCancel,
-    isModalError,
-    errorMessage,
     isLoadingPublish,
     setIsLoadingPublish,
     isLoadingDraft,
     setIsLoadingDraft,
     isModalAlert,
     setIsModalAlert,
-    isPublish,
-    setIsPublish,
     title,
     setTitle,
     text,
     setText,
-    publishMessage,
-    setPublishMessage,
-    onPressPublic,
     onPressClose,
-    onPressCloseError,
-    onPressCloseModalPublish,
     onPressCloseModalCancel,
-    onPressSubmitModalLack,
-    onClosePostDiary,
     onPressNotSave,
-    onPressCloseModalLack,
-    onPressWatchAdModalLack,
   } = useCommon({
     navigation,
     points: user.points,
@@ -88,7 +72,7 @@ export const usePostDraftDiary = ({
   }, []);
 
   const getDiary = useCallback(
-    (diaryStatus: DiaryStatus) => {
+    (diaryStatus: DiaryStatus, checkInfo?: any) => {
       return {
         firstDiary:
           diaryStatus === 'publish' &&
@@ -96,6 +80,7 @@ export const usePostDraftDiary = ({
         title,
         text,
         diaryStatus,
+        checkInfo,
         updatedAt: serverTimestamp(),
       };
     },
@@ -103,17 +88,13 @@ export const usePostDraftDiary = ({
   );
 
   const onPressDraft = useCallback(async (): Promise<void> => {
-    console.log('onPressDraft');
-
     Keyboard.dismiss();
-    if (isInitialLoading || isLoadingDraft || isLoadingPublish || isModalLack)
-      return;
+    if (isInitialLoading || isLoadingDraft || isLoadingPublish) return;
     try {
       if (!item || !item.objectID) return;
 
       setIsLoadingDraft(true);
       const diary = getDiary('draft');
-      console.log('diary', diary);
       await updateDoc(doc(db, `diaries`, item.objectID), diary);
       logAnalytics(events.CREATED_DIARY);
 
@@ -139,22 +120,27 @@ export const usePostDraftDiary = ({
     isInitialLoading,
     isLoadingDraft,
     isLoadingPublish,
-    isModalLack,
     item,
     navigation,
     setIsLoadingDraft,
     setIsModalAlert,
   ]);
 
-  const onPressSubmit = useCallback(async (): Promise<void> => {
+  const onPressCheck = useCallback(async (): Promise<void> => {
     Keyboard.dismiss();
     if (isInitialLoading || isLoadingDraft || isLoadingPublish) return;
     if (!item.objectID) return;
 
     setIsLoadingPublish(true);
-    const diary = getDiary('publish');
-    const usePoints = getUsePoints(text.length, user.learnLanguage);
-    const newPoints = user.points - usePoints;
+
+    // チェック
+    const checkData = await spellChecker(user.learnLanguage, title, text);
+    const checkInfo = {
+      language: checkData.language,
+      matches: checkData.matches,
+    };
+
+    const diary = getDiary('publish', checkInfo);
     const runningDays = getRunningDays(
       user.runningDays,
       user.lastDiaryPostedAt,
@@ -162,13 +148,6 @@ export const usePostDraftDiary = ({
     const runningWeeks = getRunningWeeks(
       user.runningWeeks,
       user.lastDiaryPostedAt,
-    );
-
-    const message = getPublishMessage(
-      user.runningDays,
-      user.runningWeeks,
-      runningDays,
-      runningWeeks,
     );
 
     let { themeDiaries } = user;
@@ -190,12 +169,10 @@ export const usePostDraftDiary = ({
         themeDiaries,
         runningDays,
         runningWeeks,
-        points: newPoints,
         lastDiaryPostedAt: serverTimestamp(),
         updatedAt: serverTimestamp(),
       } as Pick<
         User,
-        | 'points'
         | 'themeDiaries'
         | 'runningDays'
         | 'runningWeeks'
@@ -229,12 +206,8 @@ export const usePostDraftDiary = ({
       runningWeeks,
       lastDiaryPostedAt: Timestamp.now(),
       diaryPosted: true,
-      points: newPoints,
     });
-    setPublishMessage(message);
-
     setIsLoadingPublish(false);
-    setIsPublish(true);
   }, [
     editDiary,
     getDiary,
@@ -243,8 +216,6 @@ export const usePostDraftDiary = ({
     isLoadingPublish,
     item,
     setIsLoadingPublish,
-    setIsPublish,
-    setPublishMessage,
     setUser,
     text,
     title,
@@ -269,28 +240,16 @@ export const usePostDraftDiary = ({
     isLoadingDraft,
     isLoadingPublish,
     isInitialLoading,
-    isModalLack,
     isModalAlert,
     isModalCancel,
-    isModalError,
-    isPublish,
-    errorMessage,
     title,
     text,
-    publishMessage,
-    onPressSubmitModalLack,
-    onPressCloseModalLack,
-    onPressWatchAdModalLack,
-    onPressCloseModalPublish,
+    onPressCheck,
     onPressCloseModalCancel,
-    onClosePostDiary,
     onChangeTextTitle,
     onChangeTextText,
-    onPressSubmit,
     onPressDraft,
     onPressNotSave,
-    onPressCloseError,
     onPressClose,
-    onPressPublic,
   };
 };

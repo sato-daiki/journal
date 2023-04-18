@@ -127,12 +127,11 @@ export const getLanguage = (language: Language): string => {
 };
 
 export const getBasePoints = (language: Language): number => {
-  switch (language) {
-    case 'en':
-      return 600;
-    default:
-      return 600;
-  }
+  // maximum number of characters per minute: 75,000 (free) / 300,000 (Premium)
+  // maximum number of characters per request: 20,000 (free) / 60,000 (Premium)
+  // とりあえず2000に設定しておく
+  // https://languagetool.org/http-api/swagger-ui/#!/default/post_check
+  return 2000;
 };
 
 export const getExceptUser = (uids: string[]): string => {
@@ -321,57 +320,21 @@ export const checkBeforePost = (
       }),
     };
   }
-  const usePoint = getUsePoints(text.length, learnLanguage);
-  if (usePoint > points) {
-    return {
-      result: false,
-      errorMessage: I18n.t('errorMessage.lackPointsText', {
-        textLength: text.length,
-        usePoint,
-      }),
-    };
-  }
+  // const usePoint = getUsePoints(text.length, learnLanguage);
+  // if (usePoint > points) {
+  //   return {
+  //     result: false,
+  //     errorMessage: I18n.t('errorMessage.lackPointsText', {
+  //       textLength: text.length,
+  //       usePoint,
+  //     }),
+  //   };
+  // }
 
   return {
     result: true,
     errorMessage: '',
   };
-};
-
-/**
- * 途中で日記をやめた時の処理
- */
-type Data =
-  | {
-      correctionStatus: CorrectionStatus;
-    }
-  | {
-      correctionStatus2: CorrectionStatus;
-    }
-  | {
-      correctionStatus3: CorrectionStatus;
-    };
-
-export const updateYet = async (
-  objectID: string,
-  uid: string,
-  data: DataCorrectionStatus | null,
-): Promise<void> => {
-  const batch = firebase.firestore().batch();
-  batch.update(firebase.firestore().doc(`diaries/${objectID}`), {
-    ...data,
-    updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
-  });
-
-  batch.delete(firebase.firestore().doc(`correctings/${objectID}`));
-
-  batch.update(firebase.firestore().doc(`users/${uid}`), {
-    correctingObjectID: null,
-    correctingCorrectedNum: null,
-    updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
-  });
-
-  batch.commit();
 };
 
 // 投稿済みの時はpublishedAt、下書きの時または以前verの時はcreatedAt

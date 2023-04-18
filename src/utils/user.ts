@@ -3,7 +3,6 @@ import { User } from '@/types';
 import { collection, doc, getDoc } from '@firebase/firestore';
 
 const getTimeInfo = (timeInfo: any) => {
-  console.log('getTimeInfo');
   if (timeInfo.reminderType === 'fix') {
     return {
       ...timeInfo,

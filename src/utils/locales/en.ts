@@ -11,7 +11,7 @@ const common = {
   register: 'Register',
   sending: 'Send',
   next: 'Next',
-  publish: 'Publish',
+  check: 'check',
   draft: 'Save',
   skip: 'Skip',
   save: 'Save',
@@ -634,12 +634,6 @@ const tutorialPoints = {
   text: 'A minimum of 10 points is needed to publish a journal entry. You can get 10+ points by making corrections. The number of points used and received is based on the language and character count.',
 };
 
-const tutorialPostDiary = {
-  title: 'How to Write a Journal Entry',
-  buttonText: 'Begin',
-  text: 'Try writing a journal entry in {{learnLanguage}}. 10 points are needed for {{learnCharacters}} characters.\n\nAfter publishing your journal entry, it will be corrected by Japanese speakers! If you correct journal entries written in languages you can speak, you will get 10 points. Let’s teach each other languages!',
-};
-
 const tutorialTeachDiaryList = {
   title: 'What is “Entries to Correct”?',
   buttonText: 'Begin',
@@ -960,7 +954,6 @@ const en = {
   sns,
   teachDiaryCorrection,
   tutorialPoints,
-  tutorialPostDiary,
   tutorialTeachDiaryList,
   cameraRoll,
   myDiaryStatus,

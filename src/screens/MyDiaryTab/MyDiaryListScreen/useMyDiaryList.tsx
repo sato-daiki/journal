@@ -88,8 +88,6 @@ export const useMyDiaryList = ({
           ? HIT_PER_PAGE_LIST
           : HIT_PER_PAGE_CALENDAR;
 
-      console.log('getNewDiary');
-
       const index = await Algolia.getDiaryIndex();
       await Algolia.setSettings(index);
       const res = await index.search('', {
@@ -97,7 +95,6 @@ export const useMyDiaryList = ({
         page: 0,
         hitsPerPage,
       });
-      console.log('res', res);
 
       const { hits, nbHits } = res;
       const newDiaries = hits as Diary[];

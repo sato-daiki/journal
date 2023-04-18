@@ -9,7 +9,7 @@ const common = {
   register: '登録',
   sending: '送信',
   next: '次へ',
-  publish: '投稿',
+  check: 'チェック',
   draft: '下書き保存',
   skip: 'スキップ',
   save: '保存',
@@ -624,12 +624,6 @@ const tutorialPoints = {
   text: '日記を投稿するには10ポイント〜が必要です。\nレビューをすると10ポイント〜を獲得できます。\n\n消費、獲得するポイントは文字数と言語により異なります。',
 };
 
-const tutorialPostDiary = {
-  title: '日記の書き方',
-  buttonText: '始める',
-  text: '{{learnLanguage}}で日記を書いてみよう。{{learnCharacters}}文字ごとに10ポイントが必要です。\n\n日記を投稿すると外国人があなたの日記を添削してくれるかも！？またあなたが話せる言語の日記を添削すると10ポイントがもらえます。お互いに言語を教え合いましょう！',
-};
-
 const tutorialTeachDiaryList = {
   title: '添削する日記とは',
   buttonText: '始める',
@@ -944,7 +938,6 @@ const ja = {
   sns,
   teachDiaryCorrection,
   tutorialPoints,
-  tutorialPostDiary,
   tutorialTeachDiaryList,
   cameraRoll,
   myDiaryStatus,

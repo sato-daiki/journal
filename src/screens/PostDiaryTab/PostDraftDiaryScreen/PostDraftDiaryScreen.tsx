@@ -57,28 +57,15 @@ const PostDraftDiaryScreen: React.FC<ScreenType> = ({
     isInitialLoading,
     isLoadingPublish,
     isLoadingDraft,
-    isModalLack,
-    isModalAlert,
     isModalCancel,
-    isModalError,
-    isPublish,
-    errorMessage,
     title,
     text,
-    publishMessage,
-    onPressSubmitModalLack,
-    onPressCloseModalLack,
-    onPressWatchAdModalLack,
-    onPressCloseModalPublish,
+    onPressCheck,
     onPressCloseModalCancel,
-    onClosePostDiary,
     onChangeTextTitle,
     onChangeTextText,
-    onPressSubmit,
     onPressDraft,
     onPressNotSave,
-    onPressCloseError,
-    onPressPublic,
     onPressClose,
   } = usePostDraftDiary({
     navigation,
@@ -101,7 +88,7 @@ const PostDraftDiaryScreen: React.FC<ScreenType> = ({
           return (
             <HeaderText
               text={I18n.t('common.publish')}
-              onPress={onPressPublic}
+              onPress={onPressCheck}
             />
           );
         }
@@ -110,8 +97,15 @@ const PostDraftDiaryScreen: React.FC<ScreenType> = ({
         );
       },
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user.points, text, title]);
+  }, [
+    user.points,
+    text,
+    title,
+    navigation,
+    onPressClose,
+    onPressDraft,
+    onPressCheck,
+  ]);
 
   const { item } = route.params;
 
@@ -119,31 +113,17 @@ const PostDraftDiaryScreen: React.FC<ScreenType> = ({
     <PostDiary
       navigation={navigation}
       isLoading={isInitialLoading || isLoadingDraft || isLoadingPublish}
-      isModalLack={isModalLack}
-      isModalAlert={isModalAlert}
       isModalCancel={isModalCancel}
-      isModalError={isModalError}
-      isPublish={isPublish}
-      errorMessage={errorMessage}
       title={title}
       text={text}
       themeCategory={item.themeCategory}
       themeSubcategory={item.themeSubcategory}
-      publishMessage={publishMessage}
-      points={user.points}
       learnLanguage={user.learnLanguage}
-      onPressSubmitModalLack={onPressSubmitModalLack}
-      onPressCloseModalLack={onPressCloseModalLack}
-      onPressWatchAdModalLack={onPressWatchAdModalLack}
-      onClosePostDiary={onClosePostDiary}
-      onPressCloseModalPublish={onPressCloseModalPublish}
       onPressCloseModalCancel={onPressCloseModalCancel}
       onChangeTextTitle={onChangeTextTitle}
       onChangeTextText={onChangeTextText}
-      onPressSubmit={onPressSubmit}
       onPressDraft={onPressDraft}
       onPressNotSave={onPressNotSave}
-      onPressCloseError={onPressCloseError}
     />
   );
 };

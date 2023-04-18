@@ -4,7 +4,6 @@ import {
   SafeAreaView,
   View,
   Text,
-  Image,
   Animated,
   Easing,
 } from 'react-native';
@@ -15,16 +14,11 @@ import {
   fontSizeSS,
   softRed,
 } from '@/styles/Common';
-import { Points } from '@/images';
-import { getMaxPostText, getUsePoints } from '@/utils/diary';
+import { getMaxPostText } from '@/utils/diary';
 import I18n from '@/utils/I18n';
 
 import { LoadingModal } from '@/components/atoms';
-import { ModalPublish } from '@/components/organisms/ModalPublish';
-import ModalLackPoint from '@/components/organisms/ModalLackPoint';
 import ModalDiaryCancel from '@/components/organisms/ModalDiaryCancel';
-import TutorialPostDiary from '@/components/organisms/TutorialPostDiary';
-import ModalConfirm from '@/components/organisms/ModalConfirm';
 // @ts-ignore
 import PostDiaryKeyboard from './PostDiaryKeyboard';
 import { PostDiaryProps } from './interface';
@@ -73,34 +67,17 @@ const styles = StyleSheet.create({
 const PostDiary: React.FC<PostDiaryProps> = ({
   navigation,
   isLoading,
-  isModalLack,
-  isModalAlert,
   isModalCancel,
-  isModalError,
-  isPublish,
-  isTutorialLoading = false,
-  tutorialPostDiary = true,
-  errorMessage,
   title,
   text,
   themeCategory,
   themeSubcategory,
-  publishMessage,
-  points,
   learnLanguage,
-  onPressSubmitModalLack,
-  onPressCloseModalLack,
-  onPressWatchAdModalLack,
-  onPressCloseModalPublish,
   onPressCloseModalCancel,
-  onClosePostDiary,
   onChangeTextTitle,
   onChangeTextText,
-  onPressSubmit,
   onPressDraft,
   onPressNotSave,
-  onPressTutorial,
-  onPressCloseError,
 }) => {
   const [isForce, setIsForce] = useState(false);
   const [fadeAnim, setFadeAnim] = useState(new Animated.Value(0));
@@ -118,7 +95,6 @@ const PostDiary: React.FC<PostDiaryProps> = ({
     setIsForce(true);
   }, []);
 
-  const usePoints = getUsePoints(text.length, learnLanguage);
   const maxPostText = getMaxPostText(learnLanguage);
 
   const onBlurText = useCallback((): void => setIsForce(false), []);
@@ -138,37 +114,6 @@ const PostDiary: React.FC<PostDiaryProps> = ({
   return (
     <SafeAreaView style={styles.container}>
       <LoadingModal visible={isLoading} />
-      <ModalConfirm
-        visible={isModalError}
-        title={I18n.t('common.error')}
-        message={errorMessage}
-        mainButtonText={I18n.t('common.close')}
-        onPressMain={onPressCloseError}
-      />
-      <TutorialPostDiary
-        isLoading={isTutorialLoading}
-        displayed={tutorialPostDiary}
-        learnLanguage={learnLanguage}
-        onPress={onPressTutorial}
-      />
-      <ModalLackPoint
-        visible={isModalLack}
-        learnLanguage={learnLanguage}
-        onPressSubmit={onPressSubmitModalLack}
-        onPressClose={onPressCloseModalLack}
-        onPressWatchAd={onPressWatchAdModalLack}
-      />
-      <ModalPublish
-        visible={isModalAlert}
-        isPublish={isPublish}
-        isLoading={isLoading}
-        usePoints={usePoints}
-        points={points}
-        publishMessage={publishMessage}
-        onPressSubmit={onPressSubmit}
-        onPressCloseCancel={onPressCloseModalPublish}
-        onClosePostDiary={onClosePostDiary}
-      />
       <ModalDiaryCancel
         visible={isModalCancel}
         isLoading={isLoading}
@@ -178,10 +123,6 @@ const PostDiary: React.FC<PostDiaryProps> = ({
       />
       <View style={styles.header}>
         <View style={styles.left}>
-          <Text style={styles.headerLabel}>
-            {I18n.t('postDiaryComponent.usePoints')}
-          </Text>
-          <Text style={styles.headerValue}>{usePoints}</Text>
           <Text style={styles.headerLabel}>
             {I18n.t('postDiaryComponent.textLength')}
           </Text>
@@ -193,13 +134,6 @@ const PostDiary: React.FC<PostDiaryProps> = ({
           >
             {text.length}
           </Text>
-        </View>
-        <View style={styles.right}>
-          <Image style={styles.points} source={Points} />
-          <Text style={styles.headerLabel}>
-            {I18n.t('postDiaryComponent.points')}
-          </Text>
-          <Text style={styles.headerValue}>{points}</Text>
         </View>
       </View>
       <PostDiaryKeyboard

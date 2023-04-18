@@ -1,6 +1,6 @@
 import axios from 'axios';
 // @ts-ignore
-// import { GOOGLE_TRANSLATE } from '@env';
+import { GOOGLE_TRANSLATE } from '@env';
 import { captureException } from '@/utils/sentry';
 import { Language } from '../types';
 
@@ -15,7 +15,7 @@ const googleTranslate = async (
       'Content-Type': 'application/json; charset=utf-8',
     },
     params: {
-      // key: GOOGLE_TRANSLATE,
+      key: GOOGLE_TRANSLATE,
       q: text,
       target: targetLanguage,
     },

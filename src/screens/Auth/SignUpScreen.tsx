@@ -128,11 +128,9 @@ const SignUpScreen: React.FC<ScreenType> = ({
       const userInfo = {
         learnLanguage: user.learnLanguage,
         diaryPosted: false,
-        tutorialPostDiary: false,
         tutorialTeachDiaryList: false,
         tutorialCorrectiong: false,
         onboarding: false,
-        points: 30,
         expoPushToken: null,
         correctingObjectID: null,
         correctingCorrectedNum: null,

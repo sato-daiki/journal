@@ -74,7 +74,6 @@ export interface User {
   learnLanguage: Language;
   diaryPosted: boolean;
   onboarding?: boolean;
-  tutorialPostDiary: boolean;
   tutorialTeachDiaryList: boolean;
   tutorialCorrectiong: boolean;
   points: number;
