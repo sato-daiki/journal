@@ -7,7 +7,6 @@ import { StackNavigationProp } from '@react-navigation/stack';
 interface UseCommon {
   navigation: StackNavigationProp<any>;
   themeTitle?: string;
-  points: number;
   learnLanguage: Language;
 }
 

@@ -126,14 +126,6 @@ export const getLanguage = (language: Language): string => {
   return I18n.t(`language.${language}`);
 };
 
-export const getBasePoints = (language: Language): number => {
-  // maximum number of characters per minute: 75,000 (free) / 300,000 (Premium)
-  // maximum number of characters per request: 20,000 (free) / 60,000 (Premium)
-  // とりあえず2000に設定しておく
-  // https://languagetool.org/http-api/swagger-ui/#!/default/post_check
-  return 2000;
-};
-
 export const getExceptUser = (uids: string[]): string => {
   if (!uids) return '';
 
@@ -170,14 +162,6 @@ export const getMaxPostText = (): number => {
   // とりあえず2000に設定しておく
   // https://languagetool.org/http-api/swagger-ui/#!/default/post_check
   return 2000;
-};
-
-export const getUsePoints = (
-  length: number,
-  learnLanguage: Language,
-): number => {
-  const basePoints = getBasePoints(learnLanguage);
-  return Math.ceil(length / basePoints) * 10;
 };
 
 export const getThemeDiaries = (
@@ -301,43 +285,6 @@ export const getPublishMessage = (
     });
   }
   return I18n.t('modalAlertPublish.good');
-};
-
-export const checkBeforePost = (
-  title: string,
-  text: string,
-  points: number,
-  learnLanguage: Language,
-): { result: boolean; errorMessage: string } => {
-  if (!title) {
-    return { result: false, errorMessage: I18n.t('errorMessage.emptyTitile') };
-  }
-  if (!text) {
-    return { result: false, errorMessage: I18n.t('errorMessage.emptyText') };
-  }
-  if (text.length > getMaxPostText(learnLanguage)) {
-    return {
-      result: false,
-      errorMessage: I18n.t('errorMessage.exceedingCharacter', {
-        textLength: getMaxPostText(learnLanguage),
-      }),
-    };
-  }
-  // const usePoint = getUsePoints(text.length, learnLanguage);
-  // if (usePoint > points) {
-  //   return {
-  //     result: false,
-  //     errorMessage: I18n.t('errorMessage.lackPointsText', {
-  //       textLength: text.length,
-  //       usePoint,
-  //     }),
-  //   };
-  // }
-
-  return {
-    result: true,
-    errorMessage: '',
-  };
 };
 
 // 投稿済みの時はpublishedAt、下書きの時または以前verの時はcreatedAt

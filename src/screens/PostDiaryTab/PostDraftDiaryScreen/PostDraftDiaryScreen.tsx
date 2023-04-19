@@ -84,28 +84,12 @@ const PostDraftDiaryScreen: React.FC<ScreenType> = ({
         <HeaderText text={I18n.t('common.close')} onPress={onPressClose} />
       ),
       headerRight: () => {
-        if (user.points >= 10) {
-          return (
-            <HeaderText
-              text={I18n.t('common.publish')}
-              onPress={onPressCheck}
-            />
-          );
-        }
         return (
-          <HeaderText text={I18n.t('common.draft')} onPress={onPressDraft} />
+          <HeaderText text={I18n.t('common.publish')} onPress={onPressCheck} />
         );
       },
     });
-  }, [
-    user.points,
-    text,
-    title,
-    navigation,
-    onPressClose,
-    onPressDraft,
-    onPressCheck,
-  ]);
+  }, [text, title, navigation, onPressClose, onPressDraft, onPressCheck]);
 
   const { item } = route.params;
 

@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { Keyboard } from 'react-native';
 import { logAnalytics, events } from '@/utils/Analytics';
-import { DiaryStatus, User, Diary } from '@/types';
+import { DiaryStatus, User, Diary, CheckInfo } from '@/types';
 import {
   getRunningDays,
   getRunningWeeks,
@@ -58,7 +58,6 @@ export const usePostDraftDiary = ({
     onPressNotSave,
   } = useCommon({
     navigation,
-    points: user.points,
     learnLanguage: user.learnLanguage,
   });
 
@@ -72,7 +71,7 @@ export const usePostDraftDiary = ({
   }, []);
 
   const getDiary = useCallback(
-    (diaryStatus: DiaryStatus, checkInfo?: any) => {
+    (diaryStatus: DiaryStatus, checkInfo?: CheckInfo) => {
       return {
         firstDiary:
           diaryStatus === 'publish' &&

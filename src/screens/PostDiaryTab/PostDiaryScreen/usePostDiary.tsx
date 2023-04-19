@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import { Keyboard } from 'react-native';
 
-import { DiaryStatus, User, Diary } from '@/types';
+import { DiaryStatus, User, Diary, CheckInfo } from '@/types';
 import {
   getRunningDays,
   getRunningWeeks,
@@ -62,12 +62,11 @@ export const usePostDiary = ({
   } = useCommon({
     navigation,
     themeTitle,
-    points: user.points,
     learnLanguage: user.learnLanguage,
   });
 
   const getDiary = useCallback(
-    (uid: string, diaryStatus: DiaryStatus, checkInfo?: any): Diary => {
+    (uid: string, diaryStatus: DiaryStatus, checkInfo?: CheckInfo): Diary => {
       return {
         // 最初の日記かチェック
         uid: uid,
@@ -146,7 +145,7 @@ export const usePostDiary = ({
     let diaryId = '';
     let themeDiaries = user.themeDiaries || null;
 
-    // 日記の更新とpointsの整合性をとるためtransactionを使う
+    // 日記の更新の整合性をとるためtransactionを使う
     await runTransaction(db, async (transaction) => {
       // diariesの更新
       const refDiary = await addDoc(collection(db, 'diaries'), diary);

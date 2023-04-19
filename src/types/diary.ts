@@ -25,6 +25,7 @@ export interface Diary {
   diaryStatus: DiaryStatus;
   voiceUrl?: string | null;
   publishedAt?: Timestamp | FieldValue;
+  checkInfo: CheckInfo | null;
   createdAt?: Timestamp | FieldValue;
   updatedAt: Timestamp | FieldValue;
 }

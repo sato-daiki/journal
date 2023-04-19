@@ -76,7 +76,6 @@ export interface User {
   onboarding?: boolean;
   tutorialTeachDiaryList: boolean;
   tutorialCorrectiong: boolean;
-  points: number;
   expoPushToken: string | null;
   correctingObjectID: string | null;
   correctingCorrectedNum: number | null;

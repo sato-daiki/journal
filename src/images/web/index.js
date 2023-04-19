@@ -17,7 +17,6 @@ module.exports = {
   IconSmall: require('./icon_small.png'),
   Note: require('./note.png'),
   Pen: require('./pen.png'),
-  PointGet: require('./point_get.png'),
   Sample: require('./sample.png'),
   SummaryEn: require('./summary_en.png'),
   SummaryJa: require('./summary_ja.png'),

@@ -46,12 +46,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  points: {
-    width: 16,
-    height: 16,
-    tintColor: primaryColor,
-    marginRight: 3,
-  },
   headerLabel: {
     color: primaryColor,
     fontSize: fontSizeSS,
