@@ -47,8 +47,6 @@ export const usePostDraftDiary = ({
     setIsLoadingPublish,
     isLoadingDraft,
     setIsLoadingDraft,
-    isModalAlert,
-    setIsModalAlert,
     title,
     setTitle,
     text,
@@ -74,7 +72,7 @@ export const usePostDraftDiary = ({
     (diaryStatus: DiaryStatus, checkInfo?: CheckInfo) => {
       return {
         firstDiary:
-          diaryStatus === 'publish' &&
+          diaryStatus === 'checked' &&
           (user.diaryPosted === undefined || user.diaryPosted === false),
         title,
         text,
@@ -103,8 +101,6 @@ export const usePostDraftDiary = ({
         ...diary,
       });
       setIsLoadingDraft(false);
-      setIsModalAlert(false);
-
       navigation.navigate('Home', {
         screen: 'MyDiaryTab',
         params: { screen: 'MyDiaryList' },
@@ -122,7 +118,6 @@ export const usePostDraftDiary = ({
     item,
     navigation,
     setIsLoadingDraft,
-    setIsModalAlert,
   ]);
 
   const onPressCheck = useCallback(async (): Promise<void> => {
@@ -139,7 +134,7 @@ export const usePostDraftDiary = ({
       matches: checkData.matches,
     };
 
-    const diary = getDiary('publish', checkInfo);
+    const diary = getDiary('checked', checkInfo);
     const runningDays = getRunningDays(
       user.runningDays,
       user.lastDiaryPostedAt,
@@ -194,7 +189,7 @@ export const usePostDraftDiary = ({
       ...item,
       title,
       text,
-      diaryStatus: 'publish',
+      diaryStatus: 'checked',
       updatedAt: serverTimestamp(),
     });
 
@@ -207,6 +202,13 @@ export const usePostDraftDiary = ({
       diaryPosted: true,
     });
     setIsLoadingPublish(false);
+    navigation.navigate('Home', {
+      screen: 'MyDiaryTab',
+      params: {
+        screen: 'MyDiary',
+        params: { objectID: item.objectID },
+      },
+    });
   }, [
     editDiary,
     getDiary,
@@ -214,6 +216,7 @@ export const usePostDraftDiary = ({
     isLoadingDraft,
     isLoadingPublish,
     item,
+    navigation,
     setIsLoadingPublish,
     setUser,
     text,
@@ -239,7 +242,6 @@ export const usePostDraftDiary = ({
     isLoadingDraft,
     isLoadingPublish,
     isInitialLoading,
-    isModalAlert,
     isModalCancel,
     title,
     text,

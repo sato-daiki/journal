@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const DiaryListItem = ({ mine = false, item, onPressItem }: Props) => {
+const DiaryListItem = ({ item, onPressItem }: Props) => {
   const { createdAt, title, text, themeCategory, themeSubcategory } = item;
   const postDay = getAlgoliaDay(createdAt);
 
@@ -73,8 +73,7 @@ const DiaryListItem = ({ mine = false, item, onPressItem }: Props) => {
     >
       <View style={styles.header}>
         <Text style={styles.postDayText}>{postDay}</Text>
-        {/* プロフィール画面からはステータスは表示しないようにする */}
-        {mine ? <MyDiaryStatus diary={item} /> : null}
+        <MyDiaryStatus diaryStatus={item.diaryStatus} />
       </View>
       <DiaryTitle
         themeCategory={themeCategory}

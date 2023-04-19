@@ -50,8 +50,6 @@ export const usePostDiary = ({
     setIsLoadingPublish,
     isLoadingDraft,
     setIsLoadingDraft,
-    isModalAlert,
-    setIsModalAlert,
     title,
     setTitle,
     text,
@@ -71,7 +69,7 @@ export const usePostDiary = ({
         // 最初の日記かチェック
         uid: uid,
         firstDiary:
-          diaryStatus === 'publish' &&
+          diaryStatus === 'checked' &&
           (user.diaryPosted === undefined || user.diaryPosted === false),
         hidden: false,
         title,
@@ -101,7 +99,6 @@ export const usePostDiary = ({
         ...diary,
       });
       setIsLoadingDraft(false);
-      setIsModalAlert(false);
       logAnalytics(events.CREATED_DIARY);
       navigation.navigate('Home', {
         screen: 'MyDiaryTab',
@@ -118,7 +115,6 @@ export const usePostDiary = ({
     isLoadingPublish,
     navigation,
     setIsLoadingDraft,
-    setIsModalAlert,
     user.uid,
   ]);
 
@@ -133,7 +129,7 @@ export const usePostDiary = ({
       matches: checkData.matches,
     };
 
-    const diary = getDiary(user.uid, 'publish', checkInfo);
+    const diary = getDiary(user.uid, 'checked', checkInfo);
     const runningDays = getRunningDays(
       user.runningDays,
       user.lastDiaryPostedAt,
@@ -201,7 +197,6 @@ export const usePostDiary = ({
       diaryPosted: true,
     });
     setIsLoadingPublish(false);
-    setIsModalAlert(false);
     navigation.navigate('Home', {
       screen: 'MyDiaryTab',
       params: {
@@ -216,7 +211,6 @@ export const usePostDiary = ({
     isLoadingPublish,
     navigation,
     setIsLoadingPublish,
-    setIsModalAlert,
     setUser,
     text,
     themeCategory,
@@ -244,7 +238,6 @@ export const usePostDiary = ({
   return {
     isLoadingDraft,
     isLoadingPublish,
-    isModalAlert,
     isModalCancel,
     isFirstEdit,
     title,

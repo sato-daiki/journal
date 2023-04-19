@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 
-import { DiaryStatus, Hoverable } from '@/components/atoms';
+import { DiaryStatusLabel, Hoverable } from '@/components/atoms';
 
 import {
   borderLightColor,
@@ -98,7 +98,7 @@ const SelectThemeSubcategoryListItem: React.FC<Props> = ({
             <Text style={styles.postDayText}>
               {getDay(themeDiary.updatedAt)}
             </Text>
-            <DiaryStatus
+            <DiaryStatusLabel
               color={MY_STATUS.posted.color}
               text={MY_STATUS.posted.text}
             />

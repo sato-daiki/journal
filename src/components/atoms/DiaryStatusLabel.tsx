@@ -23,11 +23,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const DiaryStatus = ({ color, text }: Props) => (
+const DiaryStatusLabel = ({ color, text }: Props) => (
   <View style={styles.container}>
     <View style={[styles.circle, { backgroundColor: color }]} />
     <Text style={[styles.text, { color }]}>{text}</Text>
   </View>
 );
 
-export default React.memo(DiaryStatus);
+export default React.memo(DiaryStatusLabel);

@@ -1,7 +1,7 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { StyleSheet, View, ScrollView } from 'react-native';
 import ViewShot from 'react-native-view-shot';
-import { Diary, User } from '../../types';
+import { Diary, User, sampleWords } from '../../types';
 import { Space } from '../atoms';
 import DiaryOriginal from './DiaryOriginal';
 
@@ -22,6 +22,9 @@ const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
   },
+  activityIndicator: {
+    marginVertical: 16,
+  },
 });
 
 /**
@@ -29,6 +32,7 @@ const styles = StyleSheet.create({
  */
 const Posted: React.FC<Props> = ({ user, diary }) => {
   const viewShotRef = useRef<ViewShot | null>(null);
+  const [isCheckLoading, setIsCheckLoading] = useState(false);
 
   return (
     <View style={styles.container}>
@@ -43,7 +47,22 @@ const Posted: React.FC<Props> = ({ user, diary }) => {
             user={user}
             title={diary.title}
             text={diary.text}
+            words={sampleWords}
           />
+          {/* {isCheckLoading ? (
+            <View style={styles.activityIndicator}>
+              <ActivityIndicator size='small' />
+            </View>
+          ) : (
+            diary.checkInfo && (
+              <View>
+                <GrayHeader title={I18n.t('myDiaryCorrection.header')} />
+                {diary.checkInfo.matches.map((matche, index) => (
+                  <Match key={index} matche={matche} />
+                ))}
+              </View>
+            )
+          )} */}
           <Space size={16} />
         </ViewShot>
         <Space size={32} />

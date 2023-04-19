@@ -2,14 +2,15 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import I18n from '@/utils/I18n';
 import { fontSizeM, primaryColor, subTextColor } from '@/styles/Common';
-import { Language, ThemeCategory, ThemeSubcategory } from '@/types';
+import { Language, Word, ThemeCategory, ThemeSubcategory } from '@/types';
 import RichText from '@/components/organisms/RichText';
 import { SmallPill, Space } from '@/components/atoms';
+import Words from './Words';
 
 interface Props {
   textLanguage: Language;
   title: string;
-  text: string;
+  words: Word[];
   themeCategory?: ThemeCategory | null;
   themeSubcategory?: ThemeSubcategory | null;
 }
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
 const DiaryTitleAndText: React.FC<Props> = ({
   textLanguage,
   title,
-  text,
+  words,
   themeCategory,
   themeSubcategory,
 }) => {
@@ -61,7 +62,7 @@ const DiaryTitleAndText: React.FC<Props> = ({
         />
       </View>
       <Space size={16} />
-      <RichText style={styles.text} text={text} textLanguage={textLanguage} />
+      <Words words={words} />
       <Space size={16} />
     </>
   );

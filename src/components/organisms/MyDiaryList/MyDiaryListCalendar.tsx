@@ -96,10 +96,9 @@ const custumTheme = {
 };
 
 const status = [
-  { id: 1, color: MY_STATUS.unread.color, text: MY_STATUS.unread.text },
-  { id: 2, color: MY_STATUS.draft.color, text: MY_STATUS.draft.text },
-  { id: 3, color: MY_STATUS.yet.color, text: MY_STATUS.yet.text },
-  { id: 4, color: MY_STATUS.done.color, text: MY_STATUS.done.text },
+  { id: 1, color: MY_STATUS.draft.color, text: MY_STATUS.draft.text },
+  { id: 2, color: MY_STATUS.checked.color, text: MY_STATUS.checked.text },
+  { id: 3, color: MY_STATUS.fixed.color, text: MY_STATUS.fixed.text },
 ];
 
 const code = Localization.locale.split('-')[0];
@@ -136,7 +135,9 @@ const MyDiaryListCalendar: React.FC<Props> = ({
 
   useEffect(() => {
     const newDiaries = diaries.filter(
-      (item) => getAlgoliaDay(item.publishedAt || item.createdAt, 'YYYY-MM-DD') === selectedDay,
+      (item) =>
+        getAlgoliaDay(item.publishedAt || item.createdAt, 'YYYY-MM-DD') ===
+        selectedDay,
     );
     setTargetDayDiaries(newDiaries);
   }, [diaries, selectedDay]);
@@ -150,7 +151,9 @@ const MyDiaryListCalendar: React.FC<Props> = ({
 
   const renderHeader = useCallback(
     (date) => (
-      <Text style={styles.header}>{date.toString(code === 'ja' ? 'yyyy年M月' : 'MM yyyy')}</Text>
+      <Text style={styles.header}>
+        {date.toString(code === 'ja' ? 'yyyy年M月' : 'MM yyyy')}
+      </Text>
     ),
     [],
   );
@@ -182,7 +185,13 @@ const MyDiaryListCalendar: React.FC<Props> = ({
         handlePressDelete={handlePressDelete}
       />
     ));
-  }, [elRefs, handlePressDelete, handlePressItem, onPressUser, targetDayDiaries]);
+  }, [
+    elRefs,
+    handlePressDelete,
+    handlePressItem,
+    onPressUser,
+    targetDayDiaries,
+  ]);
 
   return (
     <ScrollView style={styles.container} refreshControl={refreshControl}>
@@ -212,7 +221,9 @@ const MyDiaryListCalendar: React.FC<Props> = ({
         renderTargetDayDiaries
       ) : (
         <View style={styles.emptyContainer}>
-          <Text style={styles.emptyText}>{I18n.t('myDiaryList.emptyDiary')}</Text>
+          <Text style={styles.emptyText}>
+            {I18n.t('myDiaryList.emptyDiary')}
+          </Text>
         </View>
       )}
     </ScrollView>

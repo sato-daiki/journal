@@ -8,6 +8,9 @@ export const offWhite = '#f6f6f6';
 export const linkBlue = '#2469BB';
 export const green = '#27AE60';
 export const facebook = '#1877f2';
+export const warning = '#eed202';
+export const error = '#d9004c';
+
 export const softRed = '#da5353';
 export const star = '#f1c40f';
 export const clipboard = '#383838';

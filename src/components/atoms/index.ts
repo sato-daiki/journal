@@ -1,7 +1,7 @@
 export { default as Checkbox } from './Checkbox';
 export { default as DefaultHeaderBack } from './DefaultHeaderBack';
 export { default as DiaryTitle } from './DiaryTitle';
-export { default as DiaryStatus } from './DiaryStatus';
+export { default as DiaryStatusLabel } from './DiaryStatusLabel';
 export { default as FirstDiary } from './FirstDiary';
 export { default as FixText } from './FixText';
 export { default as GrayHeader } from './GrayHeader';

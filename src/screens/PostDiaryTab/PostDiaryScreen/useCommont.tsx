@@ -13,7 +13,6 @@ interface UseCommon {
 export const useCommon = ({ navigation, themeTitle }: UseCommon) => {
   const [isLoadingPublish, setIsLoadingPublish] = useState(false);
   const [isLoadingDraft, setIsLoadingDraft] = useState(false);
-  const [isModalAlert, setIsModalAlert] = useState(false);
   const [isModalCancel, setIsModalCancel] = useState(false);
 
   const [title, setTitle] = useState(themeTitle || '');
@@ -78,8 +77,6 @@ export const useCommon = ({ navigation, themeTitle }: UseCommon) => {
     setIsLoadingPublish,
     isLoadingDraft,
     setIsLoadingDraft,
-    isModalAlert,
-    setIsModalAlert,
     title,
     setTitle,
     text,

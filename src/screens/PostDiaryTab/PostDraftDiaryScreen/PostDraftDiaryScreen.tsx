@@ -85,7 +85,7 @@ const PostDraftDiaryScreen: React.FC<ScreenType> = ({
       ),
       headerRight: () => {
         return (
-          <HeaderText text={I18n.t('common.publish')} onPress={onPressCheck} />
+          <HeaderText text={I18n.t('common.check')} onPress={onPressCheck} />
         );
       },
     });

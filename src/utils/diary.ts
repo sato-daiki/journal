@@ -1,159 +1,20 @@
-// import { firestore } from 'firebase';
-// import firebase from '@/constants/firebase';
 import {
-  CorrectionStatus,
   Language,
-  User,
-  DisplayProfile,
   Diary,
-  CountryCode,
   ThemeDiary,
   ThemeCategory,
   ThemeSubcategory,
 } from '@/types';
-import { softRed, subTextColor, mainColor, green } from '@/styles/Common';
+import { subTextColor, mainColor, green } from '@/styles/Common';
 
 import { MarkedDates } from '@/components/organisms/MyDiaryList';
 import I18n from './I18n';
-import { DataCorrectionStatus } from './correcting';
 import { getDateToStrDay, getLastMonday, getThisMonday } from './common';
 import { getAlgoliaDay } from './time';
-
-interface Status {
-  text: string;
-  color: string;
-}
-
-// 日記一覧に出力するステータスの取得
-export const getUserDiaryStatus = (
-  correctionStatus: CorrectionStatus,
-  correctionStatus2: CorrectionStatus | undefined,
-  correctionStatus3: CorrectionStatus | undefined,
-): Status | null => {
-  // 0添削の場合
-  if (correctionStatus === 'yet') {
-    return { text: I18n.t('userDiaryStatus.yet'), color: mainColor };
-  }
-
-  // 何か1つでも添削中の場合
-  if (
-    correctionStatus === 'correcting' ||
-    correctionStatus2 === 'correcting' ||
-    correctionStatus3 === 'correcting'
-  ) {
-    return { text: I18n.t('userDiaryStatus.correcting'), color: subTextColor };
-  }
-
-  // 添削が終わった数を取得
-  let correctedNum = 0;
-  if (correctionStatus === 'unread' || correctionStatus === 'done') {
-    correctedNum += 1;
-  }
-  if (correctionStatus2 === 'unread' || correctionStatus2 === 'done') {
-    correctedNum += 1;
-  }
-  if (correctionStatus3 === 'unread' || correctionStatus3 === 'done') {
-    correctedNum += 1;
-  }
-
-  if (correctedNum > 0) {
-    return {
-      text: I18n.t('userDiaryStatus.done', { correctedNum }),
-      color: subTextColor,
-    };
-  }
-  // ここに入ることはない
-  return null;
-};
-
-export const MY_STATUS = {
-  unread: { text: I18n.t('myDiaryStatus.unread'), color: softRed },
-  draft: { text: I18n.t('draftListItem.draft'), color: subTextColor },
-  yet: { text: I18n.t('myDiaryStatus.yet'), color: mainColor },
-  done: { text: I18n.t('myDiaryStatus.done'), color: green },
-  posted: { text: I18n.t('myDiaryStatus.posted'), color: green },
-};
-
-export const getMyDiaryStatus = (diary: Diary): Status | null => {
-  const {
-    diaryStatus,
-    correctionStatus,
-    correctionStatus2,
-    correctionStatus3,
-  } = diary;
-
-  if (diaryStatus === 'draft') return MY_STATUS.draft;
-
-  if (
-    correctionStatus === 'unread' ||
-    correctionStatus2 === 'unread' ||
-    correctionStatus3 === 'unread'
-  ) {
-    return MY_STATUS.unread;
-  }
-
-  if (correctionStatus === 'yet' || correctionStatus === 'correcting') {
-    return MY_STATUS.yet;
-  }
-
-  return MY_STATUS.done;
-};
-
-// export const allLanguage: Language[] = ['ja', 'en', 'zh', 'ko'];
-export const allLanguage: Language[] = ['ja', 'en'];
-
-export const getLanguageNum = (): number => {
-  return allLanguage.length;
-};
-
-// すでに選択された言語、ネイティブ言語、勉強中の言語を除く
-export const getTargetLanguages = (
-  learnLanguage,
-  spokenLanguages,
-): Language[] => {
-  return allLanguage.filter((item) => {
-    if (item === learnLanguage) return false;
-    if (spokenLanguages) {
-      for (let i = 0; i <= spokenLanguages.length; i += 1) {
-        if (spokenLanguages[i] === item) return false;
-      }
-    }
-    return true;
-  });
-};
+import { Timestamp } from '@firebase/firestore';
 
 export const getLanguage = (language: Language): string => {
   return I18n.t(`language.${language}`);
-};
-
-export const getExceptUser = (uids: string[]): string => {
-  if (!uids) return '';
-
-  let fillterText = '';
-  for (let i = 0; i < uids.length; i += 1) {
-    fillterText += ` AND NOT user.uid: ${uids[i]}`;
-  }
-  return fillterText;
-};
-
-export const getDisplayProfile = (user: User): DisplayProfile => {
-  return {
-    uid: user.uid,
-    learnLanguage: user.learnLanguage,
-  };
-};
-
-export const updateUnread = async (
-  objectID: string,
-  data: DataCorrectionStatus | null,
-): Promise<void> => {
-  await firebase
-    .firestore()
-    .doc(`diaries/${objectID}`)
-    .update({
-      ...data,
-      updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
-    });
 };
 
 export const getMaxPostText = (): number => {
@@ -186,7 +47,7 @@ export const getThemeDiaries = (
         return {
           ...findThemeDiary,
           objectID,
-          updatedAt: firebase.firestore.Timestamp.now(),
+          updatedAt: Timestamp.now(),
         };
       }
       return themeDiary;
@@ -201,15 +62,15 @@ export const getThemeDiaries = (
       themeCategory,
       themeSubcategory,
       objectID,
-      updatedAt: firebase.firestore.Timestamp.now(),
-      createdAt: firebase.firestore.Timestamp.now(),
+      updatedAt: Timestamp.now(),
+      createdAt: Timestamp.now(),
     },
   ];
 };
 
 export const getRunningDays = (
   runningDays: number | undefined,
-  lastDiaryPostedAt: firestore.Timestamp | null | undefined,
+  lastDiaryPostedAt: Timestamp | null | undefined,
 ): number => {
   // 初投稿の場合
   if (!lastDiaryPostedAt || !runningDays) return 1;
@@ -238,7 +99,7 @@ export const getRunningDays = (
 
 export const getRunningWeeks = (
   runningWeeks: number | undefined,
-  lastDiaryPostedAt: firestore.Timestamp | null | undefined,
+  lastDiaryPostedAt: Timestamp | null | undefined,
 ): number => {
   // 初回の場合
   if (!lastDiaryPostedAt || !runningWeeks) return 1;
@@ -285,6 +146,18 @@ export const getPublishMessage = (
     });
   }
   return I18n.t('modalAlertPublish.good');
+};
+
+export const MY_STATUS = {
+  draft: { text: I18n.t('myDiaryStatus.draft'), color: subTextColor },
+  checked: { text: I18n.t('myDiaryStatus.checked'), color: mainColor },
+  fixed: { text: I18n.t('myDiaryStatus.fixed'), color: green },
+};
+
+export const getMyDiaryStatus = (diaryStatus) => {
+  if (diaryStatus === 'draft') return MY_STATUS.draft;
+  else if (diaryStatus === 'checked') return MY_STATUS.checked;
+  else if (diaryStatus === 'fixed') return MY_STATUS.fixed;
 };
 
 // 投稿済みの時はpublishedAt、下書きの時または以前verの時はcreatedAt

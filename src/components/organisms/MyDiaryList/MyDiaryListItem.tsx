@@ -87,7 +87,6 @@ const MyDiaryListItem = ({
   return (
     <Swipeable ref={setRef} renderRightActions={renderRightActions}>
       <DiaryListItem
-        mine
         item={item}
         onPressUser={onPressUser}
         onPressItem={onPressItem}

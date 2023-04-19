@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import * as Notifications from 'expo-notifications';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
@@ -12,7 +11,6 @@ import {
   LoadingModal,
 } from '@/components/atoms';
 import FirstPageComponents from '@/components/organisms/FirstPageComponents';
-import { updateUnread } from '@/utils/diary';
 import { LocalStatus, MyDiaryListView } from '@/types/localStatus';
 import I18n from '@/utils/I18n';
 import {
@@ -137,58 +135,11 @@ const MyDiaryListScreen: React.FC<ScreenType> = ({
         return;
       }
 
-      if (
-        item.correctionStatus === 'unread' ||
-        item.correctionStatus2 === 'unread' ||
-        item.correctionStatus3 === 'unread'
-      ) {
-        // 未読の場合
-        if (isLoading) return;
-        setIsLoading(true);
-
-        const data = {
-          correctionStatus:
-            item.correctionStatus === 'unread' ? 'done' : item.correctionStatus,
-          correctionStatus2:
-            item.correctionStatus2 === 'unread'
-              ? 'done'
-              : item.correctionStatus2,
-          correctionStatus3:
-            item.correctionStatus3 === 'unread'
-              ? 'done'
-              : item.correctionStatus3,
-        };
-        // reduxを更新
-        editDiary(item.objectID, {
-          ...item,
-          ...data,
-        });
-
-        setIsLoading(false);
-        navigation.navigate('MyDiary', {
-          objectID: item.objectID,
-        });
-        if (localStatus.unreadCorrectionNum) {
-          const newUnreadCorrectionNum = localStatus.unreadCorrectionNum - 1;
-          // アプリの通知数を設定
-          Notifications.setBadgeCountAsync(newUnreadCorrectionNum);
-          setUnreadCorrectionNum(newUnreadCorrectionNum);
-        }
-        // DBを更新
-        updateUnread(item.objectID, data);
-      } else {
-        navigation.navigate('MyDiary', {
-          objectID: item.objectID,
-        });
-      }
+      navigation.navigate('MyDiary', {
+        objectID: item.objectID,
+      });
     },
-    [
-      editDiary,
-      isLoading,
-      localStatus.unreadCorrectionNum,
-      navigation,
-      setUnreadCorrectionNum,
-    ],
+    [navigation],
   );
 
   const onPressUser = useCallback(

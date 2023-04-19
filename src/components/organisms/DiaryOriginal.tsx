@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { fontSizeS, subTextColor } from '../../styles/Common';
 import { getAlgoliaDate } from '../../utils/time';
-import { Diary, User } from '../../types';
+import { Diary, User, Word } from '../../types';
 import I18n from '../../utils/I18n';
 import { DiaryTitleAndText, MyDiaryStatus } from '../molecules';
 
@@ -11,6 +11,7 @@ interface Props {
   user: User;
   title: string;
   text: string;
+  words: Word[];
 }
 
 const styles = StyleSheet.create({
@@ -35,7 +36,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const DiaryOriginal: React.FC<Props> = ({ diary, user, title, text }) => {
+const DiaryOriginal: React.FC<Props> = ({
+  diary,
+  user,
+  title,
+  text,
+  words,
+}) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -49,7 +56,7 @@ const DiaryOriginal: React.FC<Props> = ({ diary, user, title, text }) => {
         themeSubcategory={diary.themeSubcategory}
         textLanguage={user.learnLanguage}
         title={title}
-        text={text}
+        words={words}
       />
       <Text style={styles.textLength}>
         {I18n.t('postDiaryComponent.textLength')}

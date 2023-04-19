@@ -7,6 +7,64 @@ export interface LanguageInfo {
   };
 }
 
+export type UnderlineType = 'warning' | 'error';
+
+export const sampleWords: Word[] = [
+  {
+    text: 'I',
+    checked: false,
+  },
+  {
+    text: 'am',
+    checked: false,
+  },
+  {
+    text: 'yahoo',
+    checked: true,
+    checkId: 1,
+    underline: 'warning',
+    ignore: false,
+  },
+  {
+    text: 'I',
+    checked: false,
+  },
+  {
+    text: 'am',
+    checked: false,
+  },
+  {
+    text: 'yahoo',
+    checked: true,
+    checkId: 2,
+    underline: 'warning',
+    ignore: false,
+  },
+  {
+    text: 'I',
+    checked: false,
+  },
+  {
+    text: 'am',
+    checked: false,
+  },
+  {
+    text: 'yahoo',
+    checked: true,
+    checkId: 3,
+    underline: 'error',
+    ignore: false,
+  },
+];
+
+export interface Word {
+  text: string;
+  checked: boolean;
+  checkId?: number;
+  underline?: UnderlineType;
+  ignore?: boolean;
+}
+
 export interface Matche {
   message: string;
   shortMessage: string;

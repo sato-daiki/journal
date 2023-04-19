@@ -498,10 +498,6 @@ const diaryHitList = {
   header: 'Search Results',
 };
 
-const draftListItem = {
-  draft: 'Draft',
-};
-
 const emptyMyDiaryList = {
   text: 'You haven’t posted any journal entries.\nWrite an entry and have Japanese correct it!',
   hint: 'Start here!\nYour entry will be\nproofread for free!',
@@ -653,11 +649,9 @@ const cameraRoll = {
 };
 
 const myDiaryStatus = {
-  yet: 'Waiting for Corrections',
-  done: 'Corrected',
-  correcting: 'Being Corrected',
-  unread: 'Unread',
-  posted: 'Posted',
+  draft: 'Draft',
+  checked: 'Posted',
+  fixed: 'Fixed',
 };
 
 const userDiaryStatus = {
@@ -934,7 +928,6 @@ const en = {
   profileLanguage,
   profileNationality,
   diaryHitList,
-  draftListItem,
   emptyMyDiaryList,
   modalAlertCorrection,
   modalAlertPublish,

@@ -488,10 +488,6 @@ const diaryHitList = {
   header: '検索結果',
 };
 
-const draftListItem = {
-  draft: '下書き',
-};
-
 const emptyMyDiaryList = {
   text: '日記がまだ投稿されていません。\n日記を書いて外国人に添削してもらおう！',
   hint: 'まずはここから！\n日記を無料で\n添削してもらえるよ！',
@@ -642,11 +638,9 @@ const cameraRoll = {
 };
 
 const myDiaryStatus = {
-  yet: '添削待ち',
-  done: '添削完了',
-  correcting: '添削中',
-  unread: '未読',
-  posted: '投稿済',
+  draft: '下書き',
+  checked: '投稿済',
+  fixed: '修正済',
 };
 
 const userDiaryStatus = {
@@ -918,7 +912,6 @@ const ja = {
   profileLanguage,
   profileNationality,
   diaryHitList,
-  draftListItem,
   emptyMyDiaryList,
   modalAlertCorrection,
   modalAlertPublish,

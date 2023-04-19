@@ -1,5 +1,6 @@
 import { FieldValue } from '@firebase/firestore';
 import { ThemeCategory, ThemeSubcategory } from './user';
+import { CheckInfo } from './checkInfo';
 // import firebase from 'firebase';
 
 // algolia経由で取得するのでtimestamp型が他と異なる
@@ -8,8 +9,7 @@ export type Timestamp = {
   _nanoseconds: number;
 };
 
-export type DiaryStatus = 'draft' | 'publish';
-export type CorrectionStatus = 'yet' | 'correcting' | 'unread' | 'done';
+export type DiaryStatus = 'draft' | 'checked' | 'fixed';
 
 export interface Diary {
   objectID?: string;
@@ -25,7 +25,7 @@ export interface Diary {
   diaryStatus: DiaryStatus;
   voiceUrl?: string | null;
   publishedAt?: Timestamp | FieldValue;
-  checkInfo: CheckInfo | null;
+  checkInfo?: CheckInfo;
   createdAt?: Timestamp | FieldValue;
   updatedAt: Timestamp | FieldValue;
 }
