@@ -13,6 +13,8 @@ interface Props {
   words: Word[];
   themeCategory?: ThemeCategory | null;
   themeSubcategory?: ThemeSubcategory | null;
+  activeId: number | null;
+  setActiveId: (activeId: number | null) => void;
 }
 
 const styles = StyleSheet.create({
@@ -43,6 +45,8 @@ const DiaryTitleAndText: React.FC<Props> = ({
   words,
   themeCategory,
   themeSubcategory,
+  activeId,
+  setActiveId,
 }) => {
   return (
     <>
@@ -62,7 +66,7 @@ const DiaryTitleAndText: React.FC<Props> = ({
         />
       </View>
       <Space size={16} />
-      <Words words={words} />
+      <Words words={words} activeId={activeId} setActiveId={setActiveId} />
       <Space size={16} />
     </>
   );

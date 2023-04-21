@@ -12,6 +12,8 @@ interface Props {
   title: string;
   text: string;
   words: Word[];
+  activeId: number | null;
+  setActiveId: (activeId: number | null) => void;
 }
 
 const styles = StyleSheet.create({
@@ -42,6 +44,8 @@ const DiaryOriginal: React.FC<Props> = ({
   title,
   text,
   words,
+  activeId,
+  setActiveId,
 }) => {
   return (
     <View style={styles.container}>
@@ -49,7 +53,7 @@ const DiaryOriginal: React.FC<Props> = ({
         <Text style={styles.postDayText}>
           {getAlgoliaDate(diary.createdAt)}
         </Text>
-        <MyDiaryStatus diary={diary} />
+        <MyDiaryStatus diaryStatus={diary.diaryStatus} />
       </View>
       <DiaryTitleAndText
         themeCategory={diary.themeCategory}
@@ -57,6 +61,8 @@ const DiaryOriginal: React.FC<Props> = ({
         textLanguage={user.learnLanguage}
         title={title}
         words={words}
+        activeId={activeId}
+        setActiveId={setActiveId}
       />
       <Text style={styles.textLength}>
         {I18n.t('postDiaryComponent.textLength')}

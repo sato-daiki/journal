@@ -1,32 +1,25 @@
-import React, { useCallback, useState } from 'react';
-import { Text, StyleSheet } from 'react-native';
+import React, { useCallback } from 'react';
+import { Text } from 'react-native';
 import { Word } from '@/types';
-import { fontSizeM, mainColor, softRed } from '@/styles/Common';
 import StyledWord from './StyledWord';
 
 type Props = {
   words: Word[];
+  activeId: number | null;
+  setActiveId: (activeId: number | null) => void;
 };
 
-const styles = StyleSheet.create({
-  common: {
-    fontSize: fontSizeM,
-  },
-  checked: {
-    textDecorationLine: 'line-through',
-  },
-});
-
-const Words: React.FC<Props> = ({ words }) => {
-  const [activeId, setActiveId] = useState<number | null>(null);
-
-  const onPressChecked = useCallback((id) => {
-    setActiveId(id);
-  }, []);
+const Words: React.FC<Props> = ({ words, activeId, setActiveId }) => {
+  const onPressChecked = useCallback(
+    (id) => {
+      setActiveId(id);
+    },
+    [setActiveId],
+  );
 
   const onPressUnChecked = useCallback(() => {
     setActiveId(null);
-  }, []);
+  }, [setActiveId]);
 
   return (
     <Text>
