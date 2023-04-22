@@ -50,13 +50,8 @@ const DiaryOriginal: React.FC<Props> = ({
         <MyDiaryStatus diaryStatus={diary.diaryStatus} />
       </View>
       <DiaryTitleAndText
-        themeCategory={diary.themeCategory}
-        themeSubcategory={diary.themeSubcategory}
+        diary={diary}
         textLanguage={user.learnLanguage}
-        title={diary.title}
-        text={diary.text}
-        matches={diary.checkInfo?.matches}
-        // words={words}
         activeIndex={activeIndex}
         setActiveIndex={setActiveIndex}
       />
