@@ -3,28 +3,16 @@ import { Types } from '../types';
 import { LocalStatus } from '../../types';
 
 const initialState: LocalStatus = {
-  unreadCorrectionNum: 0,
   isLoading: true,
   uid: null,
   onboarding: null,
   firstLogin: false,
-  myDiaryListView: 'list',
 };
 
 const localStatus = (state = initialState, action: Actions): LocalStatus => {
   switch (action.type) {
     case Types.SET_LOCAL_STATUS:
       return action.localStatus;
-    case Types.SET_UNREAD_CORRECTION_NUM:
-      return {
-        ...state,
-        unreadCorrectionNum: action.unreadCorrectionNum,
-      };
-    case Types.SET_MY_DIARY_LIST_VIEW:
-      return {
-        ...state,
-        myDiaryListView: action.myDiaryListView,
-      };
     case Types.RESTORE_UID:
       return {
         ...state,

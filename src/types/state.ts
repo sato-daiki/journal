@@ -22,7 +22,6 @@ import {
 } from '../stores/actions/teachDiaryList';
 import {
   SetLocalStatusAction,
-  SetUnreadCorrectionNumAction,
   SetMyDiaryListViewAction,
   RestoreUidAction,
   CompletedOnboardingAction,
@@ -41,7 +40,6 @@ export interface State {
 
 export type Actions =
   | SetLocalStatusAction
-  | SetUnreadCorrectionNumAction
   | SetMyDiaryListViewAction
   | RestoreUidAction
   | CompletedOnboardingAction

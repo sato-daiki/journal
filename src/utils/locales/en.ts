@@ -11,7 +11,7 @@ const common = {
   register: 'Register',
   sending: 'Send',
   next: 'Next',
-  check: 'check',
+  check: 'Check',
   draft: 'Save',
   skip: 'Skip',
   save: 'Save',

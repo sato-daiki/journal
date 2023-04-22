@@ -8,22 +8,10 @@ export interface SetLocalStatusAction extends Action {
 }
 
 export const setLocalStatus = (
-  localStatus: LocalStatus
+  localStatus: LocalStatus,
 ): SetLocalStatusAction => ({
   type: Types.SET_LOCAL_STATUS,
   localStatus,
-});
-
-export interface SetUnreadCorrectionNumAction extends Action {
-  type: Types.SET_UNREAD_CORRECTION_NUM;
-  unreadCorrectionNum: number;
-}
-
-export const setUnreadCorrectionNum = (
-  unreadCorrectionNum: number
-): SetUnreadCorrectionNumAction => ({
-  type: Types.SET_UNREAD_CORRECTION_NUM,
-  unreadCorrectionNum,
 });
 
 export interface SetMyDiaryListViewAction extends Action {
@@ -32,7 +20,7 @@ export interface SetMyDiaryListViewAction extends Action {
 }
 
 export const setMyDiaryListView = (
-  myDiaryListView: MyDiaryListView
+  myDiaryListView: MyDiaryListView,
 ): SetMyDiaryListViewAction => ({
   type: Types.SET_MY_DIARY_LIST_VIEW,
   myDiaryListView,
@@ -48,7 +36,7 @@ export interface RestoreUidAction extends Action {
 
 export const restoreUid = (
   uid: string | null,
-  onboarding?: boolean
+  onboarding?: boolean,
 ): RestoreUidAction => ({
   type: Types.RESTORE_UID,
   payload: {

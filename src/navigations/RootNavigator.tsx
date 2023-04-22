@@ -19,6 +19,7 @@ export type RootStackParamList = {
 };
 
 export interface Props {
+  user: User;
   localStatus: LocalStatus;
 }
 
@@ -29,35 +30,43 @@ interface DispatchProps {
 
 const RootNavigator: React.FC<Props & DispatchProps> = ({
   localStatus,
+  user,
   setUser,
   restoreUid,
 }) => {
-  const [isLoading, setIsLoading] = useState(true);
+  // const initNavigation = useCallback(
+  //   async (authUser: FirebaseUser | null): Promise<void> => {
+  //     if (authUser) {
+  //       const newUser = await getUser(authUser.uid);
+  //       console.log('newUser', newUser);
+  //       if (newUser) {
+  //         setUser(newUser);
+  //         restoreUid(authUser.uid, newUser.onboarding);
+  //       }
+  //     } else {
+  //       restoreUid(null, false);
+  //     }
+  //     if (isLoading) setIsLoading(false);
+  //   },
+  //   [isLoading, restoreUid, setUser],
+  // );
 
-  const initNavigation = useCallback(
-    async (authUser: FirebaseUser | null): Promise<void> => {
-      console.log('initNavigation', authUser);
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (authUser) => {
+      console.log('unsubscribe 1');
+      console.log('authUser', authUser);
       if (authUser) {
         const newUser = await getUser(authUser.uid);
-        console.log('newUser', newUser);
         if (newUser) {
           setUser(newUser);
           restoreUid(authUser.uid, newUser.onboarding);
         }
+        // console.log(authUser);
       } else {
         restoreUid(null, false);
       }
-      if (isLoading) setIsLoading(false);
-    },
-    [isLoading, restoreUid, setUser],
-  );
-
-  useEffect(() => {
-    console.log('useEffect');
-    const authSubscriber = onAuthStateChanged(auth, initNavigation);
-    // console.log('authSubscriber', authSubscriber);
-
-    return authSubscriber;
+    });
+    return () => unsubscribe();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -67,15 +76,15 @@ const RootNavigator: React.FC<Props & DispatchProps> = ({
     console.log(
       `[renderScreen] isLoading:${localStatus.isLoading}, onboarding:${localStatus.onboarding}, uid:${localStatus.uid}`,
     );
-    if (localStatus.isLoading) {
-      return <Stack.Screen name='Loading' component={LoadingScreen} />;
-    }
-    if (localStatus.uid !== null) {
-      if (localStatus.onboarding === false) {
-        return (
-          <Stack.Screen name='Onboarding' component={OnboardingNavigator} />
-        );
-      }
+    // if (isLoading) {
+    //   return <Stack.Screen name='Loading' component={LoadingScreen} />;
+    // }
+    if (user) {
+      // if (localStatus.onboarding === false) {
+      //   return (
+      //     <Stack.Screen name='Onboarding' component={OnboardingNavigator} />
+      //   );
+      // }
       return (
         <Stack.Screen
           name='Main'
@@ -87,7 +96,13 @@ const RootNavigator: React.FC<Props & DispatchProps> = ({
       );
     }
     return <Stack.Screen name='Auth' component={AuthNavigator} />;
-  }, [Stack, localStatus.isLoading, localStatus.onboarding, localStatus.uid]);
+  }, [
+    Stack,
+    localStatus.isLoading,
+    localStatus.onboarding,
+    localStatus.uid,
+    user,
+  ]);
 
   return (
     <Stack.Navigator

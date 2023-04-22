@@ -16,7 +16,6 @@ interface Props {
   addDiaries: (diaries: Diary[]) => void;
   setFetchInfo: (fetchInfo: FetchInfoState) => void;
   setDiaryTotalNum: (diaryTotalNum: number) => void;
-  setUnreadCorrectionNum: (unreadCorrectionNum: number) => void;
 }
 
 export const useMyDiaryList = ({

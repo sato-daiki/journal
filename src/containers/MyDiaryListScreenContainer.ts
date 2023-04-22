@@ -2,10 +2,7 @@ import { connect } from 'react-redux';
 import MyDiaryListScreen, {
   Props,
 } from '@/screens/MyDiaryTab/MyDiaryListScreen/MyDiaryListScreen';
-import {
-  setUnreadCorrectionNum,
-  setMyDiaryListView,
-} from '@/stores/actions/localStatus';
+import { setMyDiaryListView } from '@/stores/actions/localStatus';
 import { setUser } from '@/stores/actions/user';
 import { State } from '@/types/state';
 import {
@@ -29,7 +26,6 @@ const mapStateToProps = (state: State): Props => {
 };
 
 const mapDispatchToProps = {
-  setUnreadCorrectionNum,
   setMyDiaryListView,
   setUser,
   editDiary,

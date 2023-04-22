@@ -40,7 +40,6 @@ interface DispatchProps {
   setUser: (user: User) => void;
   setDiaries: (diaries: Diary[]) => void;
   addDiaries: (diaries: Diary[]) => void;
-  setUnreadCorrectionNum: (unreadCorrectionNum: number) => void;
   setMyDiaryListView: (myDiaryListView: MyDiaryListView) => void;
   setFetchInfo: (fetchInfo: FetchInfoState) => void;
   setDiaryTotalNum: (diaryTotalNum: number) => void;
@@ -78,7 +77,6 @@ const MyDiaryListScreen: React.FC<ScreenType> = ({
   addDiaries,
   setDiaryTotalNum,
   setFetchInfo,
-  setUnreadCorrectionNum,
   setMyDiaryListView,
   navigation,
 }) => {
@@ -99,7 +97,6 @@ const MyDiaryListScreen: React.FC<ScreenType> = ({
     setDiaries,
     addDiaries,
     setDiaryTotalNum,
-    setUnreadCorrectionNum,
   });
 
   // 初期データの取得

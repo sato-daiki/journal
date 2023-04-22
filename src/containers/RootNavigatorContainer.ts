@@ -6,6 +6,7 @@ import { State } from '../types/state';
 
 const mapStateToProps = (state: State): Props => {
   return {
+    user: state.rootReducer.user,
     localStatus: state.rootReducer.localStatus,
   };
 };
