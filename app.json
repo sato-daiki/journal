@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "writing",
-    "slug": "writing",
+    "name": "journal",
+    "slug": "journal",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -14,14 +14,14 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.daiki123456.writing"
+      "bundleIdentifier": "com.daiki123456.journal"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.daiki123456.writing"
+      "package": "com.daiki123456.journal"
     },
     "web": {
       "favicon": "./assets/favicon.png"
