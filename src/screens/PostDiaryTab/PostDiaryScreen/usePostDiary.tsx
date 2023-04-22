@@ -6,6 +6,7 @@ import {
   getRunningDays,
   getRunningWeeks,
   getThemeDiaries,
+  getWords,
 } from '@/utils/diary';
 import { logAnalytics, events } from '@/utils/Analytics';
 import { alert } from '@/utils/ErrorAlert';
@@ -128,6 +129,8 @@ export const usePostDiary = ({
       language: checkData.language,
       matches: checkData.matches,
     };
+
+    // const words = getWords(text, checkInfo.matches);
 
     const diary = getDiary(user.uid, 'checked', checkInfo);
     const runningDays = getRunningDays(

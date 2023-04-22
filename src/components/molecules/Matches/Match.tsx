@@ -1,13 +1,14 @@
+import React from 'react';
 import {
   borderLightColor,
   fontSizeM,
   fontSizeS,
   mainColor,
 } from '@/styles/Common';
-import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { HoverableIcon } from '../../atoms';
 import { Match } from '@/types';
+import * as Linking from 'expo-linking';
 
 interface Props {
   match: Match;
@@ -50,7 +51,8 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   infoIcon: {
-    bottom: -7,
+    bottom: -7.5,
+    height: 26,
   },
   thirdRow: {
     flexDirection: 'row',
@@ -70,26 +72,30 @@ const styles = StyleSheet.create({
 });
 
 export const Matche: React.FC<Props> = ({ match }) => {
-  const onPressInfo = (value: string) => {};
+  const onPressInfo = (value: string) => {
+    Linking.openURL(value);
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.firstRow}>
         <View style={[styles.circle, { backgroundColor: 'red' }]} />
-        <Text style={styles.shortMessage}>{match.shortMessage}</Text>
+        <Text style={styles.shortMessage}>
+          {match.shortMessage || match.rule.issueType}
+        </Text>
       </View>
       <View style={styles.secondRow}>
         <Text style={styles.message}>
           {match.message}
-          {!!match.urls && (
+          {!!match.rule.urls && (
             <View style={styles.iconRow}>
-              {match.urls.map((url, index) => (
+              {match.rule.urls.map((url, index) => (
                 <HoverableIcon
                   key={index}
                   style={styles.infoIcon}
                   icon='community'
                   name='information-outline'
-                  size={17}
+                  size={18}
                   onPress={() => onPressInfo(url.value)}
                 />
               ))}

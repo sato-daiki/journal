@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { HoverableIcon } from '../../atoms';
 import { Match } from '@/types';
-import { offWhite } from '@/styles/Common';
+import { borderLightColor, offWhite, primaryColor } from '@/styles/Common';
 import { Matche } from './Match';
 
 interface Props {
@@ -58,24 +58,26 @@ export const Matches: React.FC<Props> = ({
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        {activeIndex !== 0 && (
-          <HoverableIcon
-            style={styles.iconLeft}
-            icon={'community'}
-            name={'arrow-left-thin'}
-            size={24}
-            onPress={onPressLeft}
-          />
-        )}
-        {activeIndex !== matches.length - 1 && (
-          <HoverableIcon
-            style={styles.iconRight}
-            icon={'community'}
-            name={'arrow-right-thin'}
-            size={24}
-            onPress={onPressRight}
-          />
-        )}
+        <HoverableIcon
+          style={styles.iconLeft}
+          icon={'community'}
+          name={'arrow-left-thin'}
+          size={24}
+          color={activeIndex !== 0 ? primaryColor : borderLightColor}
+          onPress={activeIndex !== 0 ? onPressLeft : undefined}
+        />
+        <HoverableIcon
+          style={styles.iconRight}
+          icon={'community'}
+          name={'arrow-right-thin'}
+          size={24}
+          color={
+            activeIndex !== matches.length - 1 ? primaryColor : borderLightColor
+          }
+          onPress={
+            activeIndex !== matches.length - 1 ? onPressRight : undefined
+          }
+        />
         <HoverableIcon
           style={styles.iconClose}
           icon='community'

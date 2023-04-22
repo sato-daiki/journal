@@ -55,9 +55,9 @@ const Posted: React.FC<Props> = ({ user, diary }) => {
         </ViewShot>
         <Space size={32} />
       </ScrollView>
-      {activeIndex !== null && (
+      {diary.checkInfo && activeIndex !== null && (
         <Matches
-          matches={sampleMatches}
+          matches={diary.checkInfo.matches}
           activeIndex={activeIndex}
           setActiveIndex={setActiveIndex}
         />

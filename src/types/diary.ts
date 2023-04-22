@@ -1,7 +1,6 @@
 import { FieldValue } from '@firebase/firestore';
 import { ThemeCategory, ThemeSubcategory } from './user';
 import { CheckInfo } from './checkInfo';
-// import firebase from 'firebase';
 
 // algolia経由で取得するのでtimestamp型が他と異なる
 export type Timestamp = {
@@ -25,7 +24,7 @@ export interface Diary {
   diaryStatus: DiaryStatus;
   voiceUrl?: string | null;
   publishedAt?: Timestamp | FieldValue;
-  checkInfo?: CheckInfo;
+  checkInfo: CheckInfo | null;
   createdAt?: Timestamp | FieldValue;
   updatedAt: Timestamp | FieldValue;
 }
