@@ -2,17 +2,14 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import I18n from '@/utils/I18n';
 import { fontSizeM, primaryColor, subTextColor } from '@/styles/Common';
-import { Language, Word, ThemeCategory, ThemeSubcategory } from '@/types';
+import { Diary, Language } from '@/types';
 import RichText from '@/components/organisms/RichText';
 import { SmallPill, Space } from '@/components/atoms';
 import Words from './Words';
 
 interface Props {
   textLanguage: Language;
-  title: string;
-  words: Word[];
-  themeCategory?: ThemeCategory | null;
-  themeSubcategory?: ThemeSubcategory | null;
+  diary: Diary;
   activeIndex: number | null;
   setActiveIndex: (activeIndex: number | null) => void;
 }
@@ -41,17 +38,14 @@ const styles = StyleSheet.create({
 
 const DiaryTitleAndText: React.FC<Props> = ({
   textLanguage,
-  title,
-  words,
-  themeCategory,
-  themeSubcategory,
+  diary,
   activeIndex,
   setActiveIndex,
 }) => {
   return (
     <>
       <View style={styles.titleContainer}>
-        {themeCategory && themeSubcategory && (
+        {diary.themeCategory && diary.themeSubcategory && (
           <SmallPill
             containerStyle={styles.smallPill}
             text={I18n.t('myDiaryList.theme')}
@@ -61,16 +55,19 @@ const DiaryTitleAndText: React.FC<Props> = ({
         )}
         <RichText
           style={styles.title}
-          text={title}
+          text={diary.title}
           textLanguage={textLanguage}
         />
       </View>
       <Space size={16} />
-      <Words
-        words={words}
-        activeIndex={activeIndex}
-        setActiveIndex={setActiveIndex}
-      />
+      {diary.checkInfo && (
+        <Words
+          text={diary.text}
+          matches={diary.checkInfo.matches}
+          activeIndex={activeIndex}
+          setActiveIndex={setActiveIndex}
+        />
+      )}
       <Space size={16} />
     </>
   );

@@ -2,16 +2,13 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { fontSizeS, subTextColor } from '../../styles/Common';
 import { getAlgoliaDate } from '../../utils/time';
-import { Diary, User, Word } from '../../types';
+import { Diary, Match, User, Word } from '../../types';
 import I18n from '../../utils/I18n';
 import { DiaryTitleAndText, MyDiaryStatus } from '../molecules';
 
 interface Props {
   diary: Diary;
   user: User;
-  title: string;
-  text: string;
-  words: Word[];
   activeIndex: number | null;
   setActiveIndex: (activeId: number | null) => void;
 }
@@ -41,9 +38,6 @@ const styles = StyleSheet.create({
 const DiaryOriginal: React.FC<Props> = ({
   diary,
   user,
-  title,
-  text,
-  words,
   activeIndex,
   setActiveIndex,
 }) => {
@@ -59,14 +53,16 @@ const DiaryOriginal: React.FC<Props> = ({
         themeCategory={diary.themeCategory}
         themeSubcategory={diary.themeSubcategory}
         textLanguage={user.learnLanguage}
-        title={title}
-        words={words}
+        title={diary.title}
+        text={diary.text}
+        matches={diary.checkInfo?.matches}
+        // words={words}
         activeIndex={activeIndex}
         setActiveIndex={setActiveIndex}
       />
       <Text style={styles.textLength}>
         {I18n.t('postDiaryComponent.textLength')}
-        {` ${text.length}`}
+        {` ${diary.text.length}`}
       </Text>
     </View>
   );
