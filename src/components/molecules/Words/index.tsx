@@ -35,7 +35,7 @@ const Words: React.FC<Props> = ({
     let temmWords: Word[] = [];
 
     while (!finish) {
-      if (currentOffset === matches[index].offset) {
+      if (index < matches.length && currentOffset === matches[index].offset) {
         const matchWard = text.substring(
           currentOffset,
           currentOffset + matches[index].length,

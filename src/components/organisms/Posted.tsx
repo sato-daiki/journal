@@ -46,7 +46,6 @@ const Posted: React.FC<Props> = ({ user, diary }) => {
           <DiaryOriginal
             diary={diary}
             user={user}
-            words={sampleWords}
             activeIndex={activeIndex}
             setActiveIndex={setActiveIndex}
           />
