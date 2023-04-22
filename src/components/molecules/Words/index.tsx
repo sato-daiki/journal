@@ -5,29 +5,34 @@ import StyledWord from './StyledWord';
 
 type Props = {
   words: Word[];
-  activeId: number | null;
-  setActiveId: (activeId: number | null) => void;
+  activeIndex: number | null;
+  setActiveIndex: (activeIndex: number | null) => void;
 };
 
-const Words: React.FC<Props> = ({ words, activeId, setActiveId }) => {
+const Words: React.FC<Props> = ({ words, activeIndex, setActiveIndex }) => {
   const onPressChecked = useCallback(
     (id) => {
-      setActiveId(id);
+      setActiveIndex(id);
     },
-    [setActiveId],
+    [setActiveIndex],
   );
 
   const onPressUnChecked = useCallback(() => {
-    setActiveId(null);
-  }, [setActiveId]);
+    setActiveIndex(null);
+  }, [setActiveIndex]);
 
   return (
     <Text>
-      {words &&
+      {!!words &&
         words.map((word, index) => (
           <StyledWord
             key={index}
-            isActive={word.checked && !word.ignore && activeId === word.checkId}
+            isActive={
+              !word.ignore &&
+              activeIndex !== null &&
+              word.checkIndex !== undefined &&
+              activeIndex === word.checkIndex
+            }
             word={word}
             onPressChecked={onPressChecked}
             onPressUnChecked={onPressUnChecked}

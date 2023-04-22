@@ -6,7 +6,7 @@ import { fontSizeM, mainColor, softRed } from '@/styles/Common';
 type Props = {
   word: Word;
   isActive: boolean;
-  onPressChecked: (checkId: number) => void;
+  onPressChecked: (checkIndex: number) => void;
   onPressUnChecked: () => void;
 };
 
@@ -26,8 +26,10 @@ const StyledWord: React.FC<Props> = ({
   onPressUnChecked,
 }) => {
   const onPressTextChecked = useCallback(() => {
-    if (word.checkId) onPressChecked(word.checkId);
-  }, [onPressChecked, word.checkId]);
+    if (word.checkIndex !== undefined) {
+      onPressChecked(word.checkIndex);
+    }
+  }, [onPressChecked, word.checkIndex]);
 
   return (
     <Text>

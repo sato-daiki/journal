@@ -1,10 +1,10 @@
 import React, { useRef, useState } from 'react';
-import { StyleSheet, View, ScrollView, Text } from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import ViewShot from 'react-native-view-shot';
-import { Diary, User, sampleWords } from '../../types';
+import { Diary, User, sampleMatches, sampleWords } from '../../types';
 import { Space } from '../atoms';
 import DiaryOriginal from './DiaryOriginal';
-import CheckFooter from './CheckFooter';
+import { Matches } from '../molecules/Matches';
 
 export interface Props {
   diary: Diary;
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
  */
 const Posted: React.FC<Props> = ({ user, diary }) => {
   const viewShotRef = useRef<ViewShot | null>(null);
-  const [activeId, setActiveId] = useState<number | null>(null);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   return (
     <View style={styles.container}>
@@ -49,14 +49,19 @@ const Posted: React.FC<Props> = ({ user, diary }) => {
             title={diary.title}
             text={diary.text}
             words={sampleWords}
-            activeId={activeId}
-            setActiveId={setActiveId}
+            activeIndex={activeIndex}
+            setActiveIndex={setActiveIndex}
           />
-          <Space size={16} />
         </ViewShot>
         <Space size={32} />
       </ScrollView>
-      <CheckFooter activeId={activeId} setActiveId={setActiveId} />
+      {activeIndex !== null && (
+        <Matches
+          matches={sampleMatches}
+          activeIndex={activeIndex}
+          setActiveIndex={setActiveIndex}
+        />
+      )}
     </View>
   );
 };

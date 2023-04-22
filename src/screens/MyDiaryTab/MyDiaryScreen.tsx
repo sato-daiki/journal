@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect, ReactNode } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { connectActionSheet } from '@expo/react-native-action-sheet';
 import { StackNavigationProp } from '@react-navigation/stack';

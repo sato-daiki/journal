@@ -12,8 +12,8 @@ interface Props {
   title: string;
   text: string;
   words: Word[];
-  activeId: number | null;
-  setActiveId: (activeId: number | null) => void;
+  activeIndex: number | null;
+  setActiveIndex: (activeId: number | null) => void;
 }
 
 const styles = StyleSheet.create({
@@ -44,8 +44,8 @@ const DiaryOriginal: React.FC<Props> = ({
   title,
   text,
   words,
-  activeId,
-  setActiveId,
+  activeIndex,
+  setActiveIndex,
 }) => {
   return (
     <View style={styles.container}>
@@ -61,8 +61,8 @@ const DiaryOriginal: React.FC<Props> = ({
         textLanguage={user.learnLanguage}
         title={title}
         words={words}
-        activeId={activeId}
-        setActiveId={setActiveId}
+        activeIndex={activeIndex}
+        setActiveIndex={setActiveIndex}
       />
       <Text style={styles.textLength}>
         {I18n.t('postDiaryComponent.textLength')}
