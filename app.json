@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "journal",
-    "slug": "journal",
+    "name": "writing",
+    "slug": "writing",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -11,26 +11,22 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.daiki123456.journal"
+      "bundleIdentifier": "com.daiki123456.writing"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.daiki123456.journal"
+      "package": "com.daiki123456.writing"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [
-      "expo-localization"
-    ],
+    "plugins": ["expo-localization"],
     "extra": {
       "eas": {
         "projectId": "a2dbb076-8eaa-4b94-a914-3c9fbb032a3f"

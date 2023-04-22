@@ -52,30 +52,13 @@ const EmptyMyDiaryList: React.FC = () => {
     <View style={styles.container}>
       <View style={styles.emptyUpper}>
         <MaterialCommunityIcons
-          name="book-open-variant"
+          name='book-open-variant'
           size={50}
           color={subTextColor}
         />
         <Space size={8} />
         <Text style={styles.emptyText}>{I18n.t('emptyMyDiaryList.text')}</Text>
       </View>
-      {Platform.OS === 'web' ? null : (
-        <View style={styles.emptyLower}>
-          <View style={styles.left} />
-          <View style={styles.right}>
-            <MaterialCommunityIcons
-              name="arrow-down-bold-outline"
-              size={50}
-              color={mainColor}
-            />
-            <View style={styles.emptyHintContainer}>
-              <Text style={styles.emptyHintText}>
-                {I18n.t('emptyMyDiaryList.hint')}
-              </Text>
-            </View>
-          </View>
-        </View>
-      )}
     </View>
   );
 };

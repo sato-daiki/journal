@@ -8,7 +8,7 @@ module.exports = {
   Grind: require('./grind.png'),
   Loading: require('./loading.gif'),
   LoadingWhite: require('./loading-white.gif'),
-  LogoVercitacl: require('./logo_vertical.png'),
+  Logo: require('./logo.png'),
   Note: require('./note.png'),
   Notification: require('./notification.png'),
   Office: require('./office.png'),

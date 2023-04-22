@@ -47,7 +47,7 @@ export const AuthNavigator = () => {
       <Stack.Screen
         name='Initialize'
         component={InitializeScreen}
-        options={{ headerShown: false, title: 'Interchao' }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name='SelectLanguage'

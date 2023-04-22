@@ -6,7 +6,7 @@ import { LinkText, SubmitButton } from '@/components/atoms';
 
 import { AuthStackParamList } from '@/navigations/AuthNavigator';
 import { fontSizeM, primaryColor } from '@/styles/Common';
-import { LogoVercitacl } from '@/images';
+import { Logo } from '@/images';
 import { logAnalytics, events } from '@/utils/Analytics';
 import I18n from '@/utils/I18n';
 
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   },
   img: {
     width: 200,
-    height: 254,
+    height: 200,
   },
   contaner: {
     flex: 1,
@@ -68,7 +68,7 @@ const InitializeScreen: React.FC<ScreenType> = ({ navigation }) => {
     <SafeAreaView style={styles.safeAreaView}>
       <View style={styles.contaner}>
         <View style={styles.imgContainer}>
-          <Image style={styles.img} source={LogoVercitacl} />
+          <Image style={styles.img} source={Logo} />
         </View>
         <View style={styles.footer}>
           <SubmitButton
