@@ -4,11 +4,9 @@ import {
 } from 'redux-thunk';
 import { LocalStatus } from './localStatus';
 import { User } from './user';
-import { User } from './user';
 import { DiaryListState } from '../stores/reducers/diaryList';
 import { TeachDiaryListState } from '../stores/reducers/teachDiaryList';
 import { SetUserAction } from '../stores/actions/user';
-import { SetProfileAction } from '../stores/actions/user';
 import {
   SetDiariesAction,
   AddDiariesAction,
@@ -36,7 +34,6 @@ export interface State {
   rootReducer: {
     localStatus: LocalStatus;
     user: User;
-    user: User;
     diaryList: DiaryListState;
     teachDiaryList: TeachDiaryListState;
   };
@@ -51,7 +48,6 @@ export type Actions =
   | SignInAction
   | SignOutAction
   | SetUserAction
-  | SetProfileAction
   | SetFetchInfoAction
   | SetDiariesAction
   | AddDiariesAction

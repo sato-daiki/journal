@@ -23,7 +23,6 @@ const mapStateToProps = (state: State, ownProps: OwnProps): Props => {
     error,
     diary,
     user,
-    user,
     localStatus,
   };
 };

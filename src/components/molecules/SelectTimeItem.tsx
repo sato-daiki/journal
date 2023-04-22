@@ -77,8 +77,6 @@ const SelectTimeItem = ({
     [day, handleTimeEnd],
   );
 
-  console.log('timeStart', timeStart);
-
   return (
     <View
       style={[styles.container, { borderTopWidth }, disable && styles.opacity]}

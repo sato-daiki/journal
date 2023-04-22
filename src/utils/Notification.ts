@@ -62,7 +62,6 @@ export const setPushotifications = async (
 ): Promise<string | null> => {
   // expoへの登録
   const expoPushToken = await getExpoPushToken();
-  console.log('expoPushToken', expoPushToken);
   if (expoPushToken) {
     // localStatusの方を使わないと初回登録時落ちる
     await registerForPushNotificationsAsync(uid, expoPushToken);

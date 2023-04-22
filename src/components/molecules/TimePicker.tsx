@@ -13,7 +13,6 @@ const TimePicker: React.FC<Props> = ({ date, onChange }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   const onPress = useCallback(() => {
-    console.log('onPress');
     setIsVisible(true);
   }, []);
 

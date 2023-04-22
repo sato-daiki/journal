@@ -27,14 +27,11 @@ export const useMyDiaryList = ({
   setDiaries,
   addDiaries,
   setDiaryTotalNum,
-  setUnreadCorrectionNum,
 }: Props) => {
   const [isInitialLoading, setIsInitialLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
 
   const loadNextPage = useCallback(async (): Promise<void> => {
-    console.log('loadNextPage');
-
     if (!fetchInfo.readingNext && !fetchInfo.readAllResults) {
       try {
         const hitsPerPage =

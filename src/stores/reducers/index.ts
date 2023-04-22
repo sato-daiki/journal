@@ -25,8 +25,8 @@ type State = CombinedState<{
 const rootPersistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['localStatus', 'user', 'user'],
-  blackList: ['diaryList', 'teachDiaryList'],
+  whitelist: ['localStatus', 'user'],
+  blackList: ['diaryList'],
   // これやらないとエラーで落ちる
   transforms: [JSOGTransform],
 };

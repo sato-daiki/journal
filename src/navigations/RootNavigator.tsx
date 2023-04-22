@@ -36,7 +36,7 @@ const RootNavigator: React.FC<Props & DispatchProps> = ({
 
   const initNavigation = useCallback(
     async (authUser: FirebaseUser | null): Promise<void> => {
-      console.log('initNavigation');
+      console.log('initNavigation', authUser);
       if (authUser) {
         const newUser = await getUser(authUser.uid);
         console.log('newUser', newUser);
@@ -53,7 +53,10 @@ const RootNavigator: React.FC<Props & DispatchProps> = ({
   );
 
   useEffect(() => {
+    console.log('useEffect');
     const authSubscriber = onAuthStateChanged(auth, initNavigation);
+    // console.log('authSubscriber', authSubscriber);
+
     return authSubscriber;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -64,9 +67,9 @@ const RootNavigator: React.FC<Props & DispatchProps> = ({
     console.log(
       `[renderScreen] isLoading:${localStatus.isLoading}, onboarding:${localStatus.onboarding}, uid:${localStatus.uid}`,
     );
-    // if (localStatus.isLoading) {
-    //   return <Stack.Screen name='Loading' component={LoadingScreen} />;
-    // }
+    if (localStatus.isLoading) {
+      return <Stack.Screen name='Loading' component={LoadingScreen} />;
+    }
     if (localStatus.uid !== null) {
       if (localStatus.onboarding === false) {
         return (

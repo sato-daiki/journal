@@ -73,7 +73,6 @@ const MyDiaryListScreen: React.FC<ScreenType> = ({
   diaryTotalNum,
   localStatus,
   deleteDiary,
-  editDiary,
   setUser,
   setDiaries,
   addDiaries,

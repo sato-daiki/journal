@@ -6,6 +6,5 @@ export interface LocalStatus {
   onboarding?: boolean | null;
   firstLogin: boolean;
   // localだけで持っている
-  myDiaryListView: MyDiaryListView;
   uid: string | null;
 }

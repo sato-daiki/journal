@@ -58,11 +58,6 @@ export const useReminderSelectTime = ({
       hour: number,
       minute: number,
     ) => {
-      console.log('which:', which);
-      console.log('weekday:', weekday);
-      console.log('hour:', hour);
-      console.log('minute:', minute);
-
       let title;
       let body;
 
@@ -195,7 +190,6 @@ export const useReminderSelectTime = ({
       timeInfo,
     };
 
-    console.log('reminder', timeInfo);
     await updateDoc(doc(db, 'users', user.uid), {
       reminder,
       updatedAt: serverTimestamp(),
