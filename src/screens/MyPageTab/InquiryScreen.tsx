@@ -100,7 +100,7 @@ const InquiryScreen: React.FC<ScreenType> = ({ navigation, user }) => {
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
-    const { currentUser } = auth;
+    const currentUser = auth.currentUser;
     if (currentUser && currentUser.email) {
       setEmail(currentUser.email);
     }
