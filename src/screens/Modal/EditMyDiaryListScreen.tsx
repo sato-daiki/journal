@@ -25,8 +25,7 @@ import { borderLightColor, fontSizeS, softRed } from '@/styles/Common';
 import Algolia from '@/utils/Algolia';
 import { alert } from '@/utils/ErrorAlert';
 import ModalConfirm from '@/components/organisms/ModalConfirm';
-import { deleteDoc, doc } from '@firebase/firestore';
-import { db } from '@/constants/firebase';
+import firestore from '@react-native-firebase/firestore';
 
 export interface Props {
   user: User;
@@ -149,7 +148,7 @@ const EditMyDiaryListScreen: React.FC<ScreenType> = ({
     if (checkedIds.current.length === 0) return;
     setIsLoading(true);
     checkedIds.current.forEach(async (id) => {
-      await deleteDoc(doc(db, 'diaries', id));
+      await firestore().collection('diaries').doc(id);
     });
     setIsLoading(false);
 

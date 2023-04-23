@@ -23,8 +23,7 @@ import { User, Diary } from '@/types';
 import { FetchInfoState } from '@/stores/reducers/diaryList';
 import { useFirstScreen } from './useFirstScreen';
 import { useMyDiaryList } from './useMyDiaryList';
-import { doc, deleteDoc } from 'firebase/firestore';
-import { db } from '@/constants/firebase';
+import firestore from '@react-native-firebase/firestore';
 
 export interface Props {
   user: User;
@@ -149,7 +148,7 @@ const MyDiaryListScreen: React.FC<ScreenType> = ({
     async (item: Diary, index: number) => {
       if (!item.objectID) return;
       setIsLoading(true);
-      await deleteDoc(doc(db, 'diaries', item.objectID));
+      await firestore().collection('diaries').doc(item.objectID).delete();
       deleteDiary(item.objectID);
       setDiaryTotalNum(diaryTotalNum - 1);
       if (elRefs.current[index]) {
@@ -187,6 +186,7 @@ const MyDiaryListScreen: React.FC<ScreenType> = ({
   }, [navigation]);
 
   const onPressRight = useCallback(() => {
+    console.log('onPressRight', localStatus.myDiaryListView);
     setMyDiaryListView(
       !localStatus.myDiaryListView || localStatus.myDiaryListView === 'list'
         ? 'calendar'

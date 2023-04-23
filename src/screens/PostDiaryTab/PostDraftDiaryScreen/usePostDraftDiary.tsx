@@ -13,14 +13,7 @@ import {
   PostDraftDiaryRouteProp,
 } from './interfaces';
 import { useCommon } from '../PostDiaryScreen/useCommont';
-import {
-  Timestamp,
-  runTransaction,
-  serverTimestamp,
-  doc,
-  updateDoc,
-} from '@firebase/firestore';
-import { db } from '@/constants/firebase';
+import firestore from '@react-native-firebase/firestore';
 import spellChecker from '@/utils/spellChecker';
 
 interface UsePostDraftDiary {
@@ -77,8 +70,8 @@ export const usePostDraftDiary = ({
         title,
         text,
         diaryStatus,
-        checkInfo,
-        updatedAt: serverTimestamp(),
+        checkInfo: checkInfo || null,
+        updatedAt: firestore.FieldValue.serverTimestamp(),
       };
     },
     [user, text, title],
@@ -92,7 +85,8 @@ export const usePostDraftDiary = ({
 
       setIsLoadingDraft(true);
       const diary = getDiary('draft');
-      await updateDoc(doc(db, `diaries`, item.objectID), diary);
+      const refDiary = firestore().doc(`diaries/${item.objectID}`);
+      await refDiary.update(diary);
       logAnalytics(events.CREATED_DIARY);
 
       // reduxを更新
@@ -154,34 +148,38 @@ export const usePostDraftDiary = ({
       );
     }
 
-    await runTransaction(db, async (transaction) => {
-      if (!item || !item.objectID) return;
-      transaction.update(doc(db, 'diaries', item.objectID), diary);
+    await firestore()
+      .runTransaction(async (transaction) => {
+        if (!item || !item.objectID) return;
+        const diaryRef = firestore().doc(`diaries/${item.objectID}`);
+        transaction.update(diaryRef, diary);
 
-      // 初回の場合はdiaryPostedを更新する
-      const updateUser = {
-        themeDiaries,
-        runningDays,
-        runningWeeks,
-        lastDiaryPostedAt: serverTimestamp(),
-        updatedAt: serverTimestamp(),
-      } as Pick<
-        User,
-        | 'themeDiaries'
-        | 'runningDays'
-        | 'runningWeeks'
-        | 'lastDiaryPostedAt'
-        | 'updatedAt'
-        | 'diaryPosted'
-      >;
-      if (!user.diaryPosted) {
-        updateUser.diaryPosted = true;
-      }
-      transaction.update(doc(db, 'users', user.uid), updateUser);
-    }).catch((err) => {
-      setIsLoadingPublish(false);
-      alert({ err });
-    });
+        // 初回の場合はdiaryPostedを更新する
+        const refUser = firestore().doc(`users/${user.uid}`);
+        const updateUser = {
+          themeDiaries,
+          runningDays,
+          runningWeeks,
+          lastDiaryPostedAt: firestore.FieldValue.serverTimestamp(),
+          updatedAt: firestore.FieldValue.serverTimestamp(),
+        } as Pick<
+          User,
+          | 'themeDiaries'
+          | 'runningDays'
+          | 'runningWeeks'
+          | 'lastDiaryPostedAt'
+          | 'updatedAt'
+          | 'diaryPosted'
+        >;
+        if (!user.diaryPosted) {
+          updateUser.diaryPosted = true;
+        }
+        transaction.update(refUser, updateUser);
+      })
+      .catch((err) => {
+        setIsLoadingPublish(false);
+        alert({ err });
+      });
     logAnalytics(events.CREATED_DIARY);
 
     // reduxを更新
@@ -190,7 +188,7 @@ export const usePostDraftDiary = ({
       title,
       text,
       diaryStatus: 'checked',
-      updatedAt: serverTimestamp(),
+      updatedAt: firestore.FieldValue.serverTimestamp(),
     });
 
     setUser({
@@ -198,7 +196,7 @@ export const usePostDraftDiary = ({
       themeDiaries,
       runningDays,
       runningWeeks,
-      lastDiaryPostedAt: Timestamp.now(),
+      lastDiaryPostedAt: firestore.Timestamp.now(),
       diaryPosted: true,
     });
     setIsLoadingPublish(false);

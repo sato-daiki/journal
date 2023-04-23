@@ -16,6 +16,11 @@ const localStatus = (state = initialState, action: Actions): LocalStatus => {
   switch (action.type) {
     case Types.SET_LOCAL_STATUS:
       return action.localStatus;
+    case Types.SET_MY_DIARY_LIST_VIEW:
+      return {
+        ...state,
+        myDiaryListView: action.myDiaryListView,
+      };
     case Types.RESTORE_UID:
       return {
         ...state,

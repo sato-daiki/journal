@@ -6,13 +6,7 @@ import { mainColor } from '@/styles/Common';
 import { getIsAfterDay } from '@/utils/common';
 import { User } from '@/types';
 import { Note } from '@/components/atoms';
-import {
-  Timestamp,
-  doc,
-  serverTimestamp,
-  updateDoc,
-} from '@firebase/firestore';
-import { db } from '@/constants/firebase';
+import firestore from '@react-native-firebase/firestore';
 
 interface Props {
   user: User;
@@ -38,13 +32,14 @@ const NotficationSetting = ({ user, setUser }: Props) => {
 
   const onPressClose = useCallback(async (): Promise<void> => {
     setVisible(false);
-    await updateDoc(doc(db, 'users', user.uid), {
-      lastModalNotficationSettingAt: serverTimestamp(),
-      updatedAt: serverTimestamp(),
+    await firestore().doc(`users/${user.uid}`).update({
+      lastModalNotficationSettingAt: firestore.FieldValue.serverTimestamp(),
+      updatedAt: firestore.FieldValue.serverTimestamp(),
     });
+
     setUser({
       ...user,
-      lastModalNotficationSettingAt: Timestamp.now(),
+      lastModalNotficationSettingAt: firestore.Timestamp.now(),
     });
   }, [setUser, user]);
 

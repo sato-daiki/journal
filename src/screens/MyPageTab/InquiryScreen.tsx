@@ -20,8 +20,8 @@ import {
   MyPageTabNavigationProp,
   MyPageTabStackParamList,
 } from '../../navigations/MyPageTabNavigator';
-import { auth, db } from '@/constants/firebase';
-import { addDoc, collection, serverTimestamp } from '@firebase/firestore';
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 import ModalConfirm from '@/components/organisms/ModalConfirm';
 
 export interface Props {
@@ -100,7 +100,7 @@ const InquiryScreen: React.FC<ScreenType> = ({ navigation, user }) => {
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
-    const currentUser = auth.currentUser;
+    const { currentUser } = auth();
     if (currentUser && currentUser.email) {
       setEmail(currentUser.email);
     }
@@ -136,11 +136,11 @@ const InquiryScreen: React.FC<ScreenType> = ({ navigation, user }) => {
       setIsSuccess(false);
 
       try {
-        await addDoc(collection(db, 'inquiries'), {
+        await firestore().collection('inquiries').add({
           uid: user.uid,
           email,
           message,
-          createdAt: serverTimestamp(),
+          createdAt: firestore.FieldValue.serverTimestamp(),
         });
 
         setIsLoading(false);

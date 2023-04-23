@@ -5,8 +5,7 @@ import { Reminder, ReminderType, TimeInfo } from '@/types';
 import { addDay } from '@/utils/time';
 import I18n from '@/utils/I18n';
 import { ReminderSelectTimeProps } from './ReminderSelectTime';
-import { doc, serverTimestamp, updateDoc } from '@firebase/firestore';
-import { db } from '@/constants/firebase';
+import firestore from '@react-native-firebase/firestore';
 
 type Props = Pick<
   ReminderSelectTimeProps,
@@ -190,11 +189,10 @@ export const useReminderSelectTime = ({
       timeInfo,
     };
 
-    await updateDoc(doc(db, 'users', user.uid), {
+    await firestore().doc(`users/${user.uid}`).update({
       reminder,
-      updatedAt: serverTimestamp(),
+      updatedAt: firestore.FieldValue.serverTimestamp(),
     });
-
     // スケジュールの登録
     await setNotification();
 

@@ -22,8 +22,7 @@ import {
 } from '../../navigations/MyPageTabNavigator';
 
 import { User } from '../../types';
-import { auth } from '@/constants/firebase';
-import { signOut as firebaseSignOut } from 'firebase/auth';
+import auth from '@react-native-firebase/auth';
 import ModalConfirm from '@/components/organisms/ModalConfirm';
 
 export interface Props {
@@ -81,13 +80,13 @@ const styles = StyleSheet.create({
  * 設定画面ページ
  */
 const SettingScreen: React.FC<ScreenType> = ({ navigation, user, signOut }) => {
-  const { currentUser } = auth;
+  const { currentUser } = auth();
   const [isModalError, setIsModalError] = useState(false);
 
   const onPressLogout = useCallback(async (): Promise<void> => {
     try {
       if (currentUser && currentUser.email) {
-        await firebaseSignOut(auth);
+        await auth().signOut();
       } else {
         setIsModalError(true);
         return;

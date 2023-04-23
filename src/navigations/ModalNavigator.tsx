@@ -163,7 +163,7 @@ export const ModalThemeGuideNavigator = () => {
   return (
     <ModalThemeGuideStack.Navigator
       initialRouteName='ThemeGuide'
-      // headerMode='none'
+      headerMode='none'
     >
       <ModalThemeGuideStack.Screen
         name='ThemeGuide'

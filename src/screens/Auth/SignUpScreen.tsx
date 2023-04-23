@@ -20,7 +20,6 @@ import {
   AuthNavigationProp,
   AuthStackParamList,
 } from '@/navigations/AuthNavigator';
-import { auth, db } from '@/constants/firebase';
 import { User } from '@/types';
 import {
   primaryColor,
@@ -36,12 +35,8 @@ import {
 } from '@/utils/common';
 import I18n from '@/utils/I18n';
 import { CompositeNavigationProp } from '@react-navigation/native';
-import {
-  createUserWithEmailAndPassword,
-  signInAnonymously,
-  User as FirebaseUser,
-} from 'firebase/auth';
-import { doc, serverTimestamp, setDoc } from '@firebase/firestore';
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
 export interface Props {
   user: User;
@@ -124,7 +119,7 @@ const SignUpScreen: React.FC<ScreenType> = ({
   }, []);
 
   const createUser = useCallback(
-    async (credentUser: FirebaseUser): Promise<void> => {
+    async (credentUser): Promise<void> => {
       const userInfo = {
         learnLanguage: user.learnLanguage,
         diaryPosted: false,
@@ -145,11 +140,11 @@ const SignUpScreen: React.FC<ScreenType> = ({
         lastModalAppSuggestionAt: null,
         lastModalNotficationSettingAt: null,
         lastWatchAdAt: null,
-        createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp(),
+        createdAt: firestore.FieldValue.serverTimestamp(),
+        updatedAt: firestore.FieldValue.serverTimestamp(),
       };
 
-      await setDoc(doc(db, 'users', credentUser.uid), userInfo);
+      firestore().doc(`users/${credentUser.uid}`).set(userInfo);
       signIn(credentUser.uid);
       setUser({ ...userInfo, uid: credentUser.uid });
       logAnalytics(events.CREATED_USER);
@@ -161,7 +156,7 @@ const SignUpScreen: React.FC<ScreenType> = ({
     setIsLoading(true);
     clearErrorMessage();
     try {
-      const credent = await signInAnonymously(auth);
+      const credent = await auth().signInAnonymously();
       if (credent.user) {
         createUser(credent.user);
       }
@@ -184,8 +179,7 @@ const SignUpScreen: React.FC<ScreenType> = ({
     setIsLoading(true);
     clearErrorMessage();
     try {
-      const credent = await createUserWithEmailAndPassword(
-        auth,
+      const credent = await auth().createUserWithEmailAndPassword(
         email,
         password,
       );

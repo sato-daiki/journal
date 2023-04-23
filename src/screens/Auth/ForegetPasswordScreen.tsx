@@ -19,8 +19,7 @@ import {
   MyPageTabStackParamList,
   MyPageTabNavigationProp,
 } from '@/navigations/MyPageTabNavigator';
-import { sendPasswordResetEmail } from 'firebase/auth';
-import { auth } from '@/constants/firebase';
+import auth from '@react-native-firebase/auth';
 
 type NavigationProp = CompositeNavigationProp<
   StackNavigationProp<MyPageTabStackParamList, 'ForegetPassword'>,
@@ -70,7 +69,7 @@ const ForegetPasswordScreen: React.FC<ScreenType> = ({ navigation }) => {
     clearErrorMessage();
     try {
       setIsLoading(true);
-      await sendPasswordResetEmail(auth, email);
+      await auth().sendPasswordResetEmail(email);
       setIsModal(true);
     } catch (err: any) {
       emailInputError(err, () => undefined, setErrorEmail, clearErrorMessage);

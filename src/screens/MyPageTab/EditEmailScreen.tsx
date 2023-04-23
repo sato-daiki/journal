@@ -16,12 +16,7 @@ import {
   MyPageTabStackParamList,
   MyPageTabNavigationProp,
 } from '../../navigations/MyPageTabNavigator';
-import { auth } from '@/constants/firebase';
-import {
-  EmailAuthProvider,
-  reauthenticateWithCredential,
-  updateEmail,
-} from 'firebase/auth';
+import auth from '@react-native-firebase/auth';
 
 type EditEmailNavigationProp = CompositeNavigationProp<
   StackNavigationProp<MyPageTabStackParamList, 'EditEmail'>,
@@ -73,15 +68,15 @@ const EditEmailScreen: React.FC<ScreenType> = ({ navigation }) => {
     const f = async (): Promise<void> => {
       clearErrorMessage();
       try {
-        const { currentUser } = auth;
+        const { currentUser } = auth();
         if (!currentUser || !currentUser.email) return;
-        const credential = EmailAuthProvider.credential(
+        const credential = auth.EmailAuthProvider.credential(
           currentUser.email,
           password,
         );
         setIsLoading(true);
-        await reauthenticateWithCredential(currentUser, credential);
-        await updateEmail(currentUser, email);
+        await currentUser.reauthenticateWithCredential(credential);
+        await currentUser.updateEmail(email);
         navigation.goBack();
       } catch (err: any) {
         emailInputError(

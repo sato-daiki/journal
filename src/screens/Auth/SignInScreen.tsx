@@ -12,7 +12,6 @@ import {
 } from '@/components/atoms';
 
 import { primaryColor, fontSizeM } from '@/styles/Common';
-import { signInWithEmailAndPassword } from 'firebase/auth';
 import { emailInputError, emailValidate } from '@/utils/common';
 import { logAnalytics, events } from '@/utils/Analytics';
 import I18n from '@/utils/I18n';
@@ -21,7 +20,7 @@ import {
   AuthStackParamList,
 } from '@/navigations/AuthNavigator';
 import { CompositeNavigationProp } from '@react-navigation/native';
-import { auth } from '@/constants/firebase';
+import auth from '@react-native-firebase/auth';
 
 export type NavigationProp = CompositeNavigationProp<
   StackNavigationProp<AuthStackParamList, 'SignIn'>,
@@ -81,7 +80,7 @@ const SignInScreen: React.FC<ScreenType> = ({ navigation }) => {
     setIsLoading(true);
     clearErrorMessage();
     try {
-      const credent = await signInWithEmailAndPassword(auth, email, password);
+      const credent = await auth().signInWithEmailAndPassword(email, password);
       if (credent.user) {
         logAnalytics(events.SIGN_IN);
       }

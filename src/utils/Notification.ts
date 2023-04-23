@@ -1,8 +1,7 @@
 import * as Notifications from 'expo-notifications';
 import Constants from 'expo-constants';
 import { Platform } from 'react-native';
-import { doc, serverTimestamp, updateDoc } from '@firebase/firestore';
-import { db } from '@/constants/firebase';
+import firestore from '@react-native-firebase/firestore';
 
 // アプリ起動中のPush通知設定
 // https://docs.expo.io/versions/latest/sdk/notifications/#handling-incoming-notifications-when-the-app-is
@@ -51,9 +50,9 @@ const registerForPushNotificationsAsync = async (
   uid: string,
   expoPushToken: string,
 ): Promise<void> => {
-  await updateDoc(doc(db, 'users', uid), {
+  await firestore().doc(`users/${uid}`).update({
     expoPushToken,
-    updatedAt: serverTimestamp(),
+    updatedAt: firestore.FieldValue.serverTimestamp(),
   });
 };
 

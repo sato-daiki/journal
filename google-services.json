@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "104706740871",
+    "project_id": "journal-prd",
+    "storage_bucket": "journal-prd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:104706740871:android:78fef41ada9724f9755e22",
+        "android_client_info": {
+          "package_name": "com.daiki123456.journal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "104706740871-4eu85sjhkvoamp71dgjdqe91vjjuuoqf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7LqQ3u8rFZvbpxaMAJlta2RFAE_iFxsM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "104706740871-4eu85sjhkvoamp71dgjdqe91vjjuuoqf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "104706740871-tj35coqs4uc0t0an6uoa5p48v81ktebl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.daiki123456.journal"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

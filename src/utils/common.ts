@@ -6,9 +6,7 @@ import * as Linking from 'expo-linking';
 import * as Sharing from 'expo-sharing';
 import I18n from './I18n';
 import { alert } from './ErrorAlert';
-import { Timestamp } from '@firebase/firestore';
-import { EmailAuthProvider, fetchSignInMethodsForEmail } from 'firebase/auth';
-import { auth } from '@/constants/firebase';
+import auth from '@react-native-firebase/auth';
 
 const url = 'https://interchao.app';
 
@@ -24,10 +22,10 @@ export const emailValidate = (email: string): boolean => {
 };
 
 export const emaillExistCheck = async (email: string): Promise<boolean> => {
-  const providers = await fetchSignInMethodsForEmail(auth, email);
+  const providers = await auth().fetchSignInMethodsForEmail(email);
   if (
     providers.findIndex(
-      (p) => p === EmailAuthProvider.EMAIL_PASSWORD_SIGN_IN_METHOD,
+      (p) => p === auth.EmailAuthProvider.EMAIL_PASSWORD_SIGN_IN_METHOD,
     ) !== -1
   ) {
     return true;
@@ -179,7 +177,7 @@ export const getEachOS = ({
 };
 
 // 何日前かをチェックする
-export const getIsAfterDay = (targetAt: Timestamp, days: number): boolean => {
+export const getIsAfterDay = (targetAt: any, days: number): boolean => {
   try {
     const dt = new Date();
     dt.setDate(dt.getDate() - days);

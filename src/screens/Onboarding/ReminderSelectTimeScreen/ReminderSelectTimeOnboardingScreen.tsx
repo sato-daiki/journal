@@ -5,8 +5,7 @@ import { User } from '@/types';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { LoadingModal } from '@/components/atoms';
 import { initCuctomTimeInfos, initFixDays, initFixTimeInfo } from './interface';
-import { doc, serverTimestamp, updateDoc } from '@firebase/firestore';
-import { db } from '@/constants/firebase';
+import firestore from '@react-native-firebase/firestore';
 
 export interface Props {
   user: User;
@@ -37,9 +36,9 @@ const ReminderSelectTimeOnboardingScreen: React.FC<ScreenType> = ({
   const afterSave = useCallback(async () => {
     if (isLoading) return;
     setIsLoading(true);
-    await updateDoc(doc(db, 'users', user.uid), {
+    await firestore().doc(`users/${user.uid}`).update({
       onboarding: true,
-      updatedAt: serverTimestamp(),
+      updatedAt: firestore.FieldValue.serverTimestamp(),
     });
     completedOnboarding();
     setIsLoading(false);

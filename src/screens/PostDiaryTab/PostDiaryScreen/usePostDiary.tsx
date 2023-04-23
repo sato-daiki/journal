@@ -13,15 +13,7 @@ import { ModalPostDiaryStackParamList } from '@/navigations/ModalNavigator';
 import { RouteProp } from '@react-navigation/native';
 import { PostDiaryNavigationProp } from './interfaces';
 import { useCommon } from './useCommont';
-import {
-  Timestamp,
-  doc,
-  serverTimestamp,
-  addDoc,
-  collection,
-  runTransaction,
-} from '@firebase/firestore';
-import { db } from '@/constants/firebase';
+import firestore from '@react-native-firebase/firestore';
 import spellChecker from '@/utils/spellChecker';
 
 interface UsePostDiary {
@@ -78,8 +70,8 @@ export const usePostDiary = ({
         themeSubcategory: themeSubcategory || null,
         diaryStatus,
         checkInfo: checkInfo || null,
-        createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp(),
+        createdAt: firestore.FieldValue.serverTimestamp(),
+        updatedAt: firestore.FieldValue.serverTimestamp(),
       };
     },
     [user, title, text, themeCategory, themeSubcategory],
@@ -91,8 +83,7 @@ export const usePostDiary = ({
     try {
       setIsLoadingDraft(true);
       const diary = getDiary(user.uid, 'draft');
-      const diaryRef = await addDoc(collection(db, 'diaries'), diary);
-
+      const diaryRef = await firestore().collection('diaries').add(diary);
       // reduxに追加
       addDiary({
         objectID: diaryRef.id,
@@ -142,46 +133,49 @@ export const usePostDiary = ({
     let themeDiaries = user.themeDiaries || null;
 
     // 日記の更新の整合性をとるためtransactionを使う
-    await runTransaction(db, async (transaction) => {
-      // diariesの更新
-      const refDiary = await addDoc(collection(db, 'diaries'), diary);
-      diaryId = refDiary.id;
-      transaction.set(refDiary, diary);
+    await firestore()
+      .runTransaction(async (transaction) => {
+        // diariesの更新
+        const refDiary = firestore().collection('diaries').doc();
+        diaryId = refDiary.id;
+        transaction.set(refDiary, diary);
 
-      // Usersの更新
-      if (themeCategory && themeSubcategory) {
-        themeDiaries = getThemeDiaries(
-          user.themeDiaries,
-          diaryId,
-          themeCategory,
-          themeSubcategory,
-        );
-      }
+        // Usersの更新
+        if (themeCategory && themeSubcategory) {
+          themeDiaries = getThemeDiaries(
+            user.themeDiaries,
+            diaryId,
+            themeCategory,
+            themeSubcategory,
+          );
+        }
+        const refUser = firestore().doc(`users/${user.uid}`);
 
-      // 初回の場合はdiaryPostedを更新する
-      const updateUser = {
-        themeDiaries: themeDiaries || null,
-        runningDays,
-        runningWeeks,
-        lastDiaryPostedAt: serverTimestamp(),
-        updatedAt: serverTimestamp(),
-      } as Pick<
-        User,
-        | 'themeDiaries'
-        | 'runningDays'
-        | 'runningWeeks'
-        | 'lastDiaryPostedAt'
-        | 'updatedAt'
-        | 'diaryPosted'
-      >;
-      if (!user.diaryPosted) {
-        updateUser.diaryPosted = true;
-      }
-      transaction.update(doc(db, 'users', user.uid), updateUser);
-    }).catch((err) => {
-      setIsLoadingPublish(false);
-      alert({ err });
-    });
+        // 初回の場合はdiaryPostedを更新する
+        const updateUser = {
+          themeDiaries: themeDiaries || null,
+          runningDays,
+          runningWeeks,
+          lastDiaryPostedAt: firestore.FieldValue.serverTimestamp(),
+          updatedAt: firestore.FieldValue.serverTimestamp(),
+        } as Pick<
+          User,
+          | 'themeDiaries'
+          | 'runningDays'
+          | 'runningWeeks'
+          | 'lastDiaryPostedAt'
+          | 'updatedAt'
+          | 'diaryPosted'
+        >;
+        if (!user.diaryPosted) {
+          updateUser.diaryPosted = true;
+        }
+        transaction.update(refUser, updateUser);
+      })
+      .catch((err) => {
+        setIsLoadingPublish(false);
+        alert({ err });
+      });
     logAnalytics(events.CREATED_DIARY);
     // reduxに追加
     addDiary({
@@ -193,7 +187,7 @@ export const usePostDiary = ({
       themeDiaries,
       runningDays,
       runningWeeks,
-      lastDiaryPostedAt: Timestamp.now(),
+      lastDiaryPostedAt: firestore.Timestamp.now(),
       diaryPosted: true,
     });
     setIsLoadingPublish(false);

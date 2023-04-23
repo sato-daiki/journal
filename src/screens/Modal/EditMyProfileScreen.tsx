@@ -11,8 +11,7 @@ import {
   ModalEditMyProfileStackNavigationProp,
   ModalEditMyProfileStackParamList,
 } from '@/navigations/ModalNavigator';
-import { doc, serverTimestamp, updateDoc } from '@firebase/firestore';
-import { db } from '@/constants/firebase';
+import firestore from '@react-native-firebase/firestore';
 import LanguageRadioboxes from '@/components/organisms/LanguageRadioboxes';
 import { fontSizeL, primaryColor } from '@/styles/Common';
 
@@ -63,10 +62,12 @@ const EditMyProfileScreen: React.FC<ScreenType> = ({
     if (isLoading) return;
 
     setIsLoading(true);
-    await updateDoc(doc(db, 'users', user.uid), {
+
+    await firestore().doc(`users/${user.uid}`).update({
       learnLanguage: learnLanguage,
-      updatedAt: serverTimestamp(),
+      updatedAt: firestore.FieldValue.serverTimestamp(),
     });
+
     setIsLoading(false);
     setUser({
       ...user,

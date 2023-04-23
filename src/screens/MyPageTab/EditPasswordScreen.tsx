@@ -15,12 +15,7 @@ import I18n from '@/utils/I18n';
 import { passwordInputError } from '@/utils/common';
 import { primaryColor, fontSizeM } from '@/styles/Common';
 import { MyPageTabStackParamList } from '@/navigations/MyPageTabNavigator';
-import { auth } from '@/constants/firebase';
-import {
-  EmailAuthProvider,
-  reauthenticateWithCredential,
-  updatePassword,
-} from 'firebase/auth';
+import auth from '@react-native-firebase/auth';
 
 type ScreenType = StackScreenProps<MyPageTabStackParamList, 'EditPassword'>;
 
@@ -61,15 +56,15 @@ const EditPasswordScreen: React.FC<ScreenType> = ({ navigation }) => {
   const onPressSubmit = useCallback(async (): Promise<void> => {
     clearErrorMessage();
     try {
-      const { currentUser } = auth;
+      const { currentUser } = auth();
       if (!currentUser || !currentUser.email) return;
-      const credential = EmailAuthProvider.credential(
+      const credential = auth.EmailAuthProvider.credential(
         currentUser.email,
         currentPassword,
       );
       setIsLoading(true);
-      await reauthenticateWithCredential(currentUser, credential);
-      await updatePassword(currentUser, newPassword);
+      await currentUser.reauthenticateWithCredential(credential);
+      await currentUser.updatePassword(newPassword);
       navigation.goBack();
     } catch (err: any) {
       passwordInputError(

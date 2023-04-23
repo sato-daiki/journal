@@ -1,7 +1,6 @@
 import moment, { DurationInputArg1, DurationInputArg2 } from 'moment';
 import 'moment/locale/ja';
 import I18n from '@/utils/I18n';
-import { Timestamp } from '@firebase/firestore';
 
 /** algoliaから取得した時とfirestoreから取得したときは方が異なるで別で関数を用意する */
 export const getAlgoliaDay = (timestamp: any, format = 'Y-M-D'): string => {
@@ -103,10 +102,7 @@ export const addDay = (
   return moment(day).add(num, unit).toDate();
 };
 
-export const checkHourDiff = (
-  date: Timestamp | null,
-  hour: number,
-): boolean => {
+export const checkHourDiff = (date: any | null, hour: number): boolean => {
   if (!date) return true;
   const dateTo = moment(new Date());
   const dateFrom = moment(date.toDate());
@@ -121,7 +117,7 @@ export const checkHourDiff = (
 };
 
 export const getActiveHour = (
-  date: Timestamp | null,
+  date: any | null,
   hour: number,
 ): string | null => {
   if (!date) return null;

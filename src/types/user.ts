@@ -1,4 +1,4 @@
-import { FieldValue, Timestamp } from '@firebase/firestore';
+import firestore from '@react-native-firebase/firestore';
 
 export type Language = 'en' | 'de' | 'es' | 'fr' | 'pt' | 'nl';
 export const languages: Language[] = ['en', 'de', 'es', 'fr', 'pt', 'nl'];

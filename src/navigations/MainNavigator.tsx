@@ -19,7 +19,6 @@ import {
   ModalEditMyProfileNavigator,
   ModalEditMyProfileStackParamList,
   ModalReviewStackParamList,
-  ModalAboutStackParamList,
   ModalRecordNavigator,
   ModalRecordStackParamList,
   ModalSelectDiaryTypeStackParamList,

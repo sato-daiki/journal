@@ -1,4 +1,3 @@
-import { FieldValue } from '@firebase/firestore';
 import { ThemeCategory, ThemeSubcategory } from './user';
 import { CheckInfo } from './checkInfo';
 
@@ -23,8 +22,8 @@ export interface Diary {
   fairCopyText?: string | null;
   diaryStatus: DiaryStatus;
   voiceUrl?: string | null;
-  publishedAt?: Timestamp | FieldValue;
+  publishedAt?: Timestamp | any;
   checkInfo: CheckInfo | null;
-  createdAt?: Timestamp | FieldValue;
-  updatedAt: Timestamp | FieldValue;
+  createdAt?: Timestamp | any;
+  updatedAt: Timestamp | any;
 }

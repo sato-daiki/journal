@@ -8,7 +8,6 @@ import {
   emailValidate,
   emaillExistCheck,
 } from '../../utils/common';
-import firebase from '../../constants/firebase';
 import { CheckTextInput } from '../../components/molecules';
 import { Space, SubmitButton, LoadingModal } from '../../components/atoms';
 import {
@@ -22,6 +21,7 @@ import {
   MyPageTabStackParamList,
   MyPageTabNavigationProp,
 } from '../../navigations/MyPageTabNavigator';
+import auth from '@react-native-firebase/auth';
 
 type RegisterEmailPasswordNavigationProp = CompositeNavigationProp<
   StackNavigationProp<MyPageTabStackParamList, 'RegisterEmailPassword'>,
@@ -83,7 +83,7 @@ const RegisterEmailPasswordScreen: React.FC<ScreenType> = ({ navigation }) => {
     const f = async (): Promise<void> => {
       clearErrorMessage();
       try {
-        const { currentUser } = firebase.auth();
+        const { currentUser } = auth();
         if (!currentUser) {
           return;
         }

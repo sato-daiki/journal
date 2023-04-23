@@ -7,8 +7,7 @@ import I18n from '@/utils/I18n';
 import { User } from '@/types';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { OnboardingStackParamList } from '@/navigations/OnboardingNavigator';
-import { doc, serverTimestamp, updateDoc } from '@firebase/firestore';
-import { db } from '@/constants/firebase';
+import firestore from '@react-native-firebase/firestore';
 
 export interface Props {
   user: User;
@@ -57,9 +56,9 @@ const ReminderInitialOnboardingScreen: React.FC<ScreenType> = ({
   }, [navigation]);
 
   const onPressSkip = useCallback(async () => {
-    await updateDoc(doc(db, `users`, user.uid), {
+    await firestore().doc(`users/${user.uid}`).update({
       onboarding: true,
-      updatedAt: serverTimestamp(),
+      updatedAt: firestore.FieldValue.serverTimestamp(),
     });
     completedOnboarding();
   }, [completedOnboarding, user.uid]);

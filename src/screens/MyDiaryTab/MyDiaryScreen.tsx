@@ -17,13 +17,7 @@ import {
   MyDiaryTabStackParamList,
 } from '@/navigations/MyDiaryTabNavigator';
 import I18n from '@/utils/I18n';
-import {
-  deleteDoc,
-  doc,
-  serverTimestamp,
-  updateDoc,
-} from '@firebase/firestore';
-import { db } from '@/constants/firebase';
+import firestore from '@react-native-firebase/firestore';
 import ModalConfirm from '@/components/organisms/ModalConfirm';
 
 export interface Props {
@@ -76,7 +70,7 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
   const onPressDelete = useCallback(async () => {
     if (!diary || !diary.objectID) return;
     setIsLoading(true);
-    await deleteDoc(doc(db, 'diaries', diary.objectID));
+    firestore().collection('diaries').doc(diary.objectID).delete();
     setIsModalDelete(false);
     // reduxの設定
     deleteDiary(diary.objectID);

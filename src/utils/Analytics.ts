@@ -1,9 +1,8 @@
-import { getAnalytics, logEvent } from 'firebase/analytics';
+import analytics from '@react-native-firebase/analytics';
 
 export const logAnalytics = async (eventName: string) => {
   console.log(eventName);
-  // const analytics = getAnalytics();
-  // logEvent(analytics, eventName);
+  analytics().logEvent(eventName);
 };
 
 export { default as events } from './events';

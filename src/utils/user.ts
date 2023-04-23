@@ -1,6 +1,5 @@
-import { db } from '@/constants/firebase';
 import { User } from '@/types';
-import { collection, doc, getDoc } from '@firebase/firestore';
+import firestore from '@react-native-firebase/firestore';
 
 const getTimeInfo = (timeInfo: any) => {
   if (timeInfo.reminderType === 'fix') {
@@ -28,9 +27,9 @@ const getTimeInfo = (timeInfo: any) => {
 // ユーザ情報取得
 export const getUser = async (uid: string): Promise<User | null> => {
   try {
-    const usersRef = collection(db, 'users');
-    const docSnap = await getDoc(doc(usersRef, uid));
-    const data = docSnap.data();
+    const doc = await firestore().collection('users').doc(uid).get();
+    const data = doc.data();
+    console.log('data', data);
     if (data) {
       return {
         ...data,

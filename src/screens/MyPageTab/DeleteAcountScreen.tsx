@@ -2,7 +2,6 @@ import React, { useCallback, useState } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
-import { auth } from '../../constants/firebase';
 import {
   subTextColor,
   fontSizeS,
@@ -20,7 +19,7 @@ import {
   MyPageTabStackParamList,
 } from '../../navigations/MyPageTabNavigator';
 import { Hoverable } from '../../components/atoms';
-import { EmailAuthProvider, reauthenticateWithCredential } from 'firebase/auth';
+import auth from '@react-native-firebase/auth';
 
 interface DispatchProps {
   signOut: () => void;
@@ -80,7 +79,7 @@ const DeleteAcountScreen: React.FC<ScreenType> = ({ signOut }) => {
   const onPressDelete1 = useCallback(() => {
     const f = async (): Promise<void> => {
       try {
-        const { currentUser } = auth;
+        const { currentUser } = auth();
         if (!currentUser) {
           signOut();
           return;
@@ -107,14 +106,14 @@ const DeleteAcountScreen: React.FC<ScreenType> = ({ signOut }) => {
   const onPressDelete2 = useCallback(() => {
     const f = async (): Promise<void> => {
       try {
-        const { currentUser } = auth;
+        const { currentUser } = auth();
         if (!currentUser || !currentUser.email) return;
-        const credential = EmailAuthProvider.credential(
+        const credential = auth.EmailAuthProvider.credential(
           currentUser.email,
           password,
         );
         setIsLoading(true);
-        await reauthenticateWithCredential(currentUser, credential);
+        await currentUser.reauthenticateWithCredential(credential);
         await currentUser.delete();
         signOut();
       } catch (err: any) {

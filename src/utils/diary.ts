@@ -4,15 +4,14 @@ import {
   ThemeDiary,
   ThemeCategory,
   ThemeSubcategory,
-  Word,
 } from '@/types';
 import { subTextColor, mainColor, green } from '@/styles/Common';
+import firestore from '@react-native-firebase/firestore';
 
 import { MarkedDates } from '@/components/organisms/MyDiaryList';
 import I18n from './I18n';
 import { getDateToStrDay, getLastMonday, getThisMonday } from './common';
 import { getAlgoliaDay } from './time';
-import { Timestamp } from '@firebase/firestore';
 
 export const getLanguage = (language: Language): string => {
   return I18n.t(`language.${language}`);
@@ -48,7 +47,7 @@ export const getThemeDiaries = (
         return {
           ...findThemeDiary,
           objectID,
-          updatedAt: Timestamp.now(),
+          updatedAt: firestore.Timestamp.now(),
         };
       }
       return themeDiary;
@@ -63,15 +62,15 @@ export const getThemeDiaries = (
       themeCategory,
       themeSubcategory,
       objectID,
-      updatedAt: Timestamp.now(),
-      createdAt: Timestamp.now(),
+      updatedAt: firestore.Timestamp.now(),
+      createdAt: firestore.Timestamp.now(),
     },
   ];
 };
 
 export const getRunningDays = (
   runningDays: number | undefined,
-  lastDiaryPostedAt: Timestamp | null | undefined,
+  lastDiaryPostedAt: any | null | undefined,
 ): number => {
   // 初投稿の場合
   if (!lastDiaryPostedAt || !runningDays) return 1;
@@ -100,7 +99,7 @@ export const getRunningDays = (
 
 export const getRunningWeeks = (
   runningWeeks: number | undefined,
-  lastDiaryPostedAt: Timestamp | null | undefined,
+  lastDiaryPostedAt: any | null | undefined,
 ): number => {
   // 初回の場合
   if (!lastDiaryPostedAt || !runningWeeks) return 1;
@@ -165,7 +164,7 @@ export const getMyDiaryStatus = (diaryStatus) => {
 export const getMarkedDates = (newDiaries: Diary[]): MarkedDates =>
   newDiaries.reduce((prev, d) => {
     if (!d.objectID) return prev;
-    const myDiaryStatus = getMyDiaryStatus(d);
+    const myDiaryStatus = getMyDiaryStatus(d.diaryStatus);
     const date = getAlgoliaDay(d.publishedAt || d.createdAt, 'YYYY-MM-DD');
     const params = {
       key: d.objectID,

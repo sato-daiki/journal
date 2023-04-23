@@ -28,8 +28,7 @@ import {
   subTextColor,
 } from '@/styles/Common';
 import { uploadStorageAsync } from '@/utils/storage';
-import { doc, serverTimestamp, updateDoc } from '@firebase/firestore';
-import { db } from '@/constants/firebase';
+import firestore from '@react-native-firebase/firestore';
 import ModalConfirm from '@/components/organisms/ModalConfirm';
 
 export type Props = {
@@ -463,11 +462,11 @@ export default class RecordScreen extends React.Component<ScreenType, State> {
     }
     const path = `voices/${user.uid}/${diary.objectID}`;
     const voiceUrl = await uploadStorageAsync(path, info.uri);
-
-    await updateDoc(doc(db, 'diaries', diary.objectID), {
-      voiceUrl: voiceUrl,
-      updatedAt: serverTimestamp(),
+    await firestore().doc(`diaries/${diary.objectID}`).update({
+      voiceUrl,
+      updatedAt: firestore.FieldValue.serverTimestamp(),
     });
+
     editDiary(diary.objectID, {
       ...diary,
       voiceUrl,
@@ -494,9 +493,9 @@ export default class RecordScreen extends React.Component<ScreenType, State> {
       this.sound = null;
     }
 
-    await updateDoc(doc(db, 'diaries', diary.objectID), {
+    await firestore().doc(`diaries/${diary.objectID}`).update({
       voiceUrl: null,
-      updatedAt: serverTimestamp(),
+      updatedAt: firestore.FieldValue.serverTimestamp(),
     });
     editDiary(diary.objectID, {
       ...diary,
