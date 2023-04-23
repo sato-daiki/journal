@@ -15,7 +15,6 @@ import { Diary, ThemeCategory, ThemeSubcategory } from '@/types';
 import PostDiaryScreenContainer from '@/containers/PostDiaryScreenContainer';
 import EditMyProfileScreenContainer from '@/containers/EditMyProfileScreenContainer';
 import PostDraftDiaryScreenContainer from '@/containers/PostDraftDiaryScreenContainer';
-import AboutScreen from '@/screens/MyPageTab/About';
 import RecordScreenContainer from '@/containers/RecordScreenContainer';
 import EditMyDiaryListScreenContainer from '@/containers/EditMyDiaryListScreenContainer';
 import SelectThemeSubcategoryScreenContainer from '@/containers/SelectThemeSubcategoryScreenContainer';
@@ -106,10 +105,6 @@ export type ModaRecordStackNavigationProp = StackNavigationProp<
   MainStackParamList,
   'ModalRecord'
 >;
-export type ModalAboutStackNavigationProp = StackNavigationProp<
-  MainStackParamList,
-  'ModalAbout'
->;
 
 const ModalEditMyDiaryListStack =
   createStackNavigator<ModalEditMyDiaryListStackParamList>();
@@ -121,13 +116,9 @@ const ModalPostDiaryStack =
   createStackNavigator<ModalPostDiaryStackParamList>();
 const ModalPostDraftDiaryStack =
   createStackNavigator<ModalPostDraftDiaryStackParamList>();
-const ModalReviewStack = createStackNavigator<ModalReviewStackParamList>();
 const ModalEditMyProfileStack =
   createStackNavigator<ModalEditMyProfileStackParamList>();
-const ModalCorrectingStack =
-  createStackNavigator<ModalCorrectingStackParamList>();
 const ModalRecordStack = createStackNavigator<ModalRecordStackParamList>();
-const ModalAboutStack = createStackNavigator<ModalAboutStackParamList>();
 
 export const ModalEditMyDiaryListNavigator = () => {
   return (
@@ -244,20 +235,5 @@ export const ModalRecordNavigator = () => {
         }}
       />
     </ModalRecordStack.Navigator>
-  );
-};
-
-export const ModalAboutNavigator = () => {
-  return (
-    <ModalAboutStack.Navigator initialRouteName='About'>
-      <ModalAboutStack.Screen
-        name='About'
-        component={AboutScreen}
-        options={{
-          ...DefaultNavigationOptions,
-          title: I18n.t('setting.about'),
-        }}
-      />
-    </ModalAboutStack.Navigator>
   );
 };

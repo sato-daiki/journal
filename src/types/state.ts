@@ -5,7 +5,6 @@ import {
 import { LocalStatus } from './localStatus';
 import { User } from './user';
 import { DiaryListState } from '../stores/reducers/diaryList';
-import { TeachDiaryListState } from '../stores/reducers/teachDiaryList';
 import { SetUserAction } from '../stores/actions/user';
 import {
   SetDiariesAction,
@@ -16,10 +15,6 @@ import {
   EditDiaryAction,
   DeleteDiaryAction,
 } from '../stores/actions/diaryList';
-import {
-  SetTeachDiariesAction,
-  EditTeachDiaryAction,
-} from '../stores/actions/teachDiaryList';
 import {
   SetLocalStatusAction,
   SetMyDiaryListViewAction,
@@ -34,7 +29,6 @@ export interface State {
     localStatus: LocalStatus;
     user: User;
     diaryList: DiaryListState;
-    teachDiaryList: TeachDiaryListState;
   };
 }
 
@@ -52,9 +46,7 @@ export type Actions =
   | SetDiaryTotalNumAction
   | AddDiaryAction
   | EditDiaryAction
-  | DeleteDiaryAction
-  | SetTeachDiariesAction
-  | EditTeachDiaryAction;
+  | DeleteDiaryAction;
 
 export type ThunkAction<R> = OrgThunkAction<R, State, undefined, Actions>;
 export type ThunkDispatch = OrgThunkDispatch<State, undefined, Actions>;

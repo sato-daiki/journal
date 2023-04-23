@@ -13,7 +13,5 @@ export const commonAlert = ({
   buttons,
   options,
 }: CommonAlertProps): void => {
-  if (Platform.OS !== 'web') {
-    Alert.alert(title, message, buttons, options);
-  }
+  Alert.alert(title, message, buttons, options);
 };

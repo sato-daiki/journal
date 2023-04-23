@@ -165,13 +165,6 @@ export const getConfig = ():
               },
             },
           },
-          ModalAbout: {
-            screens: {
-              About: {
-                path: 'about',
-              },
-            },
-          },
         },
       },
       Loading: {

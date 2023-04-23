@@ -180,22 +180,3 @@ export const getMarkedDates = (newDiaries: Diary[]): MarkedDates =>
       },
     };
   }, {});
-
-export const getWords = (text: string, matches: Match[]): Word[] => {
-  const w = text.split(' ');
-  let index = 0;
-  const words = w.map((item) => {
-    const checkedInfo = {
-      checked: false,
-      checkIndex: index++,
-      underline: 'warning',
-      ignore: false,
-    };
-
-    return {
-      text: item,
-      ...checkedInfo,
-    };
-  });
-  return words;
-};

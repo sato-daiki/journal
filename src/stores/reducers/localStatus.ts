@@ -4,12 +4,15 @@ import { LocalStatus } from '../../types';
 
 const initialState: LocalStatus = {
   isLoading: true,
-  uid: null,
   onboarding: null,
   firstLogin: false,
+  myDiaryListView: 'list',
+  uid: null,
 };
 
 const localStatus = (state = initialState, action: Actions): LocalStatus => {
+  console.log('localStatus', state, action);
+
   switch (action.type) {
     case Types.SET_LOCAL_STATUS:
       return action.localStatus;

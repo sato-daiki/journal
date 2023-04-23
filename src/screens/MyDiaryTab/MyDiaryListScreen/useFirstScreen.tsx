@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import * as Notifications from 'expo-notifications';
-import mobileAds from 'react-native-google-mobile-ads';
+// import mobileAds from 'react-native-google-mobile-ads';
 
 import { LocalStatus } from '@/types';
 import { setPushotifications } from '@/utils/Notification';
@@ -24,7 +24,7 @@ export const useFirstScreen = ({
   useEffect(() => {
     const f = async (): Promise<void> => {
       console.log('initialize');
-      await mobileAds().initialize();
+      // await mobileAds().initialize();
 
       console.log('useFirstScreen', localStatus.firstLogin, localStatus.uid);
       // 初回登録でskipした場合は入らないようにする

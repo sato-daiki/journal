@@ -46,71 +46,10 @@ const shortDay = {
   saturday: 'S',
 };
 
-// web
-const helmet = {
-  keyword: 'Japanese, study, correct, free, diary, entry, language exchange',
-  description:
-    'Interchao is a free, interactive language learning application for Japanese and English learners. Your journal entry will be read and marked by Japanese speakers. Let’s mark English diary as an English teacher as a return!',
-  ogTitle: 'Interchao - Japanese learning',
-  ogDescription:
-    'Interchao is a free, interactive language learning application for Japanese and English learners. Your journal entry will be read and marked by Japanese speakers. Let’s mark English diary as an English teacher as a return!',
-};
-
-const web = {
-  firstViewTitle: '“Speaking” starts from “Writing”',
-  firstViewSubTitle: 'Interactive language learning app',
-  firstViewStart: 'Join Interchao today.',
-  wahtTitle: 'What is Interchao?',
-  wahtText1:
-    'Interchao is a free, interactive language learning app for Japanese and English learners.',
-  wahtText2:
-    'Your journal entry will be read and marked by Japanese speakers. Let’s mark English journal entry as an English teacher as a return!',
-  whyTitle: 'Why is it necessary to write?',
-  whyText: 'Writing is the optimal language learning method',
-  whyCnatText1: '「最近調子はどうですか？」',
-  whyCnatText2: '「絶好調です。あなたは？」',
-  whyCnatText3:
-    '「元気です...(Oh no, I can’t keep the conversation going...)」',
-  reasonTitle1: 'You can’t speak more than what you can write',
-  reasonText11: 'You can’t talk what you cannot pen down.',
-  reasonText12: 'Writing is a training for speaking.',
-  reasonTitle2: 'Make your articles checked by Japanese speakers',
-  reasonText21:
-    'Since you have written down something, you want to know if there were mistakes.',
-  reasonText22:
-    'Are the words and grammar correct? Are you making sense? Let’s have your articles checked by Japanese speakers!',
-  reasonTitle3: 'Write in your own words',
-  reasonText31:
-    'Textbooks and scripts from movies are sometimes not applicable in our daily life.',
-  reasonText32:
-    'Through outputting something in your own words, you are able to learn in a practical way.',
-  correctTitle: 'Correct entries to get points',
-  correctText1:
-    'Mark a journal entry in English and get 10 points. Use the points for writing your own journal entry!',
-  exampleTitle: 'Example of a Correction',
-  exampleText: 'Take a look at an actual example.',
-  exampleDetailTitle1: 'Your Journal Entry',
-  exampleDetailText1: 'Hurry up and publish an entry.',
-  exampleDetailTitle2: 'Correction Results',
-  exampleDetailText2: 'The incorrect phrases or areas will be listed here.',
-  exampleDetailTitle3: 'General Comments on the Entry',
-  exampleDetailText3: '',
-  startTitle: 'Start by writing a journal entry for free',
-  startText:
-    'By registering for a free account, you can receive 30 pts (3 journal entry’s worth). Hurry and write a journal entry so you can have it corrected!',
-  operator: 'Operator',
-};
-
-const modalAppSuggestion = {
-  title: 'Interchao is better on the app',
-  text: 'Never miss an correction. Open this in the Interchao app to get the full experience',
-};
-
 // タブ
 const mainTab = {
   myDiary: 'My Entries',
   postDiary: Platform.OS === 'web' ? 'Write an Entry' : 'Write',
-  teachDiary: Platform.OS === 'web' ? 'Entries to Correct' : 'Correct',
   myPage: 'My Page',
 };
 
@@ -149,23 +88,6 @@ const errorMessage = {
   exceedingCharacter:
     'Exceeding maximum character count. Maximum number of characters:{{textLength}}',
   video: 'An error occurred during video playback',
-};
-
-const app = {
-  updateTitle: 'New version is available',
-  updateMessage: 'Please update this app to the newest version',
-  updateOk: 'Update',
-};
-
-// 各画面ごとの文字
-const correcting = {
-  headerTitle: 'Correct',
-  header: 'List of corrections by others',
-  deleteAlert:
-    'All of your corrections will be deleted. Would you like to proceed?',
-  titleDone: 'Publish',
-  nothing: 'No fix',
-  summary: 'Summary',
 };
 
 const deleteAcount = {
@@ -211,11 +133,6 @@ const editPassword = {
   newPassword: 'New Password (6 or more characters)',
 };
 
-const editUserName = {
-  headerTitle: 'Username',
-  userName: 'Username',
-};
-
 const foregetPassword = {
   headerTitle: 'Change Password',
   email: 'Email',
@@ -229,12 +146,6 @@ const initialize = {
   // 末尾にスペースを開ける
   acount: 'Have an account already? ',
   link: 'Login',
-};
-
-const inputUserName = {
-  headerTitle: 'Username Registration',
-  title: 'Please enter your username.',
-  subText: 'You can change your username at any time.',
 };
 
 const myDiary = {
@@ -264,10 +175,6 @@ const myDiaryList = {
     'Interchao app notifications are turned off. Let\'s turn on "Notification" from "Settings" so that you can check when the journal entries correction arrives.',
   emptyDiary: 'No Journal Entries',
   theme: 'Topic',
-};
-
-const myDiarySerch = {
-  placeholder: 'Search by title or keywords',
 };
 
 const myPage = {
@@ -344,13 +251,6 @@ const reviewList = {
   reviewList: 'List of Reviews',
 };
 
-const review = {
-  headerTitle: 'Review',
-  placeholder: 'Comment (Optional)',
-  confirmation:
-    'The draft of your review will be deleted. Would you like to proceed?',
-};
-
 const selectLanguage = {
   headerTitle: 'Language Selection',
   title: 'Please Choose a language to learn.',
@@ -389,41 +289,6 @@ const signUp = {
   password: 'Password (6 or more characters)',
 };
 
-const teachDiary = {
-  headerTitle: 'Entry',
-  start: 'Begin Corrections',
-};
-
-const teachDiaryList = {
-  headerTitle: 'Entries',
-  searchText: 'Search Entries',
-  diaryList: 'List of Entries in Languages ​​You Can Speak',
-  empty: 'There are no entries from other people.',
-};
-
-const teachDiarySerch = {
-  searchBar: 'Search by title or keywords',
-};
-
-const tutorialList = {
-  headerTitle: 'List of Tutorials',
-  postDiary: 'How to Write Entries',
-  points: 'About Points',
-};
-
-const notFound = {
-  text: 'The page you are looking for is not found',
-  link: 'Top',
-};
-
-const record = {
-  headerTitle: 'Recording',
-  confirmMessage: 'Are you sure you want to delete the recording?',
-  save: 'Save',
-  delete: 'Delete',
-  notSave: 'Audio for more than 2 minutes cannot be saved',
-};
-
 const userProfile = {
   headerTitle: 'User',
   moreRead: 'View All {{count}} Reviews',
@@ -438,24 +303,16 @@ const userProfile = {
   topReview: 'Top Reviews',
 };
 
-// atoms
-const commentCard = {
-  original: 'Original',
-  fix: 'Edit',
-  detail: 'Comment',
-  optional: 'Optional',
+const record = {
+  headerTitle: 'Recording',
+  confirmMessage: 'Are you sure you want to delete the recording?',
+  save: 'Save',
+  delete: 'Delete',
+  notSave: 'Audio for more than 2 minutes cannot be saved',
 };
 
 const firstDiary = {
   first: 'First entry',
-};
-
-const userPoints = {
-  points: 'Points',
-};
-
-const userPointsBig = {
-  points: 'Current Points',
 };
 
 //  molecules
@@ -463,24 +320,8 @@ const emptyDiary = {
   empty: 'You haven’t posted any journal entries.',
 };
 
-const emptyReview = {
-  empty: 'There are no reviews yet.',
-};
-
-const myDiaryCorrectionFooter = {
-  finText: 'This journal entry has been reviewed.',
-  title: 'Review the Correction',
-  promptText: 'Please leave a thank you and your appraisal of the correction.',
-};
-
 const profileLanguage = {
   learn: 'Learning',
-  native: 'Teaching',
-  spoken: 'Other Teaching',
-};
-
-const profileNationality = {
-  nationality: 'Nationality',
 };
 
 const inquiry = {
@@ -490,12 +331,6 @@ const inquiry = {
   title: 'Thank you for your inquiry.',
   thanks:
     'We will reply to you within a few days. Please kindly wait for a moment.',
-};
-
-// organisms
-const diaryHitList = {
-  empty: 'No journal entries matched your search.',
-  header: 'Search Results',
 };
 
 const emptyMyDiaryList = {
@@ -523,31 +358,6 @@ const modalAlertPublish = {
   good: "Thank you for posting.\nLet's do your best tomorrow too",
 };
 
-const modalBlock = {
-  blockedQuestion: 'Block {{userName}}?',
-  blockedSuccess: '{{userName}} Blocked',
-  unblockedQuestion: 'Unblock {{userName}}?',
-  unblockedSuccess: '{{userName}} Unblocked',
-  blockedMessage:
-    "They won't be able to find your user or journal entries on Interchao. Interchao won't let them know you blocked them",
-  unblockedMessage:
-    "They will now be able to see your user or journal entries on Interchao. Interchao won't let them know you unblocked them.",
-  blockedButton: 'Block',
-  unblockedButton: 'Unblock',
-  blockedEndMessage: 'You can unblock them anytime from their user.',
-  unblockedEndMessage: 'You can block them anytime from their user.',
-};
-
-const modalAdPointsGet = {
-  title: 'Earn points',
-  text: 'Thank you for watching the video. Earn {{getPoints}} points.',
-};
-
-const modalCorrectingDone = {
-  title: 'Complete Corrections',
-  text: 'Thank you for correcting the entry. You have received {{getPoints}} points.',
-};
-
 const modalDeleteAcount = {
   title: 'Delete Account',
   text: 'Please enter your password and tap the “Delete Account” button.',
@@ -560,50 +370,15 @@ const modalDiaryCancel = {
   button: 'Save as a Draft',
 };
 
-const modalLackPoint = {
-  title: 'Not Enough Points',
-  text: 'You don’t have enough points! 10 points are needed to publish an entry {{learnCharacters}} characters long. \n\nYou can earn 10 points by correcting a journal entry or watching video ads.\n\nDrafts can be saved without needing to use points.',
-  submit: 'Continue',
-  close: 'Look for Entries to Correct',
-  watchAd: 'Watch video ads',
-};
-
 const modalSendEmail = {
   title: 'Mail Sent',
   text: 'The email has been sent. Please click the link in the email to change your password.',
-};
-
-const modalStillCorrecting = {
-  text: 'Your corrections have been interrupted.',
-};
-
-const modalTimeUp = {
-  title: 'Time Up',
-  text: '30 minutes have passed, so the lock on corrections will be removed.',
-};
-
-const myDiaryCorrection = {
-  header: 'Correction Results',
-  hide: 'Hide',
-  show: 'Show',
 };
 
 const myDiaryListMenu = {
   myPage: 'My Page',
   draftList: 'List of Drafts',
   reviewList: 'List of Reviews',
-};
-
-const report = {
-  title: 'Report',
-  subTitle: 'Why are you reporting this account?',
-  description:
-    "We won't let them know if you take any of these actions. If someone is in immediate danger, call local emergency services. Don't wait.",
-  spam: "It's spam",
-  inappropriate: "It's inappropriate",
-  reportedTitle: 'Thanks for letting us know',
-  reportedDescription:
-    'Your feedback is important in helping us keep the Interchao community safe.',
 };
 
 const postDiaryComponent = {
@@ -620,44 +395,10 @@ const sns = {
   diary: 'Share your entry on SNS',
 };
 
-const teachDiaryCorrection = {
-  header: 'Correction Results',
-};
-
-const tutorialPoints = {
-  title: 'About Points',
-  buttonText: 'Begin',
-  text: 'A minimum of 10 points is needed to publish a journal entry. You can get 10+ points by making corrections. The number of points used and received is based on the language and character count.',
-};
-
-const tutorialTeachDiaryList = {
-  title: 'What is “Entries to Correct”?',
-  buttonText: 'Begin',
-  text1:
-    'This is a list of journal entries in the languages ​​you can speak. \n\nUp to 3 people can be corrected per journal entry. Please give priority to the journal entry whose status is ',
-  text2: '. If you correct it, you will get 10 points.',
-  // Not Yet Correctedはスペースを開けておく
-  textMainColor: ' Not Yet Corrected',
-};
-
-// util
-const cameraRoll = {
-  permitTitle: 'Access permission is needed.',
-  permitMessage:
-    'You must give Interchao permission to access your photo library.',
-  permitHowTo: 'How to Change Settings',
-};
-
 const myDiaryStatus = {
   draft: 'Draft',
   checked: 'Posted',
   fixed: 'Fixed',
-};
-
-const userDiaryStatus = {
-  yet: 'Not Yet Corrected',
-  correcting: 'Being Corrected',
-  done: '{{correctedNum}}/3 Corrected',
 };
 
 const language = {
@@ -873,25 +614,17 @@ const en = {
   common,
   day,
   shortDay,
-  web,
-  helmet,
-  modalAppSuggestion,
   errorMessage,
   mainTab,
-  app,
-  correcting,
   deleteAcount,
   draftDiary,
   editEmail,
   editMyProfile,
   editPassword,
-  editUserName,
   foregetPassword,
   initialize,
-  inputUserName,
   myDiary,
   myDiaryList,
-  myDiarySerch,
   myPage,
   onboarding,
   reminderInitial,
@@ -902,7 +635,6 @@ const en = {
   postDiary,
   postDraftDiary,
   registerEmailPassword,
-  review,
   reviewList,
   selectLanguage,
   selectDiaryType,
@@ -911,46 +643,21 @@ const en = {
   setting,
   signIn,
   signUp,
-  teachDiary,
-  teachDiaryList,
-  teachDiarySerch,
-  tutorialList,
   userProfile,
-  notFound,
   record,
-  commentCard,
   firstDiary,
-  userPoints,
-  userPointsBig,
   emptyDiary,
-  emptyReview,
-  myDiaryCorrectionFooter,
   profileLanguage,
-  profileNationality,
-  diaryHitList,
   emptyMyDiaryList,
   modalAlertCorrection,
   modalAlertPublish,
-  modalBlock,
-  modalAdPointsGet,
-  modalCorrectingDone,
   modalDeleteAcount,
   modalDiaryCancel,
-  modalLackPoint,
   modalSendEmail,
-  modalStillCorrecting,
-  modalTimeUp,
-  myDiaryCorrection,
   myDiaryListMenu,
-  report,
   postDiaryComponent,
   sns,
-  teachDiaryCorrection,
-  tutorialPoints,
-  tutorialTeachDiaryList,
-  cameraRoll,
   myDiaryStatus,
-  userDiaryStatus,
   language,
   inquiry,
   first,

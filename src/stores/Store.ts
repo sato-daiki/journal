@@ -1,5 +1,10 @@
 // global __DEV__
-import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
+import {
+  legacy_createStore,
+  compose,
+  applyMiddleware,
+  combineReducers,
+} from 'redux';
 import { persistStore } from 'redux-persist';
 import thunk from 'redux-thunk';
 import reduxLogger from 'redux-logger';
@@ -13,14 +18,13 @@ const middlewares = applyMiddleware(...logger, thunk);
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const initialState = {};
 
-export const store = createStore(
+export const store = legacy_createStore(
   reducer,
   initialState,
   composeEnhancers(middlewares),
 );
 
 export const configureStore = () => {
-  // @ts-ignore
   const persistor = persistStore(store);
   return { persistor, store };
 };

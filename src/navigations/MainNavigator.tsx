@@ -19,9 +19,6 @@ import {
   ModalEditMyProfileNavigator,
   ModalEditMyProfileStackParamList,
   ModalReviewStackParamList,
-  ModalCorrectingNavigator,
-  ModalCorrectingStackParamList,
-  ModalAboutNavigator,
   ModalAboutStackParamList,
   ModalRecordNavigator,
   ModalRecordStackParamList,
@@ -92,7 +89,6 @@ export type MainStackParamList = {
     screen: keyof ModalRecordStackParamList;
     params: { objectID: string };
   };
-  ModalAbout: { screen: keyof ModalAboutStackParamList };
   // NotFound: undefined;
 };
 
@@ -148,7 +144,6 @@ const MainNavigator = () => {
         name='ModalEditMyProfile'
         component={ModalEditMyProfileNavigator}
       />
-      <MainStack.Screen name='ModalAbout' component={ModalAboutNavigator} />
     </MainStack.Navigator>
   );
 };

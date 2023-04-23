@@ -44,68 +44,10 @@ const shortDay = {
   saturday: '土',
 };
 
-// web
-const helmet = {
-  keyword: '英語,日本語,語学学習,勉強,学習,日記,言語交換,添削,外国語',
-  description:
-    '日本語、英語を無料で勉強することができる相互学習アプリ。あなたが書いた日記を外国人にチェックしてもらえます。代わりにあなたは日本語の日記をチェックしてあげましょう',
-  ogTitle: 'Interchao（インターチャオ） - 英語の添削',
-  ogDescription:
-    '日本語、英語を無料で勉強することができる相互学習アプリ。あなたが書いた日記を外国人にチェックしてもらえます。代わりにあなたは日本語の日記をチェックしてあげましょう',
-};
-
-const web = {
-  firstViewTitle: '話す"は、"書く"から"',
-  firstViewSubTitle: '相互型の語学学習アプリ！毎日書いて英語力アップ！',
-  firstViewStart: 'Interchaoを始めよう',
-  wahtTitle: 'What is Interchao?',
-  wahtText1:
-    'Interchaoとは日本語、英語を無料で勉強することができる相互学習アプリ',
-  wahtText2:
-    'あなたが書いた日記を外国人にチェックしてもらえます。代わりにあなたは日本語の日記をしてチェックしてあげましょう',
-  whyTitle: '書くことが必要な理由',
-  whyText: '文章を書くことは語学学習において最適な方法です',
-  whyCnatText1: '「How are you?」',
-  whyCnatText2: "「I'm fine,thank you,and you?」",
-  whyCnatText3: "「I'm fine...(どうしよう、ここから会話が進まない)」",
-  reasonTitle1: '書けない文章は話せない',
-  reasonText11: '文章で書けないことを話すことはできません',
-  reasonText12: '書くことはスピーキングのトレーニングにもなります',
-  reasonTitle2: '外国人にみてもらう',
-  reasonText21: 'せっかく文章を書いても間違っているかもしれません',
-  reasonText22:
-    '文法/単語は正しいか？相手に意味が伝わるか？などを外国人にチェックしてもらいましょう',
-  reasonTitle3: '自分の言葉で書く',
-  reasonText31: '教科書や映画のセリフを勉強しても日常生活では使えません',
-  reasonText32:
-    'あなたの言葉をアウトプットすることにより、あなたが普段使う言葉を学習することができます',
-  correctTitle: '日記を添削してポイントGET！',
-  correctText1:
-    '日本語の日記を添削すると10ポイント貯まります。この10ポイントを使って日記を書こう！',
-  exampleTitle: '添削事例',
-  exampleText: '実際の添削事例をご紹介​',
-  exampleDetailTitle1: 'あなたが作成した日記​',
-  exampleDetailText1: '早速日記を投稿！​​',
-  exampleDetailTitle2: '添削結果',
-  exampleDetailText2: '間違った表現を箇所を指摘してもらいました',
-  exampleDetailTitle3: '日記の総評​​',
-  exampleDetailText3: '最後に総評をもらいました',
-  startTitle: 'さっそく始めてみよう',
-  startText:
-    'アプリインストールで30pt（3日記分）が貰えます。早速日記を書いて添削してもらおう！',
-  operator: '運営者',
-};
-
-const modalAppSuggestion = {
-  title: 'Interchaoアプリがおすすめ',
-  text: '届いた添削を見逃さない。Interchaoアプリで開くと全ての機能をより快適に使えます。',
-};
-
 // タブ
 const mainTab = {
   myDiary: 'マイ日記',
   postDiary: '日記を書く',
-  teachDiary: '添削する日記',
   myPage: 'マイページ',
 };
 
@@ -146,21 +88,6 @@ const errorMessage = {
   exceedingCharacter:
     '文字数オーバーです。{{textLength}}以下で投稿してください',
   video: '動画再生においてエラーが発生しました',
-};
-const app = {
-  updateTitle: '最新版が利用可能です',
-  updateMessage: 'アプリを最新版に更新してください',
-  updateOk: 'アプリを更新',
-};
-
-// 各画面ごとの文字
-const correcting = {
-  headerTitle: '添削する',
-  header: '他の人の添削一覧',
-  deleteAlert: '編集中の添削は全て削除されますが、よろしいでしょうか？',
-  titleDone: '投稿する',
-  nothing: '修正がありません',
-  summary: 'まとめ',
 };
 
 const deleteAcount = {
@@ -206,11 +133,6 @@ const editPassword = {
   newPassword: '新しいパスワード（６ケタ以上）',
 };
 
-const editUserName = {
-  headerTitle: 'ユーザーネーム',
-  userName: 'ユーザーネーム',
-};
-
 const foregetPassword = {
   headerTitle: 'パスワード再設定',
   email: 'メールアドレス',
@@ -222,12 +144,6 @@ const initialize = {
   start: 'はじめる',
   acount: 'アカウントをお持ちの方は',
   link: 'こちら',
-};
-
-const inputUserName = {
-  headerTitle: 'ユーザーネーム登録',
-  title: 'ユーザーネームを入力してください',
-  subText: 'このユーザーネームはいつでも変更できます',
 };
 
 const myDiary = {
@@ -256,10 +172,6 @@ const myDiaryList = {
     'Interchaoアプリの通知がオフになっています。日記の添削が届いた時にチェックできるように、『設定』から『通知』をオンにしましょう',
   emptyDiary: '日記がありません',
   theme: 'テーマ',
-};
-
-const myDiarySerch = {
-  placeholder: 'タイトルと本文で検索',
 };
 
 const myPage = {
@@ -337,12 +249,6 @@ const reviewList = {
   reviewList: 'レビュー一覧',
 };
 
-const review = {
-  headerTitle: 'レビューする',
-  placeholder: 'コメント （任意）',
-  confirmation: '編集中のレビューは全て削除されますが、よろしいでしょうか？',
-};
-
 const selectLanguage = {
   headerTitle: '言語の選択',
   title: '学習する言語を選択してください',
@@ -380,28 +286,6 @@ const signUp = {
   password: 'パスワード（６ケタ以上）',
 };
 
-const teachDiary = {
-  headerTitle: '日記',
-  start: '添削する',
-};
-
-const teachDiaryList = {
-  headerTitle: '日記一覧',
-  searchText: '日記を探す',
-  diaryList: 'あなたが話せる言語の日記一覧',
-  empty: '日記がありません',
-};
-
-const teachDiarySerch = {
-  searchBar: 'タイトルと本文で検索',
-};
-
-const tutorialList = {
-  headerTitle: 'チュートリアル一覧',
-  postDiary: '日記の書き方',
-  points: 'ポイントについて',
-};
-
 const userProfile = {
   headerTitle: 'プロフィール',
   moreRead: '{{count}}件のレビューを全部見る',
@@ -416,11 +300,6 @@ const userProfile = {
   topReview: 'トップレビュー',
 };
 
-const notFound = {
-  text: 'お探しのページは見つかりませんでした',
-  link: 'Topへ',
-};
-
 const record = {
   headerTitle: '録音',
   confirmMessage: '削除してよろしいでしょうか？',
@@ -429,24 +308,8 @@ const record = {
   notSave: '2分以上の音声は保存できません',
 };
 
-// atoms
-const commentCard = {
-  original: '原文',
-  fix: '修正文',
-  detail: 'コメント',
-  optional: '任意',
-};
-
 const firstDiary = {
   first: '初投稿',
-};
-
-const userPoints = {
-  points: 'ポイント',
-};
-
-const userPointsBig = {
-  points: '現在のポイント',
 };
 
 //  molecules
@@ -454,24 +317,8 @@ const emptyDiary = {
   empty: '日記がまだ投稿されていません。',
 };
 
-const emptyReview = {
-  empty: 'レビューはまだありません',
-};
-
-const myDiaryCorrectionFooter = {
-  finText: 'この日記はレビュー済みです',
-  title: '添削のレビューをする',
-  promptText: '添削のお礼とレビューをお願いします',
-};
-
 const profileLanguage = {
   learn: '勉強中の言語',
-  native: '話せる言語',
-  spoken: 'その他の話せる言語',
-};
-
-const profileNationality = {
-  nationality: '国籍',
 };
 
 const inquiry = {
@@ -480,12 +327,6 @@ const inquiry = {
   message: 'メッセージ',
   title: 'お問い合わせありがとうございます。',
   thanks: '確認次第すぐに返信いたいします。もうしばらくお待ちください',
-};
-
-// organisms
-const diaryHitList = {
-  empty: '検索条件の日記がありません',
-  header: '検索結果',
 };
 
 const emptyMyDiaryList = {
@@ -513,32 +354,6 @@ const modalAlertPublish = {
   good: '投稿おつかれさまです\n明日も頑張りましょう！',
 };
 
-const modalBlock = {
-  blockedQuestion: '{{userName}}をブロックしますか？',
-  blockedSuccess: '{{userName}}をブロックしました',
-  unblockedQuestion: '{{userName}}のブロックを解除しますか？',
-  unblockedSuccess: '{{userName}}のブロックを解除しました',
-  blockedMessage:
-    'ブロックした人はあなたのプロフィールや日記を見られなくなります。ブロックしたことは、相手に通知されません。',
-  unblockedMessage:
-    'ブロックを解除すると、この人はあなたのプロフィールや日記を見ることができるようになります。ブロックが解除されたことは、相手に通知されません。',
-  blockedButton: 'ブロックする',
-  unblockedButton: 'ブロックを解除',
-  blockedEndMessage:
-    'ブロックした相手のプロフィールから、いつでもブロックを解除できます。',
-  unblockedEndMessage: '相手のプロフィールからいつでもブロックができます。',
-};
-
-const modalAdPointsGet = {
-  title: 'ポイント獲得',
-  text: '動画視聴ありがとうございます。{{getPoints}}ポイント獲得。',
-};
-
-const modalCorrectingDone = {
-  title: '添削完了',
-  text: '添削ありがとうございます。{{getPoints}}ポイント獲得。',
-};
-
 const modalDeleteAcount = {
   title: '退会',
   text: 'パスワードを入力して"退会する"ボタンを押してください。',
@@ -550,50 +365,15 @@ const modalDiaryCancel = {
   button: '下書きとして保存',
 };
 
-const modalLackPoint = {
-  title: 'ポイント不足',
-  text: 'ポイントが足りません。日記を投稿するには{{learnCharacters}}文字ごとに10ポイントが必要です。\n\n日記を添削する、または、動画広告を見ると10ポイントが貰えます。下書き保存はポイントの消費なしでできます。',
-  submit: '続ける',
-  close: '添削する日記を探す',
-  watchAd: '動画広告を見る',
-};
-
 const modalSendEmail = {
   title: 'メール送信',
   text: 'メールを送信しました。メールのリンクからパスワードを再設定してください',
-};
-
-const modalStillCorrecting = {
-  text: '途中で添削が中断されました',
-};
-
-const modalTimeUp = {
-  title: 'タイムアップ',
-  text: '30分が経過したため、添削のロックを解除しました',
-};
-
-const myDiaryCorrection = {
-  header: '添削結果',
-  hide: '隠す',
-  show: '表示する',
 };
 
 const myDiaryListMenu = {
   myPage: 'マイページ',
   draftList: '下書き一覧',
   reviewList: 'レビュー一覧',
-};
-
-const report = {
-  title: '報告',
-  subTitle: 'このアカウントを報告する理由',
-  description:
-    'どのアクションを実行しても、相手に通知されることはありません。差し迫った危険に直面する人がいた場合は、今すぐ地域の警察または消防機関に緊急通報してください。',
-  spam: 'スパムである',
-  inappropriate: '不適切である',
-  reportedTitle: 'ご報告ありがとうございます',
-  reportedDescription:
-    'いただいた情報はInterchaoをより安全なものにするために役立たせていただきます。',
 };
 
 const postDiaryComponent = {
@@ -610,43 +390,10 @@ const sns = {
   diary: '日記をSNSでシェア',
 };
 
-const teachDiaryCorrection = {
-  header: '添削結果',
-};
-
-const tutorialPoints = {
-  title: 'ポイントについて',
-  buttonText: '始める',
-  text: '日記を投稿するには10ポイント〜が必要です。\nレビューをすると10ポイント〜を獲得できます。\n\n消費、獲得するポイントは文字数と言語により異なります。',
-};
-
-const tutorialTeachDiaryList = {
-  title: '添削する日記とは',
-  buttonText: '始める',
-  text1:
-    'あなたが話せる言語の日記一覧です。1つの日記につき最大3人まで添削が可能です。\n\nステータスが',
-  text2:
-    'の日記を優先的に添削お願いします。添削すると10ポイントが手に入ります。',
-  textMainColor: '未添削',
-};
-
-// util
-const cameraRoll = {
-  permitTitle: 'アクセス許可が必要です',
-  permitMessage: 'Interchaoにカメラロールのアクセス許可が必要です',
-  permitHowTo: '設定方法',
-};
-
 const myDiaryStatus = {
   draft: '下書き',
   checked: '投稿済',
   fixed: '修正済',
-};
-
-const userDiaryStatus = {
-  yet: '未添削',
-  correcting: '添削中',
-  done: '{{correctedNum}}/3 添削完了',
 };
 
 const language = {
@@ -859,25 +606,17 @@ const ja = {
   common,
   day,
   shortDay,
-  web,
-  helmet,
-  modalAppSuggestion,
   errorMessage,
   mainTab,
-  app,
-  correcting,
   deleteAcount,
   draftDiary,
   editEmail,
   editMyProfile,
   editPassword,
-  editUserName,
   foregetPassword,
   initialize,
-  inputUserName,
   myDiary,
   myDiaryList,
-  myDiarySerch,
   myPage,
   onboarding,
   reminderInitial,
@@ -888,57 +627,31 @@ const ja = {
   postDiary,
   postDraftDiary,
   registerEmailPassword,
-  review,
   reviewList,
   selectLanguage,
   selectDiaryType,
+  selectThemeSubcategory,
+  themeGuide,
   setting,
   signIn,
   signUp,
-  teachDiary,
-  teachDiaryList,
-  teachDiarySerch,
-  tutorialList,
   userProfile,
-  notFound,
   record,
-  commentCard,
   firstDiary,
-  userPoints,
-  userPointsBig,
   emptyDiary,
-  emptyReview,
-  myDiaryCorrectionFooter,
   profileLanguage,
-  profileNationality,
-  diaryHitList,
   emptyMyDiaryList,
   modalAlertCorrection,
   modalAlertPublish,
-  modalBlock,
-  modalAdPointsGet,
-  modalCorrectingDone,
   modalDeleteAcount,
   modalDiaryCancel,
-  modalLackPoint,
   modalSendEmail,
-  modalStillCorrecting,
-  modalTimeUp,
-  myDiaryCorrection,
   myDiaryListMenu,
-  report,
   postDiaryComponent,
   sns,
-  teachDiaryCorrection,
-  tutorialPoints,
-  tutorialTeachDiaryList,
-  cameraRoll,
   myDiaryStatus,
-  userDiaryStatus,
   language,
   inquiry,
-  selectThemeSubcategory,
-  themeGuide,
   first,
 };
 
