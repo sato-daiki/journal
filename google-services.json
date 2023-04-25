@@ -7,7 +7,7 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:104706740871:android:78fef41ada9724f9755e22",
+        "mobilesdk_app_id": "1:104706740871:android:eab2273a6f46e929755e22",
         "android_client_info": {
           "package_name": "app.daiki123456.langjournal"
         }
@@ -31,7 +31,7 @@
               "client_type": 3
             },
             {
-              "client_id": "104706740871-tj35coqs4uc0t0an6uoa5p48v81ktebl.apps.googleusercontent.com",
+              "client_id": "104706740871-74lbjcfmoe51v3o09cr1rgiemsf1krrv.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "app.daiki123456.langjournal"
