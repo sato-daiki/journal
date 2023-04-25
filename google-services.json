@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:104706740871:android:78fef41ada9724f9755e22",
         "android_client_info": {
-          "package_name": "com.daiki123456.journal"
+          "package_name": "app.daiki123456.langjournal"
         }
       },
       "oauth_client": [
@@ -34,7 +34,7 @@
               "client_id": "104706740871-tj35coqs4uc0t0an6uoa5p48v81ktebl.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.daiki123456.journal"
+                "bundle_id": "app.daiki123456.langjournal"
               }
             }
           ]

@@ -20,6 +20,11 @@
     "production": {}
   },
   "submit": {
-    "production": {}
+    "production": {
+      "android": {},
+      "ios": {
+        "appleId": "daiki0520daiki0520@yahoo.co.jp"
+      }
+    }
   }
 }
