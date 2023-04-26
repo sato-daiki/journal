@@ -2,13 +2,15 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { fontSizeS, subTextColor } from '../../styles/Common';
 import { getAlgoliaDate } from '../../utils/time';
-import { Diary, Match, User, Word } from '../../types';
+import { Diary, User } from '../../types';
 import I18n from '../../utils/I18n';
 import { DiaryTitleAndText, MyDiaryStatus } from '../molecules';
 
 interface Props {
   diary: Diary;
   user: User;
+  title: string;
+  text: string;
   activeIndex?: number | null;
   setActiveIndex?: (activeId: number | null) => void;
 }
@@ -38,9 +40,12 @@ const styles = StyleSheet.create({
 const DiaryOriginal: React.FC<Props> = ({
   diary,
   user,
+  title,
+  text,
   activeIndex,
   setActiveIndex,
 }) => {
+  console.log('diary', diary);
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -50,8 +55,12 @@ const DiaryOriginal: React.FC<Props> = ({
         <MyDiaryStatus diaryStatus={diary.diaryStatus} />
       </View>
       <DiaryTitleAndText
-        diary={diary}
+        themeCategory={diary.themeCategory}
+        themeSubcategory={diary.themeSubcategory}
+        title={title}
+        text={text}
         textLanguage={user.learnLanguage}
+        checkInfo={diary.checkInfo}
         activeIndex={activeIndex}
         setActiveIndex={setActiveIndex}
       />

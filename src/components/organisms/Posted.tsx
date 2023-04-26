@@ -73,6 +73,8 @@ const Posted: React.FC<Props> = ({ user, diary, editDiary }) => {
           <DiaryOriginal
             diary={diary}
             user={user}
+            title={diary.title}
+            text={diary.text}
             activeIndex={activeIndex}
             setActiveIndex={setActiveIndex}
           />

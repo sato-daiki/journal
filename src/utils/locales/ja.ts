@@ -149,7 +149,7 @@ const initialize = {
 const myDiary = {
   menuDelete: '削除する',
   confirmMessage: '本当に削除してよろしいでしょうか？',
-  posted: '投稿済',
+  posted: '原文',
   fairCopy: '清書',
   closeAlert: '保存されていない変更は失われます。閉じてよろしいですか？',
   permissionAudio:

@@ -1,15 +1,18 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { connectActionSheet } from '@expo/react-native-action-sheet';
+import {
+  connectActionSheet,
+  useActionSheet,
+} from '@expo/react-native-action-sheet';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
 import { TabView } from 'react-native-tab-view';
 import { Audio } from 'expo-av';
-
 import {
   LoadingModal,
   HeaderText,
   DefaultHeaderBack,
+  HeaderIcon,
 } from '@/components/atoms';
 import Posted from '@/components/organisms/Posted';
 
@@ -23,6 +26,7 @@ import firestore from '@react-native-firebase/firestore';
 import ModalConfirm from '@/components/organisms/ModalConfirm';
 import { MyDiaryTabBar } from '@/components/molecules';
 import FairCopy from '@/components/organisms/FairCopy';
+import FairCopyEdit from '@/components/organisms/FairCopyEdit';
 
 export interface Props {
   error: boolean;
@@ -65,11 +69,28 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
   deleteDiary,
   editDiary,
 }) => {
+  const initFairCopyTitle = useCallback((): string => {
+    if (diary === undefined) return '';
+    return diary.fairCopyTitle || diary.title;
+  }, [diary]);
+
+  const initFairCopyText = useCallback((): string => {
+    if (!diary) return '';
+    return diary.fairCopyText || diary.text;
+  }, [diary]);
+
+  const { showActionSheetWithOptions } = useActionSheet();
   const [isLoading, setIsLoading] = useState(false);
   const [isModalDelete, setIsModalDelete] = useState(false);
   const [isModalAlertAudio, setIsModalAlertAudio] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [isFirstEdit, setIsFirstEdit] = useState(false);
   const [isModalConfirmation, setIsModalConfirmation] = useState(false); // 閉じる押した時
+
+  const [fairCopyTitle, setFairCopyTitle] = useState<string>(
+    initFairCopyTitle(),
+  );
+  const [fairCopyText, setFairCopyText] = useState<string>(initFairCopyText());
 
   const [index, setIndex] = useState(0);
   const [routes] = useState([
@@ -101,6 +122,47 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
     navigation.goBack();
   }, [navigation]);
 
+  const onPressEdit = useCallback(() => {
+    setIsEditing(true);
+  }, []);
+
+  const showModalDelete = useCallback((i?: number) => {
+    switch (i) {
+      case 0:
+        setIsModalDelete(true);
+        break;
+      default:
+    }
+  }, []);
+
+  const onPressMore = useCallback(() => {
+    const options = [I18n.t('myDiary.menuDelete'), I18n.t('common.cancel')];
+    showActionSheetWithOptions(
+      {
+        options,
+        destructiveButtonIndex: 0,
+        cancelButtonIndex: 1,
+      },
+      showModalDelete,
+    );
+  }, [showActionSheetWithOptions, showModalDelete]);
+
+  const onPressSubmit = useCallback(async (): Promise<void> => {
+    if (!diary || !diary.objectID || isLoading) return;
+
+    setIsLoading(true);
+
+    await firestore().doc(`diaries/${diary.objectID}`).update({
+      fairCopyTitle,
+      fairCopyText,
+      updatedAt: firestore.FieldValue.serverTimestamp(),
+    });
+
+    editDiary(diary.objectID, { ...diary, fairCopyTitle, fairCopyText });
+    setIsLoading(false);
+    setIsEditing(false);
+  }, [diary, editDiary, fairCopyText, fairCopyTitle, isLoading]);
+
   const headerLeft = useCallback(
     () =>
       !isEditing ? (
@@ -111,12 +173,37 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
     [isEditing, onPressBack, onPressClose],
   );
 
+  const headerRight = useCallback(() => {
+    if (!isEditing) {
+      if (index === 0) {
+        return (
+          <HeaderIcon
+            icon='community'
+            name='dots-horizontal'
+            onPress={onPressMore}
+          />
+        );
+      }
+      if (index === 1) {
+        return (
+          <HeaderText text={I18n.t('common.edit')} onPress={onPressEdit} />
+        );
+      }
+      return <View />;
+    }
+    if (!isFirstEdit || index === 0) {
+      return null;
+    }
+    return <HeaderText text={I18n.t('common.done')} onPress={onPressSubmit} />;
+  }, [index, isEditing, isFirstEdit, onPressEdit, onPressMore, onPressSubmit]);
+
   useEffect(() => {
     navigation.setOptions({
       title: diary ? diary.title : '',
       headerLeft,
+      headerRight,
     });
-  }, [diary, headerLeft, navigation]);
+  }, [diary, headerLeft, headerRight, navigation]);
 
   const onPressCloseModalDelete = useCallback(() => {
     setIsModalDelete(false);
@@ -132,6 +219,10 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
 
   const onIndexChange = useCallback((i: number) => {
     setIndex(i);
+  }, []);
+
+  const onFocusFairCopyEdit = useCallback(() => {
+    setIsFirstEdit(true);
   }, []);
 
   const checkPermissions = useCallback(async (): Promise<boolean> => {
@@ -172,13 +263,29 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
               checkPermissions={checkPermissions}
             />
           ) : (
-            <Posted user={user} diary={diary} editDiary={editDiary} />
+            <FairCopyEdit
+              title={fairCopyTitle}
+              text={fairCopyText}
+              onChangeTextTitle={setFairCopyTitle}
+              onChangeTextText={setFairCopyText}
+              onFocus={onFocusFairCopyEdit}
+            />
           );
         default:
           return null;
       }
     },
-    [checkPermissions, diary, editDiary, goToRecord, isEditing, user],
+    [
+      checkPermissions,
+      diary,
+      editDiary,
+      fairCopyText,
+      fairCopyTitle,
+      goToRecord,
+      isEditing,
+      onFocusFairCopyEdit,
+      user,
+    ],
   );
 
   const renderTabBar = useCallback((props) => {

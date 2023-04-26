@@ -244,7 +244,12 @@ const FairCopy: React.FC<Props> = ({
           ref={viewShotRef}
           options={{ format: 'jpg', quality: 0.9 }}
         >
-          <DiaryOriginal diary={diary} user={user} />
+          <DiaryOriginal
+            diary={diary}
+            user={user}
+            title={diary.fairCopyTitle || diary.title}
+            text={diary.fairCopyText || diary.text}
+          />
         </ViewShot>
         <Space size={24} />
         <GrayHeader
