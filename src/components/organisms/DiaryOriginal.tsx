@@ -66,7 +66,7 @@ const DiaryOriginal: React.FC<Props> = ({
       />
       <Text style={styles.textLength}>
         {I18n.t('postDiaryComponent.textLength')}
-        {` ${diary.text.length}`}
+        {` ${text.length}`}
       </Text>
     </View>
   );
