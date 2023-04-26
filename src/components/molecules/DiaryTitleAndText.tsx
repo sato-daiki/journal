@@ -10,8 +10,8 @@ import Words from './Words';
 interface Props {
   textLanguage: Language;
   diary: Diary;
-  activeIndex: number | null;
-  setActiveIndex: (activeIndex: number | null) => void;
+  activeIndex?: number | null;
+  setActiveIndex?: (activeIndex: number | null) => void;
 }
 
 const styles = StyleSheet.create({

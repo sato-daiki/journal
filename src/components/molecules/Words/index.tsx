@@ -6,8 +6,8 @@ import StyledWord from './StyledWord';
 type Props = {
   text: string;
   matches: Match[];
-  activeIndex: number | null;
-  setActiveIndex: (activeIndex: number | null) => void;
+  activeIndex?: number | null;
+  setActiveIndex?: (activeIndex: number | null) => void;
 };
 
 const Words: React.FC<Props> = ({
@@ -18,13 +18,13 @@ const Words: React.FC<Props> = ({
 }) => {
   const onPressChecked = useCallback(
     (id) => {
-      setActiveIndex(id);
+      setActiveIndex && setActiveIndex(id);
     },
     [setActiveIndex],
   );
 
   const onPressUnChecked = useCallback(() => {
-    setActiveIndex(null);
+    setActiveIndex && setActiveIndex(null);
   }, [setActiveIndex]);
 
   const words = useMemo(() => {

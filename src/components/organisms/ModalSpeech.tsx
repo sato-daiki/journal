@@ -1,5 +1,12 @@
 import React, { useCallback, useState } from 'react';
-import { View, StyleSheet, Text, ScrollView, Switch, Platform } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  ScrollView,
+  Switch,
+  Platform,
+} from 'react-native';
 import * as Speech from 'expo-speech';
 import { Language } from '@/types';
 import I18n from '@/utils/I18n';
@@ -39,7 +46,12 @@ interface Props {
   onClose: () => void;
 }
 
-const ModalSpeech: React.FC<Props> = ({ visible, text, textLanguage, onClose }: Props) => {
+const ModalSpeech: React.FC<Props> = ({
+  visible,
+  text,
+  textLanguage,
+  onClose,
+}: Props) => {
   const [isSlow, setIsSlow] = useState(false);
 
   // 再生中のアイコンを制御
@@ -71,6 +83,7 @@ const ModalSpeech: React.FC<Props> = ({ visible, text, textLanguage, onClose }: 
   }, [onClose]);
 
   const onPressSpeak = useCallback((): void => {
+    console.log('onPressSpeak', initial);
     if (initial) {
       onSpeak();
     } else {

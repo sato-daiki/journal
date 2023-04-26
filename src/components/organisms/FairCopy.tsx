@@ -22,9 +22,8 @@ import I18n from '../../utils/I18n';
 export interface Props {
   diary: Diary;
   user: User;
-  goToRecord: () => void;
-  goToRecommend: () => void;
   checkPermissions: () => Promise<boolean>;
+  goToRecord: () => void;
 }
 
 const styles = StyleSheet.create({
@@ -56,9 +55,8 @@ const styles = StyleSheet.create({
 const FairCopy: React.FC<Props> = ({
   diary,
   user,
-  goToRecord,
-  goToRecommend,
   checkPermissions,
+  goToRecord,
 }) => {
   const [visibleSpeech, setVisibleSpeech] = useState(false);
   const [visibleVoice, setVisibleVoice] = useState(false);
@@ -186,16 +184,6 @@ const FairCopy: React.FC<Props> = ({
     setIsInitialLoading(false);
   }, [checkPermissions, diary.voiceUrl, updateScreenForSoundStatus]);
 
-  const onPressShare = useCallback(async (): Promise<void> => {
-    if (viewShotRef?.current?.capture) {
-      const imageUrl = await viewShotRef.current.capture();
-      diaryShare(imageUrl);
-      return;
-    }
-
-    appShare();
-  }, []);
-
   const iconHeader = useMemo(
     () => (
       <MaterialCommunityIcons
@@ -256,12 +244,7 @@ const FairCopy: React.FC<Props> = ({
           ref={viewShotRef}
           options={{ format: 'jpg', quality: 0.9 }}
         >
-          <DiaryOriginal
-            diary={diary}
-            user={user}
-            title={diary.fairCopyTitle || diary.title}
-            text={diary.fairCopyText || diary.text}
-          />
+          <DiaryOriginal diary={diary} user={user} />
         </ViewShot>
         <Space size={24} />
         <GrayHeader
@@ -284,22 +267,11 @@ const FairCopy: React.FC<Props> = ({
           title={I18n.t('myDiary.machine')}
           onPress={(): void => setVisibleSpeech(true)}
         />
-
         <WhiteButton
           containerStyle={styles.button}
           title={I18n.t('myDiary.record')}
           icon={iconRecord}
           onPress={goToRecord}
-        />
-        <Space size={32} />
-        <View style={styles.button}>
-          <ShareButton onPressShare={onPressShare} />
-        </View>
-        <Space size={48} />
-        <LinkText
-          containerStyle={styles.linkText}
-          onPress={goToRecommend}
-          text={I18n.t('myDiary.recommend')}
         />
         <Space size={32} />
       </ScrollView>

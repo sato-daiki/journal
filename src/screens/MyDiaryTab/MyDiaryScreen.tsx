@@ -3,6 +3,8 @@ import { StyleSheet, View } from 'react-native';
 import { connectActionSheet } from '@expo/react-native-action-sheet';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
+import { TabView } from 'react-native-tab-view';
+import { Audio } from 'expo-av';
 
 import {
   LoadingModal,
@@ -19,6 +21,8 @@ import {
 import I18n from '@/utils/I18n';
 import firestore from '@react-native-firebase/firestore';
 import ModalConfirm from '@/components/organisms/ModalConfirm';
+import { MyDiaryTabBar } from '@/components/molecules';
+import FairCopy from '@/components/organisms/FairCopy';
 
 export interface Props {
   error: boolean;
@@ -66,6 +70,12 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
   const [isModalAlertAudio, setIsModalAlertAudio] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [isModalConfirmation, setIsModalConfirmation] = useState(false); // 閉じる押した時
+
+  const [index, setIndex] = useState(0);
+  const [routes] = useState([
+    { key: 'posted', title: I18n.t('myDiary.posted') },
+    { key: 'fairCopy', title: I18n.t('myDiary.fairCopy') },
+  ]);
 
   const onPressDelete = useCallback(async () => {
     if (!diary || !diary.objectID) return;
@@ -120,6 +130,61 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
     setIsModalAlertAudio(false);
   }, []);
 
+  const onIndexChange = useCallback((i: number) => {
+    setIndex(i);
+  }, []);
+
+  const checkPermissions = useCallback(async (): Promise<boolean> => {
+    const { status } = await Audio.requestPermissionsAsync();
+
+    if (status !== 'granted') {
+      setIsModalAlertAudio(true);
+      setIsLoading(false);
+      return false;
+    }
+    return true;
+  }, []);
+
+  const goToRecord = useCallback(async (): Promise<void> => {
+    if (!diary || !diary.objectID) return;
+
+    const res = await checkPermissions();
+    if (!res) return;
+
+    navigation.navigate('ModalRecord', {
+      screen: 'Record',
+      params: { objectID: diary.objectID },
+    });
+  }, [checkPermissions, diary, navigation]);
+
+  const renderScene = useCallback(
+    ({ route }) => {
+      if (!diary) return null;
+      switch (route.key) {
+        case 'posted':
+          return <Posted user={user} diary={diary} editDiary={editDiary} />;
+        case 'fairCopy':
+          return !isEditing ? (
+            <FairCopy
+              user={user}
+              diary={diary}
+              goToRecord={goToRecord}
+              checkPermissions={checkPermissions}
+            />
+          ) : (
+            <Posted user={user} diary={diary} editDiary={editDiary} />
+          );
+        default:
+          return null;
+      }
+    },
+    [checkPermissions, diary, editDiary, goToRecord, isEditing, user],
+  );
+
+  const renderTabBar = useCallback((props) => {
+    return <MyDiaryTabBar {...props} />;
+  }, []);
+
   if (!diary) {
     return null;
   }
@@ -152,7 +217,13 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
         onPressMain={onPressCloseModalAlertAudio}
         onPressClose={onPressCloseModalAlertAudio}
       />
-      <Posted user={user} diary={diary} editDiary={editDiary} />
+      <TabView
+        renderTabBar={renderTabBar}
+        navigationState={{ index, routes }}
+        renderScene={renderScene}
+        onIndexChange={onIndexChange}
+        // initialLayout={initialLayout}
+      />
     </View>
   );
 };

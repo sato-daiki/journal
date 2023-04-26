@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, ScrollView, SafeAreaView } from 'react-native';
 import Slider from '@react-native-community/slider';
 import { Audio, AVPlaybackStatus } from 'expo-av';
 import * as FileSystem from 'expo-file-system';
-import * as Font from 'expo-font';
 import { CompositeNavigationProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import {
@@ -276,6 +275,7 @@ export default class RecordScreen extends React.Component<ScreenType, State> {
   };
 
   private stopPlaybackAndBeginRecording = async (): Promise<void> => {
+    console.log('stopPlaybackAndBeginRecording');
     this.setState({
       isLoading: true,
     });
@@ -284,8 +284,11 @@ export default class RecordScreen extends React.Component<ScreenType, State> {
       this.sound.setOnPlaybackStatusUpdate(null);
       this.sound = null;
     }
+    await Audio.requestPermissionsAsync();
+
     await Audio.setAudioModeAsync({
-      allowsRecordingIOS: false,
+      allowsRecordingIOS: true,
+      playsInSilentModeIOS: true,
     });
 
     if (this.recording !== null) {
@@ -333,7 +336,7 @@ export default class RecordScreen extends React.Component<ScreenType, State> {
     const info = await FileSystem.getInfoAsync(this.recording.getURI() || '');
     console.log(`FILE INFO: ${JSON.stringify(info)}`);
     await Audio.setAudioModeAsync({
-      allowsRecordingIOS: false,
+      allowsRecordingIOS: true,
       playsInSilentModeIOS: true,
     });
     const { sound } = await this.recording.createNewLoadedSoundAsync(
@@ -372,6 +375,7 @@ export default class RecordScreen extends React.Component<ScreenType, State> {
         if (this.getSeekSliderPosition() === 1) {
           await this.sound.stopAsync();
         }
+        console.log('playAsync');
         this.sound.playAsync();
       }
     }
@@ -574,11 +578,8 @@ export default class RecordScreen extends React.Component<ScreenType, State> {
         <View style={styles.container}>
           <ScrollView style={styles.scrollView}>
             <DiaryTitleAndText
+              diary={diary}
               textLanguage={user.learnLanguage}
-              title={diary.fairCopyTitle || diary.title}
-              text={diary.fairCopyText || diary.text}
-              themeCategory={diary.themeCategory}
-              themeSubcategory={diary.themeSubcategory}
             />
           </ScrollView>
           {this.sound ? (

@@ -9,8 +9,8 @@ import { DiaryTitleAndText, MyDiaryStatus } from '../molecules';
 interface Props {
   diary: Diary;
   user: User;
-  activeIndex: number | null;
-  setActiveIndex: (activeId: number | null) => void;
+  activeIndex?: number | null;
+  setActiveIndex?: (activeId: number | null) => void;
 }
 
 const styles = StyleSheet.create({
