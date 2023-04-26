@@ -206,6 +206,7 @@ export const usePostDiary = ({
       screen: 'MyDiaryTab',
       params: {
         screen: 'MyDiary',
+        // @ts-ignore
         params: { objectID: diaryId },
       },
     });

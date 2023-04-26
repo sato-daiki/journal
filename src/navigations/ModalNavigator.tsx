@@ -178,6 +178,7 @@ export const ModalPostDiaryNavigator = () => {
     <ModalPostDiaryStack.Navigator initialRouteName='PostDiary'>
       <ModalPostDiaryStack.Screen
         name='PostDiary'
+        // @ts-ignore
         component={PostDiaryScreenContainer}
       />
     </ModalPostDiaryStack.Navigator>

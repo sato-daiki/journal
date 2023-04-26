@@ -48,6 +48,7 @@ const HomeBottomTabNavigator = () => {
       />
       <HomeBottom.Screen
         name='PostDiaryTab'
+        // @ts-ignore
         component={PostDiaryScreenContainer}
         options={{
           tabBarLabel: I18n.t('mainTab.postDiary'),

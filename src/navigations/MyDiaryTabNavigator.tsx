@@ -48,6 +48,7 @@ const MyDiaryTabNavigator = () => {
       />
       <MyDiaryTabStack.Screen
         name='MyDiary'
+        // @ts-ignore
         component={MyDiaryScreenContainer}
       />
       <MyDiaryTabStack.Screen

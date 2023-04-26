@@ -70,7 +70,9 @@ const PostDiaryKeyboard: React.FC<PostDiaryKeyboardProps> = ({
 
     // cleanup function
     return (): void => {
+      // @ts-ignore
       Keyboard.removeListener('keyboardDidShow', onKeyboardDidShow);
+      // @ts-ignore
       Keyboard.removeListener('keyboardDidHide', onKeyboardDidHide);
     };
   }, []);
