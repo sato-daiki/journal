@@ -24,6 +24,6 @@ export interface Diary {
   voiceUrl?: string | null;
   publishedAt?: Timestamp | any;
   checkInfo: CheckInfo | null;
-  createdAt?: Timestamp | any;
+  createdAt: Timestamp | any;
   updatedAt: Timestamp | any;
 }

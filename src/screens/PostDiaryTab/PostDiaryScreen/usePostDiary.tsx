@@ -89,6 +89,7 @@ export const usePostDiary = ({
       addDiary({
         objectID: diaryRef.id,
         ...diary,
+        createdAt: firestore.Timestamp.now(),
       });
       setIsLoadingDraft(false);
       logAnalytics(events.CREATED_DIARY);
@@ -188,6 +189,7 @@ export const usePostDiary = ({
     addDiary({
       objectID: diaryId,
       ...diary,
+      createdAt: firestore.Timestamp.now(),
     });
     setUser({
       ...user,
