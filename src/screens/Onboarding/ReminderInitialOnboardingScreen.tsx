@@ -14,7 +14,6 @@ export interface Props {
 }
 
 interface DispatchProps {
-  setUser: (user: User) => void;
   completedOnboarding: () => void;
 }
 

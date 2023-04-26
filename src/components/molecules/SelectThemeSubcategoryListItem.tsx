@@ -99,8 +99,8 @@ const SelectThemeSubcategoryListItem: React.FC<Props> = ({
               {getDay(themeDiary.updatedAt)}
             </Text>
             <DiaryStatusLabel
-              color={MY_STATUS.posted.color}
-              text={MY_STATUS.posted.text}
+              color={MY_STATUS.checked.color}
+              text={MY_STATUS.checked.text}
             />
           </View>
         ) : null}

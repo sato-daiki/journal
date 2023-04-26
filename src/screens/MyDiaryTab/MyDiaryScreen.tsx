@@ -29,17 +29,13 @@ import FairCopy from '@/components/organisms/FairCopy';
 import FairCopyEdit from '@/components/organisms/FairCopyEdit';
 
 export interface Props {
-  error: boolean;
   diary?: Diary;
   user: User;
-  localStatus: LocalStatus;
 }
 
 interface DispatchProps {
   editDiary: (objectID: string, diary: Diary) => void;
   deleteDiary: (objectID: string) => void;
-  setUser: (user: User) => void;
-  setLocalStatus: (localStatus: LocalStatus) => void;
 }
 
 type MyDiaryNavigationProp = CompositeNavigationProp<

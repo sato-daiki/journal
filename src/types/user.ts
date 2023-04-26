@@ -1,4 +1,4 @@
-import firestore from '@react-native-firebase/firestore';
+import { Timestamp } from './diary';
 
 export type Language = 'en' | 'de' | 'es' | 'fr' | 'pt' | 'nl';
 export const languages: Language[] = ['en', 'de', 'es', 'fr', 'pt', 'nl'];
@@ -17,8 +17,8 @@ export interface ThemeDiary {
   themeCategory: ThemeCategory;
   themeSubcategory: ThemeSubcategory;
   objectID: string;
-  updatedAt: FieldValue;
-  createdAt: FieldValue;
+  updatedAt: any;
+  createdAt: any;
 }
 
 export type AppReviewState = 'yet' | 'never' | 'done';
@@ -88,10 +88,10 @@ export interface User {
   reminder?: Reminder;
   runningDays?: number;
   runningWeeks?: number;
-  lastDiaryPostedAt?: Timestamp | null;
-  lastModalAppSuggestionAt?: Timestamp | null;
-  lastModalNotficationSettingAt?: Timestamp | null;
-  lastWatchAdAt: Timestamp | null;
-  createdAt: FieldValue;
-  updatedAt: FieldValue;
+  lastDiaryPostedAt?: any | null;
+  lastModalAppSuggestionAt?: any | null;
+  lastModalNotficationSettingAt?: any | null;
+  lastWatchAdAt: any | null;
+  createdAt: any;
+  updatedAt: any;
 }

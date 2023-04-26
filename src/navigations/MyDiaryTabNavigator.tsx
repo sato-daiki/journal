@@ -13,7 +13,6 @@ import {
   DefaultNavigationOptions,
   DefaultSearchBarOptions,
 } from '../constants/NavigationOptions';
-import { CommonStackParamList } from './CommonNavigator';
 import {
   HomeBottomParamList,
   HomeBottomNavigationProp,
@@ -29,7 +28,7 @@ export type MyDiaryTabStackParamList = {
   MyDiaryList: undefined;
   MyDiary: { objectID: string };
   RecommendedMethod: { url: string };
-} & CommonStackParamList;
+};
 
 const MyDiaryTabStack = createStackNavigator<MyDiaryTabStackParamList>();
 

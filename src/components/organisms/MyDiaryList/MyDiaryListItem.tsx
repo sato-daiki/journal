@@ -12,7 +12,6 @@ interface Props {
   index: number;
   item: Diary;
   elRefs: React.MutableRefObject<Swipeable[]>;
-  onPressUser: (uid: string, userName: string) => void;
   handlePressItem: (item: Diary) => void;
   handlePressDelete: (item: Diary, index: number) => void;
 }
@@ -39,7 +38,6 @@ const MyDiaryListItem = ({
   index,
   item,
   elRefs,
-  onPressUser,
   handlePressItem,
   handlePressDelete,
 }: Props) => {
@@ -86,11 +84,7 @@ const MyDiaryListItem = ({
 
   return (
     <Swipeable ref={setRef} renderRightActions={renderRightActions}>
-      <DiaryListItem
-        item={item}
-        onPressUser={onPressUser}
-        onPressItem={onPressItem}
-      />
+      <DiaryListItem item={item} onPressItem={onPressItem} />
     </Swipeable>
   );
 };

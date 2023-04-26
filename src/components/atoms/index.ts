@@ -3,7 +3,6 @@ export { default as DefaultHeaderBack } from './DefaultHeaderBack';
 export { default as DiaryTitle } from './DiaryTitle';
 export { default as DiaryStatusLabel } from './DiaryStatusLabel';
 export { default as FirstDiary } from './FirstDiary';
-export { default as FixText } from './FixText';
 export { default as GrayHeader } from './GrayHeader';
 export { default as KeyboardSpacer } from './KeyboardSpacer';
 export { default as HeaderButton } from './HeaderButton';
@@ -20,7 +19,6 @@ export { default as LoadingModal } from './LoadingModal';
 // @ts-ignore
 export { default as Lottie } from './Lottie';
 export { default as Note } from './Note';
-export { default as OriginalText } from './OriginalText';
 export { default as Pill } from './Pill';
 export { default as RadioBox } from './RadioBox';
 export { default as ShareButton } from './ShareButton';

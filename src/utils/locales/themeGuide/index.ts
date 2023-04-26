@@ -18,9 +18,6 @@ import {
 
 export interface Expressions {
   en: string[];
-  ja: string[];
-  ko: string[];
-  zh: string[];
 }
 
 export interface Examples {

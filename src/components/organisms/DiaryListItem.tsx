@@ -18,7 +18,6 @@ import { Diary } from '@/types';
 interface Props {
   mine?: boolean;
   item: Diary;
-  onPressUser: (uid: string, userName: string) => void;
   onPressItem: (item: Diary) => void;
 }
 

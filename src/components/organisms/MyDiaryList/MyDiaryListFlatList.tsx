@@ -1,5 +1,10 @@
 import React, { useCallback, useMemo } from 'react';
-import { StyleSheet, FlatList, RefreshControl, ListRenderItem } from 'react-native';
+import {
+  StyleSheet,
+  FlatList,
+  RefreshControl,
+  ListRenderItem,
+} from 'react-native';
 import { Diary } from '@/types';
 import { GrayHeader } from '@/components/atoms';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
@@ -15,7 +20,6 @@ interface Props {
   diaries: Diary[];
   diaryTotalNum: number;
   loadNextPage: () => void;
-  onPressUser: (uid: string, userName: string) => void;
   onRefresh: () => void;
   handlePressItem: (item: Diary) => void;
   handlePressDelete: (item: Diary, index: number) => void;
@@ -36,7 +40,6 @@ const MyDiaryListFlatList: React.FC<Props> = ({
   diaries,
   diaryTotalNum,
   loadNextPage,
-  onPressUser,
   handlePressItem,
   onRefresh,
   handlePressDelete,
@@ -49,7 +52,11 @@ const MyDiaryListFlatList: React.FC<Props> = ({
   }, [isEmpty]);
 
   const listHeaderComponent = useCallback(() => {
-    return <GrayHeader title={I18n.t('myDiaryList.diaryList', { count: diaryTotalNum })} />;
+    return (
+      <GrayHeader
+        title={I18n.t('myDiaryList.diaryList', { count: diaryTotalNum })}
+      />
+    );
   }, [diaryTotalNum]);
 
   const renderItem: ListRenderItem<Diary> = useCallback(
@@ -59,13 +66,12 @@ const MyDiaryListFlatList: React.FC<Props> = ({
           index={index}
           item={item}
           elRefs={elRefs}
-          onPressUser={onPressUser}
           handlePressItem={handlePressItem}
           handlePressDelete={handlePressDelete}
         />
       );
     },
-    [elRefs, handlePressDelete, handlePressItem, onPressUser],
+    [elRefs, handlePressDelete, handlePressItem],
   );
 
   const refreshControl = useMemo(() => {

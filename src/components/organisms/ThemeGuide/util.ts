@@ -80,9 +80,6 @@ const getSentences = ({
     case 'en':
       newExpressions = expressions.en;
       break;
-    case 'ja':
-      newExpressions = expressions.ja;
-      break;
     default:
       return null;
   }

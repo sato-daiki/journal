@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
 const PostDiaryKeyboard: React.FC<PostDiaryKeyboardProps> = ({
   title,
   text,
-  learnLanguage,
   themeCategory,
   themeSubcategory,
   onChangeTextTitle,

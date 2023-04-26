@@ -1,7 +1,6 @@
 import axios from 'axios';
 // @ts-ignore
 import { GOOGLE_TRANSLATE } from '@env';
-import { captureException } from '@/utils/sentry';
 import { Language } from '../types';
 
 const endpoint = 'https://translation.googleapis.com/language/translate/v2';
@@ -26,7 +25,7 @@ const googleTranslate = async (
       return data.data.translations[0].translatedText;
     }
   } catch (err: any) {
-    captureException(err);
+    console.warn(err);
   }
   return text;
 };

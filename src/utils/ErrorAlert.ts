@@ -1,5 +1,4 @@
 import { Alert, Platform } from 'react-native';
-import { captureException } from '@/utils/sentry';
 
 import I18n from './I18n';
 
@@ -38,6 +37,4 @@ export const alert = ({ err, onPressOk }: ErrorAlert): void => {
       },
     ]);
   }
-
-  captureException(err);
 };

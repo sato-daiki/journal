@@ -20,7 +20,6 @@ import DeleteAcountScreenContainer from '../containers/DeleteAcountScreenContain
 import ForegetPasswordScreen from '../screens/Auth/ForegetPasswordScreen';
 import InquiryScreenContainer from '../containers/InquiryScreenContainer';
 import { DefaultNavigationOptions } from '../constants/NavigationOptions';
-import { CommonStackParamList, createCommonNavigator } from './CommonNavigator';
 import {
   HomeBottomParamList,
   HomeBottomNavigationProp,
@@ -46,7 +45,7 @@ export type MyPageTabStackParamList = {
     checkedDays: FixDay[] | CustomTimeInfo[];
     onChangeCheckedDays: (checkedDays: FixDay[] | CustomTimeInfo[]) => void;
   };
-} & CommonStackParamList;
+};
 
 const MyPageTabStack = createStackNavigator<MyPageTabStackParamList>();
 

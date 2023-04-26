@@ -2,7 +2,6 @@ import axios from 'axios';
 // @ts-ignore
 // import { LANGUAGE_TOOL_API_KEY } from '@env';
 import { Language } from '../types';
-import { captureException } from './sentry';
 
 const spellChecker = async (
   learnLanguage: Language,
@@ -26,7 +25,6 @@ const spellChecker = async (
     return response.data;
   } catch (err: any) {
     console.warn(err);
-    captureException(err);
   }
   return;
 };

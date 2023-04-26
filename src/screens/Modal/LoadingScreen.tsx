@@ -1,5 +1,5 @@
+import { LoadingModal } from '@/components/atoms';
 import React from 'react';
-import { LoadingModal } from '../components/atoms';
 
 const LoadingScreen: React.FC = () => {
   return <LoadingModal visible />;

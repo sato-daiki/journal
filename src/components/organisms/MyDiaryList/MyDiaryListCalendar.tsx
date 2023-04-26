@@ -38,7 +38,6 @@ interface Props {
   refreshing: boolean;
   diaries: Diary[];
   loadNextPage: () => void;
-  onPressUser: (uid: string, userName: string) => void;
   onRefresh: () => void;
   handlePressItem: (item: Diary) => void;
   handlePressDelete: (item: Diary, index: number) => void;
@@ -107,7 +106,6 @@ const MyDiaryListCalendar: React.FC<Props> = ({
   elRefs,
   refreshing,
   diaries,
-  onPressUser,
   onRefresh,
   handlePressItem,
   handlePressDelete,
@@ -180,18 +178,11 @@ const MyDiaryListCalendar: React.FC<Props> = ({
         index={index}
         item={item}
         elRefs={elRefs}
-        onPressUser={onPressUser}
         handlePressItem={handlePressItem}
         handlePressDelete={handlePressDelete}
       />
     ));
-  }, [
-    elRefs,
-    handlePressDelete,
-    handlePressItem,
-    onPressUser,
-    targetDayDiaries,
-  ]);
+  }, [elRefs, handlePressDelete, handlePressItem, targetDayDiaries]);
 
   return (
     <ScrollView style={styles.container} refreshControl={refreshControl}>

@@ -27,7 +27,6 @@ import {
   ModalThemeGuideNavigator,
 } from './ModalNavigator';
 import { MyDiaryTabStackParamList } from './MyDiaryTabNavigator';
-import { TeachDiaryTabStackParamList } from './TeachDiaryTabNavigator';
 import { maxMain } from '../styles/Common';
 import { RootStackParamList } from './RootNavigator';
 
@@ -40,9 +39,7 @@ export type MainStackParamList = {
   Home: {
     screen: keyof HomeBottomParamList;
     params: {
-      screen:
-        | keyof MyDiaryTabStackParamList
-        | keyof TeachDiaryTabStackParamList;
+      screen: keyof MyDiaryTabStackParamList;
     };
   };
   ModalEditMyDiaryList: {
@@ -88,7 +85,6 @@ export type MainStackParamList = {
     screen: keyof ModalRecordStackParamList;
     params: { objectID: string };
   };
-  // NotFound: undefined;
 };
 
 const MainStack = createStackNavigator<MainStackParamList>();
@@ -97,8 +93,6 @@ const MainNavigator = () => {
   return (
     <MainStack.Navigator
       initialRouteName='Home'
-      headerMode='none'
-      mode='modal'
       screenOptions={{
         cardStyle: {
           backgroundColor: '#FFFFFF',

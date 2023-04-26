@@ -15,4 +15,3 @@ export { default as ProfileLanguage } from './ProfileLanguage';
 export { default as SelecttionBox } from './SelecttionBox';
 export { default as SelectThemeSubcategoryListItem } from './SelectThemeSubcategoryListItem';
 export { default as SelectTimeItem } from './SelectTimeItem';
-export { default as Sns } from './Sns';

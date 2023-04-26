@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { View, Text, StyleSheet, Platform } from 'react-native';
-import { User } from '@/types';
+import { Language, User } from '@/types';
 import {
   AuthNavigationProp,
   AuthStackParamList,
@@ -13,7 +13,6 @@ import { Space, SubmitButton } from '@/components/atoms';
 import { primaryColor, fontSizeL } from '@/styles/Common';
 import I18n from '@/utils/I18n';
 import LanguageRadioboxes from '@/components/organisms/LanguageRadioboxes';
-import { Language } from '@/types/profile';
 
 export interface Props {
   user: User;

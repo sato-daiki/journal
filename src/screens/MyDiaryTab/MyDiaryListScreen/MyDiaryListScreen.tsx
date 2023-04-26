@@ -137,13 +137,6 @@ const MyDiaryListScreen: React.FC<ScreenType> = ({
     [navigation],
   );
 
-  const onPressUser = useCallback(
-    (uid: string, userName: string) => {
-      navigation.navigate('UserProfile', { userName });
-    },
-    [navigation],
-  );
-
   const onDeleteDiary = useCallback(
     async (item: Diary, index: number) => {
       if (!item.objectID) return;
@@ -243,7 +236,6 @@ const MyDiaryListScreen: React.FC<ScreenType> = ({
             diaries={diaries}
             diaryTotalNum={diaryTotalNum}
             loadNextPage={loadNextPage}
-            onPressUser={onPressUser}
             onRefresh={onRefresh}
             handlePressItem={handlePressItem}
             handlePressDelete={handlePressDelete}
@@ -254,7 +246,6 @@ const MyDiaryListScreen: React.FC<ScreenType> = ({
             refreshing={refreshing}
             diaries={diaries}
             loadNextPage={loadNextPage}
-            onPressUser={onPressUser}
             onRefresh={onRefresh}
             handlePressItem={handlePressItem}
             handlePressDelete={handlePressDelete}
