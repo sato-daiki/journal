@@ -33,6 +33,7 @@
     },
     "plugins": [
       "@react-native-firebase/app",
+      "@react-native-firebase/crashlytics",
       "expo-localization",
       [
         "expo-build-properties",
