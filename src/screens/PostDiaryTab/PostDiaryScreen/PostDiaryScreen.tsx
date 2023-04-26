@@ -25,7 +25,6 @@ const PostDiaryScreen: React.FC<ScreenType> = ({
     isLoadingPublish,
     isLoadingDraft,
     isModalCancel,
-    isTutorialLoading,
     title,
     text,
     onPressCheck,
@@ -34,7 +33,6 @@ const PostDiaryScreen: React.FC<ScreenType> = ({
     onChangeTextText,
     onPressDraft,
     onPressNotSave,
-    onPressTutorial,
     onPressClose,
   } = usePostDiary({
     navigation,
@@ -65,7 +63,6 @@ const PostDiaryScreen: React.FC<ScreenType> = ({
       navigation={navigation}
       isLoading={isLoadingDraft || isLoadingPublish}
       isModalCancel={isModalCancel}
-      isTutorialLoading={isTutorialLoading}
       title={title}
       text={text}
       themeCategory={route?.params?.themeCategory}
@@ -76,7 +73,6 @@ const PostDiaryScreen: React.FC<ScreenType> = ({
       onChangeTextText={onChangeTextText}
       onPressDraft={onPressDraft}
       onPressNotSave={onPressNotSave}
-      onPressTutorial={onPressTutorial}
     />
   );
 };

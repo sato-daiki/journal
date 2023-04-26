@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { Keyboard } from 'react-native';
+import * as StoreReview from 'expo-store-review';
 
 import { DiaryStatus, User, Diary, CheckInfo } from '@/types';
 import {
@@ -177,6 +178,12 @@ export const usePostDiary = ({
         alert({ err });
       });
     logAnalytics(events.CREATED_DIARY);
+
+    if (user.diaryPosted && (await StoreReview.hasAction())) {
+      // 2回目以降の投稿の時
+      await StoreReview.requestReview();
+    }
+
     // reduxに追加
     addDiary({
       objectID: diaryId,
@@ -190,7 +197,9 @@ export const usePostDiary = ({
       lastDiaryPostedAt: firestore.Timestamp.now(),
       diaryPosted: true,
     });
+
     setIsLoadingPublish(false);
+
     navigation.navigate('Home', {
       screen: 'MyDiaryTab',
       params: {
