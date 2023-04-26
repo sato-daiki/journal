@@ -8,6 +8,7 @@ import { Matche } from './Match';
 interface Props {
   matches: Match[];
   activeIndex: number;
+  onPressIgnore: () => void;
   setActiveIndex: (activeIndex: number | null) => void;
 }
 
@@ -36,6 +37,7 @@ const styles = StyleSheet.create({
 
 export const Matches: React.FC<Props> = ({
   matches,
+  onPressIgnore,
   activeIndex,
   setActiveIndex,
 }) => {
@@ -86,7 +88,7 @@ export const Matches: React.FC<Props> = ({
           onPress={onPressClose}
         />
       </View>
-      <Matche match={matches[activeIndex]} />
+      <Matche match={matches[activeIndex]} onPressIgnore={onPressIgnore} />
     </View>
   );
 };

@@ -162,6 +162,7 @@ const myDiary = {
   machine: "Listen to Machine's Voice",
   record: 'Voice Recording',
   recommend: 'What is an efficient study method?',
+  ignore: 'Ignore',
 };
 
 const myDiaryList = {

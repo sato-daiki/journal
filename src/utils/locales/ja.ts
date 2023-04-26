@@ -159,6 +159,7 @@ const myDiary = {
   machine: '機械の音声を聞く',
   record: '録音する',
   recommend: '効率的な勉強方法とは？',
+  ignore: '無視',
 };
 
 const myDiaryList = {

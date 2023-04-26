@@ -152,7 +152,7 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
         onPressMain={onPressCloseModalAlertAudio}
         onPressClose={onPressCloseModalAlertAudio}
       />
-      <Posted user={user} diary={diary} />
+      <Posted user={user} diary={diary} editDiary={editDiary} />
     </View>
   );
 };

@@ -4,14 +4,17 @@ import {
   fontSizeM,
   fontSizeS,
   mainColor,
+  offWhite,
 } from '@/styles/Common';
 import { View, StyleSheet, Text } from 'react-native';
-import { HoverableIcon } from '../../atoms';
+import { Hoverable, HoverableIcon } from '../../atoms';
 import { Match } from '@/types';
 import * as Linking from 'expo-linking';
+import I18n from '@/utils/I18n';
 
 interface Props {
   match: Match;
+  onPressIgnore: () => void;
 }
 
 const styles = StyleSheet.create({
@@ -64,14 +67,24 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     marginRight: 12,
   },
+  ignoreContaienr: {
+    backgroundColor: offWhite,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 4,
+    marginRight: 12,
+  },
   replacement: {
     color: '#fff',
     fontSize: fontSizeM,
     fontWeight: 'bold',
   },
+  ignore: {
+    fontSize: fontSizeM,
+  },
 });
 
-export const Matche: React.FC<Props> = ({ match }) => {
+export const Matche: React.FC<Props> = ({ match, onPressIgnore }) => {
   const onPressInfo = (value: string) => {
     Linking.openURL(value);
   };
@@ -109,6 +122,9 @@ export const Matche: React.FC<Props> = ({ match }) => {
             <Text style={styles.replacement}>{replacement.value}</Text>
           </View>
         ))}
+        <Hoverable style={styles.ignoreContaienr} onPress={onPressIgnore}>
+          <Text style={styles.ignore}>{I18n.t('myDiary.ignore')}</Text>
+        </Hoverable>
       </View>
     </View>
   );
