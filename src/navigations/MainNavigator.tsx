@@ -5,9 +5,8 @@ import {
 } from '@react-navigation/stack';
 import { CallerThemeGuide } from '@/screens/Modal/SelectThemeSubcategoryScreen/interface';
 import { Diary, ThemeCategory, ThemeSubcategory } from '@/types';
-import HomeBottomTabNavigator, {
-  HomeBottomParamList,
-} from './HomeBottomTabNavigator';
+import { HomeBottomParamList } from './HomeBottomTabNavigator';
+import HomeBottomTabNavigatorContainer from '@/containers/HomeBottomTabNavigatorContainer';
 
 import {
   ModalEditMyDiaryListNavigator,
@@ -107,7 +106,7 @@ const MainNavigator = () => {
     >
       <MainStack.Screen
         name='Home'
-        component={HomeBottomTabNavigator}
+        component={HomeBottomTabNavigatorContainer}
         options={{
           headerShown: false,
         }}

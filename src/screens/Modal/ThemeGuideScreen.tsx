@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   View,
   Text,
@@ -61,16 +61,22 @@ const ThemeGuideScreen: React.FC<ScreenType> = ({
   user,
 }) => {
   const { themeTitle, themeCategory, themeSubcategory, caller } = route.params;
-  const entries =
-    getEntries({
-      themeCategory,
-      themeSubcategory,
-      learnLanguage: user.learnLanguage,
-    }) || [];
+
+  const entries = useMemo(() => {
+    return (
+      getEntries({
+        themeCategory,
+        themeSubcategory,
+        learnLanguage: user.learnLanguage,
+      }) || []
+    );
+  }, [themeCategory, themeSubcategory, user.learnLanguage]);
+
+  console.log('entries', entries);
+
   const [activeSlide, setActiveSlide] = useState(
     caller === 'PostDiary' ? entries.length - 1 : 0,
   );
-
   useEffect(() => {
     navigation.setOptions({
       title: route.params.themeSubcategory,

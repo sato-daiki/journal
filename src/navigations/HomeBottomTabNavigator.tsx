@@ -13,6 +13,11 @@ import MyPageTabNavigator, {
 } from './MyPageTabNavigator';
 import { MainStackParamList, MainNavigationProp } from './MainNavigator';
 import { mainColor, subTextColor } from '@/styles/Common';
+import { User } from '@/types';
+
+export interface Props {
+  user: User;
+}
 
 export type HomeBottomNavigationProp = CompositeNavigationProp<
   StackNavigationProp<MainStackParamList, 'Home'>,
@@ -25,7 +30,7 @@ export type HomeBottomParamList = {
   MyPageTab: { screen: keyof MyPageTabStackParamList };
 };
 
-const HomeBottomTabNavigator = () => {
+const HomeBottomTabNavigator: React.FC<Props> = ({ user }) => {
   const HomeBottom = createBottomTabNavigator<HomeBottomParamList>();
   return (
     <HomeBottom.Navigator
@@ -64,9 +69,15 @@ const HomeBottomTabNavigator = () => {
           tabPress: (e) => {
             // Prevent default action
             e.preventDefault();
-            navigation.navigate('ModalPostDiary', {
-              screen: 'PostDiary',
-            });
+            if (user.learnLanguage === 'en') {
+              navigation.navigate('ModalSelectDiaryType', {
+                screen: 'SelectDiaryType',
+              });
+            } else {
+              navigation.navigate('ModalPostDiary', {
+                screen: 'PostDiary',
+              });
+            }
           },
         })}
       />

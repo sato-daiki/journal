@@ -94,14 +94,14 @@ const getSentences = ({
   });
 };
 
-export const getExpressions = ({
+const getExpressions = ({
   themeCategory,
   themeSubcategory,
   learnLanguage,
 }: GetExamples): Sentence[] | null => {
   const params = {
     nativeOption: {
-      // locale: nativeLanguage,
+      locale: 'ja',
     },
     i18nTextHeader: `${themeCategory}.${themeSubcategory}.expression`,
   };
@@ -187,7 +187,7 @@ export const getExamples = ({
 }: GetExamples): StyleSentence[] | null => {
   const params = {
     nativeOption: {
-      // locale: nativeLanguage,
+      locale: 'ja',
     },
     i18nTextHeader: `${themeCategory}.${themeSubcategory}.example`,
   };
@@ -248,7 +248,7 @@ export const getWords = ({
   num,
 }: GetWordsParams): Sentence[] => {
   const nativeOption = {
-    // locale: nativeLanguage,
+    locale: 'ja',
   };
   const learnOption = {
     locale: learnLanguage,

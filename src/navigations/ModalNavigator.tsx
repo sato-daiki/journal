@@ -161,7 +161,10 @@ export const ModalSelectDiaryTypeNavigator = () => {
 };
 export const ModalThemeGuideNavigator = () => {
   return (
-    <ModalThemeGuideStack.Navigator initialRouteName='ThemeGuide'>
+    <ModalThemeGuideStack.Navigator
+      initialRouteName='ThemeGuide'
+      screenOptions={{ headerShown: false }}
+    >
       <ModalThemeGuideStack.Screen
         name='ThemeGuide'
         component={ThemeGuideScreenContainer}

@@ -18,7 +18,7 @@ export const first = ({
   learnLanguage,
 }: FirstProps): ThemeSubcategoryInfo[] => {
   const nativeOption = {
-    // locale: nativeLanguage,
+    locale: 'ja',
   };
   const learnOption = {
     locale: learnLanguage,
