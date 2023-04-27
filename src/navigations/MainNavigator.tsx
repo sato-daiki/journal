@@ -94,6 +94,8 @@ const MainNavigator = () => {
     <MainStack.Navigator
       initialRouteName='Home'
       screenOptions={{
+        headerShown: false,
+        presentation: 'modal',
         cardStyle: {
           backgroundColor: '#FFFFFF',
           marginHorizontal: 'auto',

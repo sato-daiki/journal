@@ -199,14 +199,7 @@ export const ModalPostDraftDiaryNavigator = () => {
 
 export const ModalEditMyProfileNavigator = () => {
   return (
-    <ModalEditMyProfileStack.Navigator
-      initialRouteName='EditMyProfile'
-      screenOptions={{
-        cardStyle: {
-          backgroundColor: '#FFFFFF',
-        },
-      }}
-    >
+    <ModalEditMyProfileStack.Navigator initialRouteName='EditMyProfile'>
       <ModalEditMyProfileStack.Screen
         name='EditMyProfile'
         component={EditMyProfileScreenContainer}
