@@ -1,9 +1,10 @@
 import axios from 'axios';
 // @ts-ignore
 // import { LANGUAGE_TOOL_API_KEY } from '@env';
-import { Language } from '../types';
+import { Language, Match } from '../types';
+import { softRed, softRedOpacy, yellow, yellowOpacy } from '@/styles/Common';
 
-const spellChecker = async (
+export const spellChecker = async (
   learnLanguage: Language,
   title: string,
   text: string,
@@ -29,4 +30,10 @@ const spellChecker = async (
   return;
 };
 
-export default spellChecker;
+export const getColors = (match: Match) => {
+  if (match.rule?.issueType === 'misspelling') {
+    return { color: softRed, backgroundColor: softRedOpacy };
+  } else {
+    return { color: yellow, backgroundColor: yellowOpacy };
+  }
+};

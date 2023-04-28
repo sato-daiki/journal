@@ -15,7 +15,7 @@ import { RouteProp } from '@react-navigation/native';
 import { PostDiaryNavigationProp } from './interfaces';
 import { useCommon } from './useCommont';
 import firestore from '@react-native-firebase/firestore';
-import spellChecker from '@/utils/spellChecker';
+import { spellChecker } from '@/utils/spellChecker';
 
 interface UsePostDiary {
   navigation: PostDiaryNavigationProp;

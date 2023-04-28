@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   borderLightColor,
   fontSizeM,
@@ -7,10 +7,11 @@ import {
   offWhite,
 } from '@/styles/Common';
 import { View, StyleSheet, Text } from 'react-native';
-import { Hoverable, HoverableIcon } from '../../atoms';
+import { Hoverable, HoverableIcon } from '../atoms';
 import { Match } from '@/types';
 import * as Linking from 'expo-linking';
 import I18n from '@/utils/I18n';
+import { getColors } from '@/utils/spellChecker';
 
 interface Props {
   match: Match;
@@ -85,6 +86,10 @@ const styles = StyleSheet.create({
 });
 
 export const Matche: React.FC<Props> = ({ match, onPressIgnore }) => {
+  const { color } = useMemo(() => {
+    return getColors(match);
+  }, [match]);
+
   const onPressInfo = (value: string) => {
     Linking.openURL(value);
   };
@@ -92,15 +97,15 @@ export const Matche: React.FC<Props> = ({ match, onPressIgnore }) => {
   return (
     <View style={styles.container}>
       <View style={styles.firstRow}>
-        <View style={[styles.circle, { backgroundColor: 'red' }]} />
+        <View style={[styles.circle, { backgroundColor: color }]} />
         <Text style={styles.shortMessage}>
-          {match.shortMessage || match.rule.issueType}
+          {match.shortMessage || match.rule?.issueType}
         </Text>
       </View>
       <View style={styles.secondRow}>
         <Text style={styles.message}>
           {match.message}
-          {!!match.rule.urls && (
+          {!!match.rule?.urls && (
             <View style={styles.iconRow}>
               {match.rule.urls.map((url, index) => (
                 <HoverableIcon

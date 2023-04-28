@@ -14,7 +14,7 @@ import {
 } from './interfaces';
 import { useCommon } from '../PostDiaryScreen/useCommont';
 import firestore from '@react-native-firebase/firestore';
-import spellChecker from '@/utils/spellChecker';
+import { spellChecker } from '@/utils/spellChecker';
 
 interface UsePostDraftDiary {
   user: User;

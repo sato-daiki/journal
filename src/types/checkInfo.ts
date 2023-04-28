@@ -7,61 +7,12 @@ export interface LanguageInfo {
   };
 }
 
-export type UnderlineType = 'warning' | 'error';
-
-export const sampleWords: Word[] = [
-  {
-    text: 'I',
-    checked: false,
-  },
-  {
-    text: 'am',
-    checked: false,
-  },
-  {
-    text: 'yahoo',
-    checked: true,
-    checkIndex: 0,
-    underline: 'warning',
-    ignore: false,
-  },
-  {
-    text: 'I',
-    checked: false,
-  },
-  {
-    text: 'am',
-    checked: false,
-  },
-  {
-    text: 'yahoo',
-    checked: true,
-    checkIndex: 1,
-    underline: 'warning',
-    ignore: false,
-  },
-  {
-    text: 'I',
-    checked: false,
-  },
-  {
-    text: 'am',
-    checked: false,
-  },
-  {
-    text: 'yahoo',
-    checked: true,
-    checkIndex: 2,
-    underline: 'error',
-    ignore: false,
-  },
-];
-
 export interface Word {
   text: string;
   checked: boolean;
   checkIndex?: number;
-  underline?: UnderlineType;
+  color?: string;
+  backgroundColor?: string;
   ignore?: boolean;
 }
 
@@ -83,7 +34,7 @@ export interface Match {
   type: {
     typeName: string;
   };
-  rule: {
+  rule?: {
     id: string;
     subId: string;
     sourceFile?: string;

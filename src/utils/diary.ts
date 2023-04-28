@@ -5,7 +5,7 @@ import {
   ThemeCategory,
   ThemeSubcategory,
 } from '@/types';
-import { subTextColor, mainColor, green } from '@/styles/Common';
+import { subTextColor, green, mainColor } from '@/styles/Common';
 import firestore from '@react-native-firebase/firestore';
 
 import { MarkedDates } from '@/components/organisms/MyDiaryList';
