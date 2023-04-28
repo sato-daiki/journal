@@ -13,13 +13,13 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "buildNumber": "1010201",
+      "buildNumber": "1010202",
       "googleServicesFile": "./GoogleService-Info.plist",
       "supportsTablet": true,
       "bundleIdentifier": "app.daiki123456.langjournal"
     },
     "android": {
-      "versionCode": 1010201,
+      "versionCode": 1010202,
       "permissions": ["RECORD_AUDIO"],
       "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
@@ -48,6 +48,12 @@
       "eas": {
         "projectId": "7d257981-58b3-4a46-9d4b-b2bf733f887f"
       }
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/7d257981-58b3-4a46-9d4b-b2bf733f887f"
     }
   },
   "react-native-google-mobile-ads": {
