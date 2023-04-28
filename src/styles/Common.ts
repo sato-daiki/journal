@@ -21,3 +21,9 @@ export const fontSizeL = 18;
 
 export const hoverGray = 'rgba(179,218,255,0.1)';
 export const hoverMain = 'rgba(45,156,219,0.1)';
+
+// 関係ない箇所は消す
+export const maxPartL = 548;
+export const maxMain = 1224;
+export const maxModalScreen = 900;
+export const maxLayoutChange = 1024;

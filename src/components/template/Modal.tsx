@@ -2,7 +2,6 @@ import React from 'react';
 import { View, StyleSheet, Platform } from 'react-native';
 import Modal from 'react-native-modal';
 import { Animation, CustomAnimation } from 'react-native-animatable';
-import { maxModal } from '../../styles/Common';
 
 const styles = StyleSheet.create({
   container: {

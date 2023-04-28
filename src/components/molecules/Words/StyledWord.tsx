@@ -1,15 +1,7 @@
-import React, { useCallback, useMemo } from 'react';
-import { Text, StyleSheet, View } from 'react-native';
+import React, { useCallback } from 'react';
+import { Text, StyleSheet } from 'react-native';
 import { Word } from '@/types';
-import {
-  fontSizeM,
-  purple,
-  purpleOpacy,
-  softRed,
-  softRedOpacy,
-  yellow,
-  yellowOpacy,
-} from '@/styles/Common';
+import { fontSizeM } from '@/styles/Common';
 
 type Props = {
   word: Word;
@@ -38,15 +30,6 @@ const StyledWord: React.FC<Props> = ({
       onPressChecked(word.checkIndex);
     }
   }, [onPressChecked, word.checkIndex]);
-
-  const colors = useMemo(() => {
-    if (word.type === 'error') {
-      return { text: softRed, background: softRedOpacy };
-    } else if (word.type === 'warning') {
-      return { text: yellow, background: yellowOpacy };
-    }
-    return { text: purple, background: purpleOpacy };
-  }, [word.type]);
 
   return (
     <Text>

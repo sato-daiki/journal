@@ -1,11 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  ListRenderItem,
-  Dimensions,
-} from 'react-native';
+import { View, StyleSheet, ListRenderItem, Dimensions } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 
 import {
@@ -127,6 +121,7 @@ const ThemeGuideScreen: React.FC<ScreenType> = ({
     <View style={styles.container}>
       <Carousel
         data={entries}
+        // @ts-ignore
         renderItem={renderItem}
         sliderWidth={width}
         itemWidth={width}
