@@ -170,7 +170,7 @@ const myDiaryList = {
     zero: 'マイ日記一覧',
   },
   notficationSetting:
-    'Interchaoアプリの通知がオフになっています。日記の添削が届いた時にチェックできるように、『設定』から『通知』をオンにしましょう',
+    'Interchaoアプリの通知がオフになっています。『設定』から『通知』をオンにしましょう',
   emptyDiary: '日記がありません',
   theme: 'テーマ',
 };

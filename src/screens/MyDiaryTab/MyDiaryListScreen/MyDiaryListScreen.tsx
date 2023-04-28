@@ -220,7 +220,6 @@ const MyDiaryListScreen: React.FC<ScreenType> = ({
     <Layout disableScroll showBottomAd>
       <View style={styles.container}>
         <LoadingModal visible={isLoading || isInitialLoading} />
-        <FirstPageComponents user={user} setUser={setUser} />
         {!localStatus.myDiaryListView ||
         localStatus.myDiaryListView === 'list' ? (
           <MyDiaryListFlatList

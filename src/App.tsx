@@ -1,29 +1,45 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { PersistGate } from 'redux-persist/integration/react';
-// import * as Linking from 'expo-linking';
+import * as Notifications from 'expo-notifications';
 import { Provider } from 'react-redux';
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 import { MenuProvider } from 'react-native-popup-menu';
-import { LinkingOptions, NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 
 import { configureStore } from '@/stores/Store';
-// import * as Sentry from 'sentry-expo';
 
 import RootNavigatorContainer from '@/containers/RootNavigatorContainer';
 import LoadingScreen from '@/screens/LoadingScreen';
+import { AppState, AppStateStatus } from 'react-native';
 
 const { store, persistor } = configureStore();
 
-// エラー監視
-// Sentry.init({
-//   dsn: 'https://95ddcc469fab4a40be49d130bc3e71ed@o380775.ingest.sentry.io/5207104',
-//   enableInExpoDevelopment: true,
-//   debug: false,
-// });
-
-// const prefix = Linking.makeUrl('/');
-
 const App = () => {
+  const appState = useRef<AppStateStatus>(AppState.currentState);
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener(
+      'change',
+      _handleAppStateChange,
+    );
+
+    return () => {
+      subscription.remove();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const _handleAppStateChange = (nextAppState: AppStateStatus) => {
+    console.log('[handleAppStateChange]', nextAppState);
+    if (
+      appState.current.match(/inactive|background/) &&
+      nextAppState === 'active'
+    ) {
+      Notifications.setBadgeCountAsync(0);
+    }
+    appState.current = nextAppState;
+  };
+
   return (
     <Provider store={store}>
       <PersistGate loading={<LoadingScreen />} persistor={persistor}>
