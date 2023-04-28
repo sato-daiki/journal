@@ -1,6 +1,6 @@
 import axios from 'axios';
 // @ts-ignore
-// import { LANGUAGE_TOOL_API_KEY } from '@env';
+import { LANGUAGE_TOOL_API_KEY } from '@env';
 import { Language, Match } from '../types';
 import { softRed, softRedOpacy, yellow, yellowOpacy } from '@/styles/Common';
 
@@ -11,10 +11,12 @@ export const spellChecker = async (
 ): Promise<any> => {
   try {
     const response = await axios.post(
-      'https://api.languagetool.org/v2/check',
+      'https://api.languagetoolplus.com/v2/check',
       {
         language: learnLanguage,
         text: text,
+        // username: 'daiki12345daiki12345@gmail.com',
+        // apiKey: LANGUAGE_TOOL_API_KEY,
       },
       {
         headers: {
