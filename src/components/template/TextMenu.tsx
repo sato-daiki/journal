@@ -12,13 +12,11 @@ import {
 import I18n from '../../utils/I18n';
 import { clipboard } from '../../styles/Common';
 import ModalSpeech from '../organisms/ModalSpeech';
-import { Language } from '../../types';
 import { Hoverable } from '../atoms';
 
 interface Props {
   children: React.ReactNode;
   displayText: string;
-  textLanguage?: Language;
   onPressTranslate: () => void;
 }
 
@@ -50,12 +48,7 @@ const styles = StyleSheet.create({
 
 // 補足
 // ポーズから再生する時と、最初から再生するときの制御を行ったため、少し複雑になっている
-const TextMenu = ({
-  children,
-  displayText,
-  textLanguage,
-  onPressTranslate,
-}: Props) => {
+const TextMenu = ({ children, displayText, onPressTranslate }: Props) => {
   const [visibleSpeech, setVisibleSpeech] = useState(false);
 
   const onPressSpeech = (): void => {
@@ -115,7 +108,7 @@ const TextMenu = ({
       <ModalSpeech
         visible={visibleSpeech}
         text={displayText}
-        textLanguage={textLanguage}
+        longCode={'de-AT'}
         onClose={(): void => setVisibleSpeech(false)}
       />
       <Menu

@@ -77,7 +77,6 @@ const DiaryOriginal: React.FC<Props> = ({
         themeSubcategory={diary.themeSubcategory}
         title={title}
         text={text}
-        textLanguage={user.learnLanguage}
         checkInfo={checkInfo}
         activeIndex={activeIndex}
         setActiveIndex={setActiveIndex}

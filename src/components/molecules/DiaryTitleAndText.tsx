@@ -8,7 +8,6 @@ import { SmallPill, Space } from '@/components/atoms';
 import Words from './Words';
 
 interface Props {
-  textLanguage: Language;
   title: string;
   text: string;
   themeCategory?: ThemeCategory | null;
@@ -41,7 +40,6 @@ const styles = StyleSheet.create({
 });
 
 const DiaryTitleAndText: React.FC<Props> = ({
-  textLanguage,
   title,
   text,
   themeCategory,
@@ -61,11 +59,7 @@ const DiaryTitleAndText: React.FC<Props> = ({
             backgroundColor={subTextColor}
           />
         )}
-        <RichText
-          style={styles.title}
-          text={title}
-          textLanguage={textLanguage}
-        />
+        <RichText style={styles.title} text={title} />
       </View>
       <Space size={16} />
       {checkInfo ? (

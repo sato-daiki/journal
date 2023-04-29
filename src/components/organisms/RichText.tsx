@@ -8,7 +8,6 @@ import TextMenu from '../template/TextMenu';
 interface Props {
   style?: StyleProp<TextStyle>;
   text: string | null;
-  textLanguage: Language;
 }
 
 const styles = StyleSheet.create({
@@ -19,7 +18,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const RichText = ({ style, text, textLanguage }: Props) => {
+const RichText = ({ style, text }: Props) => {
   const [displayText, setDisplayText] = useState(text);
   const [isTranslated, setIsTranslated] = useState(false);
 
@@ -46,13 +45,12 @@ const RichText = ({ style, text, textLanguage }: Props) => {
   }, [isTranslated, text]);
 
   return (
-    <TextMenu
-      displayText={displayText || ''}
-      textLanguage={textLanguage}
-      onPressTranslate={onPressTranslate}
-    >
-      <Text style={[styles.text, style]}>{displayText}</Text>
-    </TextMenu>
+    // <TextMenu
+    //   displayText={displayText || ''}
+    //   onPressTranslate={onPressTranslate}
+    // >
+    <Text style={[styles.text, style]}>{displayText}</Text>
+    // </TextMenu>
   );
 };
 

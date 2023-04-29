@@ -8,7 +8,7 @@ import {
   Platform,
 } from 'react-native';
 import * as Speech from 'expo-speech';
-import { Language } from '@/types';
+import { LongCode } from '@/types';
 import I18n from '@/utils/I18n';
 import { primaryColor, fontSizeM } from '@/styles/Common';
 import { Modal } from '@/components/template';
@@ -42,14 +42,14 @@ const styles = StyleSheet.create({
 interface Props {
   visible: boolean;
   text: string;
-  textLanguage?: Language;
+  longCode: LongCode;
   onClose: () => void;
 }
 
 const ModalSpeech: React.FC<Props> = ({
   visible,
   text,
-  textLanguage,
+  longCode,
   onClose,
 }: Props) => {
   const [isSlow, setIsSlow] = useState(false);
@@ -66,14 +66,14 @@ const ModalSpeech: React.FC<Props> = ({
 
   const onSpeak = useCallback((): void => {
     const option = {
-      language: textLanguage,
+      language: longCode,
       rate: isSlow ? 0.6 : 1.0,
       onDone,
     };
     Speech.speak(text, option);
     setInitial(false);
     setPlaying(true);
-  }, [isSlow, onDone, text, textLanguage]);
+  }, [isSlow, longCode, onDone, text]);
 
   const onPressClose = useCallback((): void => {
     Speech.stop();
@@ -83,7 +83,6 @@ const ModalSpeech: React.FC<Props> = ({
   }, [onClose]);
 
   const onPressSpeak = useCallback((): void => {
-    console.log('onPressSpeak', initial);
     if (initial) {
       onSpeak();
     } else {

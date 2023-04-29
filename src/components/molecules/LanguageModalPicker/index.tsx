@@ -58,7 +58,7 @@ const LanguageModalPicker: React.FC<Props> = ({
               }
             : {
                 width: 136,
-                paddingLeft: 4,
+                paddingLeft: 6,
               },
           containerStyle,
         ]}

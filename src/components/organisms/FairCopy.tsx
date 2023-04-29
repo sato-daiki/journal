@@ -212,7 +212,7 @@ const FairCopy: React.FC<Props> = ({
       <ModalSpeech
         visible={visibleSpeech}
         text={diary.fairCopyText || diary.text}
-        textLanguage={user.learnLanguage}
+        longCode={diary.longCode}
         onClose={(): void => setVisibleSpeech(false)}
       />
       {diary.voiceUrl ? (
