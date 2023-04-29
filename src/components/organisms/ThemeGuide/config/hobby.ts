@@ -1,6 +1,5 @@
 import I18n from '@/utils/I18n';
 import { Baseball } from '@/images';
-import { getLanguage } from '@/utils/diary';
 import { Entry } from '../interface';
 import { GetParams, getWords } from '../util';
 
@@ -11,8 +10,6 @@ export const hobby = ({
   examples,
   learnLanguage,
 }: GetParams): Entry[] => {
-  const strLearnLanguage = getLanguage(learnLanguage);
-
   const words = getWords({
     learnLanguage,
     num: WORD_NUM,
@@ -25,7 +22,7 @@ export const hobby = ({
       key: 'introduction',
       params: {
         text: I18n.t('first.hobby.introduction', {
-          learnLanguage: strLearnLanguage,
+          learnLanguage: 'en',
         }),
         source: Baseball,
       },

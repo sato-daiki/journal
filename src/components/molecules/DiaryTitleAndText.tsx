@@ -3,7 +3,6 @@ import { StyleSheet, View, Text } from 'react-native';
 import I18n from '@/utils/I18n';
 import { fontSizeM, primaryColor, subTextColor } from '@/styles/Common';
 import { CheckInfo, Language, ThemeCategory, ThemeSubcategory } from '@/types';
-import RichText from '@/components/organisms/RichText';
 import { SmallPill, Space } from '@/components/atoms';
 import Words from './Words';
 
@@ -59,7 +58,7 @@ const DiaryTitleAndText: React.FC<Props> = ({
             backgroundColor={subTextColor}
           />
         )}
-        <RichText style={styles.title} text={title} />
+        <Text style={styles.title}>{title}</Text>
       </View>
       <Space size={16} />
       {checkInfo ? (

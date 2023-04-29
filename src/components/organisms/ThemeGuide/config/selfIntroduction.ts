@@ -1,6 +1,5 @@
 import I18n from '@/utils/I18n';
 import { President } from '@/images';
-import { getLanguage } from '@/utils/diary';
 import { Entry } from '../interface';
 import { GetParams, getWords } from '../util';
 
@@ -11,8 +10,6 @@ export const selfIntroduction = ({
   examples,
   learnLanguage,
 }: GetParams): Entry[] => {
-  const strLearnLanguage = getLanguage(learnLanguage);
-
   const words = getWords({
     learnLanguage,
     num: WORD_NUM,
@@ -25,7 +22,7 @@ export const selfIntroduction = ({
       key: 'introduction',
       params: {
         text: I18n.t('first.selfIntroduction.introduction', {
-          learnLanguage: strLearnLanguage,
+          learnLanguage: 'en',
         }),
         source: President,
       },

@@ -14,6 +14,7 @@ import MyPageTabNavigator, {
 import { MainStackParamList, MainNavigationProp } from './MainNavigator';
 import { mainColor, subTextColor } from '@/styles/Common';
 import { User } from '@/types';
+import { getShortName } from '@/utils/spellChecker';
 
 export interface Props {
   user: User;
@@ -69,7 +70,7 @@ const HomeBottomTabNavigator: React.FC<Props> = ({ user }) => {
           tabPress: (e) => {
             // Prevent default action
             e.preventDefault();
-            if (user.learnLanguage === 'en') {
+            if (getShortName(user.learnLanguage) === 'English') {
               navigation.navigate('ModalSelectDiaryType', {
                 screen: 'SelectDiaryType',
               });

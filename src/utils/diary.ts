@@ -13,10 +13,6 @@ import I18n from './I18n';
 import { getDateToStrDay, getLastMonday, getThisMonday } from './common';
 import { getAlgoliaDay } from './time';
 
-export const getLanguage = (language: Language): string => {
-  return I18n.t(`language.${language}`);
-};
-
 export const getMaxPostText = (): number => {
   // maximum number of characters per minute: 75,000 (free) / 300,000 (Premium)
   // maximum number of characters per request: 20,000 (free) / 60,000 (Premium)

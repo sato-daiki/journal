@@ -7,15 +7,12 @@ import {
   subTextColor,
 } from '@/styles/Common';
 import I18n from '@/utils/I18n';
-import { Language } from '@/types';
 import { TipParams } from './interface';
 import Header from './Header';
 import { getStyle } from './util';
-import RichText from '../RichText';
 
 interface Props {
   params: TipParams;
-  textLanguage: Language;
 }
 
 const styles = StyleSheet.create({
@@ -60,7 +57,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const ThemeGuideTip: React.FC<Props> = ({ params, textLanguage }) => {
+const ThemeGuideTip: React.FC<Props> = ({ params }) => {
   return (
     <ScrollView
       style={styles.scrollView}
@@ -73,11 +70,7 @@ const ThemeGuideTip: React.FC<Props> = ({ params, textLanguage }) => {
         </Text>
         {params.expressions.map((expression) => (
           <View key={expression.id} style={[styles.marginBottom12, styles.row]}>
-            <RichText
-              style={styles.text}
-              textLanguage={textLanguage}
-              text={`${expression.learnText}`}
-            />
+            <Text style={styles.text}>{`  (${expression.learnText})`}</Text>
             <Text style={styles.subText}>{`  (${expression.nativeText})`}</Text>
           </View>
         ))}

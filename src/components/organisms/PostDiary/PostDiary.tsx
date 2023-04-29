@@ -143,13 +143,15 @@ const PostDiary: React.FC<PostDiaryProps> = ({
             {text.length}
           </Text>
         </View>
-        <View style={styles.right}>
-          <LanguagePicker
-            size={'small'}
-            selectedItem={selectedItem}
-            onPressItem={onPressItem}
-          />
-        </View>
+        {(!themeCategory || !themeSubcategory) && (
+          <View style={styles.right}>
+            <LanguagePicker
+              size={'small'}
+              selectedItem={selectedItem}
+              onPressItem={onPressItem}
+            />
+          </View>
+        )}
       </View>
       <PostDiaryKeyboard
         title={title}

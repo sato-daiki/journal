@@ -100,12 +100,7 @@ const ThemeGuideScreen: React.FC<ScreenType> = ({
         case 'introduction':
           return <ThemeGuideIntroduction params={item.params} />;
         case 'tip':
-          return (
-            <ThemeGuideTip
-              params={item.params}
-              textLanguage={user.learnLanguage}
-            />
-          );
+          return <ThemeGuideTip params={item.params} />;
         case 'word':
           return <ThemeGuideWord params={item.params} />;
         case 'end':
@@ -114,7 +109,7 @@ const ThemeGuideScreen: React.FC<ScreenType> = ({
           return null;
       }
     },
-    [onPressEnd, user.learnLanguage],
+    [onPressEnd],
   );
 
   return (

@@ -70,19 +70,11 @@ interface GetStyleSentencesParams {
 }
 
 const getSentences = ({
-  learnLanguage,
   expressions,
   nativeOption,
   i18nTextHeader,
 }: GetSentencesParams): Sentence[] | null => {
-  let newExpressions: string[];
-  switch (learnLanguage) {
-    case 'en':
-      newExpressions = expressions.en;
-      break;
-    default:
-      return null;
-  }
+  const newExpressions = expressions.en;
 
   return newExpressions.map((item, index) => {
     const i18nText = `${i18nTextHeader}${index + 1}`;
@@ -155,20 +147,11 @@ const getExpressions = ({
 };
 
 const getStyleSentences = ({
-  learnLanguage,
   examples,
   nativeOption,
   i18nTextHeader,
 }: GetStyleSentencesParams): StyleSentence[] | null => {
-  let newExamples: StyleText[][];
-
-  switch (learnLanguage) {
-    case 'en':
-      newExamples = examples.en;
-      break;
-    default:
-      return null;
-  }
+  const newExamples = examples.en;
 
   return newExamples.map((item, index) => {
     const i18nText = `${i18nTextHeader}${index + 1}`;
