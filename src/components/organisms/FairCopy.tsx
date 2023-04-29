@@ -1,16 +1,21 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View, Text } from 'react-native';
 import ViewShot from 'react-native-view-shot';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Audio, AVPlaybackStatus } from 'expo-av';
 import { GrayHeader, Space, WhiteButton } from '../atoms';
-import DiaryOriginal from './DiaryOriginal';
 
 import { Diary } from '../../types';
-import { mainColor, primaryColor } from '../../styles/Common';
+import {
+  fontSizeS,
+  mainColor,
+  primaryColor,
+  subTextColor,
+} from '../../styles/Common';
 import ModalSpeech from './ModalSpeech';
 import ModalVoice from './ModalVoice';
 import I18n from '../../utils/I18n';
+import { DiaryTitleAndText } from '../molecules';
 
 export interface Props {
   diary: Diary;
@@ -27,6 +32,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingTop: 12,
   },
+  mainContainer: {
+    paddingHorizontal: 16,
+    paddingBottom: 32,
+  },
   scrollView: {
     flex: 1,
   },
@@ -41,6 +50,11 @@ const styles = StyleSheet.create({
   linkText: {
     textAlign: 'center',
     marginHorizontal: 16,
+  },
+  textLength: {
+    color: subTextColor,
+    fontSize: fontSizeS,
+    textAlign: 'right',
   },
 });
 
@@ -231,11 +245,18 @@ const FairCopy: React.FC<Props> = ({ diary, checkPermissions, goToRecord }) => {
           ref={viewShotRef}
           options={{ format: 'jpg', quality: 0.9 }}
         >
-          <DiaryOriginal
-            diary={diary}
-            title={diary.fairCopyTitle || diary.title}
-            text={diary.fairCopyText || diary.text}
-          />
+          <View style={styles.mainContainer}>
+            <DiaryTitleAndText
+              themeCategory={diary.themeCategory}
+              themeSubcategory={diary.themeSubcategory}
+              title={diary.fairCopyTitle || diary.title}
+              text={diary.fairCopyText || diary.text}
+            />
+            <Text style={styles.textLength}>
+              {I18n.t('postDiaryComponent.textLength')}
+              {` ${(diary.fairCopyText || diary.text).length}`}
+            </Text>
+          </View>
         </ViewShot>
         <Space size={24} />
         <GrayHeader

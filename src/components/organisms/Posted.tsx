@@ -1,12 +1,14 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
-import { StyleSheet, View, ScrollView } from 'react-native';
+import { StyleSheet, View, ScrollView, Text } from 'react-native';
 import ViewShot from 'react-native-view-shot';
 import { Diary } from '../../types';
-import { Space } from '../atoms';
-import DiaryOriginal from './DiaryOriginal';
+import { CountryNameWithFlag, Space } from '../atoms';
 import firestore from '@react-native-firebase/firestore';
-import { offWhite } from '@/styles/Common';
+import { fontSizeS, subTextColor } from '@/styles/Common';
 import Matches from '../molecules/Matches';
+import { DiaryTitleAndText, MyDiaryStatus } from '../molecules';
+import I18n from '../../utils/I18n';
+import { getAlgoliaDate } from '@/utils/time';
 
 export interface Props {
   diary: Diary;
@@ -22,31 +24,34 @@ const styles = StyleSheet.create({
     paddingTop: 12,
     backgroundColor: '#fff',
   },
+  mainContainer: {
+    paddingHorizontal: 16,
+    paddingBottom: 32,
+  },
   scrollView: {
     flex: 1,
   },
-  activityIndicator: {
-    marginVertical: 16,
-  },
-  matchContainer: {
-    paddingHorizontal: 8,
-    backgroundColor: offWhite,
-    height: 180,
-  },
   header: {
-    height: 32,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingBottom: 4,
   },
-  iconLeft: {
-    position: 'absolute',
-    right: 80,
+  postDayText: {
+    color: subTextColor,
+    fontSize: fontSizeS,
   },
-  iconRight: {
-    position: 'absolute',
-    right: 40,
+  right: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
-  iconClose: {
-    position: 'absolute',
-    right: 0,
+  countryNameWithFlag: {
+    paddingRight: 8,
+  },
+  textLength: {
+    color: subTextColor,
+    fontSize: fontSizeS,
+    textAlign: 'right',
   },
 });
 
@@ -57,6 +62,10 @@ const Posted: React.FC<Props> = ({ diary, editDiary }) => {
   const viewShotRef = useRef<ViewShot | null>(null);
   const [textActiveIndex, setTextActiveIndex] = useState<number | null>(null);
   const [titleActiveIndex, setTitleActiveIndex] = useState<number | null>(null);
+
+  const postDayText = useMemo(() => {
+    return getAlgoliaDate(diary.createdAt);
+  }, [diary.createdAt]);
 
   const titleActiveLeft = useMemo(() => {
     if (titleActiveIndex !== null && titleActiveIndex !== 0) {
@@ -194,17 +203,35 @@ const Posted: React.FC<Props> = ({ diary, editDiary }) => {
           ref={viewShotRef}
           options={{ format: 'jpg', quality: 0.9 }}
         >
-          <DiaryOriginal
-            diary={diary}
-            title={diary.title}
-            text={diary.text}
-            titleMatches={diary.titleMatches}
-            textMatches={diary.textMatches}
-            titleActiveIndex={titleActiveIndex}
-            textActiveIndex={textActiveIndex}
-            setTitleActiveIndex={setTitleActiveIndex}
-            setTextActiveIndex={setTextActiveIndex}
-          />
+          <View style={styles.mainContainer}>
+            <View style={styles.header}>
+              <Text style={styles.postDayText}>{postDayText}</Text>
+              <View style={styles.right}>
+                <CountryNameWithFlag
+                  containerStyle={styles.countryNameWithFlag}
+                  size='small'
+                  longCode={diary.longCode}
+                />
+                <MyDiaryStatus diaryStatus={diary.diaryStatus} />
+              </View>
+            </View>
+            <DiaryTitleAndText
+              themeCategory={diary.themeCategory}
+              themeSubcategory={diary.themeSubcategory}
+              title={diary.title}
+              text={diary.text}
+              titleMatches={diary.titleMatches}
+              textMatches={diary.textMatches}
+              titleActiveIndex={titleActiveIndex}
+              textActiveIndex={textActiveIndex}
+              setTitleActiveIndex={setTitleActiveIndex}
+              setTextActiveIndex={setTextActiveIndex}
+            />
+            <Text style={styles.textLength}>
+              {I18n.t('postDiaryComponent.textLength')}
+              {` ${diary.text.length}`}
+            </Text>
+          </View>
         </ViewShot>
         <Space size={32} />
       </ScrollView>
