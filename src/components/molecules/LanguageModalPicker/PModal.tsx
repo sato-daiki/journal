@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { FlatList, ListRenderItem, StyleSheet, View } from 'react-native';
 import Modal from 'react-native-modal';
 import PItem from './PItem';
-import { PickerItem } from './';
+import { PickerItem } from '.';
 
 type Props = {
   isVisible: boolean;

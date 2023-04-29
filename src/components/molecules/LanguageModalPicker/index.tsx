@@ -1,36 +1,35 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import {
   StyleProp,
   StyleSheet,
-  Text,
   TouchableOpacity,
   ViewStyle,
 } from 'react-native';
 import PModal from './PModal';
-import { HoverableIcon } from '@/components/atoms';
-import {
-  fontSizeM,
-  offWhite,
-  primaryColor,
-  subTextColor,
-} from '@/styles/Common';
+import { CountryNameWithFlag, HoverableIcon } from '@/components/atoms';
+import { primaryColor } from '@/styles/Common';
+import { LongCode } from '@/types';
 
 export type PickerItem = {
   value: string;
   label: string;
 };
 
+export type Size = 'large' | 'small';
+
 type Props = {
   containerStyle?: StyleProp<ViewStyle>;
-  selectedItem: PickerItem | undefined;
+  selectedItem: PickerItem;
   items: PickerItem[];
+  size?: Size;
   onPressItem: (item: PickerItem) => void;
 };
 
-const ModalPicker: React.FC<Props> = ({
+const LanguageModalPicker: React.FC<Props> = ({
   containerStyle,
   selectedItem,
   items,
+  size = 'large',
   onPressItem,
 }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -52,23 +51,27 @@ const ModalPicker: React.FC<Props> = ({
       <TouchableOpacity
         style={[
           styles.container,
-          selectedItem ? styles.active : styles.inactive,
+          size === 'large'
+            ? {
+                flex: 1,
+                paddingLeft: 16,
+              }
+            : {
+                width: 136,
+                paddingLeft: 4,
+              },
           containerStyle,
         ]}
         onPress={onPress}
       >
-        <Text
-          style={[
-            styles.text,
-            { color: selectedItem ? primaryColor : subTextColor },
-          ]}
-        >
-          {selectedItem ? selectedItem.label : 'タップして選択'}
-        </Text>
+        <CountryNameWithFlag
+          size={size}
+          longCode={selectedItem.value as LongCode}
+        />
         <HoverableIcon
           icon='community'
-          name={'chevron-right'}
-          size={32}
+          name={size === 'large' ? 'chevron-right' : 'chevron-down'}
+          size={size === 'large' ? 32 : 16}
           color={primaryColor}
         />
       </TouchableOpacity>
@@ -88,22 +91,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderWidth: 1,
     borderRadius: 8,
-  },
-  text: {
-    paddingHorizontal: 12,
-    paddingVertical: 12,
-    fontSize: fontSizeM,
-    color: primaryColor,
-    flex: 1,
-  },
-  active: {
     backgroundColor: '#fff',
-    borderColor: primaryColor,
-  },
-  inactive: {
-    backgroundColor: offWhite,
     borderColor: primaryColor,
   },
 });
 
-export default React.memo(ModalPicker);
+export default React.memo(LanguageModalPicker);

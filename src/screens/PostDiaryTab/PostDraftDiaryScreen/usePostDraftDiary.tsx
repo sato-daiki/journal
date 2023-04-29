@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { Keyboard } from 'react-native';
 import { logAnalytics, events } from '@/utils/Analytics';
-import { DiaryStatus, User, Diary, CheckInfo } from '@/types';
+import { DiaryStatus, User, Diary, CheckInfo, LongCode } from '@/types';
 import {
   checkBeforePost,
   getRunningDays,
@@ -15,7 +15,8 @@ import {
 } from './interfaces';
 import { useCommon } from '../PostDiaryScreen/useCommont';
 import firestore from '@react-native-firebase/firestore';
-import { spellChecker } from '@/utils/spellChecker';
+import { getName, getShortName, spellChecker } from '@/utils/spellChecker';
+import { getShortDayName } from '@/utils/time';
 
 interface UsePostDraftDiary {
   user: User;
@@ -47,12 +48,15 @@ export const usePostDraftDiary = ({
     setTitle,
     text,
     setText,
+    selectedItem,
+    setSelectedItem,
     errorMessage,
     setErrorMessage,
     onPressClose,
     onPressCloseModalCancel,
     onPressNotSave,
     onPressCloseError,
+    onPressItem,
   } = useCommon({
     navigation,
     learnLanguage: user.learnLanguage,
@@ -62,6 +66,10 @@ export const usePostDraftDiary = ({
     if (item) {
       setTitle(item.title);
       setText(item.text);
+      setSelectedItem({
+        label: getShortName(item.longCode),
+        value: item.longCode,
+      });
     }
     setIsInitialLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -76,11 +84,12 @@ export const usePostDraftDiary = ({
         title,
         text,
         diaryStatus,
+        longCode: selectedItem.value as LongCode,
         checkInfo: checkInfo || null,
         updatedAt: firestore.FieldValue.serverTimestamp(),
       };
     },
-    [user, text, title],
+    [user.diaryPosted, title, text, selectedItem.value],
   );
 
   const onPressDraft = useCallback(async (): Promise<void> => {
@@ -260,6 +269,7 @@ export const usePostDraftDiary = ({
     title,
     text,
     errorMessage,
+    selectedItem,
     onPressCheck,
     onPressCloseModalCancel,
     onChangeTextTitle,
@@ -268,5 +278,6 @@ export const usePostDraftDiary = ({
     onPressNotSave,
     onPressClose,
     onPressCloseError,
+    onPressItem,
   };
 };

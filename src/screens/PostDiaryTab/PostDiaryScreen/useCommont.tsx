@@ -3,6 +3,8 @@ import { BackHandler, Alert, Keyboard } from 'react-native';
 import I18n from '@/utils/I18n';
 import { LongCode } from '@/types';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { PickerItem } from '@/components/molecules/LanguageModalPicker';
+import { getName, getShortName } from '@/utils/spellChecker';
 
 interface UseCommon {
   navigation: StackNavigationProp<any>;
@@ -10,7 +12,11 @@ interface UseCommon {
   learnLanguage: LongCode;
 }
 
-export const useCommon = ({ navigation, themeTitle }: UseCommon) => {
+export const useCommon = ({
+  navigation,
+  themeTitle,
+  learnLanguage,
+}: UseCommon) => {
   const [isLoadingPublish, setIsLoadingPublish] = useState(false);
   const [isLoadingDraft, setIsLoadingDraft] = useState(false);
   const [isModalCancel, setIsModalCancel] = useState(false);
@@ -18,6 +24,10 @@ export const useCommon = ({ navigation, themeTitle }: UseCommon) => {
 
   const [title, setTitle] = useState(themeTitle || '');
   const [text, setText] = useState('');
+  const [selectedItem, setSelectedItem] = useState<PickerItem>({
+    label: getShortName(learnLanguage),
+    value: learnLanguage,
+  });
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
@@ -48,6 +58,10 @@ export const useCommon = ({ navigation, themeTitle }: UseCommon) => {
     return (): void =>
       BackHandler.removeEventListener('hardwareBackPress', backAction);
   }, [navigation]);
+
+  const onPressItem = useCallback((item: PickerItem) => {
+    setSelectedItem(item);
+  }, []);
 
   const onPressClose = useCallback((): void => {
     Keyboard.dismiss();
@@ -90,11 +104,14 @@ export const useCommon = ({ navigation, themeTitle }: UseCommon) => {
     setTitle,
     text,
     setText,
+    selectedItem,
+    setSelectedItem,
     errorMessage,
     setErrorMessage,
     onPressClose,
     onPressCloseModalCancel,
     onPressNotSave,
     onPressCloseError,
+    onPressItem,
   };
 };

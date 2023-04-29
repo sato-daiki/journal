@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { fontSizeS, subTextColor } from '../../styles/Common';
 import { getAlgoliaDate } from '../../utils/time';
 import { CheckInfo, Diary, User, Word } from '../../types';
 import I18n from '../../utils/I18n';
 import { DiaryTitleAndText, MyDiaryStatus } from '../molecules';
+import { CountryNameWithFlag } from '../atoms';
 
 interface Props {
   diary: Diary;
@@ -31,6 +32,13 @@ const styles = StyleSheet.create({
     color: subTextColor,
     fontSize: fontSizeS,
   },
+  right: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  countryNameWithFlag: {
+    paddingRight: 8,
+  },
   textLength: {
     color: subTextColor,
     fontSize: fontSizeS,
@@ -47,13 +55,22 @@ const DiaryOriginal: React.FC<Props> = ({
   activeIndex,
   setActiveIndex,
 }) => {
+  const postDayText = useMemo(() => {
+    return getAlgoliaDate(diary.createdAt);
+  }, [diary.createdAt]);
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.postDayText}>
-          {getAlgoliaDate(diary.createdAt)}
-        </Text>
-        <MyDiaryStatus diaryStatus={diary.diaryStatus} />
+        <Text style={styles.postDayText}>{postDayText}</Text>
+        <View style={styles.right}>
+          <CountryNameWithFlag
+            containerStyle={styles.countryNameWithFlag}
+            size='small'
+            longCode={diary.longCode}
+          />
+          <MyDiaryStatus diaryStatus={diary.diaryStatus} />
+        </View>
       </View>
       <DiaryTitleAndText
         themeCategory={diary.themeCategory}

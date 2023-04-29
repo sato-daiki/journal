@@ -14,7 +14,7 @@ import {
 import firestore from '@react-native-firebase/firestore';
 import { fontSizeL, primaryColor } from '@/styles/Common';
 import { getName } from '@/utils/spellChecker';
-import { PickerItem } from '@/components/molecules/ModalPicker';
+import { PickerItem } from '@/components/molecules/LanguageModalPicker';
 import LanguagePicker from '@/components/organisms/LanguagePicker';
 
 export interface Props {

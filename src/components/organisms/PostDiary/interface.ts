@@ -2,6 +2,7 @@ import { Animated } from 'react-native';
 import { LongCode, ThemeCategory, ThemeSubcategory } from '@/types';
 import { PostDiaryNavigationProp } from '@/screens/PostDiaryTab/PostDiaryScreen/interfaces';
 import { PostDraftDiaryNavigationProp } from '@/screens/PostDiaryTab/PostDraftDiaryScreen/interfaces';
+import { PickerItem } from '@/components/molecules/LanguageModalPicker';
 
 export interface PostDiaryKeyboardProps {
   title: string;
@@ -31,6 +32,7 @@ export interface PostDiaryProps {
   themeSubcategory?: ThemeSubcategory | null;
   learnLanguage: LongCode;
   errorMessage: string;
+  selectedItem: PickerItem;
   onPressCloseModalCancel: () => void;
   onChangeTextTitle: (txt: string) => void;
   onChangeTextText: (txt: string) => void;
@@ -38,4 +40,5 @@ export interface PostDiaryProps {
   onPressNotSave: () => void;
   onPressTutorial?: () => void;
   onPressCloseError: () => void;
+  onPressItem: (item: PickerItem) => void;
 }

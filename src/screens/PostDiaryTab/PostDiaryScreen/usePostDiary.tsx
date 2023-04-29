@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 import { Keyboard } from 'react-native';
 import * as StoreReview from 'expo-store-review';
 
-import { DiaryStatus, User, Diary, CheckInfo } from '@/types';
+import { DiaryStatus, User, Diary, CheckInfo, LongCode } from '@/types';
 import {
   checkBeforePost,
   getRunningDays,
@@ -50,12 +50,15 @@ export const usePostDiary = ({
     setTitle,
     text,
     setText,
+    selectedItem,
+    setSelectedItem,
     errorMessage,
     setErrorMessage,
     onPressClose,
     onPressCloseModalCancel,
     onPressNotSave,
     onPressCloseError,
+    onPressItem,
   } = useCommon({
     navigation,
     themeTitle,
@@ -76,12 +79,20 @@ export const usePostDiary = ({
         themeCategory: themeCategory || null,
         themeSubcategory: themeSubcategory || null,
         diaryStatus,
+        longCode: selectedItem.value as LongCode,
         checkInfo: checkInfo || null,
         createdAt: firestore.FieldValue.serverTimestamp(),
         updatedAt: firestore.FieldValue.serverTimestamp(),
       };
     },
-    [user, title, text, themeCategory, themeSubcategory],
+    [
+      user.diaryPosted,
+      title,
+      text,
+      themeCategory,
+      themeSubcategory,
+      selectedItem.value,
+    ],
   );
 
   const onPressDraft = useCallback(async (): Promise<void> => {
@@ -129,7 +140,11 @@ export const usePostDiary = ({
     setIsLoadingPublish(true);
 
     // チェック
-    const checkData = await spellChecker(user.learnLanguage, title, text);
+    const checkData = await spellChecker(
+      selectedItem.value as LongCode,
+      title,
+      text,
+    );
     const checkInfo = {
       language: checkData.language,
       matches: checkData.matches,
@@ -229,6 +244,7 @@ export const usePostDiary = ({
     isLoadingDraft,
     isLoadingPublish,
     navigation,
+    selectedItem.value,
     setErrorMessage,
     setIsLoadingPublish,
     setIsModalError,
@@ -260,10 +276,11 @@ export const usePostDiary = ({
     isLoadingDraft,
     isLoadingPublish,
     isModalCancel,
+    isModalError,
     title,
     text,
     errorMessage,
-    isModalError,
+    selectedItem,
     onPressCheck,
     onPressCloseModalCancel,
     onChangeTextTitle,
@@ -272,5 +289,6 @@ export const usePostDiary = ({
     onPressNotSave,
     onPressClose,
     onPressCloseError,
+    onPressItem,
   };
 };

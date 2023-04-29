@@ -6,6 +6,30 @@ import { softRed, softRedOpacy, yellow, yellowOpacy } from '@/styles/Common';
 
 const ENDPOINT = 'https://api.languagetoolplus.com/v2';
 
+export const getShortName = (longCode: LongCode) => {
+  const shortLongCode = longCode.substring(0, 2);
+  switch (shortLongCode) {
+    case 'en':
+      return 'English';
+    case 'de':
+      return 'German';
+    case 'es':
+      return 'Spanish';
+    case 'fr':
+      return 'French';
+    case 'pt':
+      return 'Portuguese';
+    case 'nl':
+      return 'Dutch';
+    default:
+      return 'English';
+  }
+};
+
+export const getNationalityCode = (longCode: LongCode) => {
+  return longCode.substring(longCode.length - 2, longCode.length).toUpperCase();
+};
+
 export const getName = (longCode: LongCode) => {
   switch (longCode) {
     case 'en-AU':

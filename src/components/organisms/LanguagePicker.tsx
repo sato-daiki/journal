@@ -1,14 +1,22 @@
 import React, { useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
-import ModalPicker, { PickerItem } from '../molecules/ModalPicker';
+import ModalPicker, {
+  PickerItem,
+  Size,
+} from '../molecules/LanguageModalPicker';
 import { languages } from '@/utils/spellChecker';
 
 export interface Props {
+  size?: Size;
   selectedItem: PickerItem;
   onPressItem: (item: PickerItem) => void;
 }
 
-const LanguagePicker: React.FC<Props> = ({ selectedItem, onPressItem }) => {
+const LanguagePicker: React.FC<Props> = ({
+  size = 'large',
+  selectedItem,
+  onPressItem,
+}) => {
   const options: PickerItem[] = useMemo(
     () =>
       languages.map((item) => {
@@ -23,6 +31,7 @@ const LanguagePicker: React.FC<Props> = ({ selectedItem, onPressItem }) => {
   return (
     <View style={styles.radioBoxWrapper}>
       <ModalPicker
+        size={size}
         items={options}
         selectedItem={selectedItem}
         onPressItem={onPressItem}

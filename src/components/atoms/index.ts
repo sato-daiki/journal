@@ -1,4 +1,5 @@
 export { default as Checkbox } from './Checkbox';
+export { default as CountryNameWithFlag } from './CountryNameWithFlag';
 export { default as DefaultHeaderBack } from './DefaultHeaderBack';
 export { default as DiaryTitle } from './DiaryTitle';
 export { default as DiaryStatusLabel } from './DiaryStatusLabel';

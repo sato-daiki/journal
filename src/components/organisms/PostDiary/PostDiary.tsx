@@ -23,6 +23,7 @@ import ModalDiaryCancel from '@/components/organisms/ModalDiaryCancel';
 import PostDiaryKeyboard from './PostDiaryKeyboard';
 import { PostDiaryProps } from './interface';
 import ModalConfirm from '../ModalConfirm';
+import LanguagePicker from '../LanguagePicker';
 
 const styles = StyleSheet.create({
   container: {
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingVertical: 12,
-    paddingLeft: 16,
+    paddingHorizontal: 16,
     borderColor: borderLightColor,
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
@@ -70,12 +71,14 @@ const PostDiary: React.FC<PostDiaryProps> = ({
   themeSubcategory,
   learnLanguage,
   errorMessage,
+  selectedItem,
   onPressCloseModalCancel,
   onChangeTextTitle,
   onChangeTextText,
   onPressDraft,
   onPressNotSave,
   onPressCloseError,
+  onPressItem,
 }) => {
   const [isForce, setIsForce] = useState(false);
   const [fadeAnim, setFadeAnim] = useState(new Animated.Value(0));
@@ -139,6 +142,13 @@ const PostDiary: React.FC<PostDiaryProps> = ({
           >
             {text.length}
           </Text>
+        </View>
+        <View style={styles.right}>
+          <LanguagePicker
+            size={'small'}
+            selectedItem={selectedItem}
+            onPressItem={onPressItem}
+          />
         </View>
       </View>
       <PostDiaryKeyboard

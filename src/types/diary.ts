@@ -1,5 +1,5 @@
 import { ThemeCategory, ThemeSubcategory } from './user';
-import { CheckInfo } from './checkInfo';
+import { CheckInfo, LongCode } from './checkInfo';
 
 // algolia経由で取得するのでtimestamp型が他と異なる
 export type Timestamp = {
@@ -23,6 +23,7 @@ export interface Diary {
   diaryStatus: DiaryStatus;
   voiceUrl?: string | null;
   publishedAt?: Timestamp | any;
+  longCode: LongCode;
   checkInfo: CheckInfo | null;
   createdAt: Timestamp | any;
   updatedAt: Timestamp | any;

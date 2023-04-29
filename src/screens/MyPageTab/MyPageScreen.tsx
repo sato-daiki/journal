@@ -5,7 +5,12 @@ import { CompositeNavigationProp } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { primaryColor, subTextColor, fontSizeS } from '../../styles/Common';
 import { User } from '../../types';
-import { SmallButtonWhite, Space, HeaderIcon } from '../../components/atoms';
+import {
+  SmallButtonWhite,
+  Space,
+  HeaderIcon,
+  CountryNameWithFlag,
+} from '../../components/atoms';
 import I18n from '../../utils/I18n';
 import {
   MyPageTabStackParamList,
@@ -89,7 +94,7 @@ const MyPageScreen: React.FC<ScreenType> = ({ navigation, user }) => {
             name='pencil'
           />
           <Text style={styles.label}>{I18n.t('profileLanguage.learn')}</Text>
-          <Text style={styles.language}>{getName(user.learnLanguage)}</Text>
+          <CountryNameWithFlag size={'large'} longCode={user.learnLanguage} />
         </View>
         <Space size={16} />
         <SmallButtonWhite
