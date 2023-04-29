@@ -22,6 +22,7 @@ import ModalDiaryCancel from '@/components/organisms/ModalDiaryCancel';
 // @ts-ignore
 import PostDiaryKeyboard from './PostDiaryKeyboard';
 import { PostDiaryProps } from './interface';
+import ModalConfirm from '../ModalConfirm';
 
 const styles = StyleSheet.create({
   container: {
@@ -62,16 +63,19 @@ const PostDiary: React.FC<PostDiaryProps> = ({
   navigation,
   isLoading,
   isModalCancel,
+  isModalError,
   title,
   text,
   themeCategory,
   themeSubcategory,
   learnLanguage,
+  errorMessage,
   onPressCloseModalCancel,
   onChangeTextTitle,
   onChangeTextText,
   onPressDraft,
   onPressNotSave,
+  onPressCloseError,
 }) => {
   const [isForce, setIsForce] = useState(false);
   const [fadeAnim, setFadeAnim] = useState(new Animated.Value(0));
@@ -108,6 +112,13 @@ const PostDiary: React.FC<PostDiaryProps> = ({
   return (
     <SafeAreaView style={styles.container}>
       <LoadingModal visible={isLoading} />
+      <ModalConfirm
+        visible={isModalError}
+        title={I18n.t('common.error')}
+        message={errorMessage}
+        mainButtonText={I18n.t('common.close')}
+        onPressMain={onPressCloseError}
+      />
       <ModalDiaryCancel
         visible={isModalCancel}
         isLoading={isLoading}

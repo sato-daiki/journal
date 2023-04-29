@@ -13,13 +13,13 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "buildNumber": "1010301",
+      "buildNumber": "1010302",
       "googleServicesFile": "./GoogleService-Info.plist",
       "supportsTablet": true,
       "bundleIdentifier": "app.daiki123456.langjournal"
     },
     "android": {
-      "versionCode": 1010301,
+      "versionCode": 1010302,
       "permissions": ["RECORD_AUDIO"],
       "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
@@ -47,7 +47,8 @@
     "extra": {
       "eas": {
         "projectId": "7d257981-58b3-4a46-9d4b-b2bf733f887f"
-      }
+      },
+      "revision": 1
     },
     "runtimeVersion": {
       "policy": "sdkVersion"

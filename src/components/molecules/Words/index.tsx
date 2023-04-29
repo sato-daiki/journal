@@ -1,18 +1,19 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { Text } from 'react-native';
-import { Word } from '@/types';
+import { Match, Word } from '@/types';
 import StyledWord from './StyledWord';
+import { getColors } from '@/utils/spellChecker';
 
 type Props = {
   text: string;
-  words: Word[];
+  matches: Match[];
   activeIndex?: number | null;
   setActiveIndex?: (activeIndex: number | null) => void;
 };
 
 const Words: React.FC<Props> = ({
   text,
-  words,
+  matches,
   activeIndex,
   setActiveIndex,
 }) => {
@@ -26,6 +27,52 @@ const Words: React.FC<Props> = ({
   const onPressUnChecked = useCallback(() => {
     setActiveIndex && setActiveIndex(null);
   }, [setActiveIndex]);
+
+  const words = useMemo(() => {
+    let currentOffset = 0;
+    let index = 0;
+    let finish = false;
+
+    let temmWords: Word[] = [];
+
+    while (!finish) {
+      if (index < matches.length && currentOffset === matches[index].offset) {
+        const matchWard = text.substring(
+          currentOffset,
+          currentOffset + matches[index].length,
+        );
+        const { color, backgroundColor } = getColors(matches[index]);
+        temmWords.push({
+          text: matchWard,
+          checked: true,
+          checkIndex: index,
+          color,
+          backgroundColor,
+          ignore: false,
+        });
+        currentOffset = currentOffset + matches[index].length + 1;
+        index++;
+      }
+      const notMatchText = text.substring(
+        currentOffset,
+        index < matches.length ? matches[index].offset - 1 : text.length,
+      );
+      const splitTexts = notMatchText.split(' ');
+      for (let j = 0; j < splitTexts.length; j++) {
+        temmWords.push({
+          text: splitTexts[j],
+          checked: false,
+        });
+      }
+
+      if (index < matches.length) {
+        currentOffset = matches[index].offset;
+      } else {
+        finish = true;
+      }
+    }
+    return temmWords;
+  }, [matches, text]);
 
   return (
     <Text>

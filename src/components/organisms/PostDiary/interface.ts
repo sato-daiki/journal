@@ -24,15 +24,18 @@ export interface PostDiaryProps {
   isLoading: boolean;
   isModalCancel: boolean;
   isTutorialLoading?: boolean;
+  isModalError: boolean;
   title: string;
   text: string;
   themeCategory?: ThemeCategory | null;
   themeSubcategory?: ThemeSubcategory | null;
   learnLanguage: Language;
+  errorMessage: string;
   onPressCloseModalCancel: () => void;
   onChangeTextTitle: (txt: string) => void;
   onChangeTextText: (txt: string) => void;
   onPressDraft: () => void;
   onPressNotSave: () => void;
   onPressTutorial?: () => void;
+  onPressCloseError: () => void;
 }

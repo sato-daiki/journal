@@ -1,14 +1,8 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import I18n from '@/utils/I18n';
 import { fontSizeM, primaryColor, subTextColor } from '@/styles/Common';
-import {
-  CheckInfo,
-  Language,
-  ThemeCategory,
-  ThemeSubcategory,
-  Word,
-} from '@/types';
+import { CheckInfo, Language, ThemeCategory, ThemeSubcategory } from '@/types';
 import RichText from '@/components/organisms/RichText';
 import { SmallPill, Space } from '@/components/atoms';
 import Words from './Words';
@@ -19,7 +13,7 @@ interface Props {
   text: string;
   themeCategory?: ThemeCategory | null;
   themeSubcategory?: ThemeSubcategory | null;
-  words?: Word[];
+  checkInfo?: CheckInfo | null;
   activeIndex?: number | null;
   setActiveIndex?: (activeIndex: number | null) => void;
 }
@@ -52,7 +46,7 @@ const DiaryTitleAndText: React.FC<Props> = ({
   text,
   themeCategory,
   themeSubcategory,
-  words,
+  checkInfo,
   activeIndex,
   setActiveIndex,
 }) => {
@@ -74,13 +68,15 @@ const DiaryTitleAndText: React.FC<Props> = ({
         />
       </View>
       <Space size={16} />
-      {words && (
+      {checkInfo ? (
         <Words
           text={text}
-          words={words}
+          matches={checkInfo.matches}
           activeIndex={activeIndex}
           setActiveIndex={setActiveIndex}
         />
+      ) : (
+        <Text>{text}</Text>
       )}
       <Space size={16} />
     </>

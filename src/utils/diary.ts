@@ -179,3 +179,28 @@ export const getMarkedDates = (newDiaries: Diary[]): MarkedDates =>
       },
     };
   }, {});
+
+export const checkBeforePost = (
+  title: string,
+  text: string,
+): { result: boolean; errorMessage: string } => {
+  if (!title) {
+    return { result: false, errorMessage: I18n.t('errorMessage.emptyTitile') };
+  }
+  if (!text) {
+    return { result: false, errorMessage: I18n.t('errorMessage.emptyText') };
+  }
+  if (text.length > getMaxPostText()) {
+    return {
+      result: false,
+      errorMessage: I18n.t('errorMessage.exceedingCharacter', {
+        textLength: getMaxPostText(),
+      }),
+    };
+  }
+
+  return {
+    result: true,
+    errorMessage: '',
+  };
+};

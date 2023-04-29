@@ -4,6 +4,7 @@ import * as StoreReview from 'expo-store-review';
 
 import { DiaryStatus, User, Diary, CheckInfo } from '@/types';
 import {
+  checkBeforePost,
   getRunningDays,
   getRunningWeeks,
   getThemeDiaries,
@@ -43,13 +44,18 @@ export const usePostDiary = ({
     setIsLoadingPublish,
     isLoadingDraft,
     setIsLoadingDraft,
+    isModalError,
+    setIsModalError,
     title,
     setTitle,
     text,
     setText,
+    errorMessage,
+    setErrorMessage,
     onPressClose,
     onPressCloseModalCancel,
     onPressNotSave,
+    onPressCloseError,
   } = useCommon({
     navigation,
     themeTitle,
@@ -113,6 +119,13 @@ export const usePostDiary = ({
 
   const onPressCheck = useCallback(async (): Promise<void> => {
     if (isLoadingDraft || isLoadingPublish) return;
+    const checked = checkBeforePost(title, text);
+    if (!checked.result) {
+      setErrorMessage(checked.errorMessage);
+      setIsModalError(true);
+      return;
+    }
+
     setIsLoadingPublish(true);
 
     // チェック
@@ -216,7 +229,9 @@ export const usePostDiary = ({
     isLoadingDraft,
     isLoadingPublish,
     navigation,
+    setErrorMessage,
     setIsLoadingPublish,
+    setIsModalError,
     setUser,
     text,
     themeCategory,
@@ -245,9 +260,10 @@ export const usePostDiary = ({
     isLoadingDraft,
     isLoadingPublish,
     isModalCancel,
-    isFirstEdit,
     title,
     text,
+    errorMessage,
+    isModalError,
     onPressCheck,
     onPressCloseModalCancel,
     onChangeTextTitle,
@@ -255,5 +271,6 @@ export const usePostDiary = ({
     onPressDraft,
     onPressNotSave,
     onPressClose,
+    onPressCloseError,
   };
 };

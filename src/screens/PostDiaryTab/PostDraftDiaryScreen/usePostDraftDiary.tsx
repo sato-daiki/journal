@@ -3,6 +3,7 @@ import { Keyboard } from 'react-native';
 import { logAnalytics, events } from '@/utils/Analytics';
 import { DiaryStatus, User, Diary, CheckInfo } from '@/types';
 import {
+  checkBeforePost,
   getRunningDays,
   getRunningWeeks,
   getThemeDiaries,
@@ -40,13 +41,18 @@ export const usePostDraftDiary = ({
     setIsLoadingPublish,
     isLoadingDraft,
     setIsLoadingDraft,
+    isModalError,
+    setIsModalError,
     title,
     setTitle,
     text,
     setText,
+    errorMessage,
+    setErrorMessage,
     onPressClose,
     onPressCloseModalCancel,
     onPressNotSave,
+    onPressCloseError,
   } = useCommon({
     navigation,
     learnLanguage: user.learnLanguage,
@@ -118,6 +124,12 @@ export const usePostDraftDiary = ({
     Keyboard.dismiss();
     if (isInitialLoading || isLoadingDraft || isLoadingPublish) return;
     if (!item.objectID) return;
+    const checked = checkBeforePost(title, text);
+    if (!checked.result) {
+      setErrorMessage(checked.errorMessage);
+      setIsModalError(true);
+      return;
+    }
 
     setIsLoadingPublish(true);
 
@@ -216,7 +228,9 @@ export const usePostDraftDiary = ({
     isLoadingPublish,
     item,
     navigation,
+    setErrorMessage,
     setIsLoadingPublish,
+    setIsModalError,
     setUser,
     text,
     title,
@@ -238,12 +252,14 @@ export const usePostDraftDiary = ({
   );
 
   return {
-    isLoadingDraft,
-    isLoadingPublish,
     isInitialLoading,
+    isLoadingPublish,
+    isLoadingDraft,
     isModalCancel,
+    isModalError,
     title,
     text,
+    errorMessage,
     onPressCheck,
     onPressCloseModalCancel,
     onChangeTextTitle,
@@ -251,5 +267,6 @@ export const usePostDraftDiary = ({
     onPressDraft,
     onPressNotSave,
     onPressClose,
+    onPressCloseError,
   };
 };

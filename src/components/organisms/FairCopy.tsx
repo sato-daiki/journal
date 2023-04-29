@@ -3,15 +3,8 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import ViewShot from 'react-native-view-shot';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Audio, AVPlaybackStatus } from 'expo-av';
-import {
-  GrayHeader,
-  ShareButton,
-  Space,
-  WhiteButton,
-  LinkText,
-} from '../atoms';
+import { GrayHeader, Space, WhiteButton } from '../atoms';
 import DiaryOriginal from './DiaryOriginal';
-import { appShare, diaryShare } from '../../utils/common';
 
 import { Diary, User } from '../../types';
 import { mainColor, primaryColor } from '../../styles/Common';

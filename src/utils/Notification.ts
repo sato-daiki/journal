@@ -15,7 +15,6 @@ Notifications.setNotificationHandler({
 
 const getExpoPushToken = async (): Promise<null | string> => {
   let expoPushToken;
-  if (Platform.OS === 'web') return null;
 
   // 実機端末か否かを判定
   if (Constants.isDevice) {

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { fontSizeS, subTextColor } from '../../styles/Common';
 import { getAlgoliaDate } from '../../utils/time';
-import { Diary, User, Word } from '../../types';
+import { CheckInfo, Diary, User, Word } from '../../types';
 import I18n from '../../utils/I18n';
 import { DiaryTitleAndText, MyDiaryStatus } from '../molecules';
 
@@ -11,7 +11,7 @@ interface Props {
   user: User;
   title: string;
   text: string;
-  words?: Word[];
+  checkInfo?: CheckInfo | null;
   activeIndex?: number | null;
   setActiveIndex?: (activeId: number | null) => void;
 }
@@ -43,11 +43,10 @@ const DiaryOriginal: React.FC<Props> = ({
   user,
   title,
   text,
-  words,
+  checkInfo,
   activeIndex,
   setActiveIndex,
 }) => {
-  console.log('diary', diary);
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -62,7 +61,7 @@ const DiaryOriginal: React.FC<Props> = ({
         title={title}
         text={text}
         textLanguage={user.learnLanguage}
-        words={words}
+        checkInfo={checkInfo}
         activeIndex={activeIndex}
         setActiveIndex={setActiveIndex}
       />

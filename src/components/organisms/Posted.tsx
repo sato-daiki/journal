@@ -1,21 +1,12 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { StyleSheet, View, ScrollView } from 'react-native';
 import ViewShot from 'react-native-view-shot';
-import { Diary, User, Word } from '../../types';
+import { Diary, User } from '../../types';
 import { HoverableIcon, Space } from '../atoms';
 import DiaryOriginal from './DiaryOriginal';
 import firestore from '@react-native-firebase/firestore';
-import {
-  borderLightColor,
-  offWhite,
-  primaryColor,
-  softRed,
-  softRedOpacy,
-  yellow,
-  yellowOpacy,
-} from '@/styles/Common';
+import { borderLightColor, offWhite, primaryColor } from '@/styles/Common';
 import { Matche } from '../molecules/Match';
-import { getColors } from '@/utils/spellChecker';
 
 export interface Props {
   diary: Diary;
@@ -92,57 +83,6 @@ const Posted: React.FC<Props> = ({ user, diary, editDiary }) => {
     }
   }, [activeIndex, diary, editDiary]);
 
-  const words = useMemo(() => {
-    if (!diary.checkInfo) return;
-
-    const { checkInfo, text } = diary;
-    const { matches } = checkInfo;
-
-    let currentOffset = 0;
-    let index = 0;
-    let finish = false;
-
-    let temmWords: Word[] = [];
-
-    while (!finish) {
-      if (index < matches.length && currentOffset === matches[index].offset) {
-        const matchWard = text.substring(
-          currentOffset,
-          currentOffset + matches[index].length,
-        );
-        const { color, backgroundColor } = getColors(matches[index]);
-        temmWords.push({
-          text: matchWard,
-          checked: true,
-          checkIndex: index,
-          color,
-          backgroundColor,
-          ignore: false,
-        });
-        currentOffset = currentOffset + matches[index].length + 1;
-        index++;
-      }
-      const notMatchText = text.substring(
-        currentOffset,
-        index < matches.length ? matches[index].offset - 1 : text.length,
-      );
-      const splitTexts = notMatchText.split(' ');
-      for (let j = 0; j < splitTexts.length; j++) {
-        temmWords.push({
-          text: splitTexts[j],
-          checked: false,
-        });
-      }
-
-      if (index < matches.length) {
-        currentOffset = matches[index].offset;
-      } else {
-        finish = true;
-      }
-    }
-    return temmWords;
-  }, [diary]);
-
   const onPressLeft = useCallback(() => {
     if (activeIndex !== null) {
       setActiveIndex(activeIndex - 1);
@@ -169,17 +109,17 @@ const Posted: React.FC<Props> = ({ user, diary, editDiary }) => {
         >
           <DiaryOriginal
             diary={diary}
-            words={words}
             user={user}
             title={diary.title}
             text={diary.text}
+            checkInfo={diary.checkInfo}
             activeIndex={activeIndex}
             setActiveIndex={setActiveIndex}
           />
         </ViewShot>
         <Space size={32} />
       </ScrollView>
-      {diary.checkInfo && words && activeIndex !== null && (
+      {diary.checkInfo && activeIndex !== null && (
         <View style={styles.matchContainer}>
           <View style={styles.header}>
             <HoverableIcon

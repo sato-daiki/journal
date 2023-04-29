@@ -14,9 +14,11 @@ export const useCommon = ({ navigation, themeTitle }: UseCommon) => {
   const [isLoadingPublish, setIsLoadingPublish] = useState(false);
   const [isLoadingDraft, setIsLoadingDraft] = useState(false);
   const [isModalCancel, setIsModalCancel] = useState(false);
+  const [isModalError, setIsModalError] = useState(false);
 
   const [title, setTitle] = useState(themeTitle || '');
   const [text, setText] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     // keybordでの戻るを制御する Androidのみ
@@ -71,18 +73,28 @@ export const useCommon = ({ navigation, themeTitle }: UseCommon) => {
     });
   }, [navigation]);
 
+  const onPressCloseError = useCallback((): void => {
+    setErrorMessage('');
+    setIsModalError(false);
+  }, []);
+
   return {
     isModalCancel,
     isLoadingPublish,
     setIsLoadingPublish,
     isLoadingDraft,
     setIsLoadingDraft,
+    isModalError,
+    setIsModalError,
     title,
     setTitle,
     text,
     setText,
+    errorMessage,
+    setErrorMessage,
     onPressClose,
     onPressCloseModalCancel,
     onPressNotSave,
+    onPressCloseError,
   };
 };
