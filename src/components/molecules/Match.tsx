@@ -11,7 +11,7 @@ import { Hoverable, HoverableIcon } from '../atoms';
 import { Match } from '@/types';
 import * as Linking from 'expo-linking';
 import I18n from '@/utils/I18n';
-import { getColors } from '@/utils/spellChecker';
+import { getColors } from '@/utils/languageTool';
 
 interface Props {
   match: Match;

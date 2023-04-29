@@ -13,7 +13,7 @@ import { Space, SubmitButton } from '@/components/atoms';
 import { primaryColor, fontSizeL } from '@/styles/Common';
 import I18n from '@/utils/I18n';
 import LanguagePicker from '@/components/organisms/LanguagePicker';
-import { getName } from '@/utils/spellChecker';
+import { getName } from '@/utils/languageTool';
 import { PickerItem } from '@/components/molecules/LanguageModalPicker';
 
 export interface Props {

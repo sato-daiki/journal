@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from 'react';
 import { Text } from 'react-native';
 import { Match, Word } from '@/types';
 import StyledWord from './StyledWord';
-import { getColors } from '@/utils/spellChecker';
+import { getColors } from '@/utils/languageTool';
 
 type Props = {
   text: string;

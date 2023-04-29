@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { fontSizeS, subTextColor } from '../../styles/Common';
 import { getAlgoliaDate } from '../../utils/time';
-import { CheckInfo, Diary, User, Word } from '../../types';
+import { Diary, Match, User } from '../../types';
 import I18n from '../../utils/I18n';
 import { DiaryTitleAndText, MyDiaryStatus } from '../molecules';
 import { CountryNameWithFlag } from '../atoms';
@@ -12,7 +12,7 @@ interface Props {
   user: User;
   title: string;
   text: string;
-  checkInfo?: CheckInfo | null;
+  textMatches?: Match[];
   activeIndex?: number | null;
   setActiveIndex?: (activeId: number | null) => void;
 }
@@ -51,7 +51,7 @@ const DiaryOriginal: React.FC<Props> = ({
   user,
   title,
   text,
-  checkInfo,
+  textMatches,
   activeIndex,
   setActiveIndex,
 }) => {
@@ -77,7 +77,7 @@ const DiaryOriginal: React.FC<Props> = ({
         themeSubcategory={diary.themeSubcategory}
         title={title}
         text={text}
-        checkInfo={checkInfo}
+        textMatches={textMatches}
         activeIndex={activeIndex}
         setActiveIndex={setActiveIndex}
       />

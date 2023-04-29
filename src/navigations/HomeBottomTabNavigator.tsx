@@ -14,7 +14,7 @@ import MyPageTabNavigator, {
 import { MainStackParamList, MainNavigationProp } from './MainNavigator';
 import { mainColor, subTextColor } from '@/styles/Common';
 import { User } from '@/types';
-import { getShortName } from '@/utils/spellChecker';
+import { getShortName } from '@/utils/languageTool';
 
 export interface Props {
   user: User;

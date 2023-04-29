@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { Keyboard } from 'react-native';
 import { logAnalytics, events } from '@/utils/Analytics';
-import { DiaryStatus, User, Diary, CheckInfo, LongCode } from '@/types';
+import { DiaryStatus, User, Diary, LongCode } from '@/types';
 import {
   checkBeforePost,
   getRunningDays,
@@ -15,7 +15,7 @@ import {
 } from './interfaces';
 import { useCommon } from '../PostDiaryScreen/useCommont';
 import firestore from '@react-native-firebase/firestore';
-import { getName, getShortName, spellChecker } from '@/utils/spellChecker';
+import { getName, getShortName, check } from '@/utils/languageTool';
 import { getShortDayName } from '@/utils/time';
 
 interface UsePostDraftDiary {
@@ -76,7 +76,7 @@ export const usePostDraftDiary = ({
   }, []);
 
   const getDiary = useCallback(
-    (diaryStatus: DiaryStatus, checkInfo?: CheckInfo) => {
+    (diaryStatus: DiaryStatus, titleMatches?: Math[], textMatches?: Math[]) => {
       return {
         firstDiary:
           diaryStatus === 'checked' &&
@@ -85,7 +85,8 @@ export const usePostDraftDiary = ({
         text,
         diaryStatus,
         longCode: selectedItem.value as LongCode,
-        checkInfo: checkInfo || null,
+        titleMatches,
+        textMatches: textMatches ? textMatches : undefined,
         updatedAt: firestore.FieldValue.serverTimestamp(),
       };
     },
@@ -143,13 +144,11 @@ export const usePostDraftDiary = ({
     setIsLoadingPublish(true);
 
     // チェック
-    const checkData = await spellChecker(user.learnLanguage, title, text);
-    const checkInfo = {
-      language: checkData.language,
-      matches: checkData.matches,
-    };
+    const titleMatches = await check(selectedItem.value as LongCode, title);
+    const textMatches = await check(selectedItem.value as LongCode, text);
 
-    const diary = getDiary('checked', checkInfo);
+    const diary = getDiary('checked', titleMatches, textMatches);
+
     const runningDays = getRunningDays(
       user.runningDays,
       user.lastDiaryPostedAt,
@@ -237,6 +236,7 @@ export const usePostDraftDiary = ({
     isLoadingPublish,
     item,
     navigation,
+    selectedItem.value,
     setErrorMessage,
     setIsLoadingPublish,
     setIsModalError,

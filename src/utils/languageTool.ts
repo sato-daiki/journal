@@ -88,9 +88,8 @@ export const languages: LanguageInfo[] = [
   { code: 'nl', longCode: 'nl', name: 'Dutch' },
 ];
 
-export const spellChecker = async (
+export const check = async (
   learnLanguage: LongCode,
-  title: string,
   text: string,
 ): Promise<any> => {
   try {
@@ -109,7 +108,7 @@ export const spellChecker = async (
         },
       },
     );
-    return response.data;
+    return response.data.matches;
   } catch (err: any) {
     console.warn(err);
   }

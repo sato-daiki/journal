@@ -4,7 +4,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { primaryColor, subTextColor, fontSizeS } from '../../styles/Common';
 import { LongCode } from '../../types';
 import I18n from '../../utils/I18n';
-import { getName } from '@/utils/spellChecker';
+import { getName } from '@/utils/languageTool';
 
 interface Props {
   learnLanguage: LongCode;

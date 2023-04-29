@@ -7,7 +7,7 @@ import {
   getNationalityCode,
   getName,
   getShortName,
-} from '@/utils/spellChecker';
+} from '@/utils/languageTool';
 import { Size } from '../molecules/LanguageModalPicker';
 
 interface Props {

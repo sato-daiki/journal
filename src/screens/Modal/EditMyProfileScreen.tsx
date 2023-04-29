@@ -13,7 +13,7 @@ import {
 } from '@/navigations/ModalNavigator';
 import firestore from '@react-native-firebase/firestore';
 import { fontSizeL, primaryColor } from '@/styles/Common';
-import { getName } from '@/utils/spellChecker';
+import { getName } from '@/utils/languageTool';
 import { PickerItem } from '@/components/molecules/LanguageModalPicker';
 import LanguagePicker from '@/components/organisms/LanguagePicker';
 

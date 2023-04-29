@@ -4,7 +4,7 @@ import I18n from '@/utils/I18n';
 import { LongCode } from '@/types';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { PickerItem } from '@/components/molecules/LanguageModalPicker';
-import { getName, getShortName } from '@/utils/spellChecker';
+import { getName, getShortName } from '@/utils/languageTool';
 
 interface UseCommon {
   navigation: StackNavigationProp<any>;

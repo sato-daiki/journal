@@ -4,7 +4,7 @@ import ModalPicker, {
   PickerItem,
   Size,
 } from '../molecules/LanguageModalPicker';
-import { languages } from '@/utils/spellChecker';
+import { languages } from '@/utils/languageTool';
 
 export interface Props {
   size?: Size;

@@ -78,8 +78,3 @@ export interface Match {
   ignoreForIncompleteSentence?: boolean;
   contextForSureMatch?: number;
 }
-
-export interface CheckInfo {
-  language: LanguageInfo;
-  matches: Match[];
-}

@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 import { Keyboard } from 'react-native';
 import * as StoreReview from 'expo-store-review';
 
-import { DiaryStatus, User, Diary, CheckInfo, LongCode } from '@/types';
+import { DiaryStatus, User, Diary, LongCode, Match } from '@/types';
 import {
   checkBeforePost,
   getRunningDays,
@@ -16,7 +16,7 @@ import { RouteProp } from '@react-navigation/native';
 import { PostDiaryNavigationProp } from './interfaces';
 import { useCommon } from './useCommont';
 import firestore from '@react-native-firebase/firestore';
-import { spellChecker } from '@/utils/spellChecker';
+import { check } from '@/utils/languageTool';
 
 interface UsePostDiary {
   navigation: PostDiaryNavigationProp;
@@ -66,7 +66,12 @@ export const usePostDiary = ({
   });
 
   const getDiary = useCallback(
-    (uid: string, diaryStatus: DiaryStatus, checkInfo?: CheckInfo): Diary => {
+    (
+      uid: string,
+      diaryStatus: DiaryStatus,
+      titleMatches?: Match[],
+      textMatches?: Match[],
+    ): Diary => {
       return {
         // 最初の日記かチェック
         uid: uid,
@@ -80,7 +85,8 @@ export const usePostDiary = ({
         themeSubcategory: themeSubcategory || null,
         diaryStatus,
         longCode: selectedItem.value as LongCode,
-        checkInfo: checkInfo || null,
+        titleMatches,
+        textMatches,
         createdAt: firestore.FieldValue.serverTimestamp(),
         updatedAt: firestore.FieldValue.serverTimestamp(),
       };
@@ -140,17 +146,10 @@ export const usePostDiary = ({
     setIsLoadingPublish(true);
 
     // チェック
-    const checkData = await spellChecker(
-      selectedItem.value as LongCode,
-      title,
-      text,
-    );
-    const checkInfo = {
-      language: checkData.language,
-      matches: checkData.matches,
-    };
+    const titleMatches = await check(selectedItem.value as LongCode, title);
+    const textMatches = await check(selectedItem.value as LongCode, text);
 
-    const diary = getDiary(user.uid, 'checked', checkInfo);
+    const diary = getDiary(user.uid, 'checked', titleMatches, textMatches);
     const runningDays = getRunningDays(
       user.runningDays,
       user.lastDiaryPostedAt,

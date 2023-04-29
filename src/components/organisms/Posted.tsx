@@ -59,13 +59,16 @@ const Posted: React.FC<Props> = ({ user, diary, editDiary }) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const onPressIgnore = useCallback(async () => {
-    if (activeIndex !== null && diary.checkInfo && diary.objectID) {
-      const newMatches = diary.checkInfo.matches.filter(
-        (_, i) => i !== activeIndex,
-      );
+    if (
+      activeIndex !== null &&
+      diary.textMatches &&
+      diary.textMatches?.length > 0 &&
+      diary.objectID
+    ) {
+      const newMatches = diary.textMatches.filter((_, i) => i !== activeIndex);
 
       await firestore().doc(`diaries/${diary.objectID}`).update({
-        'checkInfo.matches': newMatches,
+        textMatches: newMatches,
         updatedAt: firestore.FieldValue.serverTimestamp(),
       });
 
@@ -75,10 +78,7 @@ const Posted: React.FC<Props> = ({ user, diary, editDiary }) => {
 
       editDiary(diary.objectID, {
         ...diary,
-        checkInfo: {
-          ...diary.checkInfo,
-          matches: newMatches,
-        },
+        textMatches: newMatches,
       });
     }
   }, [activeIndex, diary, editDiary]);
@@ -112,14 +112,14 @@ const Posted: React.FC<Props> = ({ user, diary, editDiary }) => {
             user={user}
             title={diary.title}
             text={diary.text}
-            checkInfo={diary.checkInfo}
+            textMatches={diary.textMatches}
             activeIndex={activeIndex}
             setActiveIndex={setActiveIndex}
           />
         </ViewShot>
         <Space size={32} />
       </ScrollView>
-      {diary.checkInfo && activeIndex !== null && (
+      {diary.textMatches && activeIndex !== null && (
         <View style={styles.matchContainer}>
           <View style={styles.header}>
             <HoverableIcon
@@ -136,12 +136,12 @@ const Posted: React.FC<Props> = ({ user, diary, editDiary }) => {
               name={'arrow-right-thin'}
               size={24}
               color={
-                activeIndex !== diary.checkInfo.matches.length - 1
+                activeIndex !== diary.textMatches.length - 1
                   ? primaryColor
                   : borderLightColor
               }
               onPress={
-                activeIndex !== diary.checkInfo.matches.length - 1
+                activeIndex !== diary.textMatches.length - 1
                   ? onPressRight
                   : undefined
               }
@@ -155,7 +155,7 @@ const Posted: React.FC<Props> = ({ user, diary, editDiary }) => {
             />
           </View>
           <Matche
-            match={diary.checkInfo.matches[activeIndex]}
+            match={diary.textMatches[activeIndex]}
             onPressIgnore={onPressIgnore}
           />
         </View>

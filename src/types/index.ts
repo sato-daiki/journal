@@ -1,5 +1,5 @@
 export * from './user';
-export * from './checkInfo';
+export * from './match';
 export * from './diary';
 export * from './screenName';
 export * from './report';
