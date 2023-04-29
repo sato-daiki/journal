@@ -1,5 +1,12 @@
 import React from 'react';
-import { Text, StyleSheet, ActivityIndicator, StyleProp, ViewStyle, TextStyle } from 'react-native';
+import {
+  Text,
+  StyleSheet,
+  ActivityIndicator,
+  StyleProp,
+  ViewStyle,
+  TextStyle,
+} from 'react-native';
 import { mainColor, fontSizeM, maxPartL } from '../../styles/Common';
 import Hoverable from './Hoverable';
 

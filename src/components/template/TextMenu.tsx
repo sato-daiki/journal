@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   },
   menuText: {
     marginTop: 4,
-    color: 'white',
+    color: '#fff',
   },
   border: {
     borderRightWidth: 1,
@@ -68,7 +68,7 @@ const TextMenu = ({
 
   const copyButton = (
     <MenuOption style={[styles.menu, styles.border]} onSelect={onPressCopy}>
-      <MaterialCommunityIcons size={20} color='white' name='content-copy' />
+      <MaterialCommunityIcons size={20} color='#fff' name='content-copy' />
       <Text style={styles.menuText}>{I18n.t('common.copy')}</Text>
     </MenuOption>
   );
@@ -78,14 +78,14 @@ const TextMenu = ({
       style={[styles.menu, styles.border]}
       onSelect={onPressTranslate}
     >
-      <MaterialCommunityIcons size={20} color='white' name='translate' />
+      <MaterialCommunityIcons size={20} color='#fff' name='translate' />
       <Text style={styles.menuText}>{I18n.t('common.translation')}</Text>
     </MenuOption>
   );
 
   const speechButton = (
     <MenuOption style={styles.menu} onSelect={onPressSpeech}>
-      <MaterialCommunityIcons size={20} color='white' name='volume-high' />
+      <MaterialCommunityIcons size={20} color='#fff' name='volume-high' />
       <Text style={styles.menuText}>{I18n.t('common.speech')}</Text>
     </MenuOption>
   );

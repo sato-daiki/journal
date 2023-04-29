@@ -39,7 +39,7 @@ export interface ReminderSelectTimeProps {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFF',
+    backgroundColor: '#fff',
   },
   title: {
     paddingTop: 32,

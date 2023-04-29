@@ -59,7 +59,7 @@ type ScreenType = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFF',
+    backgroundColor: '#fff',
   },
   main: {
     flex: 1,

@@ -8,7 +8,7 @@ import I18n from '@/utils/I18n';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFF',
+    backgroundColor: '#fff',
     paddingTop: 64,
     alignItems: 'center',
     justifyContent: 'space-between',

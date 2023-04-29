@@ -46,8 +46,8 @@ const Note: React.FC<Props> = ({
       <Text style={[styles.text, { color }]}>{text}</Text>
       <View style={styles.hoverableIcon}>
         <HoverableIcon
-          icon="community"
-          name="close-circle-outline"
+          icon='community'
+          name='close-circle-outline'
           size={32}
           color={color}
           onPress={onPressClose}

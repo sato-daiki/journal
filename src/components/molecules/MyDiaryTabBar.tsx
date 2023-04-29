@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const MyDiaryTabBar: React.FC<Props> = props => {
+const MyDiaryTabBar: React.FC<Props> = (props) => {
   const renderLabel = useCallback(
     ({ route, color }): ReactNode => (
       <View style={styles.labelContainer}>
@@ -44,7 +44,7 @@ const MyDiaryTabBar: React.FC<Props> = props => {
         <Text style={[styles.labelText, { color }]}>{route.title}</Text>
       </View>
     ),
-    []
+    [],
   );
 
   return (

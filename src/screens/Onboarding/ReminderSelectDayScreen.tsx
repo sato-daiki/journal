@@ -23,7 +23,7 @@ type ScreenType = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFF',
+    backgroundColor: '#fff',
   },
   title: {
     paddingTop: 32,
@@ -35,9 +35,15 @@ const styles = StyleSheet.create({
   },
 });
 
-const ReminderSelectDayScreen: React.FC<ScreenType> = ({ navigation, route }) => {
+const ReminderSelectDayScreen: React.FC<ScreenType> = ({
+  navigation,
+  route,
+}) => {
   const [loading, setLoading] = useState(false);
-  const { checkedDays, onChangeCheckedDays } = useMemo(() => route.params, [route.params]);
+  const { checkedDays, onChangeCheckedDays } = useMemo(
+    () => route.params,
+    [route.params],
+  );
 
   const [sun, setSun] = useState(checkedDays[0].checked);
   const [mon, setMon] = useState(checkedDays[1].checked);
@@ -62,7 +68,19 @@ const ReminderSelectDayScreen: React.FC<ScreenType> = ({ navigation, route }) =>
     onChangeCheckedDays(newDays);
     navigation.goBack();
     setLoading(false);
-  }, [checkedDays, fri, loading, mon, navigation, onChangeCheckedDays, sat, sun, thu, tue, wes]);
+  }, [
+    checkedDays,
+    fri,
+    loading,
+    mon,
+    navigation,
+    onChangeCheckedDays,
+    sat,
+    sun,
+    thu,
+    tue,
+    wes,
+  ]);
 
   const onChangedSun = useCallback(() => {
     setSun(!sun);
@@ -150,7 +168,9 @@ const ReminderSelectDayScreen: React.FC<ScreenType> = ({ navigation, route }) =>
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerRight: () => <HeaderText text={I18n.t('common.done')} onPress={onPressDone} />,
+      headerRight: () => (
+        <HeaderText text={I18n.t('common.done')} onPress={onPressDone} />
+      ),
     });
   }, [navigation, onPressDone]);
 

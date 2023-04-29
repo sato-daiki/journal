@@ -4,7 +4,12 @@ import { Text, StyleSheet, View } from 'react-native';
 
 import { Hoverable } from '@/components/atoms';
 
-import { fontSizeM, primaryColor, borderLightColor, subTextColor } from '@/styles/Common';
+import {
+  fontSizeM,
+  primaryColor,
+  borderLightColor,
+  subTextColor,
+} from '@/styles/Common';
 
 interface Props {
   isBorrderTop?: boolean;
@@ -36,14 +41,23 @@ const styles = StyleSheet.create({
   },
 });
 
-const OptionItem = ({ isBorrderTop = false, title, righComponent, onPress }: Props) => {
+const OptionItem = ({
+  isBorrderTop = false,
+  title,
+  righComponent,
+  onPress,
+}: Props) => {
   const borderTopWidth = isBorrderTop ? 0.5 : undefined;
   return (
     <Hoverable style={[styles.container, { borderTopWidth }]} onPress={onPress}>
       <Text style={styles.title}>{title}</Text>
       <View style={styles.rightContainer}>
         {righComponent}
-        <MaterialCommunityIcons size={28} color={subTextColor} name='chevron-right' />
+        <MaterialCommunityIcons
+          size={28}
+          color={subTextColor}
+          name='chevron-right'
+        />
       </View>
     </Hoverable>
   );

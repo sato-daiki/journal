@@ -1,6 +1,6 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { View, Text, StyleSheet, Platform } from 'react-native';
-import { Language, User } from '@/types';
+import { Language, LanguageInfo, User } from '@/types';
 import {
   AuthNavigationProp,
   AuthStackParamList,
@@ -13,6 +13,8 @@ import { Space, SubmitButton } from '@/components/atoms';
 import { primaryColor, fontSizeL } from '@/styles/Common';
 import I18n from '@/utils/I18n';
 import LanguageRadioboxes from '@/components/organisms/LanguageRadioboxes';
+import LanguagePicker from '@/components/organisms/LanguagePicker';
+import { getLanguages } from '@/utils/spellChecker';
 
 export interface Props {
   user: User;
@@ -40,7 +42,10 @@ const SelectLanguageScreen: React.FC<ScreenType> = ({
   user,
   setUser,
 }) => {
-  const [learnLanguage, setLearnLanguage] = useState<Language>('en');
+  const [isLoading, setIsLoading] = useState(true);
+  const [languages, setLanguages] = useState<Language>('en');
+
+  const [learnLanguage, setLearnLanguage] = useState<LanguageInfo>();
 
   const onPressNext = useCallback((): void => {
     setUser({
@@ -53,7 +58,11 @@ const SelectLanguageScreen: React.FC<ScreenType> = ({
   return (
     <View style={styles.contaner}>
       <Text style={styles.title}>{I18n.t('selectLanguage.title')}</Text>
-      <LanguageRadioboxes
+      {/* <LanguageRadioboxes
+        learnLanguage={learnLanguage}
+        setLearnLanguage={setLearnLanguage}
+      /> */}
+      <LanguagePicker
         learnLanguage={learnLanguage}
         setLearnLanguage={setLearnLanguage}
       />
@@ -66,7 +75,7 @@ const SelectLanguageScreen: React.FC<ScreenType> = ({
 const styles = StyleSheet.create({
   contaner: {
     flex: 1,
-    backgroundColor: '#FFF',
+    backgroundColor: '#fff',
     paddingHorizontal: 16,
     paddingTop: 32,
     alignItems: Platform.OS === 'web' ? 'center' : 'flex-start',

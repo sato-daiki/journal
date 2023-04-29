@@ -1,11 +1,17 @@
-export interface LanguageInfo {
+export type LanguageInfo = {
   name: string;
   code: string;
-  detectedLanguage: {
-    name: string;
-    code: string;
-  };
-}
+  longCode: string;
+};
+
+// export interface LanguageInfo {
+//   name: string;
+//   code: string;
+//   detectedLanguage: {
+//     name: string;
+//     code: string;
+//   };
+// }
 
 export interface Word {
   text: string;

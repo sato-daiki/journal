@@ -23,7 +23,7 @@ export interface Props {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFF',
+    backgroundColor: '#fff',
   },
   scrollView: {
     paddingBottom: 32,
@@ -63,7 +63,7 @@ const FairCopyEdit: React.FC<Props> = ({
     <View style={styles.container}>
       <KeyboardAwareScrollView
         style={styles.scrollView}
-        keyboardShouldPersistTaps="handled"
+        keyboardShouldPersistTaps='handled'
         extraScrollHeight={32}
       >
         <TextInputTitle

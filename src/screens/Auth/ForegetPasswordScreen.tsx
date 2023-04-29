@@ -33,7 +33,7 @@ type ScreenType = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFF',
+    backgroundColor: '#fff',
     paddingHorizontal: 16,
     paddingTop: 32,
   },

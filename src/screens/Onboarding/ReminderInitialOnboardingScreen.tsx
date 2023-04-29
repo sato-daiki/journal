@@ -29,7 +29,7 @@ export type ScreenType = {
 
 const styles = StyleSheet.create({
   safeAreaView: {
-    backgroundColor: '#FFF',
+    backgroundColor: '#fff',
     flex: 1,
   },
   container: {

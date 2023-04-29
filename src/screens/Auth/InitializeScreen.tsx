@@ -15,7 +15,7 @@ type ScreenType = StackScreenProps<AuthStackParamList, 'Initialize'>;
 const styles = StyleSheet.create({
   safeAreaView: {
     flex: 1,
-    backgroundColor: '#FFF',
+    backgroundColor: '#fff',
   },
   imgContainer: {
     flex: 1,
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   footer: {
-    backgroundColor: '#FFF',
+    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'flex-end',
     paddingHorizontal: 16,

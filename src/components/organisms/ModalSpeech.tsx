@@ -120,7 +120,7 @@ const ModalSpeech: React.FC<Props> = ({
           />
           <View style={styles.switchContainer}>
             <Switch
-              thumbColor='white'
+              thumbColor='#fff'
               trackColor={{ false: '#767577', true: '#81b0ff' }}
               onValueChange={(): void => setIsSlow(!isSlow)}
               value={isSlow}

@@ -34,7 +34,10 @@ const styles = StyleSheet.create({
 
 const CheckItem = ({ title, checked, disable, onPress }: Props) => {
   return (
-    <Hoverable onPress={onPress} style={[styles.container, disable ? styles.opacity : undefined]}>
+    <Hoverable
+      onPress={onPress}
+      style={[styles.container, disable ? styles.opacity : undefined]}
+    >
       <Text style={styles.title}>{title}</Text>
       <Checkbox checked={checked} disable={disable} />
     </Hoverable>

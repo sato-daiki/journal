@@ -1,5 +1,11 @@
 import React from 'react';
-import { StyleSheet, TextInput, StyleProp, TextStyle, TextInputProps } from 'react-native';
+import {
+  StyleSheet,
+  TextInput,
+  StyleProp,
+  TextStyle,
+  TextInputProps,
+} from 'react-native';
 import { fontSizeM, primaryColor, borderLightColor } from '@/styles/Common';
 import I18n from '@/utils/I18n';
 

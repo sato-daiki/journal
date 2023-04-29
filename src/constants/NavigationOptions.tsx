@@ -28,7 +28,7 @@ export const DefaultNavigationOptions: StackNavigationOptions = {
   headerBackTitleStyle: {
     display: 'none',
   },
-  headerLeft: props => {
+  headerLeft: (props) => {
     const { onPress } = props;
     if (!onPress) return null;
     return <DefaultHeaderBack onPress={onPress} />;
