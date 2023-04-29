@@ -4,7 +4,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
 
 import { HeaderText } from '@/components/atoms';
-import { User } from '@/types';
+import { LongCode, User } from '@/types';
 import I18n from '@/utils/I18n';
 import { MyPageTabNavigationProp } from '@/navigations/MyPageTabNavigator';
 import {
@@ -12,8 +12,10 @@ import {
   ModalEditMyProfileStackParamList,
 } from '@/navigations/ModalNavigator';
 import firestore from '@react-native-firebase/firestore';
-import LanguageRadioboxes from '@/components/organisms/LanguageRadioboxes';
 import { fontSizeL, primaryColor } from '@/styles/Common';
+import { getName } from '@/utils/spellChecker';
+import { PickerItem } from '@/components/molecules/ModalPicker';
+import LanguagePicker from '@/components/organisms/LanguagePicker';
 
 export interface Props {
   user: User;
@@ -43,7 +45,7 @@ const styles = StyleSheet.create({
     color: primaryColor,
     fontSize: fontSizeL,
     fontWeight: 'bold',
-    paddingBottom: 16,
+    paddingBottom: 32,
   },
 });
 
@@ -55,7 +57,15 @@ const EditMyProfileScreen: React.FC<ScreenType> = ({
   setUser,
   navigation,
 }) => {
-  const [learnLanguage, setLearnLanguage] = useState(user.learnLanguage);
+  const [selectedItem, setSelectedItem] = useState<PickerItem>({
+    label: getName(user.learnLanguage),
+    value: user.learnLanguage,
+  });
+
+  const onPressItem = useCallback((item: PickerItem) => {
+    setSelectedItem(item);
+  }, []);
+
   const [isLoading, setIsLoading] = useState(false);
 
   const onPressSubmit = useCallback(async (): Promise<void> => {
@@ -64,18 +74,18 @@ const EditMyProfileScreen: React.FC<ScreenType> = ({
     setIsLoading(true);
 
     await firestore().doc(`users/${user.uid}`).update({
-      learnLanguage: learnLanguage,
+      learnLanguage: selectedItem.value,
       updatedAt: firestore.FieldValue.serverTimestamp(),
     });
 
     setIsLoading(false);
     setUser({
       ...user,
-      learnLanguage: learnLanguage,
+      learnLanguage: selectedItem.value as LongCode,
     });
     //@ts-ignore
     navigation.navigate('MyPageTab');
-  }, [isLoading, learnLanguage, navigation, setUser, user]);
+  }, [isLoading, navigation, selectedItem.value, setUser, user]);
 
   const onPressGoBack = useCallback(() => {
     navigation.goBack();
@@ -90,15 +100,12 @@ const EditMyProfileScreen: React.FC<ScreenType> = ({
         <HeaderText text={I18n.t('common.done')} onPress={onPressSubmit} />
       ),
     });
-  }, [learnLanguage, navigation, onPressGoBack, onPressSubmit]);
+  }, [navigation, onPressGoBack, onPressSubmit]);
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{I18n.t('selectLanguage.title')}</Text>
-      <LanguageRadioboxes
-        learnLanguage={learnLanguage}
-        setLearnLanguage={setLearnLanguage}
-      />
+      <LanguagePicker selectedItem={selectedItem} onPressItem={onPressItem} />
     </View>
   );
 };

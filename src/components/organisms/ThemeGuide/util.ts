@@ -1,4 +1,4 @@
-import { Language, ThemeCategory, ThemeSubcategory } from '@/types';
+import { Language, LongCode, ThemeCategory, ThemeSubcategory } from '@/types';
 import { TextStyle } from 'react-native';
 import I18n from '@/utils/I18n';
 import {
@@ -33,37 +33,37 @@ import { Entry, Sentence, StyleSentence, StyleText } from './interface';
 export interface GetParams {
   expressions: Sentence[];
   examples: StyleSentence[];
-  learnLanguage: Language;
+  learnLanguage: LongCode;
 }
 
 interface GetEntriesParams {
   themeCategory: ThemeCategory;
   themeSubcategory: ThemeSubcategory;
-  learnLanguage: Language;
+  learnLanguage: LongCode;
 }
 
 interface GetExamples {
   themeCategory: ThemeCategory;
   themeSubcategory: ThemeSubcategory;
-  learnLanguage: Language;
+  learnLanguage: LongCode;
 }
 
 interface GetWordsParams {
   themeCategory: ThemeCategory;
   themeSubcategory: ThemeSubcategory;
-  learnLanguage: Language;
+  learnLanguage: LongCode;
   num: number;
 }
 
 interface GetSentencesParams {
-  learnLanguage: Language;
+  learnLanguage: LongCode;
   expressions: Expressions;
   nativeOption: object;
   i18nTextHeader: string;
 }
 
 interface GetStyleSentencesParams {
-  learnLanguage: Language;
+  learnLanguage: LongCode;
   examples: Examples;
   nativeOption: object;
   i18nTextHeader: string;

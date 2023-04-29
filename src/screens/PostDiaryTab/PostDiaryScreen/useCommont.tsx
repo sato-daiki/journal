@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
 import { BackHandler, Alert, Keyboard } from 'react-native';
 import I18n from '@/utils/I18n';
-import { Language } from '@/types';
+import { LongCode } from '@/types';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 interface UseCommon {
   navigation: StackNavigationProp<any>;
   themeTitle?: string;
-  learnLanguage: Language;
+  learnLanguage: LongCode;
 }
 
 export const useCommon = ({ navigation, themeTitle }: UseCommon) => {

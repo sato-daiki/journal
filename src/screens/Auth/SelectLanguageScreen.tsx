@@ -1,6 +1,6 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { View, Text, StyleSheet, Platform } from 'react-native';
-import { Language, LanguageInfo, User } from '@/types';
+import { LongCode, User } from '@/types';
 import {
   AuthNavigationProp,
   AuthStackParamList,
@@ -12,9 +12,9 @@ import { Space, SubmitButton } from '@/components/atoms';
 
 import { primaryColor, fontSizeL } from '@/styles/Common';
 import I18n from '@/utils/I18n';
-import LanguageRadioboxes from '@/components/organisms/LanguageRadioboxes';
 import LanguagePicker from '@/components/organisms/LanguagePicker';
-import { getLanguages } from '@/utils/spellChecker';
+import { getName } from '@/utils/spellChecker';
+import { PickerItem } from '@/components/molecules/ModalPicker';
 
 export interface Props {
   user: User;
@@ -42,30 +42,27 @@ const SelectLanguageScreen: React.FC<ScreenType> = ({
   user,
   setUser,
 }) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [languages, setLanguages] = useState<Language>('en');
+  const [selectedItem, setSelectedItem] = useState<PickerItem>({
+    label: getName('en-US'),
+    value: 'en-US',
+  });
 
-  const [learnLanguage, setLearnLanguage] = useState<LanguageInfo>();
+  const onPressItem = useCallback((item: PickerItem) => {
+    setSelectedItem(item);
+  }, []);
 
   const onPressNext = useCallback((): void => {
     setUser({
       ...user,
-      learnLanguage,
+      learnLanguage: selectedItem.value as LongCode,
     });
     navigation.navigate('SignUp');
-  }, [learnLanguage, navigation, setUser, user]);
+  }, [navigation, selectedItem.value, setUser, user]);
 
   return (
     <View style={styles.contaner}>
       <Text style={styles.title}>{I18n.t('selectLanguage.title')}</Text>
-      {/* <LanguageRadioboxes
-        learnLanguage={learnLanguage}
-        setLearnLanguage={setLearnLanguage}
-      /> */}
-      <LanguagePicker
-        learnLanguage={learnLanguage}
-        setLearnLanguage={setLearnLanguage}
-      />
+      <LanguagePicker selectedItem={selectedItem} onPressItem={onPressItem} />
       <Space size={32} />
       <SubmitButton title={I18n.t('common.next')} onPress={onPressNext} />
     </View>

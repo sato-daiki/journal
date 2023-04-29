@@ -11,7 +11,7 @@ import {
   MyPageTabStackParamList,
   MyPageTabNavigationProp,
 } from '../../navigations/MyPageTabNavigator';
-import { getLanguage } from '@/utils/diary';
+import { getName } from '@/utils/spellChecker';
 
 export interface Props {
   user: User;
@@ -89,7 +89,7 @@ const MyPageScreen: React.FC<ScreenType> = ({ navigation, user }) => {
             name='pencil'
           />
           <Text style={styles.label}>{I18n.t('profileLanguage.learn')}</Text>
-          <Text style={styles.language}>{getLanguage(user.learnLanguage)}</Text>
+          <Text style={styles.language}>{getName(user.learnLanguage)}</Text>
         </View>
         <Space size={16} />
         <SmallButtonWhite

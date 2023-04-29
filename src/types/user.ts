@@ -1,3 +1,5 @@
+import { LongCode } from './checkInfo';
+
 export type Language = 'en' | 'de' | 'es' | 'fr' | 'pt' | 'nl';
 export const languages: Language[] = ['en', 'de', 'es', 'fr', 'pt', 'nl'];
 
@@ -69,7 +71,7 @@ export interface Reminder {
 
 export interface User {
   uid: string;
-  learnLanguage: Language;
+  learnLanguage: LongCode;
   diaryPosted: boolean;
   onboarding?: boolean;
   tutorialTeachDiaryList: boolean;

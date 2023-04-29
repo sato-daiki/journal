@@ -4,6 +4,24 @@ export type LanguageInfo = {
   longCode: string;
 };
 
+export type LongCode =
+  | 'en-AU'
+  | 'en-GB'
+  | 'en-CA'
+  | 'en-NZ'
+  | 'en-ZA'
+  | 'en-US'
+  | 'de-AT'
+  | 'de-DE'
+  | 'de-CH'
+  | 'es'
+  | 'fr'
+  | 'pt-AO'
+  | 'pt-BR'
+  | 'pt-MZ'
+  | 'pt-PT'
+  | 'nl';
+
 // export interface LanguageInfo {
 //   name: string;
 //   code: string;
