@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import I18n from '@/utils/I18n';
 import { fontSizeM, primaryColor, subTextColor } from '@/styles/Common';
-import { Language, Match, ThemeCategory, ThemeSubcategory } from '@/types';
+import { Match, ThemeCategory, ThemeSubcategory } from '@/types';
 import { SmallPill, Space } from '@/components/atoms';
 import Words from './Words';
 

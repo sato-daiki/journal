@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { Keyboard } from 'react-native';
 import { logAnalytics, events } from '@/utils/Analytics';
-import { DiaryStatus, User, Diary, LongCode } from '@/types';
+import { DiaryStatus, User, Diary, LongCode, Match } from '@/types';
 import {
   checkBeforePost,
   getRunningDays,
@@ -76,7 +76,11 @@ export const usePostDraftDiary = ({
   }, []);
 
   const getDiary = useCallback(
-    (diaryStatus: DiaryStatus, titleMatches?: Math[], textMatches?: Math[]) => {
+    (
+      diaryStatus: DiaryStatus,
+      titleMatches?: Match[],
+      textMatches?: Match[],
+    ) => {
       return {
         firstDiary:
           diaryStatus === 'checked' &&
@@ -86,7 +90,7 @@ export const usePostDraftDiary = ({
         diaryStatus,
         longCode: selectedItem.value as LongCode,
         titleMatches,
-        textMatches: textMatches ? textMatches : undefined,
+        textMatches,
         updatedAt: firestore.FieldValue.serverTimestamp(),
       };
     },
