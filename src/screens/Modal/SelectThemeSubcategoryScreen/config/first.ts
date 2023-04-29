@@ -7,12 +7,12 @@ import {
   President,
   Skull,
 } from '@/images';
-import { Language } from '@/types';
+import { LongCode } from '@/types';
 import I18n from '@/utils/I18n';
 import { ThemeSubcategoryInfo } from '../interface';
 
 interface FirstProps {
-  learnLanguage: Language;
+  learnLanguage: LongCode;
 }
 export const first = ({
   learnLanguage,
