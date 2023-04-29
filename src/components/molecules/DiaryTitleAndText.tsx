@@ -11,9 +11,12 @@ interface Props {
   text: string;
   themeCategory?: ThemeCategory | null;
   themeSubcategory?: ThemeSubcategory | null;
-  textMatches?: Match[];
-  activeIndex?: number | null;
-  setActiveIndex?: (activeIndex: number | null) => void;
+  titleMatches?: Match[] | [];
+  textMatches?: Match[] | [];
+  titleActiveIndex?: number | null;
+  textActiveIndex?: number | null;
+  setTitleActiveIndex?: (activeId: number | null) => void;
+  setTextActiveIndex?: (activeId: number | null) => void;
 }
 
 const styles = StyleSheet.create({
@@ -43,9 +46,12 @@ const DiaryTitleAndText: React.FC<Props> = ({
   text,
   themeCategory,
   themeSubcategory,
+  titleMatches,
   textMatches,
-  activeIndex,
-  setActiveIndex,
+  titleActiveIndex,
+  textActiveIndex,
+  setTitleActiveIndex,
+  setTextActiveIndex,
 }) => {
   return (
     <>
@@ -58,15 +64,27 @@ const DiaryTitleAndText: React.FC<Props> = ({
             backgroundColor={subTextColor}
           />
         )}
-        <Text style={styles.title}>{title}</Text>
+        {titleMatches && titleMatches.length > 0 ? (
+          <Words
+            textStyle={styles.title}
+            text={title}
+            matches={titleMatches}
+            activeIndex={titleActiveIndex}
+            setActiveIndex={setTitleActiveIndex}
+            setOtherIndex={setTextActiveIndex}
+          />
+        ) : (
+          <Text style={styles.title}>{title}</Text>
+        )}
       </View>
       <Space size={16} />
       {textMatches && textMatches.length > 0 ? (
         <Words
           text={text}
           matches={textMatches}
-          activeIndex={activeIndex}
-          setActiveIndex={setActiveIndex}
+          activeIndex={textActiveIndex}
+          setActiveIndex={setTextActiveIndex}
+          setOtherIndex={setTitleActiveIndex}
         />
       ) : (
         <Text>{text}</Text>

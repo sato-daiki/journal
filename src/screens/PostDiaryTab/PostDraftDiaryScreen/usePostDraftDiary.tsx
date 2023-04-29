@@ -78,8 +78,8 @@ export const usePostDraftDiary = ({
   const getDiary = useCallback(
     (
       diaryStatus: DiaryStatus,
-      titleMatches?: Match[],
-      textMatches?: Match[],
+      titleMatches?: Match[] | [],
+      textMatches?: Match[] | [],
     ) => {
       return {
         firstDiary:

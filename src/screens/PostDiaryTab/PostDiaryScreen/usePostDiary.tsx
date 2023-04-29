@@ -69,8 +69,8 @@ export const usePostDiary = ({
     (
       uid: string,
       diaryStatus: DiaryStatus,
-      titleMatches?: Match[],
-      textMatches?: Match[],
+      titleMatches?: Match[] | [],
+      textMatches?: Match[] | [],
     ): Diary => {
       return {
         // 最初の日記かチェック

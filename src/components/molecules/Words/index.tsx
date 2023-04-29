@@ -1,32 +1,38 @@
 import React, { useCallback, useMemo } from 'react';
-import { Text } from 'react-native';
+import { StyleProp, Text, TextStyle } from 'react-native';
 import { Match, Word } from '@/types';
 import StyledWord from './StyledWord';
 import { getColors } from '@/utils/languageTool';
 
 type Props = {
+  textStyle?: StyleProp<TextStyle>;
   text: string;
-  matches: Match[];
+  matches: Match[] | [];
   activeIndex?: number | null;
   setActiveIndex?: (activeIndex: number | null) => void;
+  setOtherIndex?: (index: null) => void;
 };
 
 const Words: React.FC<Props> = ({
+  textStyle,
   text,
   matches,
   activeIndex,
   setActiveIndex,
+  setOtherIndex,
 }) => {
   const onPressChecked = useCallback(
     (id) => {
+      setOtherIndex && setOtherIndex(null);
       setActiveIndex && setActiveIndex(id);
     },
-    [setActiveIndex],
+    [setActiveIndex, setOtherIndex],
   );
 
   const onPressUnChecked = useCallback(() => {
     setActiveIndex && setActiveIndex(null);
-  }, [setActiveIndex]);
+    setOtherIndex && setOtherIndex(null);
+  }, [setActiveIndex, setOtherIndex]);
 
   const words = useMemo(() => {
     let currentOffset = 0;
@@ -75,7 +81,7 @@ const Words: React.FC<Props> = ({
   }, [matches, text]);
 
   return (
-    <Text>
+    <Text style={textStyle}>
       {!!words &&
         words.map((word, index) => (
           <StyledWord

@@ -24,8 +24,8 @@ export interface Diary {
   voiceUrl?: string | null;
   publishedAt?: Timestamp | any;
   longCode: LongCode;
-  titleMatches?: Match[];
-  textMatches?: Match[];
+  titleMatches?: Match[] | [];
+  textMatches?: Match[] | [];
   createdAt: Timestamp | any;
   updatedAt: Timestamp | any;
 }

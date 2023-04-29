@@ -2,19 +2,21 @@ import React, { useMemo } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { fontSizeS, subTextColor } from '../../styles/Common';
 import { getAlgoliaDate } from '../../utils/time';
-import { Diary, Match, User } from '../../types';
+import { Diary, Match } from '../../types';
 import I18n from '../../utils/I18n';
 import { DiaryTitleAndText, MyDiaryStatus } from '../molecules';
 import { CountryNameWithFlag } from '../atoms';
 
 interface Props {
   diary: Diary;
-  user: User;
   title: string;
   text: string;
-  textMatches?: Match[];
-  activeIndex?: number | null;
-  setActiveIndex?: (activeId: number | null) => void;
+  titleMatches?: Match[] | [];
+  textMatches?: Match[] | [];
+  titleActiveIndex?: number | null;
+  textActiveIndex?: number | null;
+  setTitleActiveIndex?: (activeId: number | null) => void;
+  setTextActiveIndex?: (activeId: number | null) => void;
 }
 
 const styles = StyleSheet.create({
@@ -48,12 +50,14 @@ const styles = StyleSheet.create({
 
 const DiaryOriginal: React.FC<Props> = ({
   diary,
-  user,
   title,
   text,
+  titleMatches,
   textMatches,
-  activeIndex,
-  setActiveIndex,
+  titleActiveIndex,
+  textActiveIndex,
+  setTitleActiveIndex,
+  setTextActiveIndex,
 }) => {
   const postDayText = useMemo(() => {
     return getAlgoliaDate(diary.createdAt);
@@ -77,9 +81,12 @@ const DiaryOriginal: React.FC<Props> = ({
         themeSubcategory={diary.themeSubcategory}
         title={title}
         text={text}
+        titleMatches={titleMatches}
         textMatches={textMatches}
-        activeIndex={activeIndex}
-        setActiveIndex={setActiveIndex}
+        titleActiveIndex={titleActiveIndex}
+        textActiveIndex={textActiveIndex}
+        setTitleActiveIndex={setTitleActiveIndex}
+        setTextActiveIndex={setTextActiveIndex}
       />
       <Text style={styles.textLength}>
         {I18n.t('postDiaryComponent.textLength')}

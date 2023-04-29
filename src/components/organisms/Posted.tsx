@@ -1,16 +1,15 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { StyleSheet, View, ScrollView } from 'react-native';
 import ViewShot from 'react-native-view-shot';
-import { Diary, User } from '../../types';
-import { HoverableIcon, Space } from '../atoms';
+import { Diary } from '../../types';
+import { Space } from '../atoms';
 import DiaryOriginal from './DiaryOriginal';
 import firestore from '@react-native-firebase/firestore';
-import { borderLightColor, offWhite, primaryColor } from '@/styles/Common';
-import { Matche } from '../molecules/Match';
+import { offWhite } from '@/styles/Common';
+import Matches from '../molecules/Matches';
 
 export interface Props {
   diary: Diary;
-  user: User;
   editDiary: (objectID: string, diary: Diary) => void;
 }
 
@@ -54,26 +53,97 @@ const styles = StyleSheet.create({
 /**
  * 日記詳細
  */
-const Posted: React.FC<Props> = ({ user, diary, editDiary }) => {
+const Posted: React.FC<Props> = ({ diary, editDiary }) => {
   const viewShotRef = useRef<ViewShot | null>(null);
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [textActiveIndex, setTextActiveIndex] = useState<number | null>(null);
+  const [titleActiveIndex, setTitleActiveIndex] = useState<number | null>(null);
 
-  const onPressIgnore = useCallback(async () => {
+  const titleActiveLeft = useMemo(() => {
+    if (titleActiveIndex !== null && titleActiveIndex !== 0) {
+      return true;
+    }
+    return false;
+  }, [titleActiveIndex]);
+
+  const titleActiveRight = useMemo(() => {
     if (
-      activeIndex !== null &&
+      (diary.titleMatches &&
+        diary.titleMatches.length > 0 &&
+        titleActiveIndex !== null &&
+        titleActiveIndex !== diary.titleMatches.length - 1) ||
+      (!!diary.textMatches && diary.textMatches.length > 0)
+    ) {
+      return true;
+    }
+    return false;
+  }, [diary.textMatches, diary.titleMatches, titleActiveIndex]);
+
+  const textActiveLeft = useMemo(() => {
+    if (
+      (textActiveIndex !== null && textActiveIndex !== 0) ||
+      (!!diary.titleMatches && diary.titleMatches.length > 0)
+    ) {
+      return true;
+    }
+    return false;
+  }, [diary.titleMatches, textActiveIndex]);
+
+  const textActiveRight = useMemo(() => {
+    if (
+      textActiveIndex !== null &&
       diary.textMatches &&
-      diary.textMatches?.length > 0 &&
+      textActiveIndex < diary.textMatches.length - 1
+    ) {
+      return true;
+    }
+    return false;
+  }, [diary.textMatches, textActiveIndex]);
+
+  const onPressIgnoreTitle = useCallback(async () => {
+    if (
+      titleActiveIndex !== null &&
+      diary.titleMatches &&
+      diary.titleMatches.length > 0 &&
       diary.objectID
     ) {
-      const newMatches = diary.textMatches.filter((_, i) => i !== activeIndex);
+      const newMatches = diary.titleMatches.filter(
+        (_, i) => i !== titleActiveIndex,
+      );
+
+      await firestore().doc(`diaries/${diary.objectID}`).update({
+        titleMatches: newMatches,
+        updatedAt: firestore.FieldValue.serverTimestamp(),
+      });
+
+      if (titleActiveIndex >= newMatches.length) {
+        setTitleActiveIndex(null);
+      }
+
+      editDiary(diary.objectID, {
+        ...diary,
+        titleMatches: newMatches,
+      });
+    }
+  }, [titleActiveIndex, diary, editDiary]);
+
+  const onPressIgnoreText = useCallback(async () => {
+    if (
+      textActiveIndex !== null &&
+      diary.textMatches &&
+      diary.textMatches.length > 0 &&
+      diary.objectID
+    ) {
+      const newMatches = diary.textMatches.filter(
+        (_, i) => i !== textActiveIndex,
+      );
 
       await firestore().doc(`diaries/${diary.objectID}`).update({
         textMatches: newMatches,
         updatedAt: firestore.FieldValue.serverTimestamp(),
       });
 
-      if (activeIndex >= newMatches.length) {
-        setActiveIndex(null);
+      if (textActiveIndex >= newMatches.length) {
+        setTextActiveIndex(null);
       }
 
       editDiary(diary.objectID, {
@@ -81,23 +151,40 @@ const Posted: React.FC<Props> = ({ user, diary, editDiary }) => {
         textMatches: newMatches,
       });
     }
-  }, [activeIndex, diary, editDiary]);
+  }, [textActiveIndex, diary, editDiary, setTextActiveIndex]);
 
-  const onPressLeft = useCallback(() => {
-    if (activeIndex !== null) {
-      setActiveIndex(activeIndex - 1);
+  const onPressLeftTitle = useCallback(() => {
+    setTitleActiveIndex(titleActiveIndex! - 1);
+  }, [titleActiveIndex]);
+
+  const onPressRightTitle = useCallback(() => {
+    if (textActiveRight && titleActiveIndex !== diary.textMatches!.length - 1) {
+      setTitleActiveIndex(titleActiveIndex! + 1);
+    } else {
+      setTitleActiveIndex(null);
+      setTextActiveIndex(0);
     }
-  }, [activeIndex, setActiveIndex]);
+  }, [diary.textMatches, textActiveRight, titleActiveIndex]);
 
-  const onPressRight = useCallback(() => {
-    if (activeIndex !== null) {
-      setActiveIndex(activeIndex + 1);
+  const onPressLeftText = useCallback(() => {
+    if (textActiveLeft && textActiveIndex !== 0) {
+      setTextActiveIndex(textActiveIndex! - 1);
+    } else {
+      setTextActiveIndex(null);
+      setTitleActiveIndex(diary.titleMatches!.length - 1);
     }
-  }, [activeIndex, setActiveIndex]);
+  }, [diary.titleMatches, textActiveIndex, textActiveLeft]);
 
-  const onPressClose = () => {
-    setActiveIndex(null);
-  };
+  const onPressRightText = useCallback(() => {
+    if (textActiveRight) {
+      setTextActiveIndex(textActiveIndex! + 1);
+    }
+  }, [textActiveIndex, textActiveRight]);
+
+  const onPressClose = useCallback(() => {
+    setTitleActiveIndex(null);
+    setTextActiveIndex(null);
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -109,57 +196,46 @@ const Posted: React.FC<Props> = ({ user, diary, editDiary }) => {
         >
           <DiaryOriginal
             diary={diary}
-            user={user}
             title={diary.title}
             text={diary.text}
+            titleMatches={diary.titleMatches}
             textMatches={diary.textMatches}
-            activeIndex={activeIndex}
-            setActiveIndex={setActiveIndex}
+            titleActiveIndex={titleActiveIndex}
+            textActiveIndex={textActiveIndex}
+            setTitleActiveIndex={setTitleActiveIndex}
+            setTextActiveIndex={setTextActiveIndex}
           />
         </ViewShot>
         <Space size={32} />
       </ScrollView>
-      {diary.textMatches && activeIndex !== null && (
-        <View style={styles.matchContainer}>
-          <View style={styles.header}>
-            <HoverableIcon
-              style={styles.iconLeft}
-              icon={'community'}
-              name={'arrow-left-thin'}
-              size={24}
-              color={activeIndex !== 0 ? primaryColor : borderLightColor}
-              onPress={activeIndex !== 0 ? onPressLeft : undefined}
-            />
-            <HoverableIcon
-              style={styles.iconRight}
-              icon={'community'}
-              name={'arrow-right-thin'}
-              size={24}
-              color={
-                activeIndex !== diary.textMatches.length - 1
-                  ? primaryColor
-                  : borderLightColor
-              }
-              onPress={
-                activeIndex !== diary.textMatches.length - 1
-                  ? onPressRight
-                  : undefined
-              }
-            />
-            <HoverableIcon
-              style={styles.iconClose}
-              icon='community'
-              name='close-circle-outline'
-              size={24}
-              onPress={onPressClose}
-            />
-          </View>
-          <Matche
-            match={diary.textMatches[activeIndex]}
-            onPressIgnore={onPressIgnore}
+      {diary.titleMatches &&
+        diary.titleMatches.length > 0 &&
+        titleActiveIndex !== null && (
+          <Matches
+            matches={diary.titleMatches}
+            activeIndex={titleActiveIndex}
+            activeLeft={titleActiveLeft}
+            activeRight={titleActiveRight}
+            onPressLeft={onPressLeftTitle}
+            onPressRight={onPressRightTitle}
+            onPressClose={onPressClose}
+            onPressIgnore={onPressIgnoreTitle}
           />
-        </View>
-      )}
+        )}
+      {diary.textMatches &&
+        diary.textMatches.length > 0 &&
+        textActiveIndex !== null && (
+          <Matches
+            matches={diary.textMatches}
+            activeIndex={textActiveIndex}
+            activeLeft={textActiveLeft}
+            activeRight={textActiveRight}
+            onPressLeft={onPressLeftText}
+            onPressRight={onPressRightText}
+            onPressClose={onPressClose}
+            onPressIgnore={onPressIgnoreText}
+          />
+        )}
     </View>
   );
 };

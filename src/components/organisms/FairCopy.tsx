@@ -6,7 +6,7 @@ import { Audio, AVPlaybackStatus } from 'expo-av';
 import { GrayHeader, Space, WhiteButton } from '../atoms';
 import DiaryOriginal from './DiaryOriginal';
 
-import { Diary, User } from '../../types';
+import { Diary } from '../../types';
 import { mainColor, primaryColor } from '../../styles/Common';
 import ModalSpeech from './ModalSpeech';
 import ModalVoice from './ModalVoice';
@@ -14,7 +14,6 @@ import I18n from '../../utils/I18n';
 
 export interface Props {
   diary: Diary;
-  user: User;
   checkPermissions: () => Promise<boolean>;
   goToRecord: () => void;
 }
@@ -45,12 +44,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const FairCopy: React.FC<Props> = ({
-  diary,
-  user,
-  checkPermissions,
-  goToRecord,
-}) => {
+const FairCopy: React.FC<Props> = ({ diary, checkPermissions, goToRecord }) => {
   const [visibleSpeech, setVisibleSpeech] = useState(false);
   const [visibleVoice, setVisibleVoice] = useState(false);
 
@@ -239,7 +233,6 @@ const FairCopy: React.FC<Props> = ({
         >
           <DiaryOriginal
             diary={diary}
-            user={user}
             title={diary.fairCopyTitle || diary.title}
             text={diary.fairCopyText || diary.text}
           />

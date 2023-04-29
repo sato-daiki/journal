@@ -16,7 +16,7 @@ import {
 } from '@/components/atoms';
 import Posted from '@/components/organisms/Posted';
 
-import { Diary, LocalStatus, User } from '@/types';
+import { Diary, User } from '@/types';
 import {
   MyDiaryTabNavigationProp,
   MyDiaryTabStackParamList,
@@ -30,7 +30,6 @@ import FairCopyEdit from '@/components/organisms/FairCopyEdit';
 
 export interface Props {
   diary?: Diary;
-  user: User;
 }
 
 interface DispatchProps {
@@ -60,7 +59,6 @@ const styles = StyleSheet.create({
  */
 const MyDiaryScreen: React.FC<ScreenType> = ({
   navigation,
-  user,
   diary,
   deleteDiary,
   editDiary,
@@ -249,11 +247,10 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
       if (!diary) return null;
       switch (route.key) {
         case 'posted':
-          return <Posted user={user} diary={diary} editDiary={editDiary} />;
+          return <Posted diary={diary} editDiary={editDiary} />;
         case 'fairCopy':
           return !isEditing ? (
             <FairCopy
-              user={user}
               diary={diary}
               goToRecord={goToRecord}
               checkPermissions={checkPermissions}
@@ -280,7 +277,6 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
       goToRecord,
       isEditing,
       onFocusFairCopyEdit,
-      user,
     ],
   );
 

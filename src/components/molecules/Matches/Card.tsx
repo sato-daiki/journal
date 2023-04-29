@@ -7,7 +7,7 @@ import {
   offWhite,
 } from '@/styles/Common';
 import { View, StyleSheet, Text } from 'react-native';
-import { Hoverable, HoverableIcon } from '../atoms';
+import { Hoverable, HoverableIcon } from '../../atoms';
 import { Match } from '@/types';
 import * as Linking from 'expo-linking';
 import I18n from '@/utils/I18n';
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export const Matche: React.FC<Props> = ({ match, onPressIgnore }) => {
+export const Card: React.FC<Props> = ({ match, onPressIgnore }) => {
   const { color } = useMemo(() => {
     return getColors(match);
   }, [match]);
