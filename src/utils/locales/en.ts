@@ -399,7 +399,6 @@ const sns = {
 const myDiaryStatus = {
   draft: 'Draft',
   checked: 'Posted',
-  fixed: 'Fixed',
 };
 
 const language = {

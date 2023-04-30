@@ -147,13 +147,11 @@ export const getPublishMessage = (
 export const MY_STATUS = {
   draft: { text: I18n.t('myDiaryStatus.draft'), color: subTextColor },
   checked: { text: I18n.t('myDiaryStatus.checked'), color: mainColor },
-  fixed: { text: I18n.t('myDiaryStatus.fixed'), color: green },
 };
 
 export const getMyDiaryStatus = (diaryStatus) => {
   if (diaryStatus === 'draft') return MY_STATUS.draft;
   else if (diaryStatus === 'checked') return MY_STATUS.checked;
-  else if (diaryStatus === 'fixed') return MY_STATUS.fixed;
 };
 
 // 投稿済みの時はpublishedAt、下書きの時または以前verの時はcreatedAt

@@ -394,7 +394,6 @@ const sns = {
 const myDiaryStatus = {
   draft: '下書き',
   checked: '投稿済',
-  fixed: '修正済',
 };
 
 const language = {

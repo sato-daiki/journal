@@ -7,7 +7,7 @@ export type Timestamp = {
   _nanoseconds: number;
 };
 
-export type DiaryStatus = 'draft' | 'checked' | 'fixed';
+export type DiaryStatus = 'draft' | 'checked';
 
 export interface Diary {
   objectID?: string;
