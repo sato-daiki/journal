@@ -37,17 +37,8 @@ eas build --profile preview --platform all
 
 まず`app.json`の`version`, `buildNumber`, `versionCode`を更新する。
 
-### 2. revision 更新
-
-`app.json`の`revision`を更新する。  
-publish する度に+1。新 version を build するときは 0 に戻す。
-
 eas build --profile production --platform all
 
 eas submit -p ios
 
 eas submit -p android
-
-# UPDATE（AppStore. PlayStore 通さないでリリースできる）
-
-eas update --branch production --message "Updating the app"

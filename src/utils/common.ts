@@ -86,11 +86,7 @@ export const getIndexName = (): string => {
 
 export const getVersionText = (): string => {
   let versionText = `version ${Constants.manifest?.version}`;
-  const revision = Constants.manifest?.extra?.revision;
 
-  if (revision > 0) {
-    versionText = `${versionText} rev. ${revision}`;
-  }
   if (__DEV__) {
     versionText = `${versionText} (development)`;
   }

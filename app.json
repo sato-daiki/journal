@@ -47,8 +47,7 @@
     "extra": {
       "eas": {
         "projectId": "7d257981-58b3-4a46-9d4b-b2bf733f887f"
-      },
-      "revision": 0
+      }
     },
     "runtimeVersion": {
       "policy": "sdkVersion"
