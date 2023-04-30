@@ -27,7 +27,12 @@ export const getShortName = (longCode: LongCode) => {
 };
 
 export const getNationalityCode = (longCode: LongCode) => {
-  return longCode.substring(longCode.length - 2, longCode.length).toUpperCase();
+  if (longCode) {
+    // ログアウトの時落ちる
+    return longCode
+      .substring(longCode.length - 2, longCode.length)
+      .toUpperCase();
+  }
 };
 
 export const getName = (longCode: LongCode) => {
