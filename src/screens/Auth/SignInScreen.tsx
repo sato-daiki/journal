@@ -122,7 +122,6 @@ const SignInScreen: React.FC<ScreenType> = ({ navigation }) => {
     <KeyboardAwareScrollView style={styles.container}>
       <View style={styles.main}>
         <LoadingModal visible={isLoading} />
-
         <Text style={styles.label}>{I18n.t('signIn.email')}</Text>
         <CheckTextInput
           autoFocus
