@@ -12,7 +12,12 @@ import { LongCode } from '@/types';
 import I18n from '@/utils/I18n';
 import { primaryColor, fontSizeM } from '@/styles/Common';
 import { Modal } from '@/components/template';
-import { WhiteButton, Space, HoverableIcon } from '@/components/atoms';
+import {
+  WhiteButton,
+  Space,
+  HoverableIcon,
+  SmallButtonWhite,
+} from '@/components/atoms';
 
 const styles = StyleSheet.create({
   container: {
@@ -24,6 +29,13 @@ const styles = StyleSheet.create({
     fontSize: fontSizeM,
     lineHeight: fontSizeM * 1.3,
     textAlign: Platform.OS === 'web' ? 'center' : 'left',
+  },
+  startContainer: {
+    position: 'absolute',
+    left: 16,
+    bottom: 100,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   switchContainer: {
     position: 'absolute',
@@ -103,12 +115,26 @@ const ModalSpeech: React.FC<Props> = ({
     }
   }, []);
 
+  const onPressStart = useCallback((): void => {
+    Speech.stop();
+    setInitial(true);
+    setPlaying(false);
+  }, []);
+
   return (
     <Modal visible={visible}>
       <ScrollView>
         <View style={styles.container}>
           <Text style={styles.text}>{text}</Text>
           <Space size={16} />
+          {Platform.OS === 'ios' && (
+            <SmallButtonWhite
+              containerStyle={styles.startContainer}
+              color={primaryColor}
+              title={I18n.t('myDiary.start')}
+              onPress={onPressStart}
+            />
+          )}
           <HoverableIcon
             icon='community'
             name={playing ? 'pause' : 'play'}

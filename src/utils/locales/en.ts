@@ -163,6 +163,7 @@ const myDiary = {
   record: 'Voice Recording',
   recommend: 'What is an efficient study method?',
   ignore: 'Ignore',
+  start: 'Initially',
 };
 
 const myDiaryList = {

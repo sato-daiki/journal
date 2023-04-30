@@ -160,6 +160,7 @@ const myDiary = {
   record: '録音する',
   recommend: '効率的な勉強方法とは？',
   ignore: '無視',
+  start: '最初から',
 };
 
 const myDiaryList = {
