@@ -166,8 +166,8 @@ export const usePostDiary = ({
     );
     const textEdits = await saplingCheck(selectedItem.value as LongCode, text);
     const sapling = {
-      titleEdits,
-      textEdits,
+      titleEdits: titleEdits.edits,
+      textEdits: textEdits.edits,
     };
 
     const diary = getDiary(user.uid, 'checked', languageTool, sapling);
