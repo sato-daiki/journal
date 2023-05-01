@@ -1,5 +1,6 @@
 import { ThemeCategory, ThemeSubcategory } from './user';
-import { LongCode, Match } from './match';
+import { LanguageTool, LongCode } from './languageTool';
+import { Sapling } from './sapling';
 
 // algolia経由で取得するのでtimestamp型が他と異なる
 export type Timestamp = {
@@ -24,8 +25,8 @@ export interface Diary {
   voiceUrl?: string | null;
   publishedAt?: Timestamp | any;
   longCode: LongCode;
-  titleMatches?: Match[] | [];
-  textMatches?: Match[] | [];
+  languageTool?: LanguageTool;
+  sapling?: Sapling;
   createdAt: Timestamp | any;
   updatedAt: Timestamp | any;
 }

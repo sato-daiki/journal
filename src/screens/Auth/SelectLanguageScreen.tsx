@@ -13,7 +13,7 @@ import { Space, SubmitButton } from '@/components/atoms';
 import { primaryColor, fontSizeL } from '@/styles/Common';
 import I18n from '@/utils/I18n';
 import LanguagePicker from '@/components/organisms/LanguagePicker';
-import { getName } from '@/utils/languageTool';
+import { getLanguageToolName } from '@/utils/grammarCheck';
 import { PickerItem } from '@/components/molecules/LanguageModalPicker';
 
 export interface Props {
@@ -43,7 +43,7 @@ const SelectLanguageScreen: React.FC<ScreenType> = ({
   setUser,
 }) => {
   const [selectedItem, setSelectedItem] = useState<PickerItem>({
-    label: getName('en-US'),
+    label: getLanguageToolName('en-US'),
     value: 'en-US',
   });
 

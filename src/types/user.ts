@@ -1,7 +1,4 @@
-import { LongCode } from './match';
-
-export type Language = 'en' | 'de' | 'es' | 'fr' | 'pt' | 'nl';
-export const languages: Language[] = ['en', 'de', 'es', 'fr', 'pt', 'nl'];
+import { LongCode } from './languageTool';
 
 export type ThemeCategory = 'first';
 export type ThemeSubcategory =

@@ -13,7 +13,7 @@ import {
 } from '@/navigations/ModalNavigator';
 import firestore from '@react-native-firebase/firestore';
 import { fontSizeL, primaryColor } from '@/styles/Common';
-import { getName } from '@/utils/languageTool';
+import { getLanguageToolName } from '@/utils/grammarCheck';
 import { PickerItem } from '@/components/molecules/LanguageModalPicker';
 import LanguagePicker from '@/components/organisms/LanguagePicker';
 
@@ -58,7 +58,7 @@ const EditMyProfileScreen: React.FC<ScreenType> = ({
   navigation,
 }) => {
   const [selectedItem, setSelectedItem] = useState<PickerItem>({
-    label: getName(user.learnLanguage),
+    label: getLanguageToolName(user.learnLanguage),
     value: user.learnLanguage,
   });
 

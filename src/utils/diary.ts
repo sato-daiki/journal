@@ -1,11 +1,5 @@
-import {
-  Language,
-  Diary,
-  ThemeDiary,
-  ThemeCategory,
-  ThemeSubcategory,
-} from '@/types';
-import { subTextColor, green, mainColor } from '@/styles/Common';
+import { Diary, ThemeDiary, ThemeCategory, ThemeSubcategory } from '@/types';
+import { subTextColor, mainColor } from '@/styles/Common';
 import firestore from '@react-native-firebase/firestore';
 
 import { MarkedDates } from '@/components/organisms/MyDiaryList';

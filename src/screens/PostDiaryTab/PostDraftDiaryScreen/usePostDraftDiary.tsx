@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { Keyboard } from 'react-native';
 import { logAnalytics, events } from '@/utils/Analytics';
-import { DiaryStatus, User, Diary, LongCode, Match } from '@/types';
+import { DiaryStatus, User, Diary, LongCode, LanguageTool } from '@/types';
 import {
   checkBeforePost,
   getRunningDays,
@@ -15,8 +15,12 @@ import {
 } from './interfaces';
 import { useCommon } from '../PostDiaryScreen/useCommont';
 import firestore from '@react-native-firebase/firestore';
-import { getName, getShortName, check } from '@/utils/languageTool';
-import { getShortDayName } from '@/utils/time';
+import {
+  getLanguageToolShortName,
+  languageToolCheck,
+  saplingCheck,
+} from '@/utils/grammarCheck';
+import { Sapling } from '@/types/sapling';
 
 interface UsePostDraftDiary {
   user: User;
@@ -67,7 +71,7 @@ export const usePostDraftDiary = ({
       setTitle(item.title);
       setText(item.text);
       setSelectedItem({
-        label: getShortName(item.longCode),
+        label: getLanguageToolShortName(item.longCode),
         value: item.longCode,
       });
     }
@@ -78,8 +82,8 @@ export const usePostDraftDiary = ({
   const getDiary = useCallback(
     (
       diaryStatus: DiaryStatus,
-      titleMatches?: Match[] | [],
-      textMatches?: Match[] | [],
+      languageTool?: LanguageTool,
+      sapling?: Sapling,
     ) => {
       return {
         firstDiary:
@@ -89,8 +93,8 @@ export const usePostDraftDiary = ({
         text,
         diaryStatus,
         longCode: selectedItem.value as LongCode,
-        titleMatches,
-        textMatches,
+        languageTool,
+        sapling,
         updatedAt: firestore.FieldValue.serverTimestamp(),
       };
     },
@@ -147,12 +151,31 @@ export const usePostDraftDiary = ({
 
     setIsLoadingPublish(true);
 
-    // チェック
-    const titleMatches = await check(selectedItem.value as LongCode, title);
-    const textMatches = await check(selectedItem.value as LongCode, text);
+    //  languageTool
+    const titleMatches = await languageToolCheck(
+      selectedItem.value as LongCode,
+      title,
+    );
+    const textMatches = await languageToolCheck(
+      selectedItem.value as LongCode,
+      text,
+    );
+    const languageTool = {
+      titleMatches,
+      textMatches,
+    };
 
-    const diary = getDiary('checked', titleMatches, textMatches);
-
+    //  sapling
+    const titleEdits = await saplingCheck(
+      selectedItem.value as LongCode,
+      title,
+    );
+    const textEdits = await saplingCheck(selectedItem.value as LongCode, text);
+    const sapling = {
+      titleEdits,
+      textEdits,
+    };
+    const diary = getDiary('checked', languageTool, sapling);
     const runningDays = getRunningDays(
       user.runningDays,
       user.lastDiaryPostedAt,

@@ -4,10 +4,10 @@ import Flag from 'react-native-flags';
 import { primaryColor, fontSizeM } from '../../styles/Common';
 import { LongCode } from '@/types';
 import {
-  getNationalityCode,
-  getName,
-  getShortName,
-} from '@/utils/languageTool';
+  getLanguageToolNationalityCode,
+  getLanguageToolName,
+  getLanguageToolShortName,
+} from '@/utils/grammarCheck';
 import { Size } from '../molecules/LanguageModalPicker';
 
 interface Props {
@@ -34,11 +34,13 @@ const CountryNameWithFlag: React.FC<Props> = ({
   longCode,
 }) => {
   const nationalityCode = useMemo(() => {
-    return getNationalityCode(longCode);
+    return getLanguageToolNationalityCode(longCode);
   }, [longCode]);
 
   const shortName = useMemo(() => {
-    return size === 'large' ? getName(longCode) : getShortName(longCode);
+    return size === 'large'
+      ? getLanguageToolName(longCode)
+      : getLanguageToolShortName(longCode);
   }, [longCode, size]);
 
   return (

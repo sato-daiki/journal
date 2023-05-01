@@ -1,13 +1,18 @@
 import axios from 'axios';
+import * as Crypto from 'expo-crypto';
 // @ts-ignore
-import { LANGUAGE_TOOL_API_KEY } from '@env';
+import { LANGUAGE_TOOL_API_KEY, SAPLING_API_KEY } from '@env';
 import { LanguageInfo, LongCode, Match } from '../types';
 import { softRed, softRedOpacy, yellow, yellowOpacy } from '@/styles/Common';
 
-const ENDPOINT = 'https://api.languagetoolplus.com/v2';
+const LANGUAGE_TOOL_ENDPOINT = 'https://api.languagetoolplus.com/v2';
 
-export const getShortName = (longCode: LongCode) => {
-  const shortLongCode = longCode.substring(0, 2);
+export const getLanguageToolCode = (longCode: LongCode) => {
+  return longCode.substring(0, 2);
+};
+
+export const getLanguageToolShortName = (longCode: LongCode) => {
+  const shortLongCode = getLanguageToolCode(longCode);
   switch (shortLongCode) {
     case 'en':
       return 'English';
@@ -26,7 +31,7 @@ export const getShortName = (longCode: LongCode) => {
   }
 };
 
-export const getNationalityCode = (longCode: LongCode) => {
+export const getLanguageToolNationalityCode = (longCode: LongCode) => {
   if (longCode) {
     // ログアウトの時落ちる
     return longCode
@@ -35,7 +40,7 @@ export const getNationalityCode = (longCode: LongCode) => {
   }
 };
 
-export const getName = (longCode: LongCode) => {
+export const getLanguageToolName = (longCode: LongCode) => {
   switch (longCode) {
     case 'en-AU':
       return 'English (Australia)';
@@ -74,7 +79,7 @@ export const getName = (longCode: LongCode) => {
   }
 };
 
-export const languages: LanguageInfo[] = [
+export const languageToolLanguages: LanguageInfo[] = [
   { code: 'en', longCode: 'en-AU', name: 'English (Australia)' },
   { code: 'en', longCode: 'en-GB', name: 'English (British)' },
   { code: 'en', longCode: 'en-CA', name: 'English (Canada)' },
@@ -93,16 +98,17 @@ export const languages: LanguageInfo[] = [
   { code: 'nl', longCode: 'nl', name: 'Dutch' },
 ];
 
-export const check = async (
+export const languageToolCheck = async (
   learnLanguage: LongCode,
   text: string,
 ): Promise<any> => {
   try {
     const response = await axios.post(
-      `${ENDPOINT}/check`,
+      `${LANGUAGE_TOOL_ENDPOINT}/check`,
       {
         language: learnLanguage,
         text: text,
+        // PROの時必要
         // username: 'daiki12345daiki12345@gmail.com',
         // apiKey: LANGUAGE_TOOL_API_KEY,
       },
@@ -120,25 +126,42 @@ export const check = async (
   return;
 };
 
-export const getLanguages = async (): Promise<any> => {
-  try {
-    const response = await axios.get(`${ENDPOINT}/languages`, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        Accept: 'application/json',
-      },
-    });
-    return response.data;
-  } catch (err: any) {
-    console.warn(err);
-  }
-  return;
-};
-
-export const getColors = (match: Match) => {
+export const getLanguageToolColors = (match: Match) => {
   if (match.rule?.issueType === 'misspelling') {
     return { color: softRed, backgroundColor: softRedOpacy };
   } else {
     return { color: yellow, backgroundColor: yellowOpacy };
   }
+};
+
+const SPALING_ENDPOINT = 'https://api.sapling.ai/api/v1';
+
+export const saplingCheck = async (
+  learnLanguage: LongCode,
+  text: string,
+): Promise<any> => {
+  try {
+    // ランダムの値を作る必要があるため
+    const session_id = Crypto.randomUUID();
+
+    const response = await axios.post(
+      `${SPALING_ENDPOINT}/edits`,
+      {
+        lang: getLanguageToolCode(learnLanguage),
+        text: text,
+        key: SAPLING_API_KEY,
+        session_id: session_id,
+      },
+      {
+        headers: {
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+          Accept: 'application/json',
+        },
+      },
+    );
+    return response.data;
+  } catch (err: any) {
+    console.warn(err);
+  }
+  return;
 };

@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from 'react';
 import { StyleProp, Text, TextStyle } from 'react-native';
 import { Match, Word } from '@/types';
 import StyledWord from './StyledWord';
-import { getColors } from '@/utils/languageTool';
+import { getLanguageToolColors } from '@/utils/grammarCheck';
 
 type Props = {
   textStyle?: StyleProp<TextStyle>;
@@ -47,7 +47,9 @@ const Words: React.FC<Props> = ({
           currentOffset,
           currentOffset + matches[index].length,
         );
-        const { color, backgroundColor } = getColors(matches[index]);
+        const { color, backgroundColor } = getLanguageToolColors(
+          matches[index],
+        );
         temmWords.push({
           text: matchWard,
           checked: true,

@@ -11,7 +11,7 @@ import { Hoverable, HoverableIcon } from '../../atoms';
 import { Match } from '@/types';
 import * as Linking from 'expo-linking';
 import I18n from '@/utils/I18n';
-import { getColors } from '@/utils/languageTool';
+import { getLanguageToolColors } from '@/utils/grammarCheck';
 
 interface Props {
   match: Match;
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
 
 export const Card: React.FC<Props> = ({ match, onPressIgnore }) => {
   const { color } = useMemo(() => {
-    return getColors(match);
+    return getLanguageToolColors(match);
   }, [match]);
 
   const onPressInfo = (value: string) => {

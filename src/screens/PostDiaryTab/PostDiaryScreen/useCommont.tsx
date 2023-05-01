@@ -4,7 +4,7 @@ import I18n from '@/utils/I18n';
 import { LongCode } from '@/types';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { PickerItem } from '@/components/molecules/LanguageModalPicker';
-import { getName, getShortName } from '@/utils/languageTool';
+import { getLanguageToolShortName } from '@/utils/grammarCheck';
 
 interface UseCommon {
   navigation: StackNavigationProp<any>;
@@ -25,7 +25,7 @@ export const useCommon = ({
   const [title, setTitle] = useState(themeTitle || '');
   const [text, setText] = useState('');
   const [selectedItem, setSelectedItem] = useState<PickerItem>({
-    label: getShortName(learnLanguage),
+    label: getLanguageToolShortName(learnLanguage),
     value: learnLanguage,
   });
   const [errorMessage, setErrorMessage] = useState('');

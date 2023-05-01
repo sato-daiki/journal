@@ -22,15 +22,6 @@ export type LongCode =
   | 'pt-PT'
   | 'nl';
 
-// export interface LanguageInfo {
-//   name: string;
-//   code: string;
-//   detectedLanguage: {
-//     name: string;
-//     code: string;
-//   };
-// }
-
 export interface Word {
   text: string;
   checked: boolean;
@@ -77,4 +68,9 @@ export interface Match {
   };
   ignoreForIncompleteSentence?: boolean;
   contextForSureMatch?: number;
+}
+
+export interface LanguageTool {
+  titleMatches: Match[] | [];
+  textMatches: Match[] | [];
 }

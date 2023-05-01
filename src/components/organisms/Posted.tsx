@@ -76,51 +76,61 @@ const Posted: React.FC<Props> = ({ diary, editDiary }) => {
 
   const titleActiveRight = useMemo(() => {
     if (
-      (diary.titleMatches &&
-        diary.titleMatches.length > 0 &&
+      (diary.languageTool?.titleMatches &&
+        diary.languageTool?.titleMatches.length > 0 &&
         titleActiveIndex !== null &&
-        titleActiveIndex !== diary.titleMatches.length - 1) ||
-      (!!diary.textMatches && diary.textMatches.length > 0)
+        titleActiveIndex !== diary.languageTool?.titleMatches.length - 1) ||
+      (!!diary.languageTool?.textMatches &&
+        diary.languageTool?.textMatches.length > 0)
     ) {
       return true;
     }
     return false;
-  }, [diary.textMatches, diary.titleMatches, titleActiveIndex]);
+  }, [
+    diary.languageTool?.textMatches,
+    diary.languageTool?.titleMatches,
+    titleActiveIndex,
+  ]);
 
   const textActiveLeft = useMemo(() => {
     if (
       (textActiveIndex !== null && textActiveIndex !== 0) ||
-      (!!diary.titleMatches && diary.titleMatches.length > 0)
+      (!!diary.languageTool?.titleMatches &&
+        diary.languageTool?.titleMatches.length > 0)
     ) {
       return true;
     }
     return false;
-  }, [diary.titleMatches, textActiveIndex]);
+  }, [diary.languageTool?.titleMatches, textActiveIndex]);
 
   const textActiveRight = useMemo(() => {
     if (
       textActiveIndex !== null &&
-      diary.textMatches &&
-      textActiveIndex < diary.textMatches.length - 1
+      diary.languageTool?.textMatches &&
+      textActiveIndex < diary.languageTool?.textMatches.length - 1
     ) {
       return true;
     }
     return false;
-  }, [diary.textMatches, textActiveIndex]);
+  }, [diary.languageTool?.textMatches, textActiveIndex]);
 
   const onPressIgnoreTitle = useCallback(async () => {
     if (
       titleActiveIndex !== null &&
-      diary.titleMatches &&
-      diary.titleMatches.length > 0 &&
+      diary.languageTool?.titleMatches &&
+      diary.languageTool?.titleMatches.length > 0 &&
       diary.objectID
     ) {
-      const newMatches = diary.titleMatches.filter(
+      const newMatches = diary.languageTool?.titleMatches.filter(
         (_, i) => i !== titleActiveIndex,
       );
 
-      await firestore().doc(`diaries/${diary.objectID}`).update({
+      const languageTool = {
+        ...diary.languageTool,
         titleMatches: newMatches,
+      };
+      await firestore().doc(`diaries/${diary.objectID}`).update({
+        languageTool,
         updatedAt: firestore.FieldValue.serverTimestamp(),
       });
 
@@ -130,7 +140,7 @@ const Posted: React.FC<Props> = ({ diary, editDiary }) => {
 
       editDiary(diary.objectID, {
         ...diary,
-        titleMatches: newMatches,
+        languageTool,
       });
     }
   }, [titleActiveIndex, diary, editDiary]);
@@ -138,16 +148,20 @@ const Posted: React.FC<Props> = ({ diary, editDiary }) => {
   const onPressIgnoreText = useCallback(async () => {
     if (
       textActiveIndex !== null &&
-      diary.textMatches &&
-      diary.textMatches.length > 0 &&
+      diary.languageTool?.textMatches &&
+      diary.languageTool?.textMatches.length > 0 &&
       diary.objectID
     ) {
-      const newMatches = diary.textMatches.filter(
+      const newMatches = diary.languageTool.textMatches.filter(
         (_, i) => i !== textActiveIndex,
       );
 
-      await firestore().doc(`diaries/${diary.objectID}`).update({
+      const languageTool = {
+        ...diary.languageTool,
         textMatches: newMatches,
+      };
+      await firestore().doc(`diaries/${diary.objectID}`).update({
+        languageTool,
         updatedAt: firestore.FieldValue.serverTimestamp(),
       });
 
@@ -157,7 +171,7 @@ const Posted: React.FC<Props> = ({ diary, editDiary }) => {
 
       editDiary(diary.objectID, {
         ...diary,
-        textMatches: newMatches,
+        languageTool,
       });
     }
   }, [textActiveIndex, diary, editDiary, setTextActiveIndex]);
@@ -167,22 +181,25 @@ const Posted: React.FC<Props> = ({ diary, editDiary }) => {
   }, [titleActiveIndex]);
 
   const onPressRightTitle = useCallback(() => {
-    if (textActiveRight && titleActiveIndex !== diary.textMatches!.length - 1) {
+    if (
+      textActiveRight &&
+      titleActiveIndex !== diary.languageTool!.textMatches.length - 1
+    ) {
       setTitleActiveIndex(titleActiveIndex! + 1);
     } else {
       setTitleActiveIndex(null);
       setTextActiveIndex(0);
     }
-  }, [diary.textMatches, textActiveRight, titleActiveIndex]);
+  }, [diary.languageTool, textActiveRight, titleActiveIndex]);
 
   const onPressLeftText = useCallback(() => {
     if (textActiveLeft && textActiveIndex !== 0) {
       setTextActiveIndex(textActiveIndex! - 1);
     } else {
       setTextActiveIndex(null);
-      setTitleActiveIndex(diary.titleMatches!.length - 1);
+      setTitleActiveIndex(diary.languageTool!.titleMatches!.length - 1);
     }
-  }, [diary.titleMatches, textActiveIndex, textActiveLeft]);
+  }, [diary.languageTool, textActiveIndex, textActiveLeft]);
 
   const onPressRightText = useCallback(() => {
     if (textActiveRight) {
@@ -220,8 +237,8 @@ const Posted: React.FC<Props> = ({ diary, editDiary }) => {
               themeSubcategory={diary.themeSubcategory}
               title={diary.title}
               text={diary.text}
-              titleMatches={diary.titleMatches}
-              textMatches={diary.textMatches}
+              titleMatches={diary.languageTool?.titleMatches}
+              textMatches={diary.languageTool?.textMatches}
               titleActiveIndex={titleActiveIndex}
               textActiveIndex={textActiveIndex}
               setTitleActiveIndex={setTitleActiveIndex}
@@ -235,11 +252,11 @@ const Posted: React.FC<Props> = ({ diary, editDiary }) => {
         </ViewShot>
         <Space size={32} />
       </ScrollView>
-      {diary.titleMatches &&
-        diary.titleMatches.length > 0 &&
+      {diary.languageTool?.titleMatches &&
+        diary.languageTool?.titleMatches.length > 0 &&
         titleActiveIndex !== null && (
           <Matches
-            matches={diary.titleMatches}
+            matches={diary.languageTool.titleMatches}
             activeIndex={titleActiveIndex}
             activeLeft={titleActiveLeft}
             activeRight={titleActiveRight}
@@ -249,11 +266,11 @@ const Posted: React.FC<Props> = ({ diary, editDiary }) => {
             onPressIgnore={onPressIgnoreTitle}
           />
         )}
-      {diary.textMatches &&
-        diary.textMatches.length > 0 &&
+      {diary.languageTool?.textMatches &&
+        diary.languageTool?.textMatches.length > 0 &&
         textActiveIndex !== null && (
           <Matches
-            matches={diary.textMatches}
+            matches={diary.languageTool?.textMatches}
             activeIndex={textActiveIndex}
             activeLeft={textActiveLeft}
             activeRight={textActiveRight}

@@ -4,7 +4,7 @@ import ModalPicker, {
   PickerItem,
   Size,
 } from '../molecules/LanguageModalPicker';
-import { languages } from '@/utils/languageTool';
+import { languageToolLanguages } from '@/utils/grammarCheck';
 
 export interface Props {
   size?: Size;
@@ -19,7 +19,7 @@ const LanguagePicker: React.FC<Props> = ({
 }) => {
   const options: PickerItem[] = useMemo(
     () =>
-      languages.map((item) => {
+      languageToolLanguages.map((item) => {
         return {
           label: item.name,
           value: item.longCode,

@@ -1,4 +1,4 @@
-import { Language, LongCode, ThemeCategory, ThemeSubcategory } from '@/types';
+import { LongCode, ThemeCategory, ThemeSubcategory } from '@/types';
 import { TextStyle } from 'react-native';
 import I18n from '@/utils/I18n';
 import {

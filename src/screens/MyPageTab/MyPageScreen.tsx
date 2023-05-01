@@ -16,7 +16,6 @@ import {
   MyPageTabStackParamList,
   MyPageTabNavigationProp,
 } from '../../navigations/MyPageTabNavigator';
-import { getName } from '@/utils/languageTool';
 
 export interface Props {
   user: User;
