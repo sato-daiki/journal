@@ -1,8 +1,8 @@
 import React, { useCallback, useMemo } from 'react';
 import { StyleProp, Text, TextStyle } from 'react-native';
 import { Match, Word } from '@/types';
-import StyledWord from './StyledWord';
 import { getLanguageToolColors } from '@/utils/grammarCheck';
+import StyledWord from '@/components/molecules/Words/StyledWord';
 
 type Props = {
   textStyle?: StyleProp<TextStyle>;
@@ -13,7 +13,7 @@ type Props = {
   setOtherIndex?: (index: null) => void;
 };
 
-const Words: React.FC<Props> = ({
+const LanguageToolWords: React.FC<Props> = ({
   textStyle,
   text,
   matches,
@@ -103,4 +103,4 @@ const Words: React.FC<Props> = ({
   );
 };
 
-export default Words;
+export default LanguageToolWords;

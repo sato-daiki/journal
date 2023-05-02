@@ -1,9 +1,9 @@
 export interface Edit {
   id: string;
   sentence: string;
-  sentence_start: string;
-  start: string;
-  end: string;
+  sentence_start: number;
+  start: number;
+  end: number;
   replacement: string;
   error_type: string;
   general_error_type: string;

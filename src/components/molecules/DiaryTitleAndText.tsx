@@ -2,21 +2,14 @@ import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import I18n from '@/utils/I18n';
 import { fontSizeM, primaryColor, subTextColor } from '@/styles/Common';
-import { Match, ThemeCategory, ThemeSubcategory } from '@/types';
+import { ThemeCategory, ThemeSubcategory } from '@/types';
 import { SmallPill, Space } from '@/components/atoms';
-import Words from './Words';
 
 interface Props {
   title: string;
   text: string;
   themeCategory?: ThemeCategory | null;
   themeSubcategory?: ThemeSubcategory | null;
-  titleMatches?: Match[] | [];
-  textMatches?: Match[] | [];
-  titleActiveIndex?: number | null;
-  textActiveIndex?: number | null;
-  setTitleActiveIndex?: (activeId: number | null) => void;
-  setTextActiveIndex?: (activeId: number | null) => void;
 }
 
 const styles = StyleSheet.create({
@@ -46,12 +39,6 @@ const DiaryTitleAndText: React.FC<Props> = ({
   text,
   themeCategory,
   themeSubcategory,
-  titleMatches,
-  textMatches,
-  titleActiveIndex,
-  textActiveIndex,
-  setTitleActiveIndex,
-  setTextActiveIndex,
 }) => {
   return (
     <>
@@ -64,31 +51,10 @@ const DiaryTitleAndText: React.FC<Props> = ({
             backgroundColor={subTextColor}
           />
         )}
-        {titleMatches && titleMatches.length > 0 ? (
-          <Words
-            textStyle={styles.title}
-            text={title}
-            matches={titleMatches}
-            activeIndex={titleActiveIndex}
-            setActiveIndex={setTitleActiveIndex}
-            setOtherIndex={setTextActiveIndex}
-          />
-        ) : (
-          <Text style={styles.title}>{title}</Text>
-        )}
+        <Text style={styles.title}>{title}</Text>
       </View>
       <Space size={16} />
-      {textMatches && textMatches.length > 0 ? (
-        <Words
-          text={text}
-          matches={textMatches}
-          activeIndex={textActiveIndex}
-          setActiveIndex={setTextActiveIndex}
-          setOtherIndex={setTitleActiveIndex}
-        />
-      ) : (
-        <Text>{text}</Text>
-      )}
+      <Text style={styles.text}>{text}</Text>
       <Space size={16} />
     </>
   );

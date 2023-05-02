@@ -8,13 +8,15 @@ import {
 } from '@/styles/Common';
 import { View, StyleSheet, Text } from 'react-native';
 import { Hoverable, HoverableIcon } from '../../atoms';
-import { Match } from '@/types';
 import * as Linking from 'expo-linking';
 import I18n from '@/utils/I18n';
-import { getLanguageToolColors } from '@/utils/grammarCheck';
 
 interface Props {
-  match: Match;
+  color: string;
+  shortMessage?: string;
+  message?: string;
+  urls?: { value: string }[];
+  replacements: { value: string }[];
   onPressIgnore: () => void;
 }
 
@@ -85,11 +87,14 @@ const styles = StyleSheet.create({
   },
 });
 
-export const Card: React.FC<Props> = ({ match, onPressIgnore }) => {
-  const { color } = useMemo(() => {
-    return getLanguageToolColors(match);
-  }, [match]);
-
+export const Card: React.FC<Props> = ({
+  color,
+  shortMessage,
+  message,
+  urls,
+  replacements,
+  onPressIgnore,
+}) => {
   const onPressInfo = (value: string) => {
     Linking.openURL(value);
   };
@@ -98,16 +103,14 @@ export const Card: React.FC<Props> = ({ match, onPressIgnore }) => {
     <View style={styles.container}>
       <View style={styles.firstRow}>
         <View style={[styles.circle, { backgroundColor: color }]} />
-        <Text style={styles.shortMessage}>
-          {match.shortMessage || match.rule?.issueType}
-        </Text>
+        <Text style={styles.shortMessage}>{shortMessage}</Text>
       </View>
       <View style={styles.secondRow}>
         <Text style={styles.message}>
-          {match.message}
-          {!!match.rule?.urls && (
+          {message}
+          {urls && (
             <View style={styles.iconRow}>
-              {match.rule.urls.map((url, index) => (
+              {urls.map((url, index) => (
                 <HoverableIcon
                   key={index}
                   style={styles.infoIcon}
@@ -122,7 +125,7 @@ export const Card: React.FC<Props> = ({ match, onPressIgnore }) => {
         </Text>
       </View>
       <View style={styles.thirdRow}>
-        {match.replacements.map((replacement, index) => (
+        {replacements.map((replacement, index) => (
           <View key={index} style={styles.replacementContaienr}>
             <Text style={styles.replacement}>{replacement.value}</Text>
           </View>

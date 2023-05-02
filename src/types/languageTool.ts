@@ -71,6 +71,6 @@ export interface Match {
 }
 
 export interface LanguageTool {
-  titleMatches: Match[] | [];
-  textMatches: Match[] | [];
+  titleMatches?: Match[] | [];
+  textMatches?: Match[] | [];
 }

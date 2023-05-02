@@ -14,7 +14,6 @@ import {
   DefaultHeaderBack,
   HeaderIcon,
 } from '@/components/atoms';
-import Posted from '@/components/organisms/Posted';
 
 import { Diary, User } from '@/types';
 import {
@@ -27,6 +26,8 @@ import ModalConfirm from '@/components/organisms/ModalConfirm';
 import { MyDiaryTabBar } from '@/components/molecules';
 import FairCopy from '@/components/organisms/FairCopy';
 import FairCopyEdit from '@/components/organisms/FairCopyEdit';
+import LanguageTool from '@/components/organisms/LanguageTool';
+import Sapling from '@/components/organisms/Sapling';
 
 export interface Props {
   diary?: Diary;
@@ -88,7 +89,8 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
 
   const [index, setIndex] = useState(0);
   const [routes] = useState([
-    { key: 'posted', title: I18n.t('myDiary.posted') },
+    { key: 'ai1', title: 'AI①' },
+    { key: 'ai2', title: 'AI②' },
     { key: 'fairCopy', title: I18n.t('myDiary.fairCopy') },
   ]);
 
@@ -178,7 +180,7 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
           />
         );
       }
-      if (index === 1) {
+      if (index === 2) {
         return (
           <HeaderText text={I18n.t('common.edit')} onPress={onPressEdit} />
         );
@@ -246,8 +248,10 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
     ({ route }) => {
       if (!diary) return null;
       switch (route.key) {
-        case 'posted':
-          return <Posted diary={diary} editDiary={editDiary} />;
+        case 'ai1':
+          return <LanguageTool diary={diary} editDiary={editDiary} />;
+        case 'ai2':
+          return <Sapling diary={diary} editDiary={editDiary} />;
         case 'fairCopy':
           return !isEditing ? (
             <FairCopy

@@ -247,10 +247,10 @@ const FairCopy: React.FC<Props> = ({ diary, checkPermissions, goToRecord }) => {
         >
           <View style={styles.mainContainer}>
             <DiaryTitleAndText
-              themeCategory={diary.themeCategory}
-              themeSubcategory={diary.themeSubcategory}
               title={diary.fairCopyTitle || diary.title}
               text={diary.fairCopyText || diary.text}
+              themeCategory={diary.themeCategory}
+              themeSubcategory={diary.themeSubcategory}
             />
             <Text style={styles.textLength}>
               {I18n.t('postDiaryComponent.textLength')}

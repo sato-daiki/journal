@@ -10,7 +10,6 @@ import {
   Layout,
   LoadingModal,
 } from '@/components/atoms';
-import FirstPageComponents from '@/components/organisms/FirstPageComponents';
 import { LocalStatus, MyDiaryListView } from '@/types/localStatus';
 import I18n from '@/utils/I18n';
 import {
@@ -36,7 +35,6 @@ export interface Props {
 interface DispatchProps {
   editDiary: (objectID: string, diary: Diary) => void;
   deleteDiary: (objectID: string) => void;
-  setUser: (user: User) => void;
   setDiaries: (diaries: Diary[]) => void;
   addDiaries: (diaries: Diary[]) => void;
   setMyDiaryListView: (myDiaryListView: MyDiaryListView) => void;
@@ -71,7 +69,6 @@ const MyDiaryListScreen: React.FC<ScreenType> = ({
   diaryTotalNum,
   localStatus,
   deleteDiary,
-  setUser,
   setDiaries,
   addDiaries,
   setDiaryTotalNum,

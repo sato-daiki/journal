@@ -2,7 +2,7 @@ import axios from 'axios';
 import * as Crypto from 'expo-crypto';
 // @ts-ignore
 import { LANGUAGE_TOOL_API_KEY, SAPLING_API_KEY } from '@env';
-import { LanguageInfo, LongCode, Match } from '../types';
+import { Edit, LanguageInfo, LongCode, Match } from '../types';
 import { softRed, softRedOpacy, yellow, yellowOpacy } from '@/styles/Common';
 
 const LANGUAGE_TOOL_ENDPOINT = 'https://api.languagetoolplus.com/v2';
@@ -164,4 +164,12 @@ export const saplingCheck = async (
     console.warn(err);
   }
   return;
+};
+
+export const getSaplingColors = (edit: Edit) => {
+  if (edit.general_error_type === 'Spelling') {
+    return { color: softRed, backgroundColor: softRedOpacy };
+  } else {
+    return { color: yellow, backgroundColor: yellowOpacy };
+  }
 };
