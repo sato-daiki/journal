@@ -5,6 +5,7 @@ import { BannerAd, BannerAdSize } from 'react-native-google-mobile-ads';
 
 const styles = StyleSheet.create({
   adMobBanner: {
+    backgroundColor: '#fff',
     alignItems: 'center',
   },
 });
@@ -25,7 +26,7 @@ const BottomBanner: React.FC = () => {
         <View style={styles.adMobBanner}>
           <BannerAd
             unitId={Platform.OS === 'ios' ? IOS_AD_UNIT_ID : ANDROID_AD_UNIT_ID}
-            size={BannerAdSize.FULL_BANNER}
+            size={BannerAdSize.BANNER}
             requestOptions={{
               requestNonPersonalizedAdsOnly: true,
             }}
