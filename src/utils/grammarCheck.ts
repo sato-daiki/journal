@@ -2,7 +2,14 @@ import axios from 'axios';
 import * as Crypto from 'expo-crypto';
 // @ts-ignore
 import { LANGUAGE_TOOL_API_KEY, SAPLING_API_KEY } from '@env';
-import { Edit, LanguageInfo, LongCode, Match } from '../types';
+import {
+  Edit,
+  LanguageInfo,
+  LanguageTool,
+  LongCode,
+  Match,
+  Sapling,
+} from '../types';
 import { softRed, softRedOpacy, yellow, yellowOpacy } from '@/styles/Common';
 
 const LANGUAGE_TOOL_ENDPOINT = 'https://api.languagetoolplus.com/v2';
@@ -98,7 +105,7 @@ export const languageToolLanguages: LanguageInfo[] = [
   { code: 'nl', longCode: 'nl', name: 'Dutch' },
 ];
 
-export const languageToolCheck = async (
+const languageToolCheck = async (
   learnLanguage: LongCode,
   text: string,
 ): Promise<any> => {
@@ -126,6 +133,24 @@ export const languageToolCheck = async (
   return;
 };
 
+export const getLanguageTool = async (
+  learnLanguage: LongCode,
+  title: string,
+  text: string,
+): Promise<LanguageTool | undefined> => {
+  try {
+    const titleMatches = await languageToolCheck(learnLanguage, title);
+    const textMatches = await languageToolCheck(learnLanguage, text);
+    return {
+      titleMatches,
+      textMatches,
+    };
+  } catch (err: any) {
+    console.warn(err);
+  }
+  return;
+};
+
 export const getLanguageToolColors = (match: Match) => {
   if (match.rule?.issueType === 'misspelling') {
     return { color: softRed, backgroundColor: softRedOpacy };
@@ -136,7 +161,7 @@ export const getLanguageToolColors = (match: Match) => {
 
 const SPALING_ENDPOINT = 'https://api.sapling.ai/api/v1';
 
-export const saplingCheck = async (
+const saplingCheck = async (
   learnLanguage: LongCode,
   text: string,
 ): Promise<any> => {
@@ -162,8 +187,26 @@ export const saplingCheck = async (
     return response.data;
   } catch (err: any) {
     console.warn(err);
+    return;
   }
-  return;
+};
+
+export const getSapling = async (
+  learnLanguage: LongCode,
+  title: string,
+  text: string,
+): Promise<Sapling | undefined> => {
+  try {
+    const titleEdits = await saplingCheck(learnLanguage, title);
+    const textEdits = await saplingCheck(learnLanguage, text);
+    return {
+      titleEdits: titleEdits && titleEdits.edits ? titleEdits.edits : [],
+      textEdits: textEdits && textEdits.edits ? textEdits.edits : [],
+    };
+  } catch (err: any) {
+    console.warn(err);
+    return;
+  }
 };
 
 export const getSaplingColors = (edit: Edit) => {

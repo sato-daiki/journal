@@ -16,7 +16,7 @@ import { RouteProp } from '@react-navigation/native';
 import { PostDiaryNavigationProp } from './interfaces';
 import { useCommon } from './useCommont';
 import firestore from '@react-native-firebase/firestore';
-import { languageToolCheck, saplingCheck } from '@/utils/grammarCheck';
+import { getLanguageTool, getSapling } from '@/utils/grammarCheck';
 import { Sapling } from '@/types/sapling';
 
 interface UsePostDiary {
@@ -146,30 +146,16 @@ export const usePostDiary = ({
 
     setIsLoadingPublish(true);
 
-    // languageTool
-    const titleMatches = await languageToolCheck(
+    const languageTool = await getLanguageTool(
       selectedItem.value as LongCode,
       title,
-    );
-    const textMatches = await languageToolCheck(
-      selectedItem.value as LongCode,
       text,
     );
-    const languageTool = {
-      titleMatches,
-      textMatches,
-    };
-
-    // sapling
-    const titleEdits = await saplingCheck(
+    const sapling = await getSapling(
       selectedItem.value as LongCode,
       title,
+      text,
     );
-    const textEdits = await saplingCheck(selectedItem.value as LongCode, text);
-    const sapling = {
-      titleEdits: titleEdits.edits,
-      textEdits: textEdits.edits,
-    };
 
     const diary = getDiary(user.uid, 'checked', languageTool, sapling);
     const runningDays = getRunningDays(

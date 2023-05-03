@@ -16,9 +16,9 @@ import {
 import { useCommon } from '../PostDiaryScreen/useCommont';
 import firestore from '@react-native-firebase/firestore';
 import {
+  getLanguageTool,
   getLanguageToolShortName,
-  languageToolCheck,
-  saplingCheck,
+  getSapling,
 } from '@/utils/grammarCheck';
 import { Sapling } from '@/types/sapling';
 
@@ -151,30 +151,17 @@ export const usePostDraftDiary = ({
 
     setIsLoadingPublish(true);
 
-    //  languageTool
-    const titleMatches = await languageToolCheck(
+    const languageTool = await getLanguageTool(
       selectedItem.value as LongCode,
       title,
-    );
-    const textMatches = await languageToolCheck(
-      selectedItem.value as LongCode,
       text,
     );
-    const languageTool = {
-      titleMatches,
-      textMatches,
-    };
-
-    //  sapling
-    const titleEdits = await saplingCheck(
+    const sapling = await getSapling(
       selectedItem.value as LongCode,
       title,
+      text,
     );
-    const textEdits = await saplingCheck(selectedItem.value as LongCode, text);
-    const sapling = {
-      titleEdits,
-      textEdits,
-    };
+
     const diary = getDiary('checked', languageTool, sapling);
     const runningDays = getRunningDays(
       user.runningDays,
@@ -232,9 +219,7 @@ export const usePostDraftDiary = ({
     // reduxを更新
     editDiary(item.objectID, {
       ...item,
-      title,
-      text,
-      diaryStatus: 'checked',
+      ...diary,
       updatedAt: firestore.FieldValue.serverTimestamp(),
     });
 
