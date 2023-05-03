@@ -396,7 +396,7 @@ const sns = {
 
 const myDiaryStatus = {
   draft: '下書き',
-  checked: '添削',
+  checked: '添削完了',
   fairCopy: '清書済',
   recorded: '録音済',
 };
