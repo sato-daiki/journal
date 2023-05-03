@@ -2,7 +2,7 @@
   "expo": {
     "name": "LangJournal",
     "slug": "langjournal",
-    "version": "1.2.1",
+    "version": "1.2.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -13,13 +13,13 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "buildNumber": "1020100",
+      "buildNumber": "1020200",
       "googleServicesFile": "./GoogleService-Info.plist",
       "supportsTablet": true,
       "bundleIdentifier": "app.daiki123456.langjournal"
     },
     "android": {
-      "versionCode": 1020100,
+      "versionCode": 1020200,
       "permissions": ["RECORD_AUDIO"],
       "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
