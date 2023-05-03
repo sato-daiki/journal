@@ -93,8 +93,8 @@ export const usePostDraftDiary = ({
         text,
         diaryStatus,
         longCode: selectedItem.value as LongCode,
-        languageTool,
-        sapling,
+        languageTool: languageTool || null,
+        sapling: sapling || null,
         updatedAt: firestore.FieldValue.serverTimestamp(),
       };
     },

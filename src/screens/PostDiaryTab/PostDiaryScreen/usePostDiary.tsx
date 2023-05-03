@@ -85,8 +85,8 @@ export const usePostDiary = ({
         themeSubcategory: themeSubcategory || null,
         diaryStatus,
         longCode: selectedItem.value as LongCode,
-        languageTool,
-        sapling,
+        languageTool: languageTool || null,
+        sapling: sapling || null,
         createdAt: firestore.FieldValue.serverTimestamp(),
         updatedAt: firestore.FieldValue.serverTimestamp(),
       };
@@ -121,6 +121,7 @@ export const usePostDiary = ({
         params: { screen: 'MyDiaryList' },
       });
     } catch (err: any) {
+      console.log('err', err);
       alert({ err });
       setIsLoadingDraft(false);
     }
