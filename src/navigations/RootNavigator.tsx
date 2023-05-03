@@ -37,13 +37,8 @@ const RootNavigator: React.FC<Props & DispatchProps> = ({
 
   const initNavigation = useCallback(
     async (authUser): Promise<void> => {
-      console.log('initNavigation 1', authUser);
       if (authUser) {
-        console.log('initNavigation 2');
-
         const newUser = await getUser(authUser.uid);
-        console.log('newUser', newUser);
-
         if (newUser) {
           setUser(newUser);
           restoreUid(authUser.uid, newUser.onboarding);

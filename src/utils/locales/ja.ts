@@ -85,8 +85,10 @@ const errorMessage = {
   lackPointsTitle: 'ポイント不足',
   lackPointsText:
     '文字数{{textLength}}の日記を投稿するには{{usePoint}}ポイントが必要です。ポイントは日記を添削することで溜めることができます',
-  exceedingCharacter:
-    '文字数オーバーです。{{textLength}}以下で投稿してください',
+  exceedingTitleCharacter:
+    '文字数オーバーです。タイトルは{{textLength}}文字以下で投稿してください',
+  exceedingTextCharacter:
+    '文字数オーバーです。本文は{{textLength}}文字以下で投稿してください',
   video: '動画再生においてエラーが発生しました',
 };
 
@@ -231,6 +233,7 @@ const editMyDiaryList = {
 
 const postDiary = {
   headerTitle: '新規日記',
+  placeholder: '{{maxLength}}字以内',
 };
 
 const postDraftDiary = {
@@ -382,7 +385,6 @@ const postDiaryComponent = {
   usePoints: '消費ポイント',
   textLength: '文字数',
   points: '所持ポイント',
-  textPlaceholder: '本文',
   draft: '下書き保存',
   hint: 'スライドをみる',
 };

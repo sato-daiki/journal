@@ -63,13 +63,6 @@ const SaplingWords: React.FC<Props> = ({
         });
         currentOffset =
           currentOffset + edits[index].end - edits[index].start + 1;
-        console.log(
-          '1 currentOffset index editWard',
-          currentOffset,
-          index,
-          editWard,
-        );
-
         index++;
       }
       const notEditText = text.substring(
@@ -84,7 +77,6 @@ const SaplingWords: React.FC<Props> = ({
           text: splitTexts[j],
           checked: false,
         });
-        console.log('currentOffset index', currentOffset, index, splitTexts[j]);
       }
 
       if (index < edits.length) {

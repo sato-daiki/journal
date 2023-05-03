@@ -85,8 +85,10 @@ const errorMessage = {
   lackPointsTitle: 'You do not have enough points.',
   lackPointsText:
     '{{usePoint}} points are needed to publish an entry with {{textLength}} characters. You can earn more points by correcting entries.',
-  exceedingCharacter:
-    'Exceeding maximum character count. Maximum number of characters:{{textLength}}',
+  exceedingTitleCharacter:
+    'Exceeding maximum character count. Please enter a title within {{textLength}} characters',
+  exceedingTextCharacter:
+    'Exceeding maximum character count. Please enter a text within {{textLength}} characters',
   video: 'An error occurred during video playback',
 };
 
@@ -233,6 +235,7 @@ const editMyDiaryList = {
 
 const postDiary = {
   headerTitle: 'New Journal Entry',
+  placeholder: '{{maxLength}} characters or less',
 };
 
 const postDraftDiary = {
@@ -387,7 +390,6 @@ const postDiaryComponent = {
   usePoints: 'Points Needed',
   textLength: 'Characters',
   points: 'Your Points',
-  textPlaceholder: 'Entry',
   draft: 'Save as Draft',
   hint: 'Review the slides',
 };

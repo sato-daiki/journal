@@ -14,7 +14,6 @@ import {
   fontSizeSS,
   softRed,
 } from '@/styles/Common';
-import { getMaxPostText } from '@/utils/diary';
 import I18n from '@/utils/I18n';
 
 import { LoadingModal } from '@/components/atoms';
@@ -24,6 +23,7 @@ import PostDiaryKeyboard from './PostDiaryKeyboard';
 import { PostDiaryProps } from './interface';
 import ModalConfirm from '../ModalConfirm';
 import LanguagePicker from '../LanguagePicker';
+import { MAX_TEXT } from '@/utils/diary';
 
 const styles = StyleSheet.create({
   container: {
@@ -96,8 +96,6 @@ const PostDiary: React.FC<PostDiaryProps> = ({
     setIsForce(true);
   }, []);
 
-  const maxPostText = getMaxPostText();
-
   const onBlurText = useCallback((): void => setIsForce(false), []);
 
   const onPressThemeGuide = useCallback(() => {
@@ -137,7 +135,7 @@ const PostDiary: React.FC<PostDiaryProps> = ({
           <Text
             style={[
               styles.headerValue,
-              { color: text.length === maxPostText ? softRed : primaryColor },
+              { color: text.length > MAX_TEXT ? softRed : primaryColor },
             ]}
           >
             {text.length}

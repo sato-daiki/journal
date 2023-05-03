@@ -176,7 +176,6 @@ const MyDiaryListScreen: React.FC<ScreenType> = ({
   }, [navigation]);
 
   const onPressRight = useCallback(() => {
-    console.log('onPressRight', localStatus.myDiaryListView);
     setMyDiaryListView(
       !localStatus.myDiaryListView || localStatus.myDiaryListView === 'list'
         ? 'calendar'

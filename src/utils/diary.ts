@@ -7,13 +7,8 @@ import I18n from './I18n';
 import { getDateToStrDay, getLastMonday, getThisMonday } from './common';
 import { getAlgoliaDay } from './time';
 
-export const getMaxPostText = (): number => {
-  // maximum number of characters per minute: 75,000 (free) / 300,000 (Premium)
-  // maximum number of characters per request: 20,000 (free) / 60,000 (Premium)
-  // とりあえず2000に設定しておく
-  // https://languagetool.org/http-api/swagger-ui/#!/default/post_check
-  return 2000;
-};
+export const MAX_TITLE = 50;
+export const MAX_TEXT = 2000;
 
 export const getThemeDiaries = (
   themeDiaries: ThemeDiary[] | undefined | null,
@@ -178,11 +173,19 @@ export const checkBeforePost = (
   if (!text) {
     return { result: false, errorMessage: I18n.t('errorMessage.emptyText') };
   }
-  if (text.length > getMaxPostText()) {
+  if (title.length > MAX_TITLE) {
     return {
       result: false,
-      errorMessage: I18n.t('errorMessage.exceedingCharacter', {
-        textLength: getMaxPostText(),
+      errorMessage: I18n.t('errorMessage.exceedingTitleCharacter', {
+        textLength: MAX_TITLE,
+      }),
+    };
+  }
+  if (text.length > MAX_TEXT) {
+    return {
+      result: false,
+      errorMessage: I18n.t('errorMessage.exceedingTextCharacter', {
+        textLength: MAX_TEXT,
       }),
     };
   }

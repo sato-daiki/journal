@@ -29,7 +29,6 @@ export const getUser = async (uid: string): Promise<User | null> => {
   try {
     const doc = await firestore().collection('users').doc(uid).get();
     const data = doc.data();
-    console.log('data', data);
     if (data) {
       return {
         ...data,

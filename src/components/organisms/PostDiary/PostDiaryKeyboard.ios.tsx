@@ -16,7 +16,6 @@ import {
   TextButtun,
 } from '@/components/atoms';
 
-import { getMaxPostText } from '@/utils/diary';
 import { offWhite, mainColor } from '@/styles/Common';
 import I18n from '@/utils/I18n';
 import { PostDiaryKeyboardProps } from './interface';
@@ -62,7 +61,6 @@ const PostDiaryKeyboard: React.FC<PostDiaryKeyboardProps> = ({
       />
       <TextInputText
         value={text}
-        maxLength={getMaxPostText()}
         onFocus={onFocusText}
         onChangeText={onChangeTextText}
         onBlur={onBlurText}

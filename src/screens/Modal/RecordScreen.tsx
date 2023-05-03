@@ -275,7 +275,6 @@ export default class RecordScreen extends React.Component<ScreenType, State> {
   };
 
   private stopPlaybackAndBeginRecording = async (): Promise<void> => {
-    console.log('stopPlaybackAndBeginRecording');
     this.setState({
       isLoading: true,
     });
@@ -375,7 +374,6 @@ export default class RecordScreen extends React.Component<ScreenType, State> {
         if (this.getSeekSliderPosition() === 1) {
           await this.sound.stopAsync();
         }
-        console.log('playAsync');
         this.sound.playAsync();
       }
     }

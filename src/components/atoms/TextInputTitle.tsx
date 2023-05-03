@@ -7,6 +7,8 @@ import {
   TextInputProps,
 } from 'react-native';
 import { fontSizeM, primaryColor, borderLightColor } from '@/styles/Common';
+import I18n from '@/utils/I18n';
+import { MAX_TITLE } from '@/utils/diary';
 
 type Props = {
   editable: boolean;
@@ -33,8 +35,8 @@ const styles = StyleSheet.create({
 const TextInputTitle: React.FC<Props> = ({
   editable,
   value,
-  onChangeText,
   onFocus,
+  onChangeText,
   onBlur,
   style,
   ...props
@@ -44,16 +46,15 @@ const TextInputTitle: React.FC<Props> = ({
       editable={editable}
       style={[styles.titleInput, style]}
       value={value}
-      placeholder='Title'
-      maxLength={100}
+      placeholder={I18n.t('postDiary.placeholder', { maxLength: MAX_TITLE })}
       autoCorrect={false}
       blurOnSubmit
+      multiline
       keyboardType='default'
       spellCheck
       returnKeyType='done'
       underlineColorAndroid='transparent'
       onFocus={onFocus}
-      multiline
       onChangeText={onChangeText}
       onBlur={onBlur}
       {...props}

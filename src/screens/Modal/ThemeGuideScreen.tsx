@@ -66,8 +66,6 @@ const ThemeGuideScreen: React.FC<ScreenType> = ({
     );
   }, [themeCategory, themeSubcategory, user.learnLanguage]);
 
-  console.log('entries', entries);
-
   const [activeSlide, setActiveSlide] = useState(
     caller === 'PostDiary' ? entries.length - 1 : 0,
   );

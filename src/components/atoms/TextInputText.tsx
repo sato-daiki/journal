@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { fontSizeM, primaryColor, borderLightColor } from '@/styles/Common';
 import I18n from '@/utils/I18n';
+import { MAX_TEXT } from '@/utils/diary';
 
 type Props = {
   style?: StyleProp<TextStyle>;
@@ -15,7 +16,6 @@ type Props = {
   onChangeText: (txt: string) => void;
   onFocus?: () => void;
   onBlur?: () => void;
-  maxLength?: number;
 } & TextInputProps;
 
 const styles = StyleSheet.create({
@@ -40,23 +40,21 @@ const TextInputText: React.FC<Props> = ({
   onChangeText,
   onBlur,
   style,
-  maxLength,
   ...props
 }: Props) => {
   return (
     <TextInput
       style={[styles.textInput, style]}
       value={value}
-      placeholder={I18n.t('postDiaryComponent.textPlaceholder')}
-      underlineColorAndroid='transparent'
-      multiline
+      placeholder={I18n.t('postDiary.placeholder', { maxLength: MAX_TEXT })}
       autoCorrect={false}
+      multiline
       keyboardType='default'
       spellCheck
-      onChangeText={onChangeText}
+      underlineColorAndroid='transparent'
       onFocus={onFocus}
+      onChangeText={onChangeText}
       onBlur={onBlur}
-      maxLength={maxLength}
       {...props}
     />
   );
