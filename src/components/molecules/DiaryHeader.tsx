@@ -44,7 +44,7 @@ const DiaryHeader: React.FC<Props> = ({ diary }) => {
           size='small'
           longCode={diary.longCode}
         />
-        <MyDiaryStatus diaryStatus={diary.diaryStatus} />
+        <MyDiaryStatus diary={diary} />
       </View>
     </View>
   );

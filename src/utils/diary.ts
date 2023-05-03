@@ -1,5 +1,5 @@
 import { Diary, ThemeDiary, ThemeCategory, ThemeSubcategory } from '@/types';
-import { subTextColor, mainColor } from '@/styles/Common';
+import { subTextColor, mainColor, green, softRed } from '@/styles/Common';
 import firestore from '@react-native-firebase/firestore';
 
 import { MarkedDates } from '@/components/organisms/MyDiaryList';
@@ -136,18 +136,30 @@ export const getPublishMessage = (
 export const MY_STATUS = {
   draft: { text: I18n.t('myDiaryStatus.draft'), color: subTextColor },
   checked: { text: I18n.t('myDiaryStatus.checked'), color: mainColor },
+  fairCopy: { text: I18n.t('myDiaryStatus.fairCopy'), color: green },
+  recorded: { text: I18n.t('myDiaryStatus.recorded'), color: softRed },
 };
 
-export const getMyDiaryStatus = (diaryStatus) => {
-  if (diaryStatus === 'draft') return MY_STATUS.draft;
-  else if (diaryStatus === 'checked') return MY_STATUS.checked;
+export const getMyDiaryStatus = (diary: Diary) => {
+  if (diary.diaryStatus === 'draft') {
+    return MY_STATUS.draft;
+  }
+  if (diary.voiceUrl) {
+    return MY_STATUS.recorded;
+  }
+
+  if (diary.fairCopyText || diary.fairCopyTitle) {
+    return MY_STATUS.fairCopy;
+  }
+
+  return MY_STATUS.checked;
 };
 
 // 投稿済みの時はpublishedAt、下書きの時または以前verの時はcreatedAt
 export const getMarkedDates = (newDiaries: Diary[]): MarkedDates =>
   newDiaries.reduce((prev, d) => {
     if (!d.objectID) return prev;
-    const myDiaryStatus = getMyDiaryStatus(d.diaryStatus);
+    const myDiaryStatus = getMyDiaryStatus(d);
     const date = getAlgoliaDay(d.publishedAt || d.createdAt, 'YYYY-MM-DD');
     const params = {
       key: d.objectID,

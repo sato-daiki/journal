@@ -97,6 +97,8 @@ const custumTheme = {
 const status = [
   { id: 1, color: MY_STATUS.draft.color, text: MY_STATUS.draft.text },
   { id: 2, color: MY_STATUS.checked.color, text: MY_STATUS.checked.text },
+  { id: 3, color: MY_STATUS.fairCopy.color, text: MY_STATUS.fairCopy.text },
+  { id: 4, color: MY_STATUS.recorded.color, text: MY_STATUS.recorded.text },
 ];
 
 const code = Localization.locale.split('-')[0];

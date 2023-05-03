@@ -9,7 +9,7 @@ const common = {
   register: '登録',
   sending: '送信',
   next: '次へ',
-  check: 'チェック',
+  check: '添削',
   draft: '下書き保存',
   skip: 'スキップ',
   save: '保存',
@@ -396,7 +396,9 @@ const sns = {
 
 const myDiaryStatus = {
   draft: '下書き',
-  checked: '投稿済',
+  checked: '添削',
+  fairCopy: '清書済',
+  recorded: '録音済',
 };
 
 const language = {

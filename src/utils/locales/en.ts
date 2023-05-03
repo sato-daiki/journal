@@ -11,7 +11,7 @@ const common = {
   register: 'Register',
   sending: 'Send',
   next: 'Next',
-  check: 'Check',
+  check: 'Correct',
   draft: 'Save',
   skip: 'Skip',
   save: 'Save',
@@ -401,7 +401,9 @@ const sns = {
 
 const myDiaryStatus = {
   draft: 'Draft',
-  checked: 'Posted',
+  checked: 'Corrected',
+  fairCopy: 'Fair Copy',
+  recorded: 'Recorded',
 };
 
 const language = {

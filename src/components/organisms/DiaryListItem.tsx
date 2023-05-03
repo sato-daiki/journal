@@ -72,7 +72,7 @@ const DiaryListItem = ({ item, onPressItem }: Props) => {
     >
       <View style={styles.header}>
         <Text style={styles.postDayText}>{postDay}</Text>
-        <MyDiaryStatus diaryStatus={item.diaryStatus} />
+        <MyDiaryStatus diary={item} />
       </View>
       <DiaryTitle
         themeCategory={themeCategory}

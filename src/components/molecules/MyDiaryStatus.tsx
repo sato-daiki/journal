@@ -1,11 +1,11 @@
 import React, { useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { DiaryStatus } from '../../types';
+import { Diary } from '../../types';
 import { DiaryStatusLabel } from '../atoms';
 import { getMyDiaryStatus } from '@/utils/diary';
 
 interface Props {
-  diaryStatus: DiaryStatus;
+  diary: Diary;
 }
 
 const styles = StyleSheet.create({
@@ -18,10 +18,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const MyDiaryStatus: React.FC<Props> = ({ diaryStatus }) => {
+const MyDiaryStatus: React.FC<Props> = ({ diary }) => {
   const status = useMemo(() => {
-    return getMyDiaryStatus(diaryStatus);
-  }, [diaryStatus]);
+    return getMyDiaryStatus(diary);
+  }, [diary]);
 
   if (status) {
     return (
