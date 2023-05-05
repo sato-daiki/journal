@@ -15,7 +15,7 @@
     "ios": {
       "buildNumber": "1020301",
       "googleServicesFile": "./GoogleService-Info.plist",
-      "supportsTablet": false,
+      "supportsTablet": true,
       "bundleIdentifier": "app.daiki123456.langjournal"
     },
     "android": {
