@@ -13,9 +13,9 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "buildNumber": "1020300",
+      "buildNumber": "1020301",
       "googleServicesFile": "./GoogleService-Info.plist",
-      "supportsTablet": true,
+      "supportsTablet": false,
       "bundleIdentifier": "app.daiki123456.langjournal"
     },
     "android": {
