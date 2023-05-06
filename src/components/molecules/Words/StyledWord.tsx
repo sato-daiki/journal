@@ -13,6 +13,7 @@ type Props = {
 const styles = StyleSheet.create({
   common: {
     fontSize: fontSizeM,
+    lineHeight: fontSizeM * 1.8,
   },
   checked: {
     textDecorationLine: 'line-through',

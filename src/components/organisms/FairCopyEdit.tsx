@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     fontSize: fontSizeM,
+    lineHeight: fontSizeM * 1.8,
     color: primaryColor,
     paddingHorizontal: 16,
     paddingTop: 12,

@@ -15,7 +15,7 @@ import {
   HeaderIcon,
 } from '@/components/atoms';
 
-import { Diary, User } from '@/types';
+import { Diary } from '@/types';
 import {
   MyDiaryTabNavigationProp,
   MyDiaryTabStackParamList,

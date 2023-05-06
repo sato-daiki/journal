@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     fontSize: fontSizeM,
   },
   text: {
-    lineHeight: fontSizeM * 1.3,
+    lineHeight: fontSizeM * 1.8,
     fontSize: fontSizeM,
     color: primaryColor,
   },
