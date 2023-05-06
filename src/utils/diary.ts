@@ -7,7 +7,7 @@ import I18n from './I18n';
 import { getDateToStrDay, getLastMonday, getThisMonday } from './common';
 import { getAlgoliaDay } from './time';
 
-export const MAX_TITLE = 50;
+export const MAX_TITLE = 100;
 export const MAX_TEXT = 2000;
 
 export const getThemeDiaries = (

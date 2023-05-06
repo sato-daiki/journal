@@ -33,7 +33,7 @@ const DiaryTitle = ({ themeCategory, themeSubcategory, title }: Props) => (
     {themeCategory && themeSubcategory && (
       <SmallPill
         containerStyle={styles.smallPill}
-        text={I18n.t('myDiaryList.theme')}
+        text={I18n.t(`themeCategory.${themeCategory}`)}
         color='#fff'
         backgroundColor={subTextColor}
       />

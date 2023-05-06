@@ -13,5 +13,5 @@ export { default as OnOffSmallButton } from './OnOffSmallButton';
 export { default as OptionItem } from './OptionItem';
 export { default as ProfileLanguage } from './ProfileLanguage';
 export { default as SelecttionBox } from './SelecttionBox';
-export { default as SelectThemeSubcategoryListItem } from './SelectThemeSubcategoryListItem';
+export { default as SelectTopicSubcategoryListItem } from './SelectTopicSubcategoryListItem';
 export { default as SelectTimeItem } from './SelectTimeItem';

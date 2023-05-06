@@ -1,7 +1,12 @@
 import { LongCode } from './languageTool';
 
-export type ThemeCategory = 'first';
-export type ThemeSubcategory =
+export type TopicCategory = 'first' | 'second';
+
+export type EikenCategory = 'eiken1' | 'eikenSemi1' | 'eiken2' | 'eikenSemi2';
+
+export type ThemeCategory = TopicCategory | EikenCategory;
+
+export type FirstSubcategory =
   | 'selfIntroduction'
   | 'hobby'
   | 'job'
@@ -10,6 +15,24 @@ export type ThemeSubcategory =
   | 'trip'
   | 'reborn';
 
+export type SecondSubcategory = 'test1' | 'test2';
+
+export type Eiken1Subcategory =
+  | 'eiken1-2022-1'
+  | 'eiken1-2022-2'
+  | 'eiken1-2022-3';
+
+export type EikenSemi1Subcategory =
+  | 'eikenSmei1-2022-1'
+  | 'eikenSmei1-2022-2'
+  | 'eikenSmei1-2022-3';
+
+export type TopicSubcategory = FirstSubcategory | SecondSubcategory;
+
+export type EikenSubcategory = Eiken1Subcategory | EikenSemi1Subcategory;
+
+export type ThemeSubcategory = TopicSubcategory | EikenSubcategory;
+
 export interface ThemeDiary {
   themeCategory: ThemeCategory;
   themeSubcategory: ThemeSubcategory;
@@ -17,8 +40,6 @@ export interface ThemeDiary {
   updatedAt: any;
   createdAt: any;
 }
-
-export type AppReviewState = 'yet' | 'never' | 'done';
 
 export interface RemindeDay {
   day: number; // Sunday - Saturday : 0 - 6
@@ -81,7 +102,6 @@ export interface User {
   mailCorrection?: boolean;
   mailOperation?: boolean;
   themeDiaries?: ThemeDiary[] | null;
-  appReviewState?: AppReviewState;
   reminder?: Reminder;
   runningDays?: number;
   runningWeeks?: number;

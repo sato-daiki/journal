@@ -52,7 +52,7 @@ const PostDiaryKeyboard: React.FC<PostDiaryKeyboardProps> = ({
   onPressDraft,
   onFocusText,
   onBlurText,
-  onPressThemeGuide,
+  onPressTopicGuide,
 }) => {
   const [isKeyboard, setIsKeyboard] = useState(false);
   const onKeyboardDidShow = (): void => {
@@ -106,7 +106,7 @@ const PostDiaryKeyboard: React.FC<PostDiaryKeyboardProps> = ({
               <TextButtun
                 isBorrderTop
                 title={I18n.t('postDiaryComponent.hint')}
-                onPress={onPressThemeGuide}
+                onPress={onPressTopicGuide}
               />
             )}
             <TextButtun

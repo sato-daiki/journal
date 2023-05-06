@@ -9,7 +9,7 @@ import {
 } from '@/navigations/ModalNavigator';
 import I18n from '@/utils/I18n';
 import { SelecttionBox } from '@/components/molecules';
-import { HeaderText } from '@/components/atoms';
+import { HeaderText, HoverableIcon } from '@/components/atoms';
 
 type NavigationProp = CompositeNavigationProp<
   StackNavigationProp<ModalSelectDiaryTypeStackParamList, 'SelectDiaryType'>,
@@ -24,12 +24,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingTop: 64,
+    paddingTop: 32,
     alignItems: 'center',
   },
   row: {
     paddingHorizontal: 16,
     flexDirection: 'row',
+    marginBottom: 16,
   },
   marginRight: {
     marginRight: 8,
@@ -40,7 +41,12 @@ const styles = StyleSheet.create({
   image: {
     width: 40,
     height: 40,
+    marginTop: 16,
     marginBottom: 16,
+  },
+  icon: {
+    marginTop: 8,
+    marginBottom: 4,
   },
 });
 
@@ -55,15 +61,21 @@ const SelectDiaryTypeScreen: React.FC<ScreenType> = ({ navigation }) => {
         <HeaderText text={I18n.t('common.close')} onPress={onPressClose} />
       ),
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [navigation, onPressClose]);
 
   const onPressFree = useCallback(() => {
     navigation.navigate('ModalPostDiary', { screen: 'PostDiary' });
   }, [navigation]);
 
   const onPressTheme = useCallback(() => {
-    navigation.navigate('SelectThemeSubcategory');
+    navigation.navigate('SelectTopicSubcategory');
+  }, [navigation]);
+
+  const onPressEiken1 = useCallback(() => {
+    navigation.navigate('SelectEiken', {
+      themeTitle: I18n.t('themeCategory.eiken1'),
+      eikenCategory: 'eiken1',
+    });
   }, [navigation]);
 
   return (
@@ -77,12 +89,36 @@ const SelectDiaryTypeScreen: React.FC<ScreenType> = ({ navigation }) => {
           onPress={onPressFree}
         />
         <SelecttionBox
-          recommendText={I18n.t('selectDiaryType.recommend')}
+          // recommendText={I18n.t('selectDiaryType.recommend')}
           containerStyle={styles.marginLeft}
           title={I18n.t('selectDiaryType.titleTheme')}
           text={I18n.t('selectDiaryType.textTheme')}
           image={<Image source={StudentHat} style={styles.image} />}
           onPress={onPressTheme}
+        />
+      </View>
+
+      <View style={styles.row}>
+        <SelecttionBox
+          containerStyle={styles.marginRight}
+          title={I18n.t('themeCategory.eiken1')}
+          text={I18n.t('selectDiaryType.textEiken1')}
+          image={
+            <HoverableIcon
+              icon={'community'}
+              name={'numeric-1-box'}
+              size={48}
+              style={styles.icon}
+            />
+          }
+          onPress={onPressEiken1}
+        />
+        <View
+          style={{
+            flex: 1,
+            marginLeft: 8,
+            padding: 8,
+          }}
         />
       </View>
     </View>

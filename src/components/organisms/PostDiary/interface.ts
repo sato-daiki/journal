@@ -16,7 +16,7 @@ export interface PostDiaryKeyboardProps {
   onPressDraft: () => void;
   onFocusText: () => void;
   onBlurText: () => void;
-  onPressThemeGuide: () => void;
+  onPressTopicGuide: () => void;
   fadeAnim?: Animated.Value;
 }
 

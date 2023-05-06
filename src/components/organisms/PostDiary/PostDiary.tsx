@@ -24,6 +24,7 @@ import { PostDiaryProps } from './interface';
 import ModalConfirm from '../ModalConfirm';
 import LanguagePicker from '../LanguagePicker';
 import { MAX_TEXT, MAX_TITLE } from '@/utils/diary';
+import { TopicSubcategory } from '@/types';
 
 const styles = StyleSheet.create({
   container: {
@@ -103,16 +104,21 @@ const PostDiary: React.FC<PostDiaryProps> = ({
 
   const onBlurText = useCallback((): void => setIsForce(false), []);
 
-  const onPressThemeGuide = useCallback(() => {
-    if (!themeCategory || !themeSubcategory) return;
-    navigation.push('ModalThemeGuide', {
-      screen: 'ThemeGuide',
-      params: {
-        themeCategory,
-        themeSubcategory,
-        caller: 'PostDiary',
-      },
-    });
+  const onPressTopicGuide = useCallback(() => {
+    if (
+      themeCategory &&
+      themeSubcategory &&
+      (themeCategory === 'first' || themeCategory === 'second')
+    ) {
+      navigation.push('ModalTopicGuide', {
+        screen: 'TopicGuide',
+        params: {
+          topicCategory: themeCategory,
+          topicSubcategory: themeSubcategory as TopicSubcategory,
+          caller: 'PostDiary',
+        },
+      });
+    }
   }, [navigation, themeCategory, themeSubcategory]);
 
   return (
@@ -177,7 +183,7 @@ const PostDiary: React.FC<PostDiaryProps> = ({
         themeSubcategory={themeSubcategory}
         isForce={isForce}
         fadeAnim={fadeAnim}
-        onPressThemeGuide={onPressThemeGuide}
+        onPressTopicGuide={onPressTopicGuide}
         onChangeTextTitle={onChangeTextTitle}
         onChangeTextText={onChangeTextText}
         onPressDraft={onPressDraft}

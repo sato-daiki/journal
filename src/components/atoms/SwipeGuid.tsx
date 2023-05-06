@@ -43,8 +43,8 @@ const SwipeGuid: React.FC<Props> = ({ type }) => {
       <Image source={Swipe} style={styles.icon} />
       <Text style={styles.text}>
         {type === 'start'
-          ? I18n.t('themeGuide.swipeStart')
-          : I18n.t('themeGuide.swipeEnd')}
+          ? I18n.t('topicGuide.swipeStart')
+          : I18n.t('topicGuide.swipeEnd')}
       </Text>
     </View>
   );

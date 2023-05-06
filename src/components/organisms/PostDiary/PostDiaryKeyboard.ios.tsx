@@ -44,7 +44,7 @@ const PostDiaryKeyboard: React.FC<PostDiaryKeyboardProps> = ({
   themeCategory,
   themeSubcategory,
   fadeAnim,
-  onPressThemeGuide,
+  onPressTopicGuide,
   onChangeTextTitle,
   onChangeTextText,
   onPressDraft,
@@ -88,7 +88,7 @@ const PostDiaryKeyboard: React.FC<PostDiaryKeyboardProps> = ({
             <TextButtun
               isBorrderTop
               title={I18n.t('postDiaryComponent.hint')}
-              onPress={onPressThemeGuide}
+              onPress={onPressTopicGuide}
             />
           )}
           <TextButtun

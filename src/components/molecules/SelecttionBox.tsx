@@ -40,7 +40,6 @@ const styles = StyleSheet.create({
     fontSize: fontSizeM,
     fontWeight: 'bold',
     lineHeight: fontSizeM * 1.3,
-    marginBottom: 16,
   },
   text: {
     fontSize: fontSizeM,
@@ -62,8 +61,8 @@ const SelecttionBox: React.FC<Props> = ({
         <Pill
           containerStyle={styles.pill}
           text={recommendText}
-          color="#fff"
-          backgroundColor="red"
+          color='#fff'
+          backgroundColor='red'
         />
       ) : null}
       <Hoverable style={styles.main} onPress={onPress}>

@@ -3,8 +3,14 @@ import {
   createStackNavigator,
   StackNavigationProp,
 } from '@react-navigation/stack';
-import { CallerThemeGuide } from '@/screens/Modal/SelectThemeSubcategoryScreen/interface';
-import { Diary, ThemeCategory, ThemeSubcategory } from '@/types';
+import { CallerTopicGuide } from '@/screens/Modal/SelectTopicSubcategoryScreen/interface';
+import {
+  Diary,
+  ThemeCategory,
+  ThemeSubcategory,
+  TopicCategory,
+  TopicSubcategory,
+} from '@/types';
 import { HomeBottomParamList } from './HomeBottomTabNavigator';
 import HomeBottomTabNavigatorContainer from '@/containers/HomeBottomTabNavigatorContainer';
 
@@ -22,8 +28,8 @@ import {
   ModalRecordStackParamList,
   ModalSelectDiaryTypeStackParamList,
   ModalSelectDiaryTypeNavigator,
-  ModalThemeGuideStackParamList,
-  ModalThemeGuideNavigator,
+  ModalTopicGuideStackParamList,
+  ModalTopicGuideNavigator,
 } from './ModalNavigator';
 import { MyDiaryTabStackParamList } from './MyDiaryTabNavigator';
 import { maxMain } from '../styles/Common';
@@ -47,13 +53,13 @@ export type MainStackParamList = {
   ModalSelectDiaryType: {
     screen: keyof ModalSelectDiaryTypeStackParamList;
   };
-  ModalThemeGuide: {
-    screen: keyof ModalThemeGuideStackParamList;
+  ModalTopicGuide: {
+    screen: keyof ModalTopicGuideStackParamList;
     params: {
       themeTitle?: string;
-      themeCategory: ThemeCategory;
-      themeSubcategory: ThemeSubcategory;
-      caller: CallerThemeGuide;
+      topicCategory: TopicCategory;
+      topicSubcategory: TopicSubcategory;
+      caller: CallerTopicGuide;
     };
   };
   ModalPostDiary: {
@@ -118,8 +124,8 @@ const MainNavigator = () => {
       <MainStack.Screen name='ModalRecord' component={ModalRecordNavigator} />
 
       <MainStack.Screen
-        name='ModalThemeGuide'
-        component={ModalThemeGuideNavigator}
+        name='ModalTopicGuide'
+        component={ModalTopicGuideNavigator}
       />
       <MainStack.Screen
         name='ModalSelectDiaryType'
