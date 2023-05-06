@@ -181,9 +181,9 @@ const themeCategory = {
   first: 'テーマ',
   second: 'テーマ',
   eiken1: '英検1級',
-  eikenSemi1: '英検準1級',
+  eikenPre1: '英検準1級',
   eiken2: '英検2級',
-  eikenSemi2: '英検準2級',
+  eikenPre2: '英検準2級',
 };
 
 const myPage = {
@@ -426,7 +426,10 @@ const selectDiaryType = {
     '日記、今日話せなかったこと、好きな映画。自由テーマで書きましょう。',
   textTheme:
     'お題に沿って文章を書きましょう。書きたいことが思いつかない場合はおすすめ。',
-  textEiken1: '英検1級のライティングの過去問と予想問題',
+  textEiken1: '英検1級のライティングの過去問',
+  textEikenPre1: '英検準1級のライティングの過去問',
+  textEiken2: '英検2級のライティングの過去問',
+  textEikenPre2: '英検準2級のライティングの過去問',
 };
 
 const firstList = {

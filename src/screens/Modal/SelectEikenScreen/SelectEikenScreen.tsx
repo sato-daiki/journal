@@ -95,6 +95,7 @@ const SelectEikenScreen: React.FC<ScreenType> = ({
     <View style={styles.container}>
       <FlatList
         data={data}
+        contentContainerStyle={{ paddingBottom: 32 }}
         keyExtractor={keyExtractor}
         renderItem={renderItem}
       />

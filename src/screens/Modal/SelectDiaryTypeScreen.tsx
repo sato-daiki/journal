@@ -78,6 +78,27 @@ const SelectDiaryTypeScreen: React.FC<ScreenType> = ({ navigation }) => {
     });
   }, [navigation]);
 
+  const onPressEikenPre1 = useCallback(() => {
+    navigation.navigate('SelectEiken', {
+      themeTitle: I18n.t('themeCategory.eikenPre1'),
+      eikenCategory: 'eikenPre1',
+    });
+  }, [navigation]);
+
+  const onPressEiken2 = useCallback(() => {
+    navigation.navigate('SelectEiken', {
+      themeTitle: I18n.t('themeCategory.eiken2'),
+      eikenCategory: 'eiken2',
+    });
+  }, [navigation]);
+
+  const onPressEikenPre2 = useCallback(() => {
+    navigation.navigate('SelectEiken', {
+      themeTitle: I18n.t('themeCategory.eikenPre2'),
+      eikenCategory: 'eikenPre2',
+    });
+  }, [navigation]);
+
   return (
     <View style={styles.container}>
       <View style={styles.row}>
@@ -107,18 +128,56 @@ const SelectDiaryTypeScreen: React.FC<ScreenType> = ({ navigation }) => {
             <HoverableIcon
               icon={'community'}
               name={'numeric-1-box'}
-              size={48}
+              size={36}
               style={styles.icon}
             />
           }
           onPress={onPressEiken1}
         />
-        <View
-          style={{
-            flex: 1,
-            marginLeft: 8,
-            padding: 8,
-          }}
+        <SelecttionBox
+          containerStyle={styles.marginLeft}
+          title={I18n.t('themeCategory.eikenPre1')}
+          text={I18n.t('selectDiaryType.textEikenPre1')}
+          image={
+            <HoverableIcon
+              icon={'community'}
+              name={'numeric-1-box-multiple-outline'}
+              size={32}
+              style={styles.icon}
+            />
+          }
+          onPress={onPressEikenPre1}
+        />
+      </View>
+
+      <View style={styles.row}>
+        <SelecttionBox
+          containerStyle={styles.marginRight}
+          title={I18n.t('themeCategory.eiken2')}
+          text={I18n.t('selectDiaryType.textEiken2')}
+          image={
+            <HoverableIcon
+              icon={'community'}
+              name={'numeric-2-box'}
+              size={36}
+              style={styles.icon}
+            />
+          }
+          onPress={onPressEiken2}
+        />
+        <SelecttionBox
+          containerStyle={styles.marginLeft}
+          title={I18n.t('themeCategory.eikenPre2')}
+          text={I18n.t('selectDiaryType.textEikenPre2')}
+          image={
+            <HoverableIcon
+              icon={'community'}
+              name={'numeric-2-box-multiple-outline'}
+              size={32}
+              style={styles.icon}
+            />
+          }
+          onPress={onPressEikenPre2}
         />
       </View>
     </View>

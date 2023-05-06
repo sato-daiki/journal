@@ -2,7 +2,7 @@ import { LongCode } from './languageTool';
 
 export type TopicCategory = 'first' | 'second';
 
-export type EikenCategory = 'eiken1' | 'eikenSemi1' | 'eiken2' | 'eikenSemi2';
+export type EikenCategory = 'eiken1' | 'eikenPre1' | 'eiken2' | 'eikenPre2';
 
 export type ThemeCategory = TopicCategory | EikenCategory;
 
@@ -18,18 +18,92 @@ export type FirstSubcategory =
 export type SecondSubcategory = 'test1' | 'test2';
 
 export type Eiken1Subcategory =
-  | 'eiken1-2022-1'
-  | 'eiken1-2022-2'
-  | 'eiken1-2022-3';
+  | '1-2022-3'
+  | '1-2022-2'
+  | '1-2022-1'
+  | '1-2021-3'
+  | '1-2021-2'
+  | '1-2021-1'
+  | '1-2020-3'
+  | '1-2020-2'
+  | '1-2020-1'
+  | '1-2019-3'
+  | '1-2019-2'
+  | '1-2019-1'
+  | '1-2018-3'
+  | '1-2018-2'
+  | '1-2018-1'
+  | '1-2017-3'
+  | '1-2017-2'
+  | '1-2017-1';
 
-export type EikenSemi1Subcategory =
-  | 'eikenSmei1-2022-1'
-  | 'eikenSmei1-2022-2'
-  | 'eikenSmei1-2022-3';
+export type EikenPre1Subcategory =
+  | 'pre1-2022-3'
+  | 'pre1-2022-2'
+  | 'pre1-2022-1'
+  | 'pre1-2021-3'
+  | 'pre1-2021-2'
+  | 'pre1-2021-1'
+  | 'pre1-2020-3'
+  | 'pre1-2020-2'
+  | 'pre1-2020-1'
+  | 'pre1-2019-3'
+  | 'pre1-2019-2'
+  | 'pre1-2019-1'
+  | 'pre1-2018-3'
+  | 'pre1-2018-2'
+  | 'pre1-2018-1'
+  | 'pre1-2017-3'
+  | 'pre1-2017-2'
+  | 'pre1-2017-1';
+
+export type Eiken2Subcategory =
+  | '2-2022-3'
+  | '2-2022-2'
+  | '2-2022-1'
+  | '2-2021-3'
+  | '2-2021-2'
+  | '2-2021-1'
+  | '2-2020-3'
+  | '2-2020-2'
+  | '2-2020-1'
+  | '2-2019-3'
+  | '2-2019-2'
+  | '2-2019-1'
+  | '2-2018-3'
+  | '2-2018-2'
+  | '2-2018-1'
+  | '2-2017-3'
+  | '2-2017-2'
+  | '2-2017-1';
+
+export type EikenPre2Subcategory =
+  | 'pre2-2022-3'
+  | 'pre2-2022-2'
+  | 'pre2-2022-1'
+  | 'pre2-2021-3'
+  | 'pre2-2021-2'
+  | 'pre2-2021-1'
+  | 'pre2-2020-3'
+  | 'pre2-2020-2'
+  | 'pre2-2020-1'
+  | 'pre2-2019-3'
+  | 'pre2-2019-2'
+  | 'pre2-2019-1'
+  | 'pre2-2018-3'
+  | 'pre2-2018-2'
+  | 'pre2-2018-1'
+  | 'pre2-2017-3'
+  | 'pre2-2017-2'
+  | 'pre2-2017-1';
 
 export type TopicSubcategory = FirstSubcategory | SecondSubcategory;
 
-export type EikenSubcategory = Eiken1Subcategory | EikenSemi1Subcategory;
+export type EikenSubcategory =
+  | Eiken1Subcategory
+  | EikenPre1Subcategory
+  | Eiken2Subcategory
+  | EikenPre2Subcategory;
 
 export type ThemeSubcategory = TopicSubcategory | EikenSubcategory;
 
