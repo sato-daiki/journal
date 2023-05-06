@@ -15,7 +15,9 @@ import { softRed, softRedOpacy, yellow, yellowOpacy } from '@/styles/Common';
 const LANGUAGE_TOOL_ENDPOINT = 'https://api.languagetoolplus.com/v2';
 
 export const getLanguageToolCode = (longCode: LongCode) => {
-  return longCode.substring(0, 2);
+  if (longCode) {
+    return longCode.substring(0, 2);
+  }
 };
 
 export const getLanguageToolShortName = (longCode: LongCode) => {
