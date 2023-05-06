@@ -23,7 +23,7 @@ import PostDiaryKeyboard from './PostDiaryKeyboard';
 import { PostDiaryProps } from './interface';
 import ModalConfirm from '../ModalConfirm';
 import LanguagePicker from '../LanguagePicker';
-import { MAX_TEXT } from '@/utils/diary';
+import { MAX_TEXT, MAX_TITLE } from '@/utils/diary';
 
 const styles = StyleSheet.create({
   container: {
@@ -48,6 +48,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  title: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: 52,
+  },
   headerLabel: {
     color: primaryColor,
     fontSize: fontSizeSS,
@@ -56,7 +61,7 @@ const styles = StyleSheet.create({
   headerValue: {
     color: primaryColor,
     fontSize: fontSizeSS,
-    marginRight: 16,
+    marginRight: 8,
   },
 });
 
@@ -129,6 +134,19 @@ const PostDiary: React.FC<PostDiaryProps> = ({
       />
       <View style={styles.header}>
         <View style={styles.left}>
+          <View style={styles.title}>
+            <Text style={styles.headerLabel}>
+              {I18n.t('postDiaryComponent.titleLength')}
+            </Text>
+            <Text
+              style={[
+                styles.headerValue,
+                { color: title.length > MAX_TITLE ? softRed : primaryColor },
+              ]}
+            >
+              {title.length}
+            </Text>
+          </View>
           <Text style={styles.headerLabel}>
             {I18n.t('postDiaryComponent.textLength')}
           </Text>

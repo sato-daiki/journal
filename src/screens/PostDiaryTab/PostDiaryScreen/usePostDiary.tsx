@@ -145,7 +145,6 @@ export const usePostDiary = ({
     }
 
     setIsLoadingPublish(true);
-
     const languageTool = await getLanguageTool(
       selectedItem.value as LongCode,
       title,

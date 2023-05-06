@@ -387,9 +387,8 @@ const myDiaryListMenu = {
 };
 
 const postDiaryComponent = {
-  usePoints: 'Points Needed',
-  textLength: 'Characters',
-  points: 'Your Points',
+  titleLength: 'Title',
+  textLength: 'Text',
   draft: 'Save as Draft',
   hint: 'Review the slides',
 };
