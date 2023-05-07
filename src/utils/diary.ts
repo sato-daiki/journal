@@ -8,7 +8,7 @@ import { getDateToStrDay, getLastMonday, getThisMonday } from './common';
 import { getAlgoliaDay } from './time';
 
 export const MAX_TITLE = 100;
-export const MAX_TEXT = 2000;
+export const MAX_TEXT = 1200;
 
 export const getThemeDiaries = (
   themeDiaries: ThemeDiary[] | undefined | null,
