@@ -9,7 +9,14 @@ import {
   DefaultModalLayoutOptions,
 } from '@/constants/NavigationOptions';
 import I18n from '@/utils/I18n';
-import { Diary, ThemeCategory, ThemeSubcategory } from '@/types';
+import {
+  Diary,
+  EikenCategory,
+  ThemeCategory,
+  ThemeSubcategory,
+  TopicCategory,
+  TopicSubcategory,
+} from '@/types';
 
 /* screens */
 import PostDiaryScreenContainer from '@/containers/PostDiaryScreenContainer';
@@ -17,27 +24,31 @@ import EditMyProfileScreenContainer from '@/containers/EditMyProfileScreenContai
 import PostDraftDiaryScreenContainer from '@/containers/PostDraftDiaryScreenContainer';
 import RecordScreenContainer from '@/containers/RecordScreenContainer';
 import EditMyDiaryListScreenContainer from '@/containers/EditMyDiaryListScreenContainer';
-import SelectThemeSubcategoryScreenContainer from '@/containers/SelectThemeSubcategoryScreenContainer';
-import { CallerThemeGuide } from '@/screens/Modal/SelectThemeSubcategoryScreen/interface';
-import ThemeGuideScreenContainer from '@/containers/ThemeGuideScreenContainer';
+import SelectTopicSubcategoryScreenContainer from '@/containers/SelectTopicSubcategoryScreenContainer';
+import { CallerTopicGuide } from '@/screens/Modal/SelectTopicSubcategoryScreen/interface';
 import { MainStackParamList } from './MainNavigator';
 import SelectDiaryTypeScreen from '@/screens/Modal/SelectDiaryTypeScreen';
+import SelectEikenScreenContainer from '@/containers/SelectEikenScreenContainer';
+import TopicGuideScreenContainer from '@/containers/TopicGuideScreenContainer';
 
 export type ModalEditMyDiaryListStackParamList = {
   EditMyDiaryList: undefined;
 };
-export type ModalThemeGuideStackParamList = {
-  ThemeGuide: {
+export type ModalTopicGuideStackParamList = {
+  TopicGuide: {
     themeTitle: string;
-    themeCategory: ThemeCategory;
-    themeSubcategory: ThemeSubcategory;
-    caller: CallerThemeGuide;
+    topicCategory: TopicCategory;
+    topicSubcategory: TopicSubcategory;
+    caller: CallerTopicGuide;
   };
 };
 export type ModalSelectDiaryTypeStackParamList = {
   SelectDiaryType: undefined;
-  // SelectCategory: undefined; // 大カテゴリー
-  SelectThemeSubcategory: undefined; // 小カテゴリー
+  SelectTopicSubcategory: undefined;
+  SelectEiken: {
+    themeTitle: string;
+    eikenCategory: EikenCategory;
+  };
 };
 export type ModalPostDiaryStackParamList = {
   PostDiary: {
@@ -81,9 +92,9 @@ export type ModalSelectDiaryTypeStackNavigationProp = StackNavigationProp<
   MainStackParamList,
   'ModalSelectDiaryType'
 >;
-export type ModalThemeGuideStackNavigationProp = StackNavigationProp<
+export type ModalTopicGuideStackNavigationProp = StackNavigationProp<
   MainStackParamList,
-  'ModalThemeGuide'
+  'ModalTopicGuide'
 >;
 export type ModalPostDiaryStackNavigationProp = StackNavigationProp<
   MainStackParamList,
@@ -110,8 +121,8 @@ const ModalEditMyDiaryListStack =
   createStackNavigator<ModalEditMyDiaryListStackParamList>();
 const ModalSelectDiaryTypeStack =
   createStackNavigator<ModalSelectDiaryTypeStackParamList>();
-const ModalThemeGuideStack =
-  createStackNavigator<ModalThemeGuideStackParamList>();
+const ModalTopicGuideStack =
+  createStackNavigator<ModalTopicGuideStackParamList>();
 const ModalPostDiaryStack =
   createStackNavigator<ModalPostDiaryStackParamList>();
 const ModalPostDraftDiaryStack =
@@ -148,32 +159,40 @@ export const ModalSelectDiaryTypeNavigator = () => {
         }}
       />
       <ModalSelectDiaryTypeStack.Screen
-        name='SelectThemeSubcategory'
-        component={SelectThemeSubcategoryScreenContainer}
+        name='SelectTopicSubcategory'
+        component={SelectTopicSubcategoryScreenContainer}
         options={{
           ...DefaultNavigationOptions,
           ...DefaultModalLayoutOptions,
-          title: I18n.t('selectThemeSubcategory.headerTitle'),
+          title: I18n.t('selectTopicSubcategory.headerTitle'),
+        }}
+      />
+      <ModalSelectDiaryTypeStack.Screen
+        name='SelectEiken'
+        component={SelectEikenScreenContainer}
+        options={{
+          ...DefaultNavigationOptions,
+          ...DefaultModalLayoutOptions,
         }}
       />
     </ModalSelectDiaryTypeStack.Navigator>
   );
 };
-export const ModalThemeGuideNavigator = () => {
+export const ModalTopicGuideNavigator = () => {
   return (
-    <ModalThemeGuideStack.Navigator
-      initialRouteName='ThemeGuide'
+    <ModalTopicGuideStack.Navigator
+      initialRouteName='TopicGuide'
       screenOptions={{ headerShown: false }}
     >
-      <ModalThemeGuideStack.Screen
-        name='ThemeGuide'
-        component={ThemeGuideScreenContainer}
+      <ModalTopicGuideStack.Screen
+        name='TopicGuide'
+        component={TopicGuideScreenContainer}
         options={{
           ...DefaultNavigationOptions,
           ...DefaultModalLayoutOptions,
         }}
       />
-    </ModalThemeGuideStack.Navigator>
+    </ModalTopicGuideStack.Navigator>
   );
 };
 export const ModalPostDiaryNavigator = () => {

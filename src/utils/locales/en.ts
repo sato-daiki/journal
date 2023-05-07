@@ -178,7 +178,15 @@ const myDiaryList = {
   notficationSetting:
     'Interchao app notifications are turned off. Let\'s turn on "Notification" from "Settings".',
   emptyDiary: 'No Journal Entries',
-  theme: 'Topic',
+};
+
+const themeCategory = {
+  first: 'Topic',
+  second: 'Topic',
+  eiken1: 'Eiken 1',
+  eikenPre1: 'Eiken Pre-1',
+  eiken2: 'Eiken 2',
+  eikenPre2: 'Eiken Pre-2',
 };
 
 const myPage = {
@@ -423,6 +431,10 @@ const selectDiaryType = {
     "Diary, things you couldn't talk about today, favorite movies, etc. Write about the topic of your choice.",
   textTheme:
     "Write sentences according to topics. Recommended if you can't think of what to write.",
+  textEiken1: 'Eiken grade 1 writing past questions',
+  textEikenPre1: 'Eiken grade pre 1 writing past questions',
+  textEiken2: 'Eiken grade 2 writing past questions',
+  textEikenPre2: 'Eiken grade pre 2 writing past questions',
 };
 
 const firstList = {
@@ -435,12 +447,12 @@ const firstList = {
   reborn: 'If you were born again',
 };
 
-const selectThemeSubcategory = {
+const selectTopicSubcategory = {
   headerTitle: 'Theme Selection',
   firstList,
 };
 
-const themeGuide = {
+const topicGuide = {
   swipeStart: 'Swipe to move slides',
   swipeEnd: 'Swipe back \nwhen you want to\nreview the slides',
   introduction: 'Introduction',
@@ -629,6 +641,7 @@ const en = {
   initialize,
   myDiary,
   myDiaryList,
+  themeCategory,
   myPage,
   onboarding,
   reminderInitial,
@@ -642,8 +655,8 @@ const en = {
   reviewList,
   selectLanguage,
   selectDiaryType,
-  selectThemeSubcategory,
-  themeGuide,
+  selectTopicSubcategory,
+  topicGuide,
   setting,
   signIn,
   signUp,

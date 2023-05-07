@@ -142,7 +142,9 @@ export const usePostDraftDiary = ({
     Keyboard.dismiss();
     if (isInitialLoading || isLoadingDraft || isLoadingPublish) return;
     if (!item.objectID) return;
-    const checked = checkBeforePost(title, text);
+    const isTitleSkip = !!item.themeCategory && !!item.themeSubcategory;
+
+    const checked = checkBeforePost(isTitleSkip, title, text);
     if (!checked.result) {
       setErrorMessage(checked.errorMessage);
       setIsModalError(true);
@@ -153,11 +155,13 @@ export const usePostDraftDiary = ({
 
     const languageTool = await getLanguageTool(
       selectedItem.value as LongCode,
+      isTitleSkip,
       title,
       text,
     );
     const sapling = await getSapling(
       selectedItem.value as LongCode,
+      isTitleSkip,
       title,
       text,
     );

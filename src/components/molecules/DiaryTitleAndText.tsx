@@ -1,9 +1,9 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import I18n from '@/utils/I18n';
-import { fontSizeM, primaryColor, subTextColor } from '@/styles/Common';
+import { View, Text } from 'react-native';
 import { ThemeCategory, ThemeSubcategory } from '@/types';
-import { SmallPill, Space } from '@/components/atoms';
+import { Space } from '@/components/atoms';
+import CommonSmallPill from './CommonSmallPill';
+import { styles } from '../organisms/LanguageTool/LanguageToolDiaryTitleAndText';
 
 interface Props {
   title: string;
@@ -11,28 +11,6 @@ interface Props {
   themeCategory?: ThemeCategory | null;
   themeSubcategory?: ThemeSubcategory | null;
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flex: 1,
-    paddingBottom: 8,
-  },
-  title: {
-    color: primaryColor,
-    fontWeight: 'bold',
-    fontSize: fontSizeM,
-  },
-  text: {
-    lineHeight: fontSizeM * 1.8,
-    fontSize: fontSizeM,
-    color: primaryColor,
-  },
-  smallPill: {
-    marginRight: 8,
-  },
-});
 
 const DiaryTitleAndText: React.FC<Props> = ({
   title,
@@ -44,12 +22,7 @@ const DiaryTitleAndText: React.FC<Props> = ({
     <>
       <View style={styles.titleContainer}>
         {themeCategory && themeSubcategory && (
-          <SmallPill
-            containerStyle={styles.smallPill}
-            text={I18n.t('myDiaryList.theme')}
-            color='#fff'
-            backgroundColor={subTextColor}
-          />
+          <CommonSmallPill themeCategory={themeCategory} />
         )}
         <Text style={styles.title}>{title}</Text>
       </View>

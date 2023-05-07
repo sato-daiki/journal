@@ -9,15 +9,15 @@ export interface PostDiaryKeyboardProps {
   text: string;
   themeCategory?: ThemeCategory;
   themeSubcategory?: ThemeSubcategory;
-  learnLanguage: LongCode;
   isForce?: boolean;
+  isTopic: boolean;
+  fadeAnim?: Animated.Value;
   onChangeTextTitle: (txt: string) => void;
   onChangeTextText: (txt: string) => void;
   onPressDraft: () => void;
   onFocusText: () => void;
   onBlurText: () => void;
-  onPressThemeGuide: () => void;
-  fadeAnim?: Animated.Value;
+  onPressTopicGuide: () => void;
 }
 
 export interface PostDiaryProps {

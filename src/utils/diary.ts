@@ -7,8 +7,8 @@ import I18n from './I18n';
 import { getDateToStrDay, getLastMonday, getThisMonday } from './common';
 import { getAlgoliaDay } from './time';
 
-export const MAX_TITLE = 50;
-export const MAX_TEXT = 2000;
+export const MAX_TITLE = 100;
+export const MAX_TEXT = 1200;
 
 export const getThemeDiaries = (
   themeDiaries: ThemeDiary[] | undefined | null,
@@ -176,6 +176,7 @@ export const getMarkedDates = (newDiaries: Diary[]): MarkedDates =>
   }, {});
 
 export const checkBeforePost = (
+  isTitleSkip: boolean,
   title: string,
   text: string,
 ): { result: boolean; errorMessage: string } => {
@@ -185,7 +186,7 @@ export const checkBeforePost = (
   if (!text) {
     return { result: false, errorMessage: I18n.t('errorMessage.emptyText') };
   }
-  if (title.length > MAX_TITLE) {
+  if (!isTitleSkip && title.length > MAX_TITLE) {
     return {
       result: false,
       errorMessage: I18n.t('errorMessage.exceedingTitleCharacter', {
@@ -206,4 +207,18 @@ export const checkBeforePost = (
     result: true,
     errorMessage: '',
   };
+};
+
+export const getIsTopic = (
+  themeCategory: ThemeCategory | null | undefined,
+  themeSubcategory: ThemeSubcategory | null | undefined,
+) => {
+  if (
+    themeCategory &&
+    themeSubcategory &&
+    (themeCategory === 'first' || themeCategory === 'second')
+  ) {
+    return true;
+  }
+  return false;
 };

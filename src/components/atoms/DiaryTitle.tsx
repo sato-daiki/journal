@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
     color: primaryColor,
     fontWeight: 'bold',
     fontSize: fontSizeM,
+    flex: 1,
   },
   smallPill: {
     marginRight: 8,
@@ -33,7 +34,7 @@ const DiaryTitle = ({ themeCategory, themeSubcategory, title }: Props) => (
     {themeCategory && themeSubcategory && (
       <SmallPill
         containerStyle={styles.smallPill}
-        text={I18n.t('myDiaryList.theme')}
+        text={I18n.t(`themeCategory.${themeCategory}`)}
         color='#fff'
         backgroundColor={subTextColor}
       />

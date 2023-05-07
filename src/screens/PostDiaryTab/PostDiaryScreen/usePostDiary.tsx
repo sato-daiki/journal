@@ -137,7 +137,9 @@ export const usePostDiary = ({
 
   const onPressCheck = useCallback(async (): Promise<void> => {
     if (isLoadingDraft || isLoadingPublish) return;
-    const checked = checkBeforePost(title, text);
+    const isTitleSkip = !!themeCategory && !!themeSubcategory;
+
+    const checked = checkBeforePost(isTitleSkip, title, text);
     if (!checked.result) {
       setErrorMessage(checked.errorMessage);
       setIsModalError(true);
@@ -145,13 +147,16 @@ export const usePostDiary = ({
     }
 
     setIsLoadingPublish(true);
+
     const languageTool = await getLanguageTool(
       selectedItem.value as LongCode,
+      isTitleSkip,
       title,
       text,
     );
     const sapling = await getSapling(
       selectedItem.value as LongCode,
+      isTitleSkip,
       title,
       text,
     );

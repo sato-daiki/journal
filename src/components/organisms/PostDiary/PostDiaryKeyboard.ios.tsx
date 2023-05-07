@@ -37,14 +37,14 @@ const styles = StyleSheet.create({
 });
 
 const PostDiaryKeyboard: React.FC<PostDiaryKeyboardProps> = ({
+  isTopic,
   title,
   text,
-  learnLanguage,
   isForce,
   themeCategory,
   themeSubcategory,
   fadeAnim,
-  onPressThemeGuide,
+  onPressTopicGuide,
   onChangeTextTitle,
   onChangeTextText,
   onPressDraft,
@@ -84,11 +84,11 @@ const PostDiaryKeyboard: React.FC<PostDiaryKeyboardProps> = ({
       {/* 画面下部がiOSX以上の時隠れてしまうのを対応 */}
       <SafeAreaView>
         <View style={styles.footer}>
-          {!themeCategory || !themeSubcategory ? null : (
+          {isTopic && (
             <TextButtun
               isBorrderTop
               title={I18n.t('postDiaryComponent.hint')}
-              onPress={onPressThemeGuide}
+              onPress={onPressTopicGuide}
             />
           )}
           <TextButtun

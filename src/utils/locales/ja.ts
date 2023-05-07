@@ -175,7 +175,15 @@ const myDiaryList = {
   notficationSetting:
     'Interchaoアプリの通知がオフになっています。『設定』から『通知』をオンにしましょう',
   emptyDiary: '日記がありません',
-  theme: 'テーマ',
+};
+
+const themeCategory = {
+  first: 'テーマ',
+  second: 'テーマ',
+  eiken1: '英検1級',
+  eikenPre1: '英検準1級',
+  eiken2: '英検2級',
+  eikenPre2: '英検準2級',
 };
 
 const myPage = {
@@ -418,6 +426,10 @@ const selectDiaryType = {
     '日記、今日話せなかったこと、好きな映画。自由テーマで書きましょう。',
   textTheme:
     'お題に沿って文章を書きましょう。書きたいことが思いつかない場合はおすすめ。',
+  textEiken1: '英検1級のライティングの過去問',
+  textEikenPre1: '英検準1級のライティングの過去問',
+  textEiken2: '英検2級のライティングの過去問',
+  textEikenPre2: '英検準2級のライティングの過去問',
 };
 
 const firstList = {
@@ -430,12 +442,12 @@ const firstList = {
   reborn: 'もし生まれ変わるなら',
 };
 
-const selectThemeSubcategory = {
+const selectTopicSubcategory = {
   headerTitle: 'テーマの選択',
   firstList,
 };
 
-const themeGuide = {
+const topicGuide = {
   swipeStart: 'スワイプして\nスライドを移動しよう',
   swipeEnd: 'スライドを復習したいときは\nスワイプして戻ろう',
   introduction: 'はじめに',
@@ -621,6 +633,7 @@ const ja = {
   initialize,
   myDiary,
   myDiaryList,
+  themeCategory,
   myPage,
   onboarding,
   reminderInitial,
@@ -634,8 +647,8 @@ const ja = {
   reviewList,
   selectLanguage,
   selectDiaryType,
-  selectThemeSubcategory,
-  themeGuide,
+  selectTopicSubcategory,
+  topicGuide,
   setting,
   signIn,
   signUp,
