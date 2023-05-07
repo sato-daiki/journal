@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
     color: primaryColor,
     fontWeight: 'bold',
     fontSize: fontSizeM,
+    flex: 1,
   },
   smallPill: {
     marginRight: 8,

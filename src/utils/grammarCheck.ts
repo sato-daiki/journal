@@ -137,11 +137,15 @@ const languageToolCheck = async (
 
 export const getLanguageTool = async (
   learnLanguage: LongCode,
+  isTitleSkip: boolean,
   title: string,
   text: string,
 ): Promise<LanguageTool | undefined> => {
   try {
-    const titleMatches = await languageToolCheck(learnLanguage, title);
+    let titleMatches = [];
+    if (!isTitleSkip) {
+      titleMatches = await languageToolCheck(learnLanguage, title);
+    }
     const textMatches = await languageToolCheck(learnLanguage, text);
     return {
       titleMatches,
@@ -195,11 +199,15 @@ const saplingCheck = async (
 
 export const getSapling = async (
   learnLanguage: LongCode,
+  isTitleSkip: boolean,
   title: string,
   text: string,
 ): Promise<Sapling | undefined> => {
   try {
-    const titleEdits = await saplingCheck(learnLanguage, title);
+    let titleEdits;
+    if (!isTitleSkip) {
+      titleEdits = await saplingCheck(learnLanguage, title);
+    }
     const textEdits = await saplingCheck(learnLanguage, text);
     return {
       titleEdits: titleEdits && titleEdits.edits ? titleEdits.edits : [],

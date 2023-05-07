@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
 });
 
 const PostDiaryKeyboard: React.FC<PostDiaryKeyboardProps> = ({
+  isTopic,
   title,
   text,
   themeCategory,
@@ -102,7 +103,7 @@ const PostDiaryKeyboard: React.FC<PostDiaryKeyboardProps> = ({
       <SafeAreaView>
         {isKeyboard ? null : (
           <View style={styles.footer}>
-            {!themeCategory || !themeSubcategory ? null : (
+            {isTopic && (
               <TextButtun
                 isBorrderTop
                 title={I18n.t('postDiaryComponent.hint')}

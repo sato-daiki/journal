@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import I18n from '@/utils/I18n';
-import { fontSizeM, primaryColor, subTextColor } from '@/styles/Common';
+import { fontSizeM, primaryColor } from '@/styles/Common';
 import { Match, ThemeCategory, ThemeSubcategory } from '@/types';
-import { SmallPill, Space } from '@/components/atoms';
+import { Space } from '@/components/atoms';
 import LanguageToolWords from './LanguageToolWords';
+import CommonSmallPill from '../../molecules/CommonSmallPill';
 
 interface Props {
   title: string;
@@ -19,7 +19,7 @@ interface Props {
   setTextActiveIndex?: (activeId: number | null) => void;
 }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   titleContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -30,14 +30,12 @@ const styles = StyleSheet.create({
     color: primaryColor,
     fontWeight: 'bold',
     fontSize: fontSizeM,
+    flex: 1,
   },
   text: {
     lineHeight: fontSizeM * 1.8,
     fontSize: fontSizeM,
     color: primaryColor,
-  },
-  smallPill: {
-    marginRight: 8,
   },
 });
 
@@ -57,12 +55,7 @@ const LanguageToolDiaryTitleAndText: React.FC<Props> = ({
     <>
       <View style={styles.titleContainer}>
         {themeCategory && themeSubcategory && (
-          <SmallPill
-            containerStyle={styles.smallPill}
-            text={I18n.t(`themeCategory.${themeCategory}`)}
-            color='#fff'
-            backgroundColor={subTextColor}
-          />
+          <CommonSmallPill themeCategory={themeCategory} />
         )}
         {titleMatches && titleMatches.length > 0 ? (
           <LanguageToolWords

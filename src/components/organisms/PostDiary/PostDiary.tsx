@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import {
   StyleSheet,
   SafeAreaView,
@@ -23,8 +23,8 @@ import PostDiaryKeyboard from './PostDiaryKeyboard';
 import { PostDiaryProps } from './interface';
 import ModalConfirm from '../ModalConfirm';
 import LanguagePicker from '../LanguagePicker';
-import { MAX_TEXT, MAX_TITLE } from '@/utils/diary';
-import { TopicSubcategory } from '@/types';
+import { MAX_TEXT, MAX_TITLE, getIsTopic } from '@/utils/diary';
+import { TopicCategory, TopicSubcategory } from '@/types';
 
 const styles = StyleSheet.create({
   container: {
@@ -97,6 +97,10 @@ const PostDiary: React.FC<PostDiaryProps> = ({
     }).start();
   }, [fadeAnim]);
 
+  const isTopic = useMemo(() => {
+    return getIsTopic(themeCategory, themeSubcategory);
+  }, [themeCategory, themeSubcategory]);
+
   const onFocusText = useCallback((): void => {
     setFadeAnim(new Animated.Value(0));
     setIsForce(true);
@@ -105,21 +109,17 @@ const PostDiary: React.FC<PostDiaryProps> = ({
   const onBlurText = useCallback((): void => setIsForce(false), []);
 
   const onPressTopicGuide = useCallback(() => {
-    if (
-      themeCategory &&
-      themeSubcategory &&
-      (themeCategory === 'first' || themeCategory === 'second')
-    ) {
+    if (isTopic) {
       navigation.push('ModalTopicGuide', {
         screen: 'TopicGuide',
         params: {
-          topicCategory: themeCategory,
+          topicCategory: themeCategory as TopicCategory,
           topicSubcategory: themeSubcategory as TopicSubcategory,
           caller: 'PostDiary',
         },
       });
     }
-  }, [navigation, themeCategory, themeSubcategory]);
+  }, [isTopic, navigation, themeCategory, themeSubcategory]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -147,7 +147,14 @@ const PostDiary: React.FC<PostDiaryProps> = ({
             <Text
               style={[
                 styles.headerValue,
-                { color: title.length > MAX_TITLE ? softRed : primaryColor },
+                {
+                  color:
+                    !themeCategory &&
+                    !themeSubcategory &&
+                    title.length > MAX_TITLE
+                      ? softRed
+                      : primaryColor,
+                },
               ]}
             >
               {title.length}
@@ -178,10 +185,10 @@ const PostDiary: React.FC<PostDiaryProps> = ({
       <PostDiaryKeyboard
         title={title}
         text={text}
-        learnLanguage={learnLanguage}
         themeCategory={themeCategory}
         themeSubcategory={themeSubcategory}
         isForce={isForce}
+        isTopic={isTopic}
         fadeAnim={fadeAnim}
         onPressTopicGuide={onPressTopicGuide}
         onChangeTextTitle={onChangeTextTitle}
