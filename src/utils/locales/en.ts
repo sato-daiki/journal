@@ -404,6 +404,7 @@ const postDiaryComponent = {
   textLength: 'Text',
   draft: 'Save as Draft',
   hint: 'Review the slides',
+  correct: 'View previous corrections',
 };
 
 const sns = {
