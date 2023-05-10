@@ -152,9 +152,12 @@ const initialize = {
 
 const myDiary = {
   menuDelete: 'Delete',
+  menuRevise: 'Revise',
   confirmMessage: 'Are you sure you want to delete this journal entry?',
-  posted: 'Original',
-  fairCopy: 'Fair Copy',
+  origin: 'Original Correction',
+  revised: 'Revised Correction',
+  ai1: "AI1's correction",
+  ai2: "AI2's correction",
   closeAlert:
     'Any edits that have not been saved will be lost. Would you like to exit?',
   permissionAudio:
@@ -166,6 +169,7 @@ const myDiary = {
   recommend: 'What is an efficient study method?',
   ignore: 'Ignore',
   start: 'Initially',
+  revise: 'Revise based on the correction',
 };
 
 const myDiaryList = {
@@ -250,6 +254,10 @@ const postDraftDiary = {
   headerTitle: 'Edit Your Draft',
 };
 
+const postReviseDiary = {
+  headerTitle: 'Revise Your Draft',
+};
+
 const registerEmailPassword = {
   headerTitle: 'Register Email and Password',
   title: 'Please enter your email address and password',
@@ -324,10 +332,6 @@ const record = {
   notSave: 'Audio for more than 2 minutes cannot be saved',
 };
 
-const firstDiary = {
-  first: 'First entry',
-};
-
 //  molecules
 const emptyDiary = {
   empty: 'You haven’t posted any journal entries.',
@@ -381,6 +385,7 @@ const modalDiaryCancel = {
   message:
     'Any edits that have not been saved will be lost. Would you like to exit?',
   button: 'Save as a Draft',
+  close: 'Close without saving',
 };
 
 const modalSendEmail = {
@@ -399,6 +404,7 @@ const postDiaryComponent = {
   textLength: 'Text',
   draft: 'Save as Draft',
   hint: 'Review the slides',
+  correct: 'View previous corrections',
 };
 
 const sns = {
@@ -409,7 +415,7 @@ const sns = {
 const myDiaryStatus = {
   draft: 'Draft',
   checked: 'Corrected',
-  fairCopy: 'Fair Copy',
+  revised: 'Revised',
   recorded: 'Recorded',
 };
 
@@ -651,6 +657,7 @@ const en = {
   editMyDiaryList,
   postDiary,
   postDraftDiary,
+  postReviseDiary,
   registerEmailPassword,
   reviewList,
   selectLanguage,
@@ -662,7 +669,6 @@ const en = {
   signUp,
   userProfile,
   record,
-  firstDiary,
   emptyDiary,
   profileLanguage,
   emptyMyDiaryList,

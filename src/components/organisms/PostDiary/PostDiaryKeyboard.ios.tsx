@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  StyleSheet,
-  SafeAreaView,
-  Keyboard,
-  Animated,
-  View,
-} from 'react-native';
+import { StyleSheet, SafeAreaView, Keyboard, Animated } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import {
@@ -13,12 +7,11 @@ import {
   TextInputText,
   Hoverable,
   TextInputTitle,
-  TextButtun,
 } from '@/components/atoms';
 
 import { offWhite, mainColor } from '@/styles/Common';
-import I18n from '@/utils/I18n';
 import { PostDiaryKeyboardProps } from './interface';
+import Footer from './Footer';
 
 const styles = StyleSheet.create({
   icon: {
@@ -48,6 +41,7 @@ const PostDiaryKeyboard: React.FC<PostDiaryKeyboardProps> = ({
   onChangeTextTitle,
   onChangeTextText,
   onPressDraft,
+  onPressMyDiary,
   onFocusText,
   onBlurText,
 }) => {
@@ -83,21 +77,12 @@ const PostDiaryKeyboard: React.FC<PostDiaryKeyboardProps> = ({
       <KeyboardSpacer />
       {/* 画面下部がiOSX以上の時隠れてしまうのを対応 */}
       <SafeAreaView>
-        <View style={styles.footer}>
-          {isTopic && (
-            <TextButtun
-              isBorrderTop
-              title={I18n.t('postDiaryComponent.hint')}
-              onPress={onPressTopicGuide}
-            />
-          )}
-          <TextButtun
-            isBorrderTop
-            isBorrderBottom
-            title={I18n.t('postDiaryComponent.draft')}
-            onPress={onPressDraft}
-          />
-        </View>
+        <Footer
+          isTopic={isTopic}
+          onPressTopicGuide={onPressTopicGuide}
+          onPressDraft={onPressDraft}
+          onPressMyDiary={onPressMyDiary}
+        />
       </SafeAreaView>
     </>
   );

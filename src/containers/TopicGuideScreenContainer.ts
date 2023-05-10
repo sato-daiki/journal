@@ -1,6 +1,8 @@
 import { connect } from 'react-redux';
 import { State } from '@/types/state';
-import TopicGuideScreen, { Props } from '@/screens/Modal/TopicGuideScreen';
+import TopicGuideScreen, {
+  Props,
+} from '@/screens/Modal/TopicGuideScreen/TopicGuideScreen';
 
 const mapStateToProps = (state: State): Props => {
   const { user } = state.rootReducer;

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useLayoutEffect } from 'react';
 import { StyleSheet, View, Text, ScrollView } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
  * マイページ
  */
 const MyPageScreen: React.FC<ScreenType> = ({ navigation, user }) => {
-  useEffect(() => {
+  useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <HeaderIcon
@@ -76,8 +76,7 @@ const MyPageScreen: React.FC<ScreenType> = ({ navigation, user }) => {
         />
       ),
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [navigation]);
 
   const onPressEdit = useCallback(() => {
     navigation.navigate('ModalEditMyProfile', { screen: 'EditMyProfile' });

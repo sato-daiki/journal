@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useCallback, useState, useLayoutEffect } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
@@ -91,7 +91,7 @@ const EditMyProfileScreen: React.FC<ScreenType> = ({
     navigation.goBack();
   }, [navigation]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
         <HeaderText text={I18n.t('common.close')} onPress={onPressGoBack} />

@@ -1,7 +1,7 @@
 import React, { useCallback, useRef } from 'react';
 import { StyleSheet, View, ScrollView } from 'react-native';
 import ViewShot from 'react-native-view-shot';
-import { Diary } from '../../../types';
+import { Diary, Match } from '../../../types';
 import { Space } from '../../atoms';
 import firestore from '@react-native-firebase/firestore';
 import Matches from './Matches';
@@ -11,8 +11,16 @@ import DiaryFooter from '@/components/molecules/DiaryFooter';
 import { useCommon } from './useCommon';
 
 export interface Props {
+  hideFooterButton: boolean;
   diary: Diary;
+  title: string;
+  text: string;
+  titleArray: Match[] | [] | undefined;
+  textArray: Match[] | [] | undefined;
   editDiary: (objectID: string, diary: Diary) => void;
+  checkPermissions?: () => Promise<boolean>;
+  goToRecord?: () => void;
+  onPressRevise?: () => void;
 }
 
 const styles = StyleSheet.create({
@@ -33,10 +41,19 @@ const styles = StyleSheet.create({
   },
 });
 
-const LanguageTool: React.FC<Props> = ({ diary, editDiary }) => {
+const LanguageTool: React.FC<Props> = ({
+  hideFooterButton,
+  diary,
+  title,
+  text,
+  titleArray,
+  textArray,
+  editDiary,
+  checkPermissions,
+  goToRecord,
+  onPressRevise,
+}) => {
   const viewShotRef = useRef<ViewShot | null>(null);
-  const titleArray = diary.languageTool?.titleMatches;
-  const textArray = diary.languageTool?.textMatches;
 
   const {
     titleActiveIndex,
@@ -127,50 +144,54 @@ const LanguageTool: React.FC<Props> = ({ diary, editDiary }) => {
           <View style={styles.mainContainer}>
             <DiaryHeader diary={diary} />
             <LanguageToolDiaryTitleAndText
-              title={diary.title}
-              text={diary.text}
+              title={title}
+              text={text}
               themeCategory={diary.themeCategory}
               themeSubcategory={diary.themeSubcategory}
-              titleMatches={diary.languageTool?.titleMatches}
-              textMatches={diary.languageTool?.textMatches}
+              titleMatches={titleArray}
+              textMatches={textArray}
               titleActiveIndex={titleActiveIndex}
               textActiveIndex={textActiveIndex}
               setTitleActiveIndex={setTitleActiveIndex}
               setTextActiveIndex={setTextActiveIndex}
             />
-            <DiaryFooter text={diary.text} />
           </View>
+          <DiaryFooter
+            hideFooterButton={hideFooterButton}
+            text={text}
+            longCode={diary.longCode}
+            voiceUrl={diary.voiceUrl}
+            checkPermissions={checkPermissions}
+            goToRecord={goToRecord}
+            onPressRevise={onPressRevise}
+          />
         </ViewShot>
         <Space size={32} />
       </ScrollView>
-      {diary.languageTool?.titleMatches &&
-        diary.languageTool?.titleMatches.length > 0 &&
-        titleActiveIndex !== null && (
-          <Matches
-            matches={diary.languageTool.titleMatches}
-            activeIndex={titleActiveIndex}
-            activeLeft={titleActiveLeft}
-            activeRight={titleActiveRight}
-            onPressLeft={onPressLeftTitle}
-            onPressRight={onPressRightTitle}
-            onPressClose={onPressClose}
-            onPressIgnore={onPressIgnoreTitle}
-          />
-        )}
-      {diary.languageTool?.textMatches &&
-        diary.languageTool?.textMatches.length > 0 &&
-        textActiveIndex !== null && (
-          <Matches
-            matches={diary.languageTool?.textMatches}
-            activeIndex={textActiveIndex}
-            activeLeft={textActiveLeft}
-            activeRight={textActiveRight}
-            onPressLeft={onPressLeftText}
-            onPressRight={onPressRightText}
-            onPressClose={onPressClose}
-            onPressIgnore={onPressIgnoreText}
-          />
-        )}
+      {titleArray && titleArray.length > 0 && titleActiveIndex !== null && (
+        <Matches
+          matches={titleArray}
+          activeIndex={titleActiveIndex}
+          activeLeft={titleActiveLeft}
+          activeRight={titleActiveRight}
+          onPressLeft={onPressLeftTitle}
+          onPressRight={onPressRightTitle}
+          onPressClose={onPressClose}
+          onPressIgnore={onPressIgnoreTitle}
+        />
+      )}
+      {textArray && textArray.length > 0 && textActiveIndex !== null && (
+        <Matches
+          matches={textArray}
+          activeIndex={textActiveIndex}
+          activeLeft={textActiveLeft}
+          activeRight={textActiveRight}
+          onPressLeft={onPressLeftText}
+          onPressRight={onPressRightText}
+          onPressClose={onPressClose}
+          onPressIgnore={onPressIgnoreText}
+        />
+      )}
     </View>
   );
 };

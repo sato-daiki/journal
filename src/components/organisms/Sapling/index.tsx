@@ -1,7 +1,7 @@
 import React, { useCallback, useRef } from 'react';
 import { StyleSheet, View, ScrollView } from 'react-native';
 import ViewShot from 'react-native-view-shot';
-import { Diary } from '../../../types';
+import { Diary, Edit } from '../../../types';
 import { Space } from '../../atoms';
 import firestore from '@react-native-firebase/firestore';
 import DiaryHeader from '@/components/molecules/DiaryHeader';
@@ -11,8 +11,16 @@ import Edits from './Edits';
 import { useCommon } from '@/components/organisms/LanguageTool/useCommon';
 
 export interface Props {
+  hideFooterButton: boolean;
   diary: Diary;
+  title: string;
+  text: string;
+  titleArray: Edit[] | [] | undefined;
+  textArray: Edit[] | [] | undefined;
   editDiary: (objectID: string, diary: Diary) => void;
+  checkPermissions?: () => Promise<boolean>;
+  goToRecord?: () => void;
+  onPressRevise?: () => void;
 }
 
 const styles = StyleSheet.create({
@@ -33,11 +41,19 @@ const styles = StyleSheet.create({
   },
 });
 
-const Sapling: React.FC<Props> = ({ diary, editDiary }) => {
+const Sapling: React.FC<Props> = ({
+  hideFooterButton,
+  diary,
+  title,
+  text,
+  titleArray,
+  textArray,
+  editDiary,
+  checkPermissions,
+  goToRecord,
+  onPressRevise,
+}) => {
   const viewShotRef = useRef<ViewShot | null>(null);
-
-  const titleArray = diary.sapling?.titleEdits;
-  const textArray = diary.sapling?.textEdits;
 
   const {
     titleActiveIndex,
@@ -61,13 +77,11 @@ const Sapling: React.FC<Props> = ({ diary, editDiary }) => {
   const onPressIgnoreTitle = useCallback(async () => {
     if (
       titleActiveIndex !== null &&
-      diary.sapling?.titleEdits &&
-      diary.sapling?.titleEdits.length > 0 &&
+      titleArray &&
+      titleArray.length > 0 &&
       diary.objectID
     ) {
-      const newMatches = diary.sapling?.titleEdits.filter(
-        (_, i) => i !== titleActiveIndex,
-      );
+      const newMatches = titleArray.filter((_, i) => i !== titleActiveIndex);
 
       const sapling = {
         ...diary.sapling,
@@ -87,7 +101,7 @@ const Sapling: React.FC<Props> = ({ diary, editDiary }) => {
         sapling,
       });
     }
-  }, [titleActiveIndex, diary, editDiary, setTitleActiveIndex]);
+  }, [titleActiveIndex, titleArray, diary, editDiary, setTitleActiveIndex]);
 
   const onPressIgnoreText = useCallback(async () => {
     if (
@@ -131,51 +145,55 @@ const Sapling: React.FC<Props> = ({ diary, editDiary }) => {
           <View style={styles.mainContainer}>
             <DiaryHeader diary={diary} />
             <SaplingDiaryTitleAndText
-              title={diary.title}
-              text={diary.text}
+              title={title}
+              text={text}
               themeCategory={diary.themeCategory}
               themeSubcategory={diary.themeSubcategory}
-              titleEdits={diary.sapling?.titleEdits}
-              textEdits={diary.sapling?.textEdits}
+              titleEdits={titleArray}
+              textEdits={textArray}
               titleActiveIndex={titleActiveIndex}
               textActiveIndex={textActiveIndex}
               setTitleActiveIndex={setTitleActiveIndex}
               setTextActiveIndex={setTextActiveIndex}
             />
-            <DiaryFooter text={diary.text} />
           </View>
+          <DiaryFooter
+            hideFooterButton={hideFooterButton}
+            text={text}
+            longCode={diary.longCode}
+            voiceUrl={diary.voiceUrl}
+            checkPermissions={checkPermissions}
+            goToRecord={goToRecord}
+            onPressRevise={onPressRevise}
+          />
         </ViewShot>
         <Space size={32} />
       </ScrollView>
-      {diary.sapling?.titleEdits &&
-        diary.sapling?.titleEdits.length > 0 &&
-        titleActiveIndex !== null && (
-          <Edits
-            edits={diary.sapling.titleEdits}
-            activeIndex={titleActiveIndex}
-            activeLeft={titleActiveLeft}
-            activeRight={titleActiveRight}
-            onPressLeft={onPressLeftTitle}
-            onPressRight={onPressRightTitle}
-            onPressClose={onPressClose}
-            onPressIgnore={onPressIgnoreTitle}
-          />
-        )}
+      {titleArray && titleArray.length > 0 && titleActiveIndex !== null && (
+        <Edits
+          edits={titleArray}
+          activeIndex={titleActiveIndex}
+          activeLeft={titleActiveLeft}
+          activeRight={titleActiveRight}
+          onPressLeft={onPressLeftTitle}
+          onPressRight={onPressRightTitle}
+          onPressClose={onPressClose}
+          onPressIgnore={onPressIgnoreTitle}
+        />
+      )}
 
-      {diary.sapling?.textEdits &&
-        diary.sapling?.textEdits.length > 0 &&
-        textActiveIndex !== null && (
-          <Edits
-            edits={diary.sapling?.textEdits}
-            activeIndex={textActiveIndex}
-            activeLeft={textActiveLeft}
-            activeRight={textActiveRight}
-            onPressLeft={onPressLeftText}
-            onPressRight={onPressRightText}
-            onPressClose={onPressClose}
-            onPressIgnore={onPressIgnoreText}
-          />
-        )}
+      {textArray && textArray.length > 0 && textActiveIndex !== null && (
+        <Edits
+          edits={textArray}
+          activeIndex={textActiveIndex}
+          activeLeft={textActiveLeft}
+          activeRight={textActiveRight}
+          onPressLeft={onPressLeftText}
+          onPressRight={onPressRightText}
+          onPressClose={onPressClose}
+          onPressIgnore={onPressIgnoreText}
+        />
+      )}
     </View>
   );
 };

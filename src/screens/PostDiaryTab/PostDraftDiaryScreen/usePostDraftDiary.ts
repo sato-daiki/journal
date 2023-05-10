@@ -2,43 +2,30 @@ import { useState, useCallback, useEffect } from 'react';
 import { Keyboard } from 'react-native';
 import { logAnalytics, events } from '@/utils/Analytics';
 import { DiaryStatus, User, Diary, LongCode, LanguageTool } from '@/types';
-import {
-  checkBeforePost,
-  getRunningDays,
-  getRunningWeeks,
-  getThemeDiaries,
-} from '@/utils/diary';
+import { checkBeforePost, getRunning, getThemeDiaries } from '@/utils/diary';
 import { alert } from '@/utils/ErrorAlert';
-import {
-  PostDraftDiaryNavigationProp,
-  PostDraftDiaryRouteProp,
-} from './interfaces';
+import { PostDraftDiaryNavigationProp } from './interfaces';
 import { useCommon } from '../PostDiaryScreen/useCommont';
 import firestore from '@react-native-firebase/firestore';
-import {
-  getLanguageTool,
-  getLanguageToolShortName,
-  getSapling,
-} from '@/utils/grammarCheck';
+import { getAiCheck, getLanguageToolShortName } from '@/utils/grammarCheck';
 import { Sapling } from '@/types/sapling';
 
 interface UsePostDraftDiary {
   user: User;
+  item: Diary;
   setUser: (user: User) => void;
   editDiary: (objectID: string, diary: Diary) => void;
   navigation: PostDraftDiaryNavigationProp;
-  route: PostDraftDiaryRouteProp;
 }
 
 export const usePostDraftDiary = ({
   navigation,
-  route,
+  item,
   user,
   setUser,
   editDiary,
 }: UsePostDraftDiary) => {
   const [isInitialLoading, setIsInitialLoading] = useState(false);
-  const { item } = route.params;
 
   const {
     isModalCancel,
@@ -49,11 +36,8 @@ export const usePostDraftDiary = ({
     isModalError,
     setIsModalError,
     title,
-    setTitle,
     text,
-    setText,
     selectedItem,
-    setSelectedItem,
     errorMessage,
     setErrorMessage,
     onPressClose,
@@ -61,20 +45,21 @@ export const usePostDraftDiary = ({
     onPressNotSave,
     onPressCloseError,
     onPressItem,
+    onChangeTextTitle,
+    onChangeTextText,
   } = useCommon({
     navigation,
     learnLanguage: user.learnLanguage,
   });
 
   useEffect(() => {
-    if (item) {
-      setTitle(item.title);
-      setText(item.text);
-      setSelectedItem({
-        label: getLanguageToolShortName(item.longCode),
-        value: item.longCode,
-      });
-    }
+    onChangeTextTitle(item.title);
+    onChangeTextText(item.text);
+    onPressItem({
+      label: getLanguageToolShortName(item.longCode),
+      value: item.longCode,
+    });
+
     setIsInitialLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -86,9 +71,6 @@ export const usePostDraftDiary = ({
       sapling?: Sapling,
     ) => {
       return {
-        firstDiary:
-          diaryStatus === 'checked' &&
-          (user.diaryPosted === undefined || user.diaryPosted === false),
         title,
         text,
         diaryStatus,
@@ -98,14 +80,14 @@ export const usePostDraftDiary = ({
         updatedAt: firestore.FieldValue.serverTimestamp(),
       };
     },
-    [user.diaryPosted, title, text, selectedItem.value],
+    [title, text, selectedItem.value],
   );
 
   const onPressDraft = useCallback(async (): Promise<void> => {
     Keyboard.dismiss();
     if (isInitialLoading || isLoadingDraft || isLoadingPublish) return;
     try {
-      if (!item || !item.objectID) return;
+      if (!item.objectID) return;
 
       setIsLoadingDraft(true);
       const diary = getDiary('draft');
@@ -153,13 +135,7 @@ export const usePostDraftDiary = ({
 
     setIsLoadingPublish(true);
 
-    const languageTool = await getLanguageTool(
-      selectedItem.value as LongCode,
-      isTitleSkip,
-      title,
-      text,
-    );
-    const sapling = await getSapling(
+    const { languageTool, sapling } = await getAiCheck(
       selectedItem.value as LongCode,
       isTitleSkip,
       title,
@@ -167,14 +143,7 @@ export const usePostDraftDiary = ({
     );
 
     const diary = getDiary('checked', languageTool, sapling);
-    const runningDays = getRunningDays(
-      user.runningDays,
-      user.lastDiaryPostedAt,
-    );
-    const runningWeeks = getRunningWeeks(
-      user.runningWeeks,
-      user.lastDiaryPostedAt,
-    );
+    const { runningDays, runningWeeks } = getRunning(user);
 
     let { themeDiaries } = user;
     if (item.themeCategory && item.themeSubcategory) {
@@ -188,7 +157,7 @@ export const usePostDraftDiary = ({
 
     await firestore()
       .runTransaction(async (transaction) => {
-        if (!item || !item.objectID) return;
+        if (!item.objectID) return;
         const diaryRef = firestore().doc(`diaries/${item.objectID}`);
         transaction.update(diaryRef, diary);
 
@@ -261,20 +230,6 @@ export const usePostDraftDiary = ({
     title,
     user,
   ]);
-
-  const onChangeTextTitle = useCallback(
-    (txt) => {
-      setTitle(txt);
-    },
-    [setTitle],
-  );
-
-  const onChangeTextText = useCallback(
-    (txt) => {
-      setText(txt);
-    },
-    [setText],
-  );
 
   return {
     isInitialLoading,

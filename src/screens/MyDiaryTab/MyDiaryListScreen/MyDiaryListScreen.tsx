@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, {
+  useLayoutEffect,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { View, StyleSheet } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -205,7 +211,7 @@ const MyDiaryListScreen: React.FC<ScreenType> = ({
     [localStatus.myDiaryListView, onPressRight],
   );
 
-  React.useLayoutEffect(() => {
+  useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft,
       headerRight,

@@ -150,9 +150,12 @@ const initialize = {
 
 const myDiary = {
   menuDelete: '削除する',
+  menuRevise: '修正する',
   confirmMessage: '本当に削除してよろしいでしょうか？',
-  posted: '原文',
-  fairCopy: '清書',
+  origin: '原文の添削',
+  revised: '修正後の添削',
+  ai1: 'AI①の添削',
+  ai2: 'AI②の添削',
   closeAlert: '保存されていない変更は失われます。閉じてよろしいですか？',
   permissionAudio:
     'マイクの権限がないため、起動できません。設定画面からマイクの設定をONにしてください',
@@ -163,6 +166,7 @@ const myDiary = {
   recommend: '効率的な勉強方法とは？',
   ignore: '無視',
   start: '最初から',
+  revise: '添削結果を元に修正する',
 };
 
 const myDiaryList = {
@@ -248,6 +252,10 @@ const postDraftDiary = {
   headerTitle: '下書きを編集',
 };
 
+const postReviseDiary = {
+  headerTitle: '日記を修正',
+};
+
 const registerEmailPassword = {
   headerTitle: 'メールアドレス/パスワード登録',
   title: 'メールアドレスとパスワードを入力してください',
@@ -321,10 +329,6 @@ const record = {
   notSave: '2分以上の音声は保存できません',
 };
 
-const firstDiary = {
-  first: '初投稿',
-};
-
 //  molecules
 const emptyDiary = {
   empty: '日記がまだ投稿されていません。',
@@ -376,6 +380,7 @@ const modalDeleteAcount = {
 const modalDiaryCancel = {
   message: '保存されていない変更は失われます。閉じてよろしいですか？',
   button: '下書きとして保存',
+  close: '保存せず閉じる',
 };
 
 const modalSendEmail = {
@@ -394,6 +399,7 @@ const postDiaryComponent = {
   textLength: '本文',
   draft: '下書き保存',
   hint: 'スライドをみる',
+  correct: '以前の添削結果を見る',
 };
 
 const sns = {
@@ -404,7 +410,7 @@ const sns = {
 const myDiaryStatus = {
   draft: '下書き',
   checked: '添削完了',
-  fairCopy: '清書済',
+  revised: '修正済',
   recorded: '録音済',
 };
 
@@ -643,6 +649,7 @@ const ja = {
   editMyDiaryList,
   postDiary,
   postDraftDiary,
+  postReviseDiary,
   registerEmailPassword,
   reviewList,
   selectLanguage,
@@ -654,7 +661,6 @@ const ja = {
   signUp,
   userProfile,
   record,
-  firstDiary,
   emptyDiary,
   profileLanguage,
   emptyMyDiaryList,

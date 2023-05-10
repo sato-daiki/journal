@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useLayoutEffect, useMemo, useState } from 'react';
 import { View, StyleSheet, ListRenderItem, Dimensions } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 
@@ -69,12 +69,11 @@ const TopicGuideScreen: React.FC<ScreenType> = ({
   const [activeSlide, setActiveSlide] = useState(
     caller === 'PostDiary' ? entries.length - 1 : 0,
   );
-  useEffect(() => {
+  useLayoutEffect(() => {
     navigation.setOptions({
       title: route.params.topicSubcategory,
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [navigation, route.params.topicSubcategory]);
 
   const onPressEnd = useCallback(() => {
     // SelectTopicSubcategory選択からした場合は遷移 / PostDiaryからきた場合はback

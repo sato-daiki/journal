@@ -10,6 +10,6 @@ export interface Edit {
 }
 
 export interface Sapling {
-  titleEdits: Edit[] | [];
-  textEdits: Edit[] | [];
+  titleEdits?: Edit[] | [];
+  textEdits?: Edit[] | [];
 }
