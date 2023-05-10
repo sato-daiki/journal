@@ -10,13 +10,13 @@ import {
 } from '@/constants/NavigationOptions';
 
 import {
-  ModalPostFairCopyDiaryStackNavigationProp,
-  ModalPostFairCopyDiaryStackParamList,
+  ModalPostReviseDiaryStackNavigationProp,
+  ModalPostReviseDiaryStackParamList,
 } from '@/navigations/ModalNavigator';
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Diary, User } from '@/types';
-import { usePostFairCopyDiary } from './usePostFairCopyDiary';
+import { usePostReviseDiary } from './usePostReviseDiary';
 
 export interface Props {
   user: User;
@@ -26,26 +26,23 @@ interface DispatchProps {
   editDiary: (objectID: string, diary: Diary) => void;
 }
 
-export type PostFairCopyDiaryNavigationProp = CompositeNavigationProp<
-  StackNavigationProp<
-    ModalPostFairCopyDiaryStackParamList,
-    'PostFairCopyDiary'
-  >,
-  ModalPostFairCopyDiaryStackNavigationProp
+export type PostReviseDiaryNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<ModalPostReviseDiaryStackParamList, 'PostReviseDiary'>,
+  ModalPostReviseDiaryStackNavigationProp
 >;
 
-export type PostFairCopyDiaryRouteProp = RouteProp<
-  ModalPostFairCopyDiaryStackParamList,
-  'PostFairCopyDiary'
+export type PostReviseDiaryRouteProp = RouteProp<
+  ModalPostReviseDiaryStackParamList,
+  'PostReviseDiary'
 >;
 
 export type ScreenType = {
-  navigation: PostFairCopyDiaryNavigationProp;
-  route: PostFairCopyDiaryRouteProp;
+  navigation: PostReviseDiaryNavigationProp;
+  route: PostReviseDiaryRouteProp;
 } & Props &
   DispatchProps;
 
-const PostFairCopyDiaryScreen: React.FC<ScreenType> = ({
+const PostReviseDiaryScreen: React.FC<ScreenType> = ({
   navigation,
   route,
   user,
@@ -68,7 +65,7 @@ const PostFairCopyDiaryScreen: React.FC<ScreenType> = ({
     onPressClose,
     onPressCloseError,
     onPressMyDiary,
-  } = usePostFairCopyDiary({
+  } = usePostReviseDiary({
     navigation,
     item,
     user,
@@ -79,7 +76,7 @@ const PostFairCopyDiaryScreen: React.FC<ScreenType> = ({
     navigation.setOptions({
       ...DefaultNavigationOptions,
       ...DefaultModalLayoutOptions,
-      title: I18n.t('postFairCopyDiary.headerTitle'),
+      title: I18n.t('postReviseDiary.headerTitle'),
       headerLeft: () => (
         <HeaderText text={I18n.t('common.close')} onPress={onPressClose} />
       ),
@@ -112,4 +109,4 @@ const PostFairCopyDiaryScreen: React.FC<ScreenType> = ({
   );
 };
 
-export default PostFairCopyDiaryScreen;
+export default PostReviseDiaryScreen;

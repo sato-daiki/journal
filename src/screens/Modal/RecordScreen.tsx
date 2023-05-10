@@ -576,8 +576,8 @@ export default class RecordScreen extends React.Component<ScreenType, State> {
         <View style={styles.container}>
           <ScrollView style={styles.scrollView}>
             <DiaryTitleAndText
-              title={diary.fairCopyTitle || diary.title}
-              text={diary.fairCopyText || diary.text}
+              title={diary.reviseTitle || diary.title}
+              text={diary.reviseText || diary.text}
               themeCategory={diary.themeCategory}
               themeSubcategory={diary.themeSubcategory}
             />

@@ -20,7 +20,7 @@ export interface Props {
   editDiary: (objectID: string, diary: Diary) => void;
   checkPermissions?: () => Promise<boolean>;
   goToRecord?: () => void;
-  onPressFairCopy?: () => void;
+  onPressRevise?: () => void;
 }
 
 const styles = StyleSheet.create({
@@ -51,7 +51,7 @@ const Sapling: React.FC<Props> = ({
   editDiary,
   checkPermissions,
   goToRecord,
-  onPressFairCopy,
+  onPressRevise,
 }) => {
   const viewShotRef = useRef<ViewShot | null>(null);
 
@@ -164,7 +164,7 @@ const Sapling: React.FC<Props> = ({
             voiceUrl={diary.voiceUrl}
             checkPermissions={checkPermissions}
             goToRecord={goToRecord}
-            onPressFairCopy={onPressFairCopy}
+            onPressRevise={onPressRevise}
           />
         </ViewShot>
         <Space size={32} />

@@ -6,21 +6,21 @@ import { useCommon } from '../PostDiaryScreen/useCommont';
 import firestore from '@react-native-firebase/firestore';
 import { getAiCheck } from '@/utils/grammarCheck';
 import { Sapling } from '@/types/sapling';
-import { PostFairCopyDiaryNavigationProp } from './PostFairCopyDiaryScreen';
+import { PostReviseDiaryNavigationProp } from './PostReviseDiaryScreen';
 
-interface UsePostFairCopyDiary {
+interface UsePostReviseDiary {
   user: User;
   editDiary: (objectID: string, diary: Diary) => void;
-  navigation: PostFairCopyDiaryNavigationProp;
+  navigation: PostReviseDiaryNavigationProp;
   item: Diary;
 }
 
-export const usePostFairCopyDiary = ({
+export const usePostReviseDiary = ({
   navigation,
   item,
   user,
   editDiary,
-}: UsePostFairCopyDiary) => {
+}: UsePostReviseDiary) => {
   const [isInitialLoading, setIsInitialLoading] = useState(false);
 
   const {
@@ -47,8 +47,8 @@ export const usePostFairCopyDiary = ({
 
   useEffect(() => {
     if (item) {
-      onChangeTextTitle(item.fairCopyTitle || item.title);
-      onChangeTextText(item.fairCopyText || item.text);
+      onChangeTextTitle(item.reviseTitle || item.title);
+      onChangeTextText(item.reviseText || item.text);
     }
     setIsInitialLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -57,10 +57,10 @@ export const usePostFairCopyDiary = ({
   const getDiary = useCallback(
     (languageTool?: LanguageTool, sapling?: Sapling) => {
       return {
-        fairCopyTitle: title,
-        fairCopyText: text,
-        fairCopyLanguageTool: languageTool || null,
-        fairCopySapling: sapling || null,
+        reviseTitle: title,
+        reviseText: text,
+        reviseLanguageTool: languageTool || null,
+        reviseSapling: sapling || null,
         updatedAt: firestore.FieldValue.serverTimestamp(),
       };
     },

@@ -72,10 +72,10 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
     setIsModalConfirmation(false);
   }, []);
 
-  const onPressFairCopy = useCallback(() => {
+  const onPressRevise = useCallback(() => {
     if (diary && diary.objectID) {
-      navigation.navigate('ModalPostFairCopyDiary', {
-        screen: 'PostFairCopyDiary',
+      navigation.navigate('ModalPostReviseDiary', {
+        screen: 'PostReviseDiary',
         params: { item: diary, objectID: diary.objectID },
       });
     }
@@ -85,7 +85,7 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
     (i?: number) => {
       switch (i) {
         case 0:
-          onPressFairCopy();
+          onPressRevise();
           break;
         case 1:
           setIsModalDelete(true);
@@ -93,12 +93,12 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
         default:
       }
     },
-    [onPressFairCopy],
+    [onPressRevise],
   );
 
   const onPressMore = useCallback(() => {
     const options = [
-      I18n.t('myDiary.menuFairCopy'),
+      I18n.t('myDiary.menuRevise'),
       I18n.t('myDiary.menuDelete'),
       I18n.t('common.cancel'),
     ];
@@ -201,7 +201,7 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
         editDiary={editDiary}
         checkPermissions={checkPermissions}
         goToRecord={goToRecord}
-        onPressFairCopy={onPressFairCopy}
+        onPressRevise={onPressRevise}
       />
     </View>
   );

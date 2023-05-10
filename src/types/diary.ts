@@ -17,16 +17,16 @@ export interface Diary {
   text: string;
   themeCategory?: ThemeCategory | null;
   themeSubcategory?: ThemeSubcategory | null;
-  fairCopyTitle?: string | null;
-  fairCopyText?: string | null;
+  reviseTitle?: string | null;
+  reviseText?: string | null;
   diaryStatus: DiaryStatus;
   voiceUrl?: string | null;
   publishedAt?: Timestamp | any;
   longCode: LongCode;
   languageTool?: LanguageTool | null;
   sapling?: Sapling | null;
-  fairCopyLanguageTool?: LanguageTool | null;
-  fairCopySapling?: Sapling | null;
+  reviseLanguageTool?: LanguageTool | null;
+  reviseSapling?: Sapling | null;
   createdAt: Timestamp | any;
   updatedAt: Timestamp | any;
 }

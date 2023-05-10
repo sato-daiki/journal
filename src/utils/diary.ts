@@ -151,7 +151,7 @@ export const getPublishMessage = (
 export const MY_STATUS = {
   draft: { text: I18n.t('myDiaryStatus.draft'), color: subTextColor },
   checked: { text: I18n.t('myDiaryStatus.checked'), color: mainColor },
-  fairCopy: { text: I18n.t('myDiaryStatus.fairCopy'), color: green },
+  revised: { text: I18n.t('myDiaryStatus.revised'), color: green },
   recorded: { text: I18n.t('myDiaryStatus.recorded'), color: softRed },
 };
 
@@ -163,8 +163,8 @@ export const getMyDiaryStatus = (diary: Diary) => {
     return MY_STATUS.recorded;
   }
 
-  if (diary.fairCopyText || diary.fairCopyTitle) {
-    return MY_STATUS.fairCopy;
+  if (diary.reviseText || diary.reviseTitle) {
+    return MY_STATUS.revised;
   }
 
   return MY_STATUS.checked;

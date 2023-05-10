@@ -3,7 +3,7 @@ import { ThemeCategory, ThemeSubcategory } from '@/types';
 import { PostDiaryNavigationProp } from '@/screens/PostDiaryTab/PostDiaryScreen/interfaces';
 import { PostDraftDiaryNavigationProp } from '@/screens/PostDiaryTab/PostDraftDiaryScreen/interfaces';
 import { PickerItem } from '@/components/molecules/LanguageModalPicker';
-import { PostFairCopyDiaryNavigationProp } from '@/screens/PostDiaryTab/PostFairCopyDiaryScreen/PostFairCopyDiaryScreen';
+import { PostReviseDiaryNavigationProp } from '@/screens/PostDiaryTab/PostReviseDiaryScreen/PostReviseDiaryScreen';
 
 export interface PostDiaryKeyboardProps {
   title: string;
@@ -26,7 +26,7 @@ export interface PostDiaryProps {
   navigation:
     | PostDiaryNavigationProp
     | PostDraftDiaryNavigationProp
-    | PostFairCopyDiaryNavigationProp;
+    | PostReviseDiaryNavigationProp;
   isLoading: boolean;
   isModalCancel: boolean;
   isModalError: boolean;

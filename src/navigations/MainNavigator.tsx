@@ -21,8 +21,8 @@ import {
   ModalPostDiaryStackParamList,
   ModalPostDraftDiaryNavigator,
   ModalPostDraftDiaryStackParamList,
-  ModalPostFairCopyDiaryNavigator,
-  ModalPostFairCopyDiaryStackParamList,
+  ModalPostReviseDiaryNavigator,
+  ModalPostReviseDiaryStackParamList,
   ModalViewMyDiaryStackParamList,
   ModalViewMyDiaryNavigator,
   ModalEditMyProfileNavigator,
@@ -81,8 +81,8 @@ export type MainStackParamList = {
       objectID: string;
     };
   };
-  ModalPostFairCopyDiary: {
-    screen: keyof ModalPostFairCopyDiaryStackParamList;
+  ModalPostReviseDiary: {
+    screen: keyof ModalPostReviseDiaryStackParamList;
     params: {
       item: Diary;
       objectID: string;
@@ -157,8 +157,8 @@ const MainNavigator = () => {
         component={ModalPostDraftDiaryNavigator}
       />
       <MainStack.Screen
-        name='ModalPostFairCopyDiary'
-        component={ModalPostFairCopyDiaryNavigator}
+        name='ModalPostReviseDiary'
+        component={ModalPostReviseDiaryNavigator}
       />
       <MainStack.Screen
         name='ModalViewMyDiary'

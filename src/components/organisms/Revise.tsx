@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const FairCopy: React.FC<Props> = ({ diary, checkPermissions, goToRecord }) => {
+const Revise: React.FC<Props> = ({ diary, checkPermissions, goToRecord }) => {
   const [visibleSpeech, setVisibleSpeech] = useState(false);
   const [visibleVoice, setVisibleVoice] = useState(false);
 
@@ -219,14 +219,14 @@ const FairCopy: React.FC<Props> = ({ diary, checkPermissions, goToRecord }) => {
     <View style={styles.container}>
       <ModalSpeech
         visible={visibleSpeech}
-        text={diary.fairCopyText || diary.text}
+        text={diary.reviseText || diary.text}
         longCode={diary.longCode}
         onClose={(): void => setVisibleSpeech(false)}
       />
       {diary.voiceUrl ? (
         <ModalVoice
           visible={visibleVoice}
-          text={diary.fairCopyText || diary.text}
+          text={diary.reviseText || diary.text}
           isPlaybackAllowed={isPlaybackAllowed}
           isLoading={isInitialLoading}
           isPlaying={isPlaying}
@@ -247,14 +247,14 @@ const FairCopy: React.FC<Props> = ({ diary, checkPermissions, goToRecord }) => {
         >
           <View style={styles.mainContainer}>
             <DiaryTitleAndText
-              title={diary.fairCopyTitle || diary.title}
-              text={diary.fairCopyText || diary.text}
+              title={diary.reviseTitle || diary.title}
+              text={diary.reviseText || diary.text}
               themeCategory={diary.themeCategory}
               themeSubcategory={diary.themeSubcategory}
             />
             <Text style={styles.textLength}>
               {I18n.t('postDiaryComponent.textLength')}
-              {` ${(diary.fairCopyText || diary.text).length}`}
+              {` ${(diary.reviseText || diary.text).length}`}
             </Text>
           </View>
         </ViewShot>
@@ -291,4 +291,4 @@ const FairCopy: React.FC<Props> = ({ diary, checkPermissions, goToRecord }) => {
   );
 };
 
-export default React.memo(FairCopy);
+export default React.memo(Revise);

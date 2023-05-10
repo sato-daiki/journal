@@ -19,7 +19,7 @@ type Props = {
   text: string;
   longCode: LongCode;
   voiceUrl?: string | null;
-  onPressFairCopy?: () => void;
+  onPressRevise?: () => void;
   checkPermissions?: () => Promise<boolean>;
   goToRecord?: () => void;
 };
@@ -43,7 +43,7 @@ const DiaryHeader: React.FC<Props> = ({
   text,
   longCode,
   voiceUrl,
-  onPressFairCopy,
+  onPressRevise,
   checkPermissions,
   goToRecord,
 }) => {
@@ -211,14 +211,14 @@ const DiaryHeader: React.FC<Props> = ({
         {I18n.t('postDiaryComponent.textLength')}
         {` ${text.length}`}
       </Text>
-      {!hideFooterButton && onPressFairCopy && onPressMyVoice && goToRecord && (
+      {!hideFooterButton && onPressRevise && onPressMyVoice && goToRecord && (
         <>
           <Space size={24} />
           <WhiteButton
             containerStyle={styles.button}
             icon={iconPen}
-            title={I18n.t('myDiary.reWrite')}
-            onPress={onPressFairCopy}
+            title={I18n.t('myDiary.revise')}
+            onPress={onPressRevise}
           />
 
           <Space size={24} />

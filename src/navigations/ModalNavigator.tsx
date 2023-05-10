@@ -22,7 +22,7 @@ import {
 import PostDiaryScreenContainer from '@/containers/PostDiaryScreenContainer';
 import EditMyProfileScreenContainer from '@/containers/EditMyProfileScreenContainer';
 import PostDraftDiaryScreenContainer from '@/containers/PostDraftDiaryScreenContainer';
-import PostFairCopyDiaryScreenContainer from '@/containers/PostFairCopyDiaryScreenContainer';
+import PostReviseDiaryScreenContainer from '@/containers/PostReviseDiaryScreenContainer';
 import RecordScreenContainer from '@/containers/RecordScreenContainer';
 import EditMyDiaryListScreenContainer from '@/containers/EditMyDiaryListScreenContainer';
 import SelectTopicSubcategoryScreenContainer from '@/containers/SelectTopicSubcategoryScreenContainer';
@@ -65,8 +65,8 @@ export type ModalPostDraftDiaryStackParamList = {
     objectID: string;
   };
 };
-export type ModalPostFairCopyDiaryStackParamList = {
-  PostFairCopyDiary: {
+export type ModalPostReviseDiaryStackParamList = {
+  PostReviseDiary: {
     item: Diary;
     objectID: string;
   };
@@ -117,9 +117,9 @@ export type ModalPostDraftDiaryStackNavigationProp = StackNavigationProp<
   MainStackParamList,
   'ModalPostDraftDiary'
 >;
-export type ModalPostFairCopyDiaryStackNavigationProp = StackNavigationProp<
+export type ModalPostReviseDiaryStackNavigationProp = StackNavigationProp<
   MainStackParamList,
-  'ModalPostFairCopyDiary'
+  'ModalPostReviseDiary'
 >;
 export type ModalViewMyDiaryStackNavigationProp = StackNavigationProp<
   MainStackParamList,
@@ -148,8 +148,8 @@ const ModalPostDiaryStack =
   createStackNavigator<ModalPostDiaryStackParamList>();
 const ModalPostDraftDiaryStack =
   createStackNavigator<ModalPostDraftDiaryStackParamList>();
-const ModalPostFairCopyDiaryStack =
-  createStackNavigator<ModalPostFairCopyDiaryStackParamList>();
+const ModalPostReviseDiaryStack =
+  createStackNavigator<ModalPostReviseDiaryStackParamList>();
 const ModalViewMyDiaryStack =
   createStackNavigator<ModalViewMyDiaryStackParamList>();
 const ModalEditMyProfileStack =
@@ -242,15 +242,15 @@ export const ModalPostDraftDiaryNavigator = () => {
     </ModalPostDraftDiaryStack.Navigator>
   );
 };
-export const ModalPostFairCopyDiaryNavigator = () => {
+export const ModalPostReviseDiaryNavigator = () => {
   return (
-    <ModalPostFairCopyDiaryStack.Navigator initialRouteName='PostFairCopyDiary'>
-      <ModalPostFairCopyDiaryStack.Screen
-        name='PostFairCopyDiary'
-        component={PostFairCopyDiaryScreenContainer}
+    <ModalPostReviseDiaryStack.Navigator initialRouteName='PostReviseDiary'>
+      <ModalPostReviseDiaryStack.Screen
+        name='PostReviseDiary'
+        component={PostReviseDiaryScreenContainer}
         // optionはweb/nativeで違うのでscreen側で設定する
       />
-    </ModalPostFairCopyDiaryStack.Navigator>
+    </ModalPostReviseDiaryStack.Navigator>
   );
 };
 export const ModalViewMyDiaryNavigator = () => {

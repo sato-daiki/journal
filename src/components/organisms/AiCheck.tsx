@@ -11,7 +11,7 @@ interface Props {
   hideFooterButton: boolean;
   diary: Diary;
   editDiary: (objectID: string, diary: Diary) => void;
-  onPressFairCopy?: () => void;
+  onPressRevise?: () => void;
   checkPermissions?: () => Promise<boolean>;
   goToRecord?: () => void;
   title: string;
@@ -41,7 +41,7 @@ const AiCheck: React.FC<Props> = ({
   textEdits,
   checkPermissions,
   goToRecord,
-  onPressFairCopy,
+  onPressRevise,
 }) => {
   const [index, setIndex] = useState(0);
   const [routes] = useState([
@@ -68,7 +68,7 @@ const AiCheck: React.FC<Props> = ({
               editDiary={editDiary}
               checkPermissions={checkPermissions}
               goToRecord={goToRecord}
-              onPressFairCopy={onPressFairCopy}
+              onPressRevise={onPressRevise}
             />
           );
         case 'ai2':
@@ -83,7 +83,7 @@ const AiCheck: React.FC<Props> = ({
               editDiary={editDiary}
               checkPermissions={checkPermissions}
               goToRecord={goToRecord}
-              onPressFairCopy={onPressFairCopy}
+              onPressRevise={onPressRevise}
             />
           );
         default:
@@ -96,7 +96,7 @@ const AiCheck: React.FC<Props> = ({
       editDiary,
       goToRecord,
       hideFooterButton,
-      onPressFairCopy,
+      onPressRevise,
       text,
       textEdits,
       textMatches,

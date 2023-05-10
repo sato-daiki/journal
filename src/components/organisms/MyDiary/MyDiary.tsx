@@ -11,7 +11,7 @@ interface Props {
   editDiary: (objectID: string, diary: Diary) => void;
   checkPermissions?: () => Promise<boolean>;
   goToRecord?: () => void;
-  onPressFairCopy?: () => void;
+  onPressRevise?: () => void;
 }
 
 const MyDiary: React.FC<Props> = ({
@@ -19,13 +19,13 @@ const MyDiary: React.FC<Props> = ({
   editDiary,
   checkPermissions,
   goToRecord,
-  onPressFairCopy,
+  onPressRevise,
 }) => {
   const [index, setIndex] = useState(
-    diary && (diary.fairCopyTitle || diary.fairCopyText) ? 0 : 1,
+    diary && (diary.reviseTitle || diary.reviseText) ? 0 : 1,
   );
   const [routes] = useState([
-    { key: 'fairCopy', title: I18n.t('myDiary.fairCopy') },
+    { key: 'revised', title: I18n.t('myDiary.revised') },
     { key: 'origin', title: I18n.t('myDiary.origin') },
   ]);
 
@@ -37,27 +37,27 @@ const MyDiary: React.FC<Props> = ({
     ({ route }) => {
       if (!diary) return null;
       switch (route.key) {
-        case 'fairCopy':
+        case 'revised':
           return (
             <AiCheck
               hideFooterButton={false}
               diary={diary}
-              title={diary.fairCopyTitle || diary.title}
-              text={diary.fairCopyText || diary.text}
-              titleMatches={diary.fairCopyLanguageTool?.titleMatches}
-              textMatches={diary.fairCopyLanguageTool?.textMatches}
-              titleEdits={diary.fairCopySapling?.titleEdits}
-              textEdits={diary.fairCopySapling?.textEdits}
+              title={diary.reviseTitle || diary.title}
+              text={diary.reviseText || diary.text}
+              titleMatches={diary.reviseLanguageTool?.titleMatches}
+              textMatches={diary.reviseLanguageTool?.textMatches}
+              titleEdits={diary.reviseSapling?.titleEdits}
+              textEdits={diary.reviseSapling?.textEdits}
               editDiary={editDiary}
               checkPermissions={checkPermissions}
               goToRecord={goToRecord}
-              onPressFairCopy={onPressFairCopy}
+              onPressRevise={onPressRevise}
             />
           );
         case 'origin':
           return (
             <AiCheck
-              hideFooterButton={!!diary.fairCopyTitle || !!diary.fairCopyText}
+              hideFooterButton={!!diary.reviseTitle || !!diary.reviseText}
               diary={diary}
               title={diary.title}
               text={diary.text}
@@ -68,19 +68,19 @@ const MyDiary: React.FC<Props> = ({
               editDiary={editDiary}
               checkPermissions={checkPermissions}
               goToRecord={goToRecord}
-              onPressFairCopy={onPressFairCopy}
+              onPressRevise={onPressRevise}
             />
           );
         default:
           return null;
       }
     },
-    [checkPermissions, diary, editDiary, goToRecord, onPressFairCopy],
+    [checkPermissions, diary, editDiary, goToRecord, onPressRevise],
   );
 
   const renderTabBar = useCallback(
     (props) => {
-      if (diary && (diary.fairCopyTitle || diary.fairCopyText)) {
+      if (diary && (diary.reviseTitle || diary.reviseText)) {
         return <ParentTabBar {...props} />;
       }
     },

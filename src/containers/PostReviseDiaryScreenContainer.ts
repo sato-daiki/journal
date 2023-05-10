@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import { State } from '@/types/state';
 import { editDiary } from '@/stores/actions/diaryList';
-import PostFairCopyDiaryScreen, {
+import PostReviseDiaryScreen, {
   Props,
-} from '@/screens/PostDiaryTab/PostFairCopyDiaryScreen/PostFairCopyDiaryScreen';
+} from '@/screens/PostDiaryTab/PostReviseDiaryScreen/PostReviseDiaryScreen';
 
 const mapStateToProps = (state: State): Props => {
   return {
@@ -18,4 +18,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(PostFairCopyDiaryScreen);
+)(PostReviseDiaryScreen);
