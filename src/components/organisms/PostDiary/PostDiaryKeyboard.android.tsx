@@ -7,17 +7,10 @@ import {
   Keyboard,
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-
-import {
-  TextInputText,
-  Hoverable,
-  TextInputTitle,
-  TextButtun,
-} from '@/components/atoms';
-
-import I18n from '@/utils/I18n';
+import { TextInputText, Hoverable, TextInputTitle } from '@/components/atoms';
 import { mainColor, offWhite } from '@/styles/Common';
 import { PostDiaryKeyboardProps } from './interface';
+import Footer from './Footer';
 
 const styles = StyleSheet.create({
   container: {
@@ -54,6 +47,7 @@ const PostDiaryKeyboard: React.FC<PostDiaryKeyboardProps> = ({
   onFocusText,
   onBlurText,
   onPressTopicGuide,
+  onPressMyDiary,
 }) => {
   const [isKeyboard, setIsKeyboard] = useState(false);
   const onKeyboardDidShow = (): void => {
@@ -102,21 +96,12 @@ const PostDiaryKeyboard: React.FC<PostDiaryKeyboardProps> = ({
       </KeyboardAvoidingView>
       <SafeAreaView>
         {isKeyboard ? null : (
-          <View style={styles.footer}>
-            {isTopic && (
-              <TextButtun
-                isBorrderTop
-                title={I18n.t('postDiaryComponent.hint')}
-                onPress={onPressTopicGuide}
-              />
-            )}
-            <TextButtun
-              isBorrderTop
-              isBorrderBottom
-              title={I18n.t('postDiaryComponent.draft')}
-              onPress={onPressDraft}
-            />
-          </View>
+          <Footer
+            isTopic={isTopic}
+            onPressTopicGuide={onPressTopicGuide}
+            onPressDraft={onPressDraft}
+            onPressMyDiary={onPressMyDiary}
+          />
         )}
       </SafeAreaView>
       {isKeyboard ? (

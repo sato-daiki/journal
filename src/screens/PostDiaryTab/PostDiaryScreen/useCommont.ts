@@ -92,6 +92,20 @@ export const useCommon = ({
     setIsModalError(false);
   }, []);
 
+  const onChangeTextTitle = useCallback(
+    (txt) => {
+      setTitle(txt);
+    },
+    [setTitle],
+  );
+
+  const onChangeTextText = useCallback(
+    (txt) => {
+      setText(txt);
+    },
+    [setText],
+  );
+
   return {
     isModalCancel,
     isLoadingPublish,
@@ -101,11 +115,8 @@ export const useCommon = ({
     isModalError,
     setIsModalError,
     title,
-    setTitle,
     text,
-    setText,
     selectedItem,
-    setSelectedItem,
     errorMessage,
     setErrorMessage,
     onPressClose,
@@ -113,5 +124,7 @@ export const useCommon = ({
     onPressNotSave,
     onPressCloseError,
     onPressItem,
+    onChangeTextTitle,
+    onChangeTextText,
   };
 };

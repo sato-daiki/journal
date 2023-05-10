@@ -8,73 +8,70 @@ import {
   DefaultModalLayoutOptions,
   DefaultNavigationOptions,
 } from '@/constants/NavigationOptions';
-import { usePostDraftDiary } from './usePostDraftDiary';
 
 import {
-  ModalPostDraftDiaryStackNavigationProp,
-  ModalPostDraftDiaryStackParamList,
+  ModalPostFairCopyDiaryStackNavigationProp,
+  ModalPostFairCopyDiaryStackParamList,
 } from '@/navigations/ModalNavigator';
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Diary, User } from '@/types';
+import { usePostFairCopyDiary } from './usePostFairCopyDiary';
 
 export interface Props {
   user: User;
 }
 
 interface DispatchProps {
-  setUser: (user: User) => void;
   editDiary: (objectID: string, diary: Diary) => void;
 }
 
-export type PostDraftDiaryNavigationProp = CompositeNavigationProp<
-  StackNavigationProp<ModalPostDraftDiaryStackParamList, 'PostDraftDiary'>,
-  ModalPostDraftDiaryStackNavigationProp
+export type PostFairCopyDiaryNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<
+    ModalPostFairCopyDiaryStackParamList,
+    'PostFairCopyDiary'
+  >,
+  ModalPostFairCopyDiaryStackNavigationProp
 >;
 
-export type PostDraftDiaryRouteProp = RouteProp<
-  ModalPostDraftDiaryStackParamList,
-  'PostDraftDiary'
+export type PostFairCopyDiaryRouteProp = RouteProp<
+  ModalPostFairCopyDiaryStackParamList,
+  'PostFairCopyDiary'
 >;
 
 export type ScreenType = {
-  navigation: PostDraftDiaryNavigationProp;
-  route: PostDraftDiaryRouteProp;
+  navigation: PostFairCopyDiaryNavigationProp;
+  route: PostFairCopyDiaryRouteProp;
 } & Props &
   DispatchProps;
 
-const PostDraftDiaryScreen: React.FC<ScreenType> = ({
+const PostFairCopyDiaryScreen: React.FC<ScreenType> = ({
   navigation,
   route,
   user,
-  setUser,
   editDiary,
 }) => {
   const { item } = route.params;
   const {
     isInitialLoading,
     isLoadingPublish,
-    isLoadingDraft,
     isModalCancel,
     isModalError,
     title,
     text,
     errorMessage,
-    selectedItem,
     onPressCheck,
     onPressCloseModalCancel,
     onChangeTextTitle,
     onChangeTextText,
-    onPressDraft,
     onPressNotSave,
     onPressClose,
     onPressCloseError,
-    onPressItem,
-  } = usePostDraftDiary({
+    onPressMyDiary,
+  } = usePostFairCopyDiary({
     navigation,
     item,
     user,
-    setUser,
     editDiary,
   });
 
@@ -82,7 +79,7 @@ const PostDraftDiaryScreen: React.FC<ScreenType> = ({
     navigation.setOptions({
       ...DefaultNavigationOptions,
       ...DefaultModalLayoutOptions,
-      title: I18n.t('postDraftDiary.headerTitle'),
+      title: I18n.t('postFairCopyDiary.headerTitle'),
       headerLeft: () => (
         <HeaderText text={I18n.t('common.close')} onPress={onPressClose} />
       ),
@@ -92,12 +89,12 @@ const PostDraftDiaryScreen: React.FC<ScreenType> = ({
         );
       },
     });
-  }, [text, title, navigation, onPressClose, onPressDraft, onPressCheck]);
+  }, [text, title, navigation, onPressClose, onPressCheck]);
 
   return (
     <PostDiary
       navigation={navigation}
-      isLoading={isInitialLoading || isLoadingDraft || isLoadingPublish}
+      isLoading={isInitialLoading || isLoadingPublish}
       isModalCancel={isModalCancel}
       isModalError={isModalError}
       title={title}
@@ -105,16 +102,14 @@ const PostDraftDiaryScreen: React.FC<ScreenType> = ({
       themeCategory={item.themeCategory}
       themeSubcategory={item.themeSubcategory}
       errorMessage={errorMessage}
-      selectedItem={selectedItem}
       onPressCloseModalCancel={onPressCloseModalCancel}
       onChangeTextTitle={onChangeTextTitle}
       onChangeTextText={onChangeTextText}
-      onPressDraft={onPressDraft}
       onPressNotSave={onPressNotSave}
       onPressCloseError={onPressCloseError}
-      onPressItem={onPressItem}
+      onPressMyDiary={onPressMyDiary}
     />
   );
 };
 
-export default PostDraftDiaryScreen;
+export default PostFairCopyDiaryScreen;

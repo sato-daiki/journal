@@ -1,4 +1,10 @@
-import { Diary, ThemeDiary, ThemeCategory, ThemeSubcategory } from '@/types';
+import {
+  Diary,
+  ThemeDiary,
+  ThemeCategory,
+  ThemeSubcategory,
+  User,
+} from '@/types';
 import { subTextColor, mainColor, green, softRed } from '@/styles/Common';
 import firestore from '@react-native-firebase/firestore';
 
@@ -53,7 +59,7 @@ export const getThemeDiaries = (
   ];
 };
 
-export const getRunningDays = (
+const getRunningDays = (
   runningDays: number | undefined,
   lastDiaryPostedAt: any | null | undefined,
 ): number => {
@@ -82,7 +88,7 @@ export const getRunningDays = (
   return 1;
 };
 
-export const getRunningWeeks = (
+const getRunningWeeks = (
   runningWeeks: number | undefined,
   lastDiaryPostedAt: any | null | undefined,
 ): number => {
@@ -105,6 +111,15 @@ export const getRunningWeeks = (
 
   // 先週の月曜日以降投稿していない場合
   return 1;
+};
+
+export const getRunning = (user: User) => {
+  const runningDays = getRunningDays(user.runningDays, user.lastDiaryPostedAt);
+  const runningWeeks = getRunningWeeks(
+    user.runningWeeks,
+    user.lastDiaryPostedAt,
+  );
+  return { runningDays, runningWeeks };
 };
 
 export const getPublishMessage = (

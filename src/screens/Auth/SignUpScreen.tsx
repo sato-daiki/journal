@@ -172,8 +172,7 @@ const SignUpScreen: React.FC<ScreenType> = ({
         <HeaderText text={I18n.t('common.skip')} onPress={onPressSkip} />
       ),
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [navigation, onPressSkip]);
 
   const onPressSubmit = useCallback(async (): Promise<void> => {
     setIsLoading(true);

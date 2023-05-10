@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useLayoutEffect, useCallback, useRef, useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -134,15 +134,13 @@ const EditMyDiaryListScreen: React.FC<ScreenType> = ({
     navigation.goBack();
   }, [navigation]);
 
-  // 第二引数をなしにするのがポイント
-  React.useLayoutEffect(() => {
+  useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
         <HeaderText text={I18n.t('common.close')} onPress={onPressClose} />
       ),
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [navigation, onPressClose]);
 
   const onDeleteDiaries = useCallback(async () => {
     if (checkedIds.current.length === 0) return;

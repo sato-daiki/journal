@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
 interface Props {
   visible: boolean;
   isLoading: boolean;
-  onPressSave: () => void;
+  onPressSave?: () => void;
   onPressNotSave: () => void;
   onPressClose: () => void;
 }
@@ -37,14 +37,22 @@ const ModalDiaryCancel: React.FC<Props> = ({
       <Heading title={I18n.t('common.confirmation')} />
       <Space size={24} />
       <Text style={styles.text}>{I18n.t('modalDiaryCancel.message')}</Text>
-      <Space size={32} />
-      <SubmitButton
-        isLoading={isLoading}
-        title={I18n.t('modalDiaryCancel.button')}
-        onPress={onPressSave}
-      />
+      {onPressSave && (
+        <>
+          <Space size={32} />
+          <SubmitButton
+            isLoading={isLoading}
+            title={I18n.t('modalDiaryCancel.button')}
+            onPress={onPressSave}
+          />
+        </>
+      )}
+
       <Space size={16} />
-      <WhiteButton title={I18n.t('common.close')} onPress={onPressNotSave} />
+      <WhiteButton
+        title={I18n.t('modalDiaryCancel.close')}
+        onPress={onPressNotSave}
+      />
       <Space size={16} />
       <WhiteButton title={I18n.t('common.cancel')} onPress={onPressClose} />
     </View>

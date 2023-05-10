@@ -135,7 +135,7 @@ const languageToolCheck = async (
   return;
 };
 
-export const getLanguageTool = async (
+const getLanguageTool = async (
   learnLanguage: LongCode,
   isTitleSkip: boolean,
   title: string,
@@ -197,7 +197,7 @@ const saplingCheck = async (
   }
 };
 
-export const getSapling = async (
+const getSapling = async (
   learnLanguage: LongCode,
   isTitleSkip: boolean,
   title: string,
@@ -225,4 +225,20 @@ export const getSaplingColors = (edit: Edit) => {
   } else {
     return { color: yellow, backgroundColor: yellowOpacy };
   }
+};
+
+export const getAiCheck = async (
+  learnLanguage: LongCode,
+  isTitleSkip: boolean,
+  title: string,
+  text: string,
+) => {
+  const languageTool = await getLanguageTool(
+    learnLanguage,
+    isTitleSkip,
+    title,
+    text,
+  );
+  const sapling = await getSapling(learnLanguage, isTitleSkip, title, text);
+  return { languageTool, sapling };
 };

@@ -75,13 +75,13 @@ const PostDiary: React.FC<PostDiaryProps> = ({
   text,
   themeCategory,
   themeSubcategory,
-  learnLanguage,
   errorMessage,
   selectedItem,
   onPressCloseModalCancel,
   onChangeTextTitle,
   onChangeTextText,
   onPressDraft,
+  onPressMyDiary,
   onPressNotSave,
   onPressCloseError,
   onPressItem,
@@ -172,15 +172,17 @@ const PostDiary: React.FC<PostDiaryProps> = ({
             {text.length}
           </Text>
         </View>
-        {(!themeCategory || !themeSubcategory) && (
-          <View style={styles.right}>
-            <LanguagePicker
-              size={'small'}
-              selectedItem={selectedItem}
-              onPressItem={onPressItem}
-            />
-          </View>
-        )}
+        {(!themeCategory || !themeSubcategory) &&
+          !!selectedItem &&
+          !!onPressItem && (
+            <View style={styles.right}>
+              <LanguagePicker
+                size={'small'}
+                selectedItem={selectedItem}
+                onPressItem={onPressItem}
+              />
+            </View>
+          )}
       </View>
       <PostDiaryKeyboard
         title={title}
@@ -194,6 +196,7 @@ const PostDiary: React.FC<PostDiaryProps> = ({
         onChangeTextTitle={onChangeTextTitle}
         onChangeTextText={onChangeTextText}
         onPressDraft={onPressDraft}
+        onPressMyDiary={onPressMyDiary}
         onFocusText={onFocusText}
         onBlurText={onBlurText}
       />
