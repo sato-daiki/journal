@@ -20,6 +20,8 @@ import {
   MyPageTabNavigationProp,
 } from '@/navigations/MyPageTabNavigator';
 import auth from '@react-native-firebase/auth';
+import { getLanguageToolCode } from '@/utils/grammarCheck';
+import { LongCode } from '@/types';
 
 type NavigationProp = CompositeNavigationProp<
   StackNavigationProp<MyPageTabStackParamList, 'ForegetPassword'>,
@@ -69,6 +71,8 @@ const ForegetPasswordScreen: React.FC<ScreenType> = ({ navigation }) => {
     clearErrorMessage();
     try {
       setIsLoading(true);
+      const languageCode = getLanguageToolCode(I18n.locale as LongCode);
+      auth().setLanguageCode(languageCode === 'ja' ? 'ja' : 'en');
       await auth().sendPasswordResetEmail(email);
       setIsModal(true);
     } catch (err: any) {
