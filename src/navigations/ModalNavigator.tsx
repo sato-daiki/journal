@@ -248,7 +248,6 @@ export const ModalPostReviseDiaryNavigator = () => {
       <ModalPostReviseDiaryStack.Screen
         name='PostReviseDiary'
         component={PostReviseDiaryScreenContainer}
-        // optionはweb/nativeで違うのでscreen側で設定する
       />
     </ModalPostReviseDiaryStack.Navigator>
   );
