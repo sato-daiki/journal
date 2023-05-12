@@ -169,6 +169,10 @@ const myDiary = {
   revise: '添削結果を元に修正する',
 };
 
+const viewMyDiary = {
+  headerTitle: '添削結果',
+};
+
 const myDiaryList = {
   headerTitle: 'マイ日記',
   diaryList: {
@@ -639,6 +643,7 @@ const ja = {
   initialize,
   myDiary,
   myDiaryList,
+  viewMyDiary,
   themeCategory,
   myPage,
   onboarding,

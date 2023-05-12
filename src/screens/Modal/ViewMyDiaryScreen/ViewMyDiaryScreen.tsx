@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useLayoutEffect } from 'react';
+import React, { useCallback, useLayoutEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -48,7 +48,7 @@ const ViewMyDiaryScreen: React.FC<ScreenType> = ({
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: diary ? diary.title : '',
+      title: I18n.t('viewMyDiary.headerTitle'),
       headerLeft: () => (
         <HeaderText text={I18n.t('common.close')} onPress={onPressClose} />
       ),

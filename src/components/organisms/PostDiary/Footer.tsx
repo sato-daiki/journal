@@ -33,6 +33,7 @@ const Footer: React.FC<Props> = ({
       {!!onPressMyDiary && (
         <TextButtun
           isBorrderTop
+          isBorrderBottom={!onPressDraft && !isTopic}
           title={I18n.t('postDiaryComponent.correct')}
           onPress={onPressMyDiary}
         />
@@ -40,6 +41,7 @@ const Footer: React.FC<Props> = ({
       {isTopic && (
         <TextButtun
           isBorrderTop
+          isBorrderBottom={!onPressDraft}
           title={I18n.t('postDiaryComponent.hint')}
           onPress={onPressTopicGuide}
         />

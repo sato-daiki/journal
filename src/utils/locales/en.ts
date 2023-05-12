@@ -172,6 +172,10 @@ const myDiary = {
   revise: 'Revise based on the correction',
 };
 
+const viewMyDiary = {
+  headerTitle: 'Corrections',
+};
+
 const myDiaryList = {
   headerTitle: 'My Entries',
   diaryList: {
@@ -646,6 +650,7 @@ const en = {
   foregetPassword,
   initialize,
   myDiary,
+  viewMyDiary,
   myDiaryList,
   themeCategory,
   myPage,
