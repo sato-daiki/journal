@@ -5,7 +5,13 @@ import {
   ThemeSubcategory,
   User,
 } from '@/types';
-import { subTextColor, mainColor, green, softRed } from '@/styles/Common';
+import {
+  subTextColor,
+  mainColor,
+  green,
+  softRed,
+  primaryColor,
+} from '@/styles/Common';
 import firestore from '@react-native-firebase/firestore';
 
 import { MarkedDates } from '@/components/organisms/MyDiaryList';
@@ -153,6 +159,9 @@ export const MY_STATUS = {
   checked: { text: I18n.t('myDiaryStatus.checked'), color: mainColor },
   revised: { text: I18n.t('myDiaryStatus.revised'), color: green },
   recorded: { text: I18n.t('myDiaryStatus.recorded'), color: softRed },
+
+  // テーマ一覧に出すよう
+  done: { text: I18n.t('myDiaryStatus.done'), color: primaryColor },
 };
 
 export const getMyDiaryStatus = (diary: Diary) => {

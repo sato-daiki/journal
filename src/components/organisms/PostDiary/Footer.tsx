@@ -28,7 +28,6 @@ const Footer: React.FC<Props> = ({
   onPressDraft,
   onPressMyDiary,
 }) => {
-  console.log('Fotter', onPressMyDiary);
   return (
     <View style={styles.footer}>
       {!!onPressMyDiary && (

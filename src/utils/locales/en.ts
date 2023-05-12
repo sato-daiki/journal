@@ -351,8 +351,7 @@ const inquiry = {
 };
 
 const emptyMyDiaryList = {
-  text: 'You haven’t posted any journal entries.\nWrite an entry and have Japanese correct it!',
-  hint: 'Start here!\nYour entry will be\nproofread for free!',
+  text: 'You haven’t posted any journal entries.',
 };
 
 const modalAlertCorrection = {
@@ -417,6 +416,7 @@ const myDiaryStatus = {
   checked: 'Corrected',
   revised: 'Revised',
   recorded: 'Recorded',
+  done: 'Finished',
 };
 
 const language = {

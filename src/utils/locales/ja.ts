@@ -347,8 +347,7 @@ const inquiry = {
 };
 
 const emptyMyDiaryList = {
-  text: '日記がまだ投稿されていません。\n日記を書いて外国人に添削してもらおう！',
-  hint: 'まずはここから！\n日記を無料で\n添削してもらえるよ！',
+  text: '日記がまだ投稿されていません',
 };
 
 const modalAlertCorrection = {
@@ -412,6 +411,7 @@ const myDiaryStatus = {
   checked: '添削完了',
   revised: '修正済',
   recorded: '録音済',
+  done: '完了',
 };
 
 const language = {

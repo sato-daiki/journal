@@ -29,15 +29,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingTop: 32,
   },
+  footer: {
+    alignItems: 'center',
+  },
   label: {
     color: primaryColor,
     fontSize: fontSizeM,
     paddingBottom: 6,
   },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   forgetText: {
     color: primaryColor,
     fontSize: fontSizeM,
-    textAlign: 'center',
   },
 });
 
@@ -126,24 +132,28 @@ const EditPasswordScreen: React.FC<ScreenType> = ({ navigation }) => {
           errorMessage={errorNewPassword}
         />
         <Space size={32} />
-        <SubmitButton
-          title={I18n.t('common.register')}
-          onPress={onPressSubmit}
-          disable={
-            errorCurrentPassword !== '' ||
-            errorNewPassword !== '' ||
-            currentPassword === '' ||
-            newPassword === ''
-          }
-        />
-        <Space size={16} />
-        <Text style={styles.forgetText}>
-          {I18n.t('editPassword.forgetText')}
-          <LinkText
-            onPress={onPressForegetPassword}
-            text={I18n.t('editPassword.link')}
+        <View style={styles.footer}>
+          <SubmitButton
+            title={I18n.t('common.register')}
+            onPress={onPressSubmit}
+            disable={
+              errorCurrentPassword !== '' ||
+              errorNewPassword !== '' ||
+              currentPassword === '' ||
+              newPassword === ''
+            }
           />
-        </Text>
+          <Space size={16} />
+          <View style={styles.row}>
+            <Text style={styles.forgetText}>
+              {I18n.t('editPassword.forgetText')}
+            </Text>
+            <LinkText
+              onPress={onPressForegetPassword}
+              text={I18n.t('editPassword.link')}
+            />
+          </View>
+        </View>
       </View>
     </KeyboardAwareScrollView>
   );

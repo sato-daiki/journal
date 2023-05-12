@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { StyleSheet, ScrollView, Text } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
@@ -83,6 +83,10 @@ const SettingScreen: React.FC<ScreenType> = ({ navigation, user, signOut }) => {
   const { currentUser } = auth();
   const [isModalError, setIsModalError] = useState(false);
 
+  const version = useMemo(() => {
+    return getVersionText();
+  }, []);
+
   const onPressLogout = useCallback(async (): Promise<void> => {
     try {
       if (currentUser && currentUser.email) {
@@ -164,7 +168,7 @@ const SettingScreen: React.FC<ScreenType> = ({ navigation, user, signOut }) => {
         <Text style={styles.logout}>{I18n.t('setting.logout')}</Text>
       </Hoverable>
       <Space size={16} />
-      <Text style={styles.versionText}>{getVersionText()}</Text>
+      <Text style={styles.versionText}>{version}</Text>
     </ScrollView>
   );
 };
