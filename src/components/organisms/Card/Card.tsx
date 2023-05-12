@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import {
   borderLightColor,
   fontSizeM,
@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
   },
   thirdRow: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   replacementContaienr: {
     backgroundColor: mainColor,
@@ -69,6 +70,7 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     borderRadius: 4,
     marginRight: 12,
+    marginBottom: 8,
   },
   ignoreContaienr: {
     backgroundColor: offWhite,
@@ -125,11 +127,13 @@ export const Card: React.FC<Props> = ({
         </Text>
       </View>
       <View style={styles.thirdRow}>
-        {replacements.map((replacement, index) => (
-          <View key={index} style={styles.replacementContaienr}>
-            <Text style={styles.replacement}>{replacement.value}</Text>
-          </View>
-        ))}
+        {replacements
+          .filter((_v, i) => i < 5)
+          .map((replacement, index) => (
+            <View key={index} style={styles.replacementContaienr}>
+              <Text style={styles.replacement}>{replacement.value}</Text>
+            </View>
+          ))}
         <Hoverable style={styles.ignoreContaienr} onPress={onPressIgnore}>
           <Text style={styles.ignore}>{I18n.t('myDiary.ignore')}</Text>
         </Hoverable>
