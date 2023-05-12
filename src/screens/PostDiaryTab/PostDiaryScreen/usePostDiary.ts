@@ -123,6 +123,7 @@ export const usePostDiary = ({
   ]);
 
   const onPressCheck = useCallback(async (): Promise<void> => {
+    Keyboard.dismiss();
     if (isLoadingDraft || isLoadingPublish) return;
     const isTitleSkip = !!themeCategory && !!themeSubcategory;
 
