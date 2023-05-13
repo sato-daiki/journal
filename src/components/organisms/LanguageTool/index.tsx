@@ -170,6 +170,7 @@ const LanguageTool: React.FC<Props> = ({
       </ScrollView>
       {titleArray && titleArray.length > 0 && titleActiveIndex !== null && (
         <Matches
+          text={title}
           matches={titleArray}
           activeIndex={titleActiveIndex}
           activeLeft={titleActiveLeft}
@@ -182,6 +183,7 @@ const LanguageTool: React.FC<Props> = ({
       )}
       {textArray && textArray.length > 0 && textActiveIndex !== null && (
         <Matches
+          text={text}
           matches={textArray}
           activeIndex={textActiveIndex}
           activeLeft={textActiveLeft}

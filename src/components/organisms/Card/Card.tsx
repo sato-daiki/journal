@@ -1,18 +1,18 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   borderLightColor,
   fontSizeM,
   fontSizeS,
-  mainColor,
-  offWhite,
+  primaryColor,
+  subTextColor,
 } from '@/styles/Common';
 import { View, StyleSheet, Text } from 'react-native';
-import { Hoverable, HoverableIcon } from '../../atoms';
+import { Hoverable, HoverableIcon, Icon } from '../../atoms';
 import * as Linking from 'expo-linking';
-import I18n from '@/utils/I18n';
 
 interface Props {
   color: string;
+  activeText: string;
   shortMessage?: string;
   message?: string;
   urls?: { value: string }[];
@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     backgroundColor: '#fff',
     flex: 1,
+    justifyContent: 'space-between',
   },
   firstRow: {
     flexDirection: 'row',
@@ -42,55 +43,73 @@ const styles = StyleSheet.create({
   },
   shortMessage: {
     fontSize: fontSizeM,
+    alignItems: 'center',
     fontWeight: 'bold',
+    color: subTextColor,
   },
+
   secondRow: {
     flexDirection: 'row',
-    paddingBottom: 8,
+    alignItems: 'center',
+    flexWrap: 'wrap',
   },
-  message: {
-    fontSize: fontSizeS,
-    lineHeight: fontSizeS * 1.3,
+  baseWord: {
+    textDecorationLine: 'line-through',
   },
-  iconRow: {
-    flexDirection: 'row',
-    alignItems: 'flex-end',
+  right: {
+    fontSize: fontSizeM,
+    color: subTextColor,
+    marginHorizontal: 6,
   },
-  infoIcon: {
-    bottom: -7.5,
-    height: 26,
-  },
-  thirdRow: {
+  replacementContaienr: {
+    marginRight: 8,
+    marginBottom: 8,
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
-  replacementContaienr: {
-    backgroundColor: mainColor,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 4,
-    marginRight: 12,
-    marginBottom: 8,
-  },
-  ignoreContaienr: {
-    backgroundColor: offWhite,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 4,
-    marginRight: 12,
-  },
   replacement: {
-    color: '#fff',
     fontSize: fontSizeM,
     fontWeight: 'bold',
   },
-  ignore: {
+  or: {
     fontSize: fontSizeM,
+    color: subTextColor,
+    marginLeft: 8,
+  },
+
+  message: {
+    marginTop: 8,
+    fontSize: fontSizeS,
+    lineHeight: fontSizeS * 1.3,
+  },
+
+  bottomRow: {
+    marginTop: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  bottomRowleft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  urlContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginRight: 16,
+  },
+  iconInfo: {
+    marginRight: 4,
+  },
+  learn: {
+    fontSize: fontSizeM,
+    color: subTextColor,
   },
 });
 
 export const Card: React.FC<Props> = ({
   color,
+  activeText,
   shortMessage,
   message,
   urls,
@@ -101,42 +120,62 @@ export const Card: React.FC<Props> = ({
     Linking.openURL(value);
   };
 
+  const filterReplacements = useMemo(
+    // replacementsが多すぎる時があるため
+    () => replacements.filter((_v, i) => i < 5),
+    [replacements],
+  );
+
   return (
     <View style={styles.container}>
-      <View style={styles.firstRow}>
-        <View style={[styles.circle, { backgroundColor: color }]} />
-        <Text style={styles.shortMessage}>{shortMessage}</Text>
-      </View>
-      <View style={styles.secondRow}>
-        <Text style={styles.message}>
-          {message}
-          {urls && (
-            <View style={styles.iconRow}>
-              {urls.map((url, index) => (
-                <HoverableIcon
-                  key={index}
-                  style={styles.infoIcon}
-                  icon='community'
-                  name='information-outline'
-                  size={18}
-                  onPress={() => onPressInfo(url.value)}
-                />
-              ))}
-            </View>
-          )}
-        </Text>
-      </View>
-      <View style={styles.thirdRow}>
-        {replacements
-          .filter((_v, i) => i < 5)
-          .map((replacement, index) => (
+      <View>
+        <View style={styles.firstRow}>
+          <View style={[styles.circle, { backgroundColor: color }]} />
+          <Text style={styles.shortMessage}>{shortMessage}</Text>
+        </View>
+        <View style={styles.secondRow}>
+          <Text style={[styles.baseWord, { color: color }]}>{activeText}</Text>
+          <Text style={styles.right}>→</Text>
+          {filterReplacements.map((replacement, index) => (
             <View key={index} style={styles.replacementContaienr}>
               <Text style={styles.replacement}>{replacement.value}</Text>
+              {index !== filterReplacements.length - 1 && (
+                <Text style={styles.or}>or</Text>
+              )}
             </View>
           ))}
-        <Hoverable style={styles.ignoreContaienr} onPress={onPressIgnore}>
-          <Text style={styles.ignore}>{I18n.t('myDiary.ignore')}</Text>
-        </Hoverable>
+        </View>
+        {message && <Text style={styles.message}>{message}</Text>}
+      </View>
+
+      <View style={styles.bottomRow}>
+        <View style={styles.bottomRowleft}>
+          {urls &&
+            urls.map((url, index) => (
+              <Hoverable
+                key={index}
+                style={styles.urlContainer}
+                onPress={() => onPressInfo(url.value)}
+              >
+                <View style={styles.iconInfo}>
+                  <Icon
+                    color={subTextColor}
+                    icon='community'
+                    name='information-outline'
+                    size={18}
+                  />
+                </View>
+                <Text style={styles.learn}>Learn more</Text>
+              </Hoverable>
+            ))}
+        </View>
+        <HoverableIcon
+          icon='feather'
+          name='trash-2'
+          color={primaryColor}
+          size={24}
+          onPress={onPressIgnore}
+        />
       </View>
     </View>
   );

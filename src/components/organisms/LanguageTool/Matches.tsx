@@ -7,6 +7,7 @@ import { getLanguageToolColors } from '@/utils/grammarCheck';
 import CardHeader from '../Card/CardHeader';
 
 export interface Props {
+  text: string;
   matches: Match[];
   activeIndex: number;
   activeLeft: boolean;
@@ -26,6 +27,7 @@ const styles = StyleSheet.create({
 });
 
 const Matches: React.FC<Props> = ({
+  text,
   matches,
   activeIndex,
   activeLeft,
@@ -43,6 +45,18 @@ const Matches: React.FC<Props> = ({
     return matches[activeIndex];
   }, [activeIndex, matches]);
 
+  const activeText = useMemo(() => {
+    if (text) {
+      try {
+        return text.substring(match.offset, match.offset + match.length);
+      } catch (err: any) {
+        console.warn(err);
+        return '';
+      }
+    }
+    return '';
+  }, [match, text]);
+
   return (
     <View style={styles.container}>
       <CardHeader
@@ -54,6 +68,7 @@ const Matches: React.FC<Props> = ({
       />
       <Card
         color={color}
+        activeText={activeText}
         shortMessage={match.shortMessage || match.rule?.issueType}
         message={match.message}
         urls={match?.rule?.urls}
