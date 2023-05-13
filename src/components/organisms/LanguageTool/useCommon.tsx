@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Edit, Match } from '../../../types';
 
 export interface Props {
@@ -9,6 +9,15 @@ export interface Props {
 export const useCommon = ({ titleArray, textArray }) => {
   const [textActiveIndex, setTextActiveIndex] = useState<number | null>(null);
   const [titleActiveIndex, setTitleActiveIndex] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (titleArray && titleArray.length > 0) {
+      setTitleActiveIndex(0);
+    } else if (textArray && textArray.length > 0) {
+      setTextActiveIndex(0);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const titleActiveLeft = useMemo(() => {
     if (titleActiveIndex !== null && titleActiveIndex !== 0) {
