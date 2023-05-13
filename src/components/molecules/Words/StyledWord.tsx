@@ -44,7 +44,6 @@ const StyledWord: React.FC<Props> = ({
             },
             isActive && {
               backgroundColor: word.backgroundColor,
-              fontWeight: 'bold',
             },
           ]}
           onPress={onPressTextChecked}

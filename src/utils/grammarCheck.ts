@@ -8,6 +8,7 @@ import {
   LanguageTool,
   LongCode,
   Match,
+  Result,
   Sapling,
 } from '../types';
 import { softRed, softRedOpacy, yellow, yellowOpacy } from '@/styles/Common';
@@ -110,7 +111,7 @@ export const languageToolLanguages: LanguageInfo[] = [
 const languageToolCheck = async (
   learnLanguage: LongCode,
   text: string,
-): Promise<any> => {
+): Promise<{ matches: Match[] | []; result: Result; error: string | null }> => {
   try {
     const response = await axios.post(
       `${LANGUAGE_TOOL_ENDPOINT}/check`,
@@ -128,11 +129,27 @@ const languageToolCheck = async (
         },
       },
     );
-    return response.data.matches;
+    if (response.status === 200 && response.data.matches) {
+      return {
+        matches: response.data.matches,
+        result: response.data.matches.length === 0 ? 'perfect' : 'corrected',
+        error: null,
+      };
+    }
+    console.warn('response', response);
+    return {
+      matches: [],
+      result: 'error',
+      error: '想定外のエラー1',
+    };
   } catch (err: any) {
-    console.warn(err);
+    console.warn('catch err', err);
+    return {
+      matches: [],
+      result: 'error',
+      error: err.message || "'想定外のエラー2",
+    };
   }
-  return;
 };
 
 const getLanguageTool = async (
@@ -142,19 +159,32 @@ const getLanguageTool = async (
   text: string,
 ): Promise<LanguageTool | undefined> => {
   try {
-    let titleMatches = [];
-    if (!isTitleSkip) {
-      titleMatches = await languageToolCheck(learnLanguage, title);
+    let titleMatches: Match[] | [] = [];
+    let titleResult: Result;
+    let titleError: string | null = null;
+    if (isTitleSkip) {
+      titleResult = 'skip';
+    } else {
+      const titleLanguageTool = await languageToolCheck(learnLanguage, title);
+      titleMatches = titleLanguageTool.matches;
+      titleResult = titleLanguageTool.result;
+      titleError = titleLanguageTool.error;
     }
-    const textMatches = await languageToolCheck(learnLanguage, text);
+
+    const textLanguageTool = await languageToolCheck(learnLanguage, text);
+
     return {
       titleMatches,
-      textMatches,
+      titleResult,
+      titleError: titleError || null,
+      textMatches: textLanguageTool.matches,
+      textResult: textLanguageTool.result,
+      textError: textLanguageTool.error || null,
     };
   } catch (err: any) {
     console.warn(err);
+    return;
   }
-  return;
 };
 
 export const getLanguageToolColors = (match: Match) => {
@@ -170,7 +200,7 @@ const SPALING_ENDPOINT = 'https://api.sapling.ai/api/v1';
 const saplingCheck = async (
   learnLanguage: LongCode,
   text: string,
-): Promise<any> => {
+): Promise<{ edits: Edit[] | []; result: Result; error: string | null }> => {
   try {
     // ランダムの値を作る必要があるため
     const session_id = Crypto.randomUUID();
@@ -185,15 +215,30 @@ const saplingCheck = async (
       },
       {
         headers: {
-          // 'Content-Type': 'application/x-www-form-urlencoded',
           Accept: 'application/json',
         },
       },
     );
-    return response.data;
+    if (response.status === 200 && response.data.edits) {
+      return {
+        edits: response.data.edits,
+        result: response.data.edits.length === 0 ? 'perfect' : 'corrected',
+        error: null,
+      };
+    }
+    console.warn(response);
+    return {
+      edits: [],
+      result: 'error',
+      error: '想定外のエラー3',
+    };
   } catch (err: any) {
     console.warn(err);
-    return;
+    return {
+      edits: [],
+      result: 'error',
+      error: err.message || "'想定外のエラー4",
+    };
   }
 };
 
@@ -204,14 +249,26 @@ const getSapling = async (
   text: string,
 ): Promise<Sapling | undefined> => {
   try {
-    let titleEdits;
-    if (!isTitleSkip) {
-      titleEdits = await saplingCheck(learnLanguage, title);
+    let titleEdits: Edit[] | [] = [];
+    let titleResult: Result;
+    let titleError: string | null = null;
+    if (isTitleSkip) {
+      titleResult = 'skip';
+    } else {
+      const titleSapling = await saplingCheck(learnLanguage, title);
+      titleEdits = titleSapling.edits;
+      titleResult = titleSapling.result;
+      titleError = titleSapling.error;
     }
-    const textEdits = await saplingCheck(learnLanguage, text);
+
+    const textSapling = await saplingCheck(learnLanguage, text);
     return {
-      titleEdits: titleEdits && titleEdits.edits ? titleEdits.edits : [],
-      textEdits: textEdits && textEdits.edits ? textEdits.edits : [],
+      titleEdits,
+      titleResult,
+      titleError,
+      textEdits: textSapling.edits,
+      textResult: textSapling.result,
+      textError: textSapling.error,
     };
   } catch (err: any) {
     console.warn(err);
@@ -239,6 +296,8 @@ export const getAiCheck = async (
     title,
     text,
   );
+  console.log('languageTool', languageTool);
   const sapling = await getSapling(learnLanguage, isTitleSkip, title, text);
+  console.log('sapling', sapling);
   return { languageTool, sapling };
 };
