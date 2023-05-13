@@ -20,7 +20,7 @@ const DiaryTitleAndText: React.FC<Props> = ({
 }) => {
   return (
     <>
-      <View style={styles.titleContainer}>
+      <View>
         {themeCategory && themeSubcategory && (
           <CommonSmallPill themeCategory={themeCategory} />
         )}

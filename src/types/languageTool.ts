@@ -33,7 +33,7 @@ export interface Word {
 
 export interface Match {
   message: string;
-  shortMessage: string;
+  shortMessage?: string;
   offset: number;
   length: number;
   replacements: {
@@ -51,26 +51,28 @@ export interface Match {
   };
   rule?: {
     id: string;
-    subId: string;
-    sourceFile?: string;
+    subId?: string;
     description: string;
-    urls: [
+    urls?: [
       {
         value: string;
       },
     ];
-    issueType: string;
+    issueType?: string;
     category: {
       id: string;
       name: string;
     };
-    isPremium: boolean;
   };
-  ignoreForIncompleteSentence?: boolean;
-  contextForSureMatch?: number;
 }
 
+export type Result = 'perfect' | 'corrected' | 'skip' | 'error';
+
 export interface LanguageTool {
-  titleMatches?: Match[] | [];
-  textMatches?: Match[] | [];
+  titleMatches: Match[] | [];
+  titleResult: Result;
+  titleError?: string | null;
+  textMatches: Match[] | [];
+  textResult: Result;
+  textError?: string | null;
 }

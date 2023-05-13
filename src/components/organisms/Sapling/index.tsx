@@ -79,20 +79,21 @@ const Sapling: React.FC<Props> = ({
       titleActiveIndex !== null &&
       titleArray &&
       titleArray.length > 0 &&
-      diary.objectID
+      diary.objectID &&
+      diary.sapling
     ) {
-      const newMatches = titleArray.filter((_, i) => i !== titleActiveIndex);
+      const newEdits = titleArray.filter((_, i) => i !== titleActiveIndex);
 
       const sapling = {
         ...diary.sapling,
-        titleEdits: newMatches,
+        titleEdits: newEdits,
       };
       await firestore().doc(`diaries/${diary.objectID}`).update({
         sapling,
         updatedAt: firestore.FieldValue.serverTimestamp(),
       });
 
-      if (titleActiveIndex >= newMatches.length) {
+      if (titleActiveIndex >= newEdits.length) {
         setTitleActiveIndex(null);
       }
 
@@ -106,24 +107,23 @@ const Sapling: React.FC<Props> = ({
   const onPressIgnoreText = useCallback(async () => {
     if (
       textActiveIndex !== null &&
-      diary.sapling?.textEdits &&
-      diary.sapling?.textEdits.length > 0 &&
-      diary.objectID
+      textArray &&
+      textArray.length > 0 &&
+      diary.objectID &&
+      diary.sapling
     ) {
-      const newMatches = diary.sapling.textEdits.filter(
-        (_, i) => i !== textActiveIndex,
-      );
+      const newEdits = textArray.filter((_, i) => i !== textActiveIndex);
 
       const sapling = {
         ...diary.sapling,
-        textEdits: newMatches,
+        textEdits: newEdits,
       };
       await firestore().doc(`diaries/${diary.objectID}`).update({
         sapling,
         updatedAt: firestore.FieldValue.serverTimestamp(),
       });
 
-      if (textActiveIndex >= newMatches.length) {
+      if (textActiveIndex >= newEdits.length) {
         setTextActiveIndex(null);
       }
 
@@ -132,7 +132,7 @@ const Sapling: React.FC<Props> = ({
         sapling,
       });
     }
-  }, [textActiveIndex, diary, editDiary, setTextActiveIndex]);
+  }, [textActiveIndex, textArray, diary, editDiary, setTextActiveIndex]);
 
   return (
     <View style={styles.container}>

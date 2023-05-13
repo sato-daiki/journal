@@ -79,7 +79,8 @@ const LanguageTool: React.FC<Props> = ({
       titleActiveIndex !== null &&
       titleArray &&
       titleArray.length > 0 &&
-      diary.objectID
+      diary.objectID &&
+      diary.languageTool
     ) {
       const newMatches = titleArray.filter((_, i) => i !== titleActiveIndex);
 
@@ -99,7 +100,7 @@ const LanguageTool: React.FC<Props> = ({
 
       editDiary(diary.objectID, {
         ...diary,
-        languageTool,
+        languageTool: languageTool || null,
       });
     }
   }, [titleActiveIndex, titleArray, diary, editDiary, setTitleActiveIndex]);
@@ -109,7 +110,8 @@ const LanguageTool: React.FC<Props> = ({
       textActiveIndex !== null &&
       textArray &&
       textArray.length > 0 &&
-      diary.objectID
+      diary.objectID &&
+      diary.languageTool
     ) {
       const newMatches = textArray.filter((_, i) => i !== textActiveIndex);
 

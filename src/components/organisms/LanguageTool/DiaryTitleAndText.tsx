@@ -30,13 +30,18 @@ export const styles = StyleSheet.create({
     fontSize: fontSizeM,
     flex: 1,
   },
+  copyTitleButton: {
+    marginTop: 8,
+    width: 120,
+    alignSelf: 'flex-end',
+  },
   text: {
     lineHeight: fontSizeM * 1.8,
     fontSize: fontSizeM,
     color: primaryColor,
   },
   copyTextButton: {
-    marginTop: 10,
+    marginTop: 8,
     width: 120,
     alignSelf: 'flex-end',
   },
@@ -73,20 +78,21 @@ const DiaryTitleAndText: React.FC<Props> = ({
           <CommonSmallPill themeCategory={themeCategory} />
         )}
         {titleComponent}
-        <SmallButtonWhite
-          icon={
-            <Icon
-              icon='community'
-              name='content-copy'
-              size={18}
-              color={primaryColor}
-            />
-          }
-          color={primaryColor}
-          title={I18n.t('myDiary.copyTitle')}
-          onPress={onPressTitleCopy}
-        />
       </View>
+      <SmallButtonWhite
+        containerStyle={styles.copyTitleButton}
+        icon={
+          <Icon
+            icon='community'
+            name='content-copy'
+            size={18}
+            color={primaryColor}
+          />
+        }
+        color={primaryColor}
+        title={I18n.t('myDiary.copyTitle')}
+        onPress={onPressTitleCopy}
+      />
       <Space size={16} />
       {textComponent}
       <SmallButtonWhite

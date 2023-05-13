@@ -1,7 +1,11 @@
 import React, { useCallback, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { TabView } from 'react-native-tab-view';
-import { Diary, Edit, Match } from '@/types';
+import {
+  Diary,
+  LanguageTool as LanguageToolType,
+  Sapling as SaplingType,
+} from '@/types';
 import { ChildTabBar } from '@/components/molecules';
 import LanguageTool from '@/components/organisms/LanguageTool';
 import Sapling from '@/components/organisms/Sapling';
@@ -16,10 +20,8 @@ interface Props {
   goToRecord?: () => void;
   title: string;
   text: string;
-  titleMatches: Match[] | [] | undefined;
-  textMatches: Match[] | [] | undefined;
-  titleEdits: Edit[] | [] | undefined;
-  textEdits: Edit[] | [] | undefined;
+  languageTool?: LanguageToolType | null;
+  sapling?: SaplingType | null;
 }
 
 const styles = StyleSheet.create({
@@ -35,10 +37,8 @@ const AiCheck: React.FC<Props> = ({
   editDiary,
   title,
   text,
-  titleMatches,
-  textMatches,
-  titleEdits,
-  textEdits,
+  languageTool,
+  sapling,
   checkPermissions,
   goToRecord,
   onPressRevise,
@@ -63,8 +63,8 @@ const AiCheck: React.FC<Props> = ({
               diary={diary}
               title={title}
               text={text}
-              titleArray={titleMatches}
-              textArray={textMatches}
+              titleArray={languageTool?.titleMatches}
+              textArray={languageTool?.textMatches}
               editDiary={editDiary}
               checkPermissions={checkPermissions}
               goToRecord={goToRecord}
@@ -78,8 +78,8 @@ const AiCheck: React.FC<Props> = ({
               diary={diary}
               title={title}
               text={text}
-              titleArray={titleEdits}
-              textArray={textEdits}
+              titleArray={sapling?.titleEdits}
+              textArray={sapling?.textEdits}
               editDiary={editDiary}
               checkPermissions={checkPermissions}
               goToRecord={goToRecord}
@@ -96,19 +96,30 @@ const AiCheck: React.FC<Props> = ({
       editDiary,
       goToRecord,
       hideFooterButton,
+      languageTool?.textMatches,
+      languageTool?.titleMatches,
       onPressRevise,
+      sapling?.textEdits,
+      sapling?.titleEdits,
       text,
-      textEdits,
-      textMatches,
       title,
-      titleEdits,
-      titleMatches,
     ],
   );
 
-  const renderTabBar = useCallback((props) => {
-    return <ChildTabBar {...props} />;
-  }, []);
+  const renderTabBar = useCallback(
+    (props) => {
+      if (
+        sapling &&
+        (sapling.titleResult === 'corrected' ||
+          sapling.titleResult === 'perfect' ||
+          sapling.textError === 'corrected' ||
+          sapling.textError === 'perfect')
+      ) {
+        return <ChildTabBar {...props} />;
+      }
+    },
+    [sapling],
+  );
 
   if (!diary) {
     return null;
