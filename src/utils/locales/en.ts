@@ -169,10 +169,12 @@ const myDiary = {
   ignore: 'Ignore',
   start: 'Initially',
   revise: 'Revise based on the correction',
+  share: 'Share your entry on SNS',
   copyTitle: 'Copy title',
   copyText: 'Copy text',
   copiedTitle: 'The title was copied to your clipboard',
   copiedText: 'The text was copied to your clipboard',
+  copied: 'The text was copied to your clipboard',
 };
 
 const viewMyDiary = {

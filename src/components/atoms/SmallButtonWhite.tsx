@@ -1,10 +1,18 @@
-import React from 'react';
-import { Text, StyleSheet, ActivityIndicator, StyleProp, ViewStyle } from 'react-native';
+import React, { ReactNode } from 'react';
+import {
+  Text,
+  StyleSheet,
+  ActivityIndicator,
+  StyleProp,
+  ViewStyle,
+  View,
+} from 'react-native';
 import { mainColor, fontSizeM } from '../../styles/Common';
 import Hoverable from './Hoverable';
 
 interface Props {
   containerStyle?: StyleProp<ViewStyle>;
+  icon?: ReactNode;
   isLoading?: boolean;
   disable?: boolean;
   color?: string;
@@ -20,6 +28,10 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     alignItems: 'center',
     justifyContent: 'center',
+    flexDirection: 'row',
+  },
+  icon: {
+    marginRight: 4,
   },
   title: {
     fontSize: fontSizeM,
@@ -29,6 +41,7 @@ const styles = StyleSheet.create({
 
 const SmallButtonWhite: React.FC<Props> = ({
   containerStyle,
+  icon,
   isLoading = false,
   disable = false,
   color = mainColor,
@@ -44,7 +57,10 @@ const SmallButtonWhite: React.FC<Props> = ({
       {isLoading ? (
         <ActivityIndicator size='small' />
       ) : (
-        <Text style={[styles.title, { color }]}>{title}</Text>
+        <>
+          {icon && <View style={styles.icon}>{icon}</View>}
+          <Text style={[styles.title, { color }]}>{title}</Text>
+        </>
       )}
     </Hoverable>
   );

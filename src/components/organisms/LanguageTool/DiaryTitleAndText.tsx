@@ -2,7 +2,7 @@ import React, { ReactNode, useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { fontSizeM, primaryColor } from '@/styles/Common';
 import { ThemeCategory, ThemeSubcategory } from '@/types';
-import { SmallButtonWhite, Space } from '@/components/atoms';
+import { Icon, SmallButtonWhite, Space } from '@/components/atoms';
 import CommonSmallPill from '../../molecules/CommonSmallPill';
 import I18n from '@/utils/I18n';
 import * as Clipboard from 'expo-clipboard';
@@ -37,7 +37,7 @@ export const styles = StyleSheet.create({
   },
   copyTextButton: {
     marginTop: 10,
-    width: 100,
+    width: 120,
     alignSelf: 'flex-end',
   },
 });
@@ -74,6 +74,14 @@ const DiaryTitleAndText: React.FC<Props> = ({
         )}
         {titleComponent}
         <SmallButtonWhite
+          icon={
+            <Icon
+              icon='community'
+              name='content-copy'
+              size={18}
+              color={primaryColor}
+            />
+          }
           color={primaryColor}
           title={I18n.t('myDiary.copyTitle')}
           onPress={onPressTitleCopy}
@@ -83,6 +91,14 @@ const DiaryTitleAndText: React.FC<Props> = ({
       {textComponent}
       <SmallButtonWhite
         containerStyle={styles.copyTextButton}
+        icon={
+          <Icon
+            icon='community'
+            name='content-copy'
+            size={18}
+            color={primaryColor}
+          />
+        }
         color={primaryColor}
         title={I18n.t('myDiary.copyText')}
         onPress={onPressTextCopy}

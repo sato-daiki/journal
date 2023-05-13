@@ -53,9 +53,8 @@ const Sapling: React.FC<Props> = ({
   goToRecord,
   onPressRevise,
 }) => {
-  const viewShotRef = useRef<ViewShot | null>(null);
-
   const {
+    viewShotRef,
     titleActiveIndex,
     textActiveIndex,
     setTitleActiveIndex,
@@ -69,6 +68,7 @@ const Sapling: React.FC<Props> = ({
     textActiveRight,
     onPressLeftText,
     onPressRightText,
+    onPressShare,
   } = useCommon({
     titleArray,
     textArray,
@@ -165,6 +165,7 @@ const Sapling: React.FC<Props> = ({
             checkPermissions={checkPermissions}
             goToRecord={goToRecord}
             onPressRevise={onPressRevise}
+            onPressShare={onPressShare}
           />
         </ViewShot>
         <Space size={32} />

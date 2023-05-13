@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import {
   borderLightColor,
   fontSizeM,
@@ -7,8 +7,11 @@ import {
   subTextColor,
 } from '@/styles/Common';
 import { View, StyleSheet, Text } from 'react-native';
-import { Hoverable, HoverableIcon, Icon } from '../../atoms';
+import { Hoverable, HoverableIcon, Icon, SmallButtonWhite } from '../../atoms';
 import * as Linking from 'expo-linking';
+import * as Clipboard from 'expo-clipboard';
+import Toast from 'react-native-root-toast';
+import I18n from '@/utils/I18n';
 
 interface Props {
   color: string;
@@ -66,10 +69,12 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     flexDirection: 'row',
     flexWrap: 'wrap',
+    alignItems: 'center',
   },
   replacement: {
     fontSize: fontSizeM,
     fontWeight: 'bold',
+    marginRight: 8,
   },
   or: {
     fontSize: fontSizeM,
@@ -116,9 +121,17 @@ export const Card: React.FC<Props> = ({
   replacements,
   onPressIgnore,
 }) => {
-  const onPressInfo = (value: string) => {
+  const onPressCopy = useCallback(async (text: string) => {
+    await Clipboard.setStringAsync(text);
+    Toast.show(I18n.t('myDiary.copied'), {
+      duration: Toast.durations.SHORT,
+      position: Toast.positions.TOP,
+    });
+  }, []);
+
+  const onPressInfo = useCallback((value: string) => {
     Linking.openURL(value);
-  };
+  }, []);
 
   const filterReplacements = useMemo(
     // replacementsが多すぎる時があるため
@@ -139,6 +152,13 @@ export const Card: React.FC<Props> = ({
           {filterReplacements.map((replacement, index) => (
             <View key={index} style={styles.replacementContaienr}>
               <Text style={styles.replacement}>{replacement.value}</Text>
+              <HoverableIcon
+                icon='community'
+                name='content-copy'
+                size={18}
+                color={primaryColor}
+                onPress={() => onPressCopy(replacement.value)}
+              />
               {index !== filterReplacements.length - 1 && (
                 <Text style={styles.or}>or</Text>
               )}

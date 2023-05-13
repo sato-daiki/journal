@@ -166,10 +166,12 @@ const myDiary = {
   ignore: '無視',
   start: '最初から',
   revise: '添削結果を元に修正する',
+  share: '日記をSNSでシェア',
   copyTitle: 'Copy Title',
   copyText: 'Copy 本文',
   copiedTitle: 'タイトルをコピーしました',
-  copiedText: '本文ルをコピーしました',
+  copiedText: '本文をコピーしました',
+  copied: 'テキストをコピーしました',
 };
 
 const viewMyDiary = {
