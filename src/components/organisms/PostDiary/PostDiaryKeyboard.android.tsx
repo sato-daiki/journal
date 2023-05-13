@@ -59,15 +59,19 @@ const PostDiaryKeyboard: React.FC<PostDiaryKeyboardProps> = ({
   };
 
   useEffect(() => {
-    Keyboard.addListener('keyboardDidShow', onKeyboardDidShow);
-    Keyboard.addListener('keyboardDidHide', onKeyboardDidHide);
+    const keyboardDidShow = Keyboard.addListener(
+      'keyboardDidShow',
+      onKeyboardDidShow,
+    );
+    const keyboardDidHide = Keyboard.addListener(
+      'keyboardDidHide',
+      onKeyboardDidHide,
+    );
 
     // cleanup function
     return (): void => {
-      // @ts-ignore
-      Keyboard.removeListener('keyboardDidShow', onKeyboardDidShow);
-      // @ts-ignore
-      Keyboard.removeListener('keyboardDidHide', onKeyboardDidHide);
+      keyboardDidShow.remove();
+      keyboardDidHide.remove();
     };
   }, []);
 
