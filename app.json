@@ -12,6 +12,7 @@
       "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": ["**/*"],
+    "jsEngine": "hermes",
     "ios": {
       "buildNumber": "1021000",
       "googleServicesFile": "./GoogleService-Info.plist",

@@ -17,7 +17,6 @@ const common = {
   delete: '削除',
   translation: '翻訳',
   speech: '読む',
-  copy: 'コピー',
   slow: '遅く',
   back: '戻る',
   begin: 'はじめる',
@@ -167,6 +166,10 @@ const myDiary = {
   ignore: '無視',
   start: '最初から',
   revise: '添削結果を元に修正する',
+  copyTitle: 'Copy Title',
+  copyText: 'Copy 本文',
+  copiedTitle: 'タイトルをコピーしました',
+  copiedText: '本文ルをコピーしました',
 };
 
 const viewMyDiary = {

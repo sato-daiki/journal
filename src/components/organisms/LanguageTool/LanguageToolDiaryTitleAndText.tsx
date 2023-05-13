@@ -1,10 +1,9 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import { fontSizeM, primaryColor } from '@/styles/Common';
 import { Match, ThemeCategory, ThemeSubcategory } from '@/types';
-import { Space } from '@/components/atoms';
 import LanguageToolWords from './LanguageToolWords';
-import CommonSmallPill from '../../molecules/CommonSmallPill';
+import DiaryTitleAndText from './DiaryTitleAndText';
 
 interface Props {
   title: string;
@@ -20,12 +19,6 @@ interface Props {
 }
 
 export const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flex: 1,
-    paddingBottom: 8,
-  },
   title: {
     color: primaryColor,
     fontWeight: 'bold',
@@ -52,12 +45,13 @@ const LanguageToolDiaryTitleAndText: React.FC<Props> = ({
   setTextActiveIndex,
 }) => {
   return (
-    <>
-      <View style={styles.titleContainer}>
-        {themeCategory && themeSubcategory && (
-          <CommonSmallPill themeCategory={themeCategory} />
-        )}
-        {titleMatches && titleMatches.length > 0 ? (
+    <DiaryTitleAndText
+      title={title}
+      text={text}
+      themeCategory={themeCategory}
+      themeSubcategory={themeSubcategory}
+      titleComponent={
+        titleMatches && titleMatches.length > 0 ? (
           <LanguageToolWords
             textStyle={styles.title}
             text={title}
@@ -68,22 +62,22 @@ const LanguageToolDiaryTitleAndText: React.FC<Props> = ({
           />
         ) : (
           <Text style={styles.title}>{title}</Text>
-        )}
-      </View>
-      <Space size={16} />
-      {textMatches && textMatches.length > 0 ? (
-        <LanguageToolWords
-          text={text}
-          matches={textMatches}
-          activeIndex={textActiveIndex}
-          setActiveIndex={setTextActiveIndex}
-          setOtherIndex={setTitleActiveIndex}
-        />
-      ) : (
-        <Text style={styles.text}>{text}</Text>
-      )}
-      <Space size={16} />
-    </>
+        )
+      }
+      textComponent={
+        textMatches && textMatches.length > 0 ? (
+          <LanguageToolWords
+            text={text}
+            matches={textMatches}
+            activeIndex={textActiveIndex}
+            setActiveIndex={setTextActiveIndex}
+            setOtherIndex={setTitleActiveIndex}
+          />
+        ) : (
+          <Text style={styles.text}>{text}</Text>
+        )
+      }
+    />
   );
 };
 

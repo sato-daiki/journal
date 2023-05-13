@@ -19,7 +19,6 @@ const common = {
   delete: 'Delete',
   translation: 'Translation',
   speech: 'Speak',
-  copy: 'Copy',
   slow: 'Slow',
   back: 'Back',
   begin: 'Begin',
@@ -170,6 +169,10 @@ const myDiary = {
   ignore: 'Ignore',
   start: 'Initially',
   revise: 'Revise based on the correction',
+  copyTitle: 'Copy title',
+  copyText: 'Copy text',
+  copiedTitle: 'The title was copied to your clipboard',
+  copiedText: 'The text was copied to your clipboard',
 };
 
 const viewMyDiary = {

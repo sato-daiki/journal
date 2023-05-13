@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 import { MenuProvider } from 'react-native-popup-menu';
 import { NavigationContainer } from '@react-navigation/native';
+import { RootSiblingParent } from 'react-native-root-siblings';
 
 import { configureStore } from '@/stores/Store';
 
@@ -44,11 +45,13 @@ const App = () => {
     <Provider store={store}>
       <PersistGate loading={<LoadingScreen />} persistor={persistor}>
         <ActionSheetProvider>
-          <MenuProvider>
-            <NavigationContainer>
-              <RootNavigatorContainer />
-            </NavigationContainer>
-          </MenuProvider>
+          <RootSiblingParent>
+            <MenuProvider>
+              <NavigationContainer>
+                <RootNavigatorContainer />
+              </NavigationContainer>
+            </MenuProvider>
+          </RootSiblingParent>
         </ActionSheetProvider>
       </PersistGate>
     </Provider>
