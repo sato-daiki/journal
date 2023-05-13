@@ -89,8 +89,8 @@ const SelectEikenListItem: React.FC<Props> = ({
           <View style={styles.textRight}>
             <Text style={styles.postDayText}>{updatedAt}</Text>
             <DiaryStatusLabel
-              color={MY_STATUS.checked.color}
-              text={MY_STATUS.checked.text}
+              color={MY_STATUS.done.color}
+              text={MY_STATUS.done.text}
             />
           </View>
         ) : null}

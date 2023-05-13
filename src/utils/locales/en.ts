@@ -19,7 +19,6 @@ const common = {
   delete: 'Delete',
   translation: 'Translation',
   speech: 'Speak',
-  copy: 'Copy',
   slow: 'Slow',
   back: 'Back',
   begin: 'Begin',
@@ -170,6 +169,16 @@ const myDiary = {
   ignore: 'Ignore',
   start: 'Initially',
   revise: 'Revise based on the correction',
+  share: 'Share your entry on SNS',
+  copyTitle: 'Copy title',
+  copyText: 'Copy text',
+  copiedTitle: 'The title was copied to your clipboard',
+  copiedText: 'The text was copied to your clipboard',
+  copied: 'The text was copied to your clipboard',
+};
+
+const viewMyDiary = {
+  headerTitle: 'Corrections',
 };
 
 const myDiaryList = {
@@ -351,8 +360,7 @@ const inquiry = {
 };
 
 const emptyMyDiaryList = {
-  text: 'You haven’t posted any journal entries.\nWrite an entry and have Japanese correct it!',
-  hint: 'Start here!\nYour entry will be\nproofread for free!',
+  text: 'You haven’t posted any journal entries.',
 };
 
 const modalAlertCorrection = {
@@ -417,6 +425,7 @@ const myDiaryStatus = {
   checked: 'Corrected',
   revised: 'Revised',
   recorded: 'Recorded',
+  done: 'Finished',
 };
 
 const language = {
@@ -646,6 +655,7 @@ const en = {
   foregetPassword,
   initialize,
   myDiary,
+  viewMyDiary,
   myDiaryList,
   themeCategory,
   myPage,

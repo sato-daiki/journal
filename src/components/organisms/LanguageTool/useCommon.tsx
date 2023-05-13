@@ -1,5 +1,7 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState, useRef } from 'react';
 import { Edit, Match } from '../../../types';
+import { appShare, diaryShare } from '@/utils/common';
+import ViewShot from 'react-native-view-shot';
 
 export interface Props {
   titleArray?: Match[] | Edit[] | [];
@@ -7,8 +9,19 @@ export interface Props {
 }
 
 export const useCommon = ({ titleArray, textArray }) => {
+  const viewShotRef = useRef<ViewShot | null>(null);
+
   const [textActiveIndex, setTextActiveIndex] = useState<number | null>(null);
   const [titleActiveIndex, setTitleActiveIndex] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (titleArray && titleArray.length > 0) {
+      setTitleActiveIndex(0);
+    } else if (textArray && textArray.length > 0) {
+      setTextActiveIndex(0);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const titleActiveLeft = useMemo(() => {
     if (titleActiveIndex !== null && titleActiveIndex !== 0) {
@@ -88,7 +101,17 @@ export const useCommon = ({ titleArray, textArray }) => {
     setTextActiveIndex(null);
   }, []);
 
+  const onPressShare = useCallback(async () => {
+    if (viewShotRef?.current?.capture) {
+      const imageUrl = await viewShotRef.current.capture();
+      diaryShare(imageUrl);
+    } else {
+      appShare();
+    }
+  }, []);
+
   return {
+    viewShotRef,
     titleActiveIndex,
     textActiveIndex,
     setTitleActiveIndex,
@@ -102,5 +125,6 @@ export const useCommon = ({ titleArray, textArray }) => {
     textActiveRight,
     onPressLeftText,
     onPressRightText,
+    onPressShare,
   };
 };

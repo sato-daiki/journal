@@ -85,13 +85,11 @@ export const getIndexName = (): string => {
 };
 
 export const getVersionText = (): string => {
-  let versionText = `version ${Constants.manifest?.version}`;
-
   if (__DEV__) {
-    versionText = `${versionText} (development)`;
+    return `version ${Constants.manifest?.version || 'unknow'} (development)`;
   }
 
-  return versionText;
+  return `version ${Constants.manifest?.version || 'unknow'} `;
 };
 
 export const diaryShare = async (imageUrl: string): Promise<void> => {

@@ -43,6 +43,18 @@ const Edits: React.FC<Props> = ({
     return edits[activeIndex];
   }, [activeIndex, edits]);
 
+  const activeText = useMemo(() => {
+    if (edit.sentence) {
+      try {
+        return edit.sentence.substring(edit.start, edit.end);
+      } catch (err: any) {
+        console.warn(err);
+        return '';
+      }
+    }
+    return '';
+  }, [edit]);
+
   return (
     <View style={styles.container}>
       <CardHeader
@@ -54,6 +66,7 @@ const Edits: React.FC<Props> = ({
       />
       <Card
         color={color}
+        activeText={activeText}
         shortMessage={edit.general_error_type}
         replacements={[{ value: edit.replacement }]}
         onPressIgnore={onPressIgnore}

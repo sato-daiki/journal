@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback } from 'react';
 import { StyleSheet, View, ScrollView } from 'react-native';
 import ViewShot from 'react-native-view-shot';
 import { Diary, Match } from '../../../types';
@@ -53,9 +53,8 @@ const LanguageTool: React.FC<Props> = ({
   goToRecord,
   onPressRevise,
 }) => {
-  const viewShotRef = useRef<ViewShot | null>(null);
-
   const {
+    viewShotRef,
     titleActiveIndex,
     textActiveIndex,
     setTitleActiveIndex,
@@ -69,6 +68,7 @@ const LanguageTool: React.FC<Props> = ({
     textActiveRight,
     onPressLeftText,
     onPressRightText,
+    onPressShare,
   } = useCommon({
     titleArray,
     textArray,
@@ -164,12 +164,14 @@ const LanguageTool: React.FC<Props> = ({
             checkPermissions={checkPermissions}
             goToRecord={goToRecord}
             onPressRevise={onPressRevise}
+            onPressShare={onPressShare}
           />
         </ViewShot>
         <Space size={32} />
       </ScrollView>
       {titleArray && titleArray.length > 0 && titleActiveIndex !== null && (
         <Matches
+          text={title}
           matches={titleArray}
           activeIndex={titleActiveIndex}
           activeLeft={titleActiveLeft}
@@ -182,6 +184,7 @@ const LanguageTool: React.FC<Props> = ({
       )}
       {textArray && textArray.length > 0 && textActiveIndex !== null && (
         <Matches
+          text={text}
           matches={textArray}
           activeIndex={textActiveIndex}
           activeLeft={textActiveLeft}

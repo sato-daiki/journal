@@ -31,7 +31,7 @@ export const useCommon = ({
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
-    // keybordでの戻るを制御する Androidのみ
+    // keyboardでの戻るを制御する Androidのみ
     const backAction = (): boolean => {
       Alert.alert(
         I18n.t('common.confirmation'),

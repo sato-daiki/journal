@@ -126,7 +126,7 @@ export const usePostReviseDiary = ({
 
   const onPressMyDiary = useCallback(() => {
     if (!item.objectID) return;
-    navigation.push('ModalViewMyDiary', {
+    navigation.navigate('ModalViewMyDiary', {
       screen: 'ViewMyDiary',
       params: {
         objectID: item.objectID,

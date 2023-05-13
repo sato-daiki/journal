@@ -8,7 +8,7 @@ import {
   subTextColor,
 } from '../../styles/Common';
 import I18n from '@/utils/I18n';
-import { GrayHeader, Space, WhiteButton } from '../atoms';
+import { GrayHeader, Space, SubmitButton, WhiteButton } from '../atoms';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import ModalSpeech from '../organisms/ModalSpeech';
 import ModalVoice from '../organisms/ModalVoice';
@@ -19,6 +19,7 @@ type Props = {
   text: string;
   longCode: LongCode;
   voiceUrl?: string | null;
+  onPressShare?: () => void;
   onPressRevise?: () => void;
   checkPermissions?: () => Promise<boolean>;
   goToRecord?: () => void;
@@ -38,11 +39,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const DiaryHeader: React.FC<Props> = ({
+const DiaryFooter: React.FC<Props> = ({
   hideFooterButton,
   text,
   longCode,
   voiceUrl,
+  onPressShare,
   onPressRevise,
   checkPermissions,
   goToRecord,
@@ -175,6 +177,17 @@ const DiaryHeader: React.FC<Props> = ({
     [],
   );
 
+  const iconShare = useMemo(
+    () => (
+      <MaterialCommunityIcons
+        size={22}
+        color={mainColor}
+        name='share-variant'
+      />
+    ),
+    [],
+  );
+
   const iconHeader = useMemo(
     () => (
       <MaterialCommunityIcons
@@ -211,42 +224,55 @@ const DiaryHeader: React.FC<Props> = ({
         {I18n.t('postDiaryComponent.textLength')}
         {` ${text.length}`}
       </Text>
-      {!hideFooterButton && onPressRevise && onPressMyVoice && goToRecord && (
-        <>
-          <Space size={24} />
-          <WhiteButton
-            containerStyle={styles.button}
-            icon={iconPen}
-            title={I18n.t('myDiary.revise')}
-            onPress={onPressRevise}
-          />
-
-          <Space size={24} />
-          <GrayHeader icon={iconHeader} title={I18n.t('myDiary.voiceTitle')} />
-          <Space size={24} />
-          {voiceUrl ? (
+      {!hideFooterButton &&
+        onPressShare &&
+        onPressRevise &&
+        onPressMyVoice &&
+        goToRecord && (
+          <>
+            <Space size={24} />
+            <SubmitButton
+              containerStyle={styles.button}
+              // icon={iconPen}
+              title={I18n.t('myDiary.revise')}
+              onPress={onPressRevise}
+            />
             <WhiteButton
               containerStyle={styles.button}
-              icon={iconHeadphones}
-              title={I18n.t('myDiary.myVoice')}
-              onPress={onPressMyVoice}
+              icon={iconShare}
+              title={I18n.t('myDiary.share')}
+              onPress={onPressShare}
             />
-          ) : null}
-          <WhiteButton
-            containerStyle={styles.button}
-            icon={iconMachine}
-            title={I18n.t('myDiary.machine')}
-            onPress={(): void => setVisibleSpeech(true)}
-          />
-          <WhiteButton
-            containerStyle={styles.button}
-            title={I18n.t('myDiary.record')}
-            icon={iconRecord}
-            onPress={goToRecord}
-          />
-          <Space size={32} />
-        </>
-      )}
+
+            <Space size={24} />
+            <GrayHeader
+              icon={iconHeader}
+              title={I18n.t('myDiary.voiceTitle')}
+            />
+            <Space size={24} />
+            {voiceUrl ? (
+              <WhiteButton
+                containerStyle={styles.button}
+                icon={iconHeadphones}
+                title={I18n.t('myDiary.myVoice')}
+                onPress={onPressMyVoice}
+              />
+            ) : null}
+            <WhiteButton
+              containerStyle={styles.button}
+              icon={iconMachine}
+              title={I18n.t('myDiary.machine')}
+              onPress={(): void => setVisibleSpeech(true)}
+            />
+            <WhiteButton
+              containerStyle={styles.button}
+              title={I18n.t('myDiary.record')}
+              icon={iconRecord}
+              onPress={goToRecord}
+            />
+            <Space size={32} />
+          </>
+        )}
       <ModalSpeech
         visible={visibleSpeech}
         text={text}
@@ -272,4 +298,4 @@ const DiaryHeader: React.FC<Props> = ({
   );
 };
 
-export default DiaryHeader;
+export default DiaryFooter;

@@ -17,7 +17,6 @@ const common = {
   delete: '削除',
   translation: '翻訳',
   speech: '読む',
-  copy: 'コピー',
   slow: '遅く',
   back: '戻る',
   begin: 'はじめる',
@@ -167,6 +166,16 @@ const myDiary = {
   ignore: '無視',
   start: '最初から',
   revise: '添削結果を元に修正する',
+  share: '日記をSNSでシェア',
+  copyTitle: 'Copy Title',
+  copyText: 'Copy 本文',
+  copiedTitle: 'タイトルをコピーしました',
+  copiedText: '本文をコピーしました',
+  copied: 'テキストをコピーしました',
+};
+
+const viewMyDiary = {
+  headerTitle: '添削結果',
 };
 
 const myDiaryList = {
@@ -347,8 +356,7 @@ const inquiry = {
 };
 
 const emptyMyDiaryList = {
-  text: '日記がまだ投稿されていません。\n日記を書いて外国人に添削してもらおう！',
-  hint: 'まずはここから！\n日記を無料で\n添削してもらえるよ！',
+  text: '日記がまだ投稿されていません',
 };
 
 const modalAlertCorrection = {
@@ -412,6 +420,7 @@ const myDiaryStatus = {
   checked: '添削完了',
   revised: '修正済',
   recorded: '録音済',
+  done: '完了',
 };
 
 const language = {
@@ -639,6 +648,7 @@ const ja = {
   initialize,
   myDiary,
   myDiaryList,
+  viewMyDiary,
   themeCategory,
   myPage,
   onboarding,

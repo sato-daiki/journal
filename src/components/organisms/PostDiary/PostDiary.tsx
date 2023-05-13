@@ -110,7 +110,8 @@ const PostDiary: React.FC<PostDiaryProps> = ({
 
   const onPressTopicGuide = useCallback(() => {
     if (isTopic) {
-      navigation.push('ModalTopicGuide', {
+      // @ts-ignore
+      navigation.navigate('ModalTopicGuide', {
         screen: 'TopicGuide',
         params: {
           topicCategory: themeCategory as TopicCategory,
