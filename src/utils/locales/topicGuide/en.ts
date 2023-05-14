@@ -34,7 +34,7 @@ export const enSelfIntroductionExamples = [
   ],
   [
     { key: 'a', text: 'I work for ', styleType: 'bold' },
-    { key: 'b', text: 'Interchao ', styleType: 'p' },
+    { key: 'b', text: 'LangJournal ', styleType: 'p' },
     { key: 'c', text: 'as a ', styleType: 'bold' },
     { key: 'd', text: 'marketing director.', styleType: 'p' },
   ],
@@ -84,7 +84,7 @@ export const enJobExpressions = [
 export const enJobExamples = [
   [
     { key: 'a', text: 'I work for ', styleType: 'bold' },
-    { key: 'b', text: 'Interchao Center.', styleType: 'p' },
+    { key: 'b', text: 'LangJournal Center.', styleType: 'p' },
   ],
   [
     { key: 'a', text: 'My profession is ', styleType: 'bold' },

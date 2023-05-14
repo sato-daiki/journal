@@ -188,8 +188,6 @@ const myDiaryList = {
     other: 'My Journal Entries: {{count}} entries',
     zero: 'My Journal Entries',
   },
-  notficationSetting:
-    'Interchao app notifications are turned off. Let\'s turn on "Notification" from "Settings".',
   emptyDiary: 'No Journal Entries',
 };
 
@@ -237,7 +235,7 @@ const reminderSelectTime = {
   notificationEndTitle: 'Study End Time',
   notificationEndBody: 'Great work!',
   notficationAlert:
-    'The reminder function does not work because the notification setting is off. Turn on Interchao notifications from your device settings.',
+    'The reminder function does not work because the notification setting is off. Turn on LangJournal notifications from your device settings.',
 };
 
 const reminderSelectDay = {
@@ -298,7 +296,7 @@ const setting = {
   deleteAcount: 'About Account Deletion',
   logout: 'Logout',
   inquiry: 'Contact',
-  about: 'What is Interchao',
+  about: 'What is LangJournal',
 };
 
 const signIn = {
@@ -488,7 +486,7 @@ const selfIntroduction = {
   expression4: 'hobby',
   example1: 'My name is Hana Tanaka. Please call me Hana.',
   example2: 'I was born in Kanagawa but grew up in Tokyo.',
-  example3: 'I work for Interchao as a marketing director.',
+  example3: 'I work for LangJournal as a marketing director.',
   example4: 'I like playing the guitar.',
   wordTitle: 'List of expressions',
   word1: 'It’s a pleasure to meet you.',
@@ -531,7 +529,7 @@ const job = {
   expression1: 'name of the business',
   expression2: 'profession',
   expression3: 'specialized field',
-  example1: 'I work for Interchao Center.',
+  example1: 'I work for LangJournal Center.',
   example2: 'My profession is an English teacher.',
   example3: 'Our company specializes in private lessons.',
   wordTitle: 'Occupation list',

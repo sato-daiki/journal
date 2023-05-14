@@ -185,8 +185,6 @@ const myDiaryList = {
     other: 'マイ日記一覧{{count}}件',
     zero: 'マイ日記一覧',
   },
-  notficationSetting:
-    'Interchaoアプリの通知がオフになっています。『設定』から『通知』をオンにしましょう',
   emptyDiary: '日記がありません',
 };
 
@@ -234,7 +232,7 @@ const reminderSelectTime = {
   notificationEndTitle: '勉強終了時間',
   notificationEndBody: 'お疲れ様でした！',
   notficationAlert:
-    '通知設定がoffになっているためリマインダー機能が動作しません。デバイスの設定からInterchaoの通知をonにしてください。',
+    '通知設定がoffになっているためリマインダー機能が動作しません。デバイスの設定からLangJournalの通知をonにしてください。',
 };
 
 const reminderSelectDay = {
@@ -295,7 +293,7 @@ const setting = {
   deleteAcount: '退会について',
   logout: 'ログアウト',
   inquiry: 'お問い合わせ',
-  about: 'Interchaoとは',
+  about: 'LangJournalとは',
 };
 
 const signIn = {
@@ -482,8 +480,7 @@ const selfIntroduction = {
   expression4: '趣味',
   example1: '田中はなといいます。はなと呼んでください。',
   example2: '私は神奈川で生まれて東京で育ちました。',
-  example3:
-    '私はインターチャオでマーケティングディレクターとして働いています。',
+  example3: '私はLangJournalでマーケティングディレクターとして働いています。',
   example4: '私はギターを弾くのが好きです。',
   wordTitle: '自己紹介で使える表現一覧',
   word1: 'お会いできて嬉しいです。',
@@ -525,7 +522,7 @@ const job = {
   expression1: '勤務先の名前',
   expression2: '職業',
   expression3: '専門分野',
-  example1: '私はInterchao Centerで仕事をしています。',
+  example1: '私はLangJournal Centerで仕事をしています。',
   example2: '私の職業は英語の先生です',
   example3: '弊社はマンツーマンレッスンを専門にしています。',
   wordTitle: '職業一覧',

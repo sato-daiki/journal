@@ -24,6 +24,7 @@ import {
 import { User } from '../../types';
 import auth from '@react-native-firebase/auth';
 import ModalConfirm from '@/components/organisms/ModalConfirm';
+import { HOME_PAGE } from '@/constants/url';
 
 export interface Props {
   user: User;
@@ -154,6 +155,12 @@ const SettingScreen: React.FC<ScreenType> = ({ navigation, user, signOut }) => {
         title={I18n.t('setting.inquiry')}
         onPress={(): void => {
           navigation.navigate('Inquiry');
+        }}
+      />
+      <OptionItem
+        title={I18n.t('setting.about')}
+        onPress={(): void => {
+          navigation.navigate('AboutWebView', HOME_PAGE);
         }}
       />
       <Space size={16} />

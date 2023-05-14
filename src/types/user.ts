@@ -180,8 +180,6 @@ export interface User {
   runningDays?: number;
   runningWeeks?: number;
   lastDiaryPostedAt?: any | null;
-  lastModalAppSuggestionAt?: any | null;
-  lastModalNotficationSettingAt?: any | null;
   lastWatchAdAt: any | null;
   createdAt: any;
   updatedAt: any;

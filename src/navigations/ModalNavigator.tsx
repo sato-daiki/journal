@@ -93,9 +93,6 @@ export type ModalCorrectingStackParamList = {
 export type ModalRecordStackParamList = {
   Record: { objectID: string };
 };
-export type ModalAboutStackParamList = {
-  About: undefined;
-};
 
 export type ModalEditMyDiaryListStackNavigationProp = StackNavigationProp<
   MainStackParamList,

@@ -24,6 +24,7 @@ import {
   HomeBottomParamList,
   HomeBottomNavigationProp,
 } from './HomeBottomTabNavigator';
+import { WebViewNavParams, WebViewScreen } from '@/screens/WebViewScreen';
 
 export type MyPageTabNavigationProp = CompositeNavigationProp<
   StackNavigationProp<HomeBottomParamList, 'MyPageTab'>,
@@ -45,6 +46,7 @@ export type MyPageTabStackParamList = {
     checkedDays: FixDay[] | CustomTimeInfo[];
     onChangeCheckedDays: (checkedDays: FixDay[] | CustomTimeInfo[]) => void;
   };
+  AboutWebView: WebViewNavParams;
 };
 
 const MyPageTabStack = createStackNavigator<MyPageTabStackParamList>();
@@ -116,6 +118,7 @@ const MyPageTabNavigator = () => {
           title: I18n.t('onboarding.reminderSelectDay'),
         }}
       />
+      <MyPageTabStack.Screen name='AboutWebView' component={WebViewScreen} />
     </MyPageTabStack.Navigator>
   );
 };

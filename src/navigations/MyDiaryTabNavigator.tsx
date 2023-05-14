@@ -17,7 +17,6 @@ import {
   HomeBottomParamList,
   HomeBottomNavigationProp,
 } from './HomeBottomTabNavigator';
-import WebViewScreen from '../screens/WebViewScreen';
 
 export type MyDiaryTabNavigationProp = CompositeNavigationProp<
   StackNavigationProp<HomeBottomParamList, 'MyDiaryTab'>,
@@ -27,7 +26,6 @@ export type MyDiaryTabNavigationProp = CompositeNavigationProp<
 export type MyDiaryTabStackParamList = {
   MyDiaryList: undefined;
   MyDiary: { objectID: string };
-  RecommendedMethod: { url: string };
 };
 
 const MyDiaryTabStack = createStackNavigator<MyDiaryTabStackParamList>();
@@ -50,11 +48,6 @@ const MyDiaryTabNavigator = () => {
         name='MyDiary'
         // @ts-ignore
         component={MyDiaryScreenContainer}
-      />
-      <MyDiaryTabStack.Screen
-        name='RecommendedMethod'
-        component={WebViewScreen}
-        options={{ title: I18n.t('myDiary.recommend') }}
       />
     </MyDiaryTabStack.Navigator>
   );

@@ -2,13 +2,13 @@ import { v4 as uuidv4 } from 'uuid';
 import * as Random from 'expo-random';
 import Constants from 'expo-constants';
 import { Share, Platform } from 'react-native';
-import * as Linking from 'expo-linking';
 import * as Sharing from 'expo-sharing';
 import I18n from './I18n';
 import { alert } from './ErrorAlert';
 import auth from '@react-native-firebase/auth';
+import { HOME_PAGE } from '@/constants/url';
 
-const url = 'https://interchao.app';
+const url = HOME_PAGE.uri;
 
 export const getUuid = async (): Promise<string> =>
   uuidv4({ random: await Random.getRandomBytesAsync(16) });
@@ -94,7 +94,7 @@ export const getVersionText = (): string => {
 
 export const diaryShare = async (imageUrl: string): Promise<void> => {
   const shareUrl = encodeURI(url);
-  const message = `#Interchao ${shareUrl}`;
+  const message = `#LangJournal ${shareUrl}`;
   if (Platform.OS === 'ios') {
     Share.share({
       message,
@@ -109,30 +109,10 @@ export const appShare = async (): Promise<void> => {
   // androidは画像のシェアができない
   const shareUrl = encodeURI(url);
 
-  const message = `#Interchao ${shareUrl}`;
+  const message = `#LangJournal ${shareUrl}`;
   Share.share({
     message,
   });
-};
-
-export const twitterShare = async (): Promise<void> => {
-  const shareMessage = encodeURI(url);
-  Linking.openURL(
-    `https://www.facebook.com/sharer/sharer.php?u=${shareMessage}`,
-  );
-};
-
-export const facebookShare = async (): Promise<void> => {
-  const shareMessage = encodeURI(url);
-  Linking.canOpenURL('twitter://post')
-    .then(() => {
-      Linking.openURL(`twitter://post?message=${shareMessage}`)
-        .then(() => undefined)
-        .catch((): void => {
-          Linking.openURL(`http://twitter.com/share?text=${shareMessage}`);
-        });
-    })
-    .catch(() => undefined);
 };
 
 interface EachOS {

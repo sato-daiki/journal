@@ -1,13 +1,12 @@
 import React, { useCallback, useMemo } from 'react';
 import {
-  borderLightColor,
   fontSizeM,
   fontSizeS,
   primaryColor,
   subTextColor,
 } from '@/styles/Common';
-import { View, StyleSheet, Text } from 'react-native';
-import { Hoverable, HoverableIcon, Icon, SmallButtonWhite } from '../../atoms';
+import { View, StyleSheet, Text, ScrollView } from 'react-native';
+import { Hoverable, HoverableIcon, Icon } from '../../atoms';
 import * as Linking from 'expo-linking';
 import * as Clipboard from 'expo-clipboard';
 import Toast from 'react-native-root-toast';
@@ -25,13 +24,10 @@ interface Props {
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 12,
+    paddingTop: 12,
     paddingHorizontal: 8,
-    borderColor: borderLightColor,
-    borderRadius: 4,
     backgroundColor: '#fff',
-    flex: 1,
-    justifyContent: 'space-between',
+    paddingBottom: 20,
   },
   firstRow: {
     flexDirection: 'row',
@@ -140,7 +136,7 @@ export const Card: React.FC<Props> = ({
   );
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <View>
         <View style={styles.firstRow}>
           <View style={[styles.circle, { backgroundColor: color }]} />
@@ -197,6 +193,6 @@ export const Card: React.FC<Props> = ({
           onPress={onPressIgnore}
         />
       </View>
-    </View>
+    </ScrollView>
   );
 };
