@@ -147,6 +147,7 @@ const Sapling: React.FC<Props> = ({
             <SaplingDiaryTitleAndText
               title={title}
               text={text}
+              longCode={diary.longCode}
               themeCategory={diary.themeCategory}
               themeSubcategory={diary.themeSubcategory}
               titleEdits={titleArray}
@@ -155,6 +156,7 @@ const Sapling: React.FC<Props> = ({
               textActiveIndex={textActiveIndex}
               setTitleActiveIndex={setTitleActiveIndex}
               setTextActiveIndex={setTextActiveIndex}
+              onPressShare={onPressShare}
             />
           </View>
           <DiaryFooter
@@ -165,7 +167,6 @@ const Sapling: React.FC<Props> = ({
             checkPermissions={checkPermissions}
             goToRecord={goToRecord}
             onPressRevise={onPressRevise}
-            onPressShare={onPressShare}
           />
         </ViewShot>
         <Space size={32} />

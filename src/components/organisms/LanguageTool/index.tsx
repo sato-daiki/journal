@@ -135,6 +135,8 @@ const LanguageTool: React.FC<Props> = ({
     }
   }, [textActiveIndex, textArray, diary, editDiary, setTextActiveIndex]);
 
+  const onPressAdReward = () => {};
+
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollView}>
@@ -148,6 +150,7 @@ const LanguageTool: React.FC<Props> = ({
             <LanguageToolDiaryTitleAndText
               title={title}
               text={text}
+              longCode={diary.longCode}
               themeCategory={diary.themeCategory}
               themeSubcategory={diary.themeSubcategory}
               titleMatches={titleArray}
@@ -156,6 +159,7 @@ const LanguageTool: React.FC<Props> = ({
               textActiveIndex={textActiveIndex}
               setTitleActiveIndex={setTitleActiveIndex}
               setTextActiveIndex={setTextActiveIndex}
+              onPressShare={onPressShare}
             />
           </View>
           <DiaryFooter
@@ -166,7 +170,7 @@ const LanguageTool: React.FC<Props> = ({
             checkPermissions={checkPermissions}
             goToRecord={goToRecord}
             onPressRevise={onPressRevise}
-            onPressShare={onPressShare}
+            // onPressAdReward={onPressAdReward}
           />
         </ViewShot>
         <Space size={32} />

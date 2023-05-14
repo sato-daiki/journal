@@ -10,7 +10,6 @@ import {
 import I18n from '@/utils/I18n';
 import { GrayHeader, Space, SubmitButton, WhiteButton } from '../atoms';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import ModalSpeech from '../organisms/ModalSpeech';
 import ModalVoice from '../organisms/ModalVoice';
 import { LongCode } from '@/types';
 
@@ -19,9 +18,9 @@ type Props = {
   text: string;
   longCode: LongCode;
   voiceUrl?: string | null;
-  onPressShare?: () => void;
   onPressRevise?: () => void;
   checkPermissions?: () => Promise<boolean>;
+  onPressAdReward?: () => Promise<boolean>;
   goToRecord?: () => void;
 };
 
@@ -42,14 +41,12 @@ const styles = StyleSheet.create({
 const DiaryFooter: React.FC<Props> = ({
   hideFooterButton,
   text,
-  longCode,
   voiceUrl,
-  onPressShare,
   onPressRevise,
+  onPressAdReward,
   checkPermissions,
   goToRecord,
 }) => {
-  const [visibleSpeech, setVisibleSpeech] = useState(false);
   const [visibleVoice, setVisibleVoice] = useState(false);
 
   const [isPlaying, setIsPlaying] = useState(false);
@@ -173,17 +170,13 @@ const DiaryFooter: React.FC<Props> = ({
   }, [checkPermissions, updateScreenForSoundStatus, voiceUrl]);
 
   const iconPen = useMemo(
-    () => <MaterialCommunityIcons size={22} color={mainColor} name='pen' />,
+    () => <MaterialCommunityIcons size={22} color='#fff' name='pen' />,
     [],
   );
 
-  const iconShare = useMemo(
+  const iconSpellcheck = useMemo(
     () => (
-      <MaterialCommunityIcons
-        size={22}
-        color={mainColor}
-        name='share-variant'
-      />
+      <MaterialCommunityIcons size={22} color={mainColor} name='spellcheck' />
     ),
     [],
   );
@@ -196,11 +189,6 @@ const DiaryFooter: React.FC<Props> = ({
         name='account-voice'
       />
     ),
-    [],
-  );
-
-  const iconMachine = useMemo(
-    () => <MaterialCommunityIcons size={20} color={mainColor} name='robot' />,
     [],
   );
 
@@ -224,61 +212,55 @@ const DiaryFooter: React.FC<Props> = ({
         {I18n.t('postDiaryComponent.textLength')}
         {` ${text.length}`}
       </Text>
-      {!hideFooterButton &&
-        onPressShare &&
-        onPressRevise &&
-        onPressMyVoice &&
-        goToRecord && (
-          <>
-            <Space size={24} />
+      {/* ViewMidiaryの時と、修正後の原文は非表示にする */}
+      {!hideFooterButton && (
+        <>
+          <Space size={24} />
+          {onPressRevise && (
             <SubmitButton
               containerStyle={styles.button}
-              // icon={iconPen}
+              icon={iconPen}
               title={I18n.t('myDiary.revise')}
               onPress={onPressRevise}
             />
+          )}
+
+          {/* {onPressAdReward && (
             <WhiteButton
               containerStyle={styles.button}
-              icon={iconShare}
-              title={I18n.t('myDiary.share')}
-              onPress={onPressShare}
+              icon={iconSpellcheck}
+              title={I18n.t('myDiary.adReward')}
+              onPress={onPressAdReward}
             />
+          )} */}
 
-            <Space size={24} />
-            <GrayHeader
-              icon={iconHeader}
-              title={I18n.t('myDiary.voiceTitle')}
-            />
-            <Space size={24} />
-            {voiceUrl ? (
+          <Space size={24} />
+          {goToRecord && (
+            <>
+              <GrayHeader
+                icon={iconHeader}
+                title={I18n.t('myDiary.voiceTitle')}
+              />
+              <Space size={24} />
+              {voiceUrl && (
+                <WhiteButton
+                  containerStyle={styles.button}
+                  icon={iconHeadphones}
+                  title={I18n.t('myDiary.myVoice')}
+                  onPress={onPressMyVoice}
+                />
+              )}
               <WhiteButton
                 containerStyle={styles.button}
-                icon={iconHeadphones}
-                title={I18n.t('myDiary.myVoice')}
-                onPress={onPressMyVoice}
+                title={I18n.t('myDiary.record')}
+                icon={iconRecord}
+                onPress={goToRecord}
               />
-            ) : null}
-            <WhiteButton
-              containerStyle={styles.button}
-              icon={iconMachine}
-              title={I18n.t('myDiary.machine')}
-              onPress={(): void => setVisibleSpeech(true)}
-            />
-            <WhiteButton
-              containerStyle={styles.button}
-              title={I18n.t('myDiary.record')}
-              icon={iconRecord}
-              onPress={goToRecord}
-            />
-            <Space size={32} />
-          </>
-        )}
-      <ModalSpeech
-        visible={visibleSpeech}
-        text={text}
-        longCode={longCode}
-        onClose={(): void => setVisibleSpeech(false)}
-      />
+              <Space size={32} />
+            </>
+          )}
+        </>
+      )}
       {voiceUrl ? (
         <ModalVoice
           visible={visibleVoice}

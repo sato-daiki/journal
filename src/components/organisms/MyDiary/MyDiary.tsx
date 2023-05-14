@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { TabView } from 'react-native-tab-view';
 import { Diary } from '@/types';
 
@@ -7,6 +7,7 @@ import { ParentTabBar } from '@/components/molecules';
 import AiCheck from '@/components/organisms/AiCheck';
 
 interface Props {
+  isView: boolean;
   diary: Diary;
   editDiary: (objectID: string, diary: Diary) => void;
   checkPermissions?: () => Promise<boolean>;
@@ -15,6 +16,7 @@ interface Props {
 }
 
 const MyDiary: React.FC<Props> = ({
+  isView,
   diary,
   editDiary,
   checkPermissions,
@@ -32,6 +34,11 @@ const MyDiary: React.FC<Props> = ({
   const onIndexChange = useCallback((i: number) => {
     setIndex(i);
   }, []);
+
+  const hasRevised = useMemo(
+    () => !!diary.reviseTitle || !!diary.reviseText,
+    [diary.reviseText, diary.reviseTitle],
+  );
 
   const renderScene = useCallback(
     ({ route }) => {
@@ -55,7 +62,7 @@ const MyDiary: React.FC<Props> = ({
         case 'origin':
           return (
             <AiCheck
-              hideFooterButton={!!diary.reviseTitle || !!diary.reviseText}
+              hideFooterButton={isView || hasRevised}
               diary={diary}
               title={diary.title}
               text={diary.text}
@@ -71,21 +78,25 @@ const MyDiary: React.FC<Props> = ({
           return null;
       }
     },
-    [checkPermissions, diary, editDiary, goToRecord, onPressRevise],
+    [
+      checkPermissions,
+      diary,
+      editDiary,
+      goToRecord,
+      hasRevised,
+      isView,
+      onPressRevise,
+    ],
   );
 
   const renderTabBar = useCallback(
     (props) => {
-      if (diary && (diary.reviseTitle || diary.reviseText)) {
+      if (hasRevised) {
         return <ParentTabBar {...props} />;
       }
     },
-    [diary],
+    [hasRevised],
   );
-
-  if (!diary) {
-    return null;
-  }
 
   return (
     <TabView

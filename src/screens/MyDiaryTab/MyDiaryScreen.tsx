@@ -197,6 +197,7 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
         onPressClose={onPressCloseModalAlertAudio}
       />
       <MyDiary
+        isView={false}
         diary={diary}
         editDiary={editDiary}
         checkPermissions={checkPermissions}
