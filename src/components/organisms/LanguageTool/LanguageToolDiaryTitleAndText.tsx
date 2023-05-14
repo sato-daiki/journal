@@ -1,13 +1,14 @@
 import React from 'react';
 import { StyleSheet, Text } from 'react-native';
 import { fontSizeM, primaryColor } from '@/styles/Common';
-import { Match, ThemeCategory, ThemeSubcategory } from '@/types';
+import { LongCode, Match, ThemeCategory, ThemeSubcategory } from '@/types';
 import LanguageToolWords from './LanguageToolWords';
-import DiaryTitleAndText from './DiaryTitleAndText';
+import CommonDiaryTitleAndText from './CommonDiaryTitleAndText';
 
 interface Props {
   title: string;
   text: string;
+  longCode: LongCode;
   themeCategory?: ThemeCategory | null;
   themeSubcategory?: ThemeSubcategory | null;
   titleMatches?: Match[] | [];
@@ -16,6 +17,7 @@ interface Props {
   textActiveIndex?: number | null;
   setTitleActiveIndex?: (activeId: number | null) => void;
   setTextActiveIndex?: (activeId: number | null) => void;
+  onPressShare: () => void;
 }
 
 export const styles = StyleSheet.create({
@@ -35,6 +37,7 @@ export const styles = StyleSheet.create({
 const LanguageToolDiaryTitleAndText: React.FC<Props> = ({
   title,
   text,
+  longCode,
   themeCategory,
   themeSubcategory,
   titleMatches,
@@ -43,11 +46,13 @@ const LanguageToolDiaryTitleAndText: React.FC<Props> = ({
   textActiveIndex,
   setTitleActiveIndex,
   setTextActiveIndex,
+  onPressShare,
 }) => {
   return (
-    <DiaryTitleAndText
+    <CommonDiaryTitleAndText
       title={title}
       text={text}
+      longCode={longCode}
       themeCategory={themeCategory}
       themeSubcategory={themeSubcategory}
       titleComponent={
@@ -67,6 +72,7 @@ const LanguageToolDiaryTitleAndText: React.FC<Props> = ({
       textComponent={
         textMatches && textMatches.length > 0 ? (
           <LanguageToolWords
+            textStyle={styles.text}
             text={text}
             matches={textMatches}
             activeIndex={textActiveIndex}
@@ -77,6 +83,7 @@ const LanguageToolDiaryTitleAndText: React.FC<Props> = ({
           <Text style={styles.text}>{text}</Text>
         )
       }
+      onPressShare={onPressShare}
     />
   );
 };

@@ -128,32 +128,6 @@ export const getRunning = (user: User) => {
   return { runningDays, runningWeeks };
 };
 
-export const getPublishMessage = (
-  beforeDays: number | null | undefined,
-  beforeWeeks: number | null | undefined,
-  afterDays: number,
-  afterWeeks: number,
-): string | null => {
-  if (beforeDays === 0) {
-    // 初回（0の場合もこっちに入る）
-    return I18n.t('modalAlertPublish.first');
-  }
-  if (!beforeDays || !beforeWeeks) return I18n.t('modalAlertPublish.good');
-
-  if (beforeDays + 1 === afterDays) {
-    // 日が連続の場合
-    return I18n.t('modalAlertPublish.runningDays', { runningDays: afterDays });
-  }
-
-  if (beforeWeeks + 1 === afterWeeks) {
-    // 週が連続の場合
-    return I18n.t('modalAlertPublish.runningWeeks', {
-      runningWeeks: afterWeeks,
-    });
-  }
-  return I18n.t('modalAlertPublish.good');
-};
-
 export const MY_STATUS = {
   draft: { text: I18n.t('myDiaryStatus.draft'), color: subTextColor },
   checked: { text: I18n.t('myDiaryStatus.checked'), color: mainColor },

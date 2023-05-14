@@ -1,13 +1,14 @@
 import React from 'react';
 import { Text } from 'react-native';
-import { ThemeCategory, ThemeSubcategory, Edit } from '@/types';
+import { ThemeCategory, ThemeSubcategory, Edit, LongCode } from '@/types';
 import SaplingWords from './SaplingWords';
 import { styles } from '../LanguageTool/LanguageToolDiaryTitleAndText';
-import DiaryTitleAndText from '../LanguageTool/DiaryTitleAndText';
+import CommonDiaryTitleAndText from '../LanguageTool/CommonDiaryTitleAndText';
 
 interface Props {
   title: string;
   text: string;
+  longCode: LongCode;
   themeCategory?: ThemeCategory | null;
   themeSubcategory?: ThemeSubcategory | null;
   titleEdits?: Edit[] | [];
@@ -16,11 +17,13 @@ interface Props {
   textActiveIndex?: number | null;
   setTitleActiveIndex?: (activeId: number | null) => void;
   setTextActiveIndex?: (activeId: number | null) => void;
+  onPressShare: () => void;
 }
 
 const SaplingDiaryTitleAndText: React.FC<Props> = ({
   title,
   text,
+  longCode,
   themeCategory,
   themeSubcategory,
   titleEdits,
@@ -29,11 +32,13 @@ const SaplingDiaryTitleAndText: React.FC<Props> = ({
   textActiveIndex,
   setTitleActiveIndex,
   setTextActiveIndex,
+  onPressShare,
 }) => {
   return (
-    <DiaryTitleAndText
+    <CommonDiaryTitleAndText
       title={title}
       text={text}
+      longCode={longCode}
       themeCategory={themeCategory}
       themeSubcategory={themeSubcategory}
       titleComponent={
@@ -63,6 +68,7 @@ const SaplingDiaryTitleAndText: React.FC<Props> = ({
           <Text style={styles.text}>{text}</Text>
         )
       }
+      onPressShare={onPressShare}
     />
   );
 };

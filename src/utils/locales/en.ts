@@ -163,15 +163,11 @@ const myDiary = {
     'You must enable audio recording permissions in order to use this function',
   voiceTitle: 'Read Out Loud',
   myVoice: 'Listen to Your Recorded Voice',
-  machine: "Listen to Machine's Voice",
   record: 'Voice Recording',
   recommend: 'What is an efficient study method?',
   ignore: 'Ignore',
   start: 'Initially',
   revise: 'Revise based on the correction',
-  share: 'Share your entry on SNS',
-  copyTitle: 'Copy title',
-  copyText: 'Copy text',
   copiedTitle: 'The title was copied to your clipboard',
   copiedText: 'The text was copied to your clipboard',
   copied: 'The text was copied to your clipboard',
@@ -359,26 +355,6 @@ const inquiry = {
 
 const emptyMyDiaryList = {
   text: 'You haven’t posted any journal entries.',
-};
-
-const modalAlertCorrection = {
-  text1: 'Please write all of the corrections in ',
-  text2:
-    '.\n\nPlease finish making corrections within 30 minutes. Your corrections will be discarded if you take longer than 30 minutes.\n\nOnce you start, the entry will be locked and other people will be unable to make corrections.',
-  start: 'Begin Corrections',
-};
-
-const modalAlertPublish = {
-  confirmation:
-    'It will cost {{usePoints}} points to publish this entry. Once an entry has been published, it cannot be edited. Would you like to proceed?',
-  submit: 'Publish',
-  publish: 'The journal entry has been published',
-  share: "Let's tell everyone the published journal entry",
-  first: "Thank you for your first post. Let's do our best tomorrow too.",
-  runningDays: "It's a diary post for {{runningDays}} consecutive days. Great!",
-  runningWeeks:
-    "It's a diary post for {{runningWeeks}} consecutive weeks! Let's keep doing our best.",
-  good: "Thank you for posting.\nLet's do your best tomorrow too",
 };
 
 const modalDeleteAcount = {
@@ -680,8 +656,6 @@ const en = {
   emptyDiary,
   profileLanguage,
   emptyMyDiaryList,
-  modalAlertCorrection,
-  modalAlertPublish,
   modalDeleteAcount,
   modalDiaryCancel,
   modalSendEmail,
