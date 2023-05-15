@@ -160,18 +160,17 @@ const myDiary = {
     'マイクの権限がないため、起動できません。設定画面からマイクの設定をONにしてください',
   voiceTitle: '音読トレーニング',
   myVoice: '自分の音声を聞く',
-  machine: '機械の音声を聞く',
   record: '録音する',
   recommend: '効率的な勉強方法とは？',
   ignore: '無視',
   start: '最初から',
   revise: '添削結果を元に修正する',
-  share: '日記をSNSでシェア',
-  copyTitle: 'Copy Title',
-  copyText: 'Copy 本文',
+  adReward: '動画広告を見て他のAIでも添削する',
   copiedTitle: 'タイトルをコピーしました',
   copiedText: '本文をコピーしました',
   copied: 'テキストをコピーしました',
+  adRewardError: '動画再生においてエラーが発生しました。添削を終了します',
+  adLoading: '広告を読み込んでします',
 };
 
 const viewMyDiary = {
@@ -355,26 +354,6 @@ const inquiry = {
 
 const emptyMyDiaryList = {
   text: '日記がまだ投稿されていません',
-};
-
-const modalAlertCorrection = {
-  text1: '添削は全て',
-  text2:
-    'で行ってください。\n\n添削は30分以内で行ってください。30分をすぎると添削は破棄されます。\n\n添削を始めると、ロックがかかり他の人は添削できなくなります。',
-  start: '添削を始める',
-};
-
-const modalAlertPublish = {
-  confirmation:
-    '{{usePoints}}ポイントを使い日記を投稿します。一度投稿すると、編集ができませんが、よろしいですか？',
-  submit: '投稿する',
-  publish: '日記が公開されました',
-  share: '公開した日記を\nみんなに教えてあげましょう',
-  first:
-    '初回の投稿おつかれさまです\n添削を待ちましょう！\n明日からも頑張りましょう',
-  runningDays: '{{runningDays}}日連続の投稿です\n素晴らしい！',
-  runningWeeks: '{{runningWeeks}}週連続の投稿です\nこれからも継続しましょう',
-  good: '投稿おつかれさまです\n明日も頑張りましょう！',
 };
 
 const modalDeleteAcount = {
@@ -671,8 +650,6 @@ const ja = {
   emptyDiary,
   profileLanguage,
   emptyMyDiaryList,
-  modalAlertCorrection,
-  modalAlertPublish,
   modalDeleteAcount,
   modalDiaryCancel,
   modalSendEmail,

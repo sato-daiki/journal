@@ -57,7 +57,15 @@ const styles = StyleSheet.create({
 });
 
 const DiaryListItem = ({ item, onPressItem }: Props) => {
-  const { createdAt, title, text, themeCategory, themeSubcategory } = item;
+  const {
+    createdAt,
+    title,
+    text,
+    reviseTitle,
+    reviseText,
+    themeCategory,
+    themeSubcategory,
+  } = item;
   const postDay = getAlgoliaDay(createdAt);
 
   const onPressRow = useCallback(() => {
@@ -77,11 +85,11 @@ const DiaryListItem = ({ item, onPressItem }: Props) => {
       <DiaryTitle
         themeCategory={themeCategory}
         themeSubcategory={themeSubcategory}
-        title={title}
+        title={reviseTitle || title}
       />
       <View style={styles.content}>
         <Text style={styles.text} ellipsizeMode='tail' numberOfLines={3}>
-          {text}
+          {reviseText || text}
         </Text>
       </View>
     </Hoverable>

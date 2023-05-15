@@ -31,7 +31,8 @@ export interface Word {
   ignore?: boolean;
 }
 
-export interface Match {
+// 取得したまま
+export interface RawMatch {
   message: string;
   shortMessage?: string;
   offset: number;
@@ -64,6 +65,27 @@ export interface Match {
       name: string;
     };
   };
+}
+
+export interface Match {
+  message: string;
+  shortMessage: string | null;
+  offset: number;
+  length: number;
+  replacements: {
+    value: string;
+  }[];
+  rule: {
+    description: string;
+    urls:
+      | [
+          {
+            value: string;
+          },
+        ]
+      | null;
+    issueType: string | null;
+  } | null;
 }
 
 export type Result = 'perfect' | 'corrected' | 'skip' | 'error';

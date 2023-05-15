@@ -11,6 +11,7 @@ import DiaryFooter from '@/components/molecules/DiaryFooter';
 import { useCommon } from './useCommon';
 
 export interface Props {
+  showAdReward: boolean;
   hideFooterButton: boolean;
   diary: Diary;
   title: string;
@@ -21,6 +22,7 @@ export interface Props {
   checkPermissions?: () => Promise<boolean>;
   goToRecord?: () => void;
   onPressRevise?: () => void;
+  onPressAdReward?: () => void;
 }
 
 const styles = StyleSheet.create({
@@ -42,6 +44,7 @@ const styles = StyleSheet.create({
 });
 
 const LanguageTool: React.FC<Props> = ({
+  showAdReward,
   hideFooterButton,
   diary,
   title,
@@ -52,6 +55,7 @@ const LanguageTool: React.FC<Props> = ({
   checkPermissions,
   goToRecord,
   onPressRevise,
+  onPressAdReward,
 }) => {
   const {
     viewShotRef,
@@ -148,6 +152,7 @@ const LanguageTool: React.FC<Props> = ({
             <LanguageToolDiaryTitleAndText
               title={title}
               text={text}
+              longCode={diary.longCode}
               themeCategory={diary.themeCategory}
               themeSubcategory={diary.themeSubcategory}
               titleMatches={titleArray}
@@ -156,17 +161,19 @@ const LanguageTool: React.FC<Props> = ({
               textActiveIndex={textActiveIndex}
               setTitleActiveIndex={setTitleActiveIndex}
               setTextActiveIndex={setTextActiveIndex}
+              onPressShare={onPressShare}
             />
           </View>
           <DiaryFooter
             hideFooterButton={hideFooterButton}
+            showAdReward={showAdReward}
             text={text}
             longCode={diary.longCode}
             voiceUrl={diary.voiceUrl}
             checkPermissions={checkPermissions}
             goToRecord={goToRecord}
             onPressRevise={onPressRevise}
-            onPressShare={onPressShare}
+            onPressAdReward={onPressAdReward}
           />
         </ViewShot>
         <Space size={32} />

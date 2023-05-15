@@ -1,20 +1,23 @@
-import React, { ReactNode, useCallback } from 'react';
+import React, { ReactNode, useCallback, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { fontSizeM, primaryColor } from '@/styles/Common';
-import { ThemeCategory, ThemeSubcategory } from '@/types';
-import { Icon, SmallButtonWhite, Space } from '@/components/atoms';
+import { LongCode, ThemeCategory, ThemeSubcategory } from '@/types';
+import { Space } from '@/components/atoms';
 import CommonSmallPill from '../../molecules/CommonSmallPill';
 import I18n from '@/utils/I18n';
 import * as Clipboard from 'expo-clipboard';
 import Toast from 'react-native-root-toast';
+import ModalSpeech from '../ModalSpeech';
+import CommonIcons from './CommonIcons';
 
 interface Props {
   title: string;
   text: string;
+  longCode: LongCode;
   themeCategory?: ThemeCategory | null;
   themeSubcategory?: ThemeSubcategory | null;
   titleComponent: ReactNode;
   textComponent: ReactNode;
+  onPressShare: () => void;
 }
 
 export const styles = StyleSheet.create({
@@ -23,38 +26,24 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     paddingTop: 8,
-  },
-  title: {
-    color: primaryColor,
-    fontWeight: 'bold',
-    fontSize: fontSizeM,
-    flex: 1,
-  },
-  copyTitleButton: {
-    marginTop: 8,
-    width: 120,
-    alignSelf: 'flex-end',
-  },
-  text: {
-    lineHeight: fontSizeM * 1.8,
-    fontSize: fontSizeM,
-    color: primaryColor,
-  },
-  copyTextButton: {
-    marginTop: 8,
-    width: 120,
-    alignSelf: 'flex-end',
+    paddingBottom: 8,
   },
 });
 
-const DiaryTitleAndText: React.FC<Props> = ({
+const CommonDiaryTitleAndText: React.FC<Props> = ({
   title,
   text,
+  longCode,
   themeCategory,
   themeSubcategory,
   titleComponent,
   textComponent,
+  onPressShare,
 }) => {
+  const [visibleSpeech, setVisibleSpeech] = useState<'title' | 'text' | null>(
+    null,
+  );
+
   const onPressTitleCopy = useCallback(async () => {
     await Clipboard.setStringAsync(title);
     Toast.show(I18n.t('myDiary.copiedTitle'), {
@@ -79,39 +68,32 @@ const DiaryTitleAndText: React.FC<Props> = ({
         )}
         {titleComponent}
       </View>
-      <SmallButtonWhite
-        containerStyle={styles.copyTitleButton}
-        icon={
-          <Icon
-            icon='community'
-            name='content-copy'
-            size={18}
-            color={primaryColor}
-          />
-        }
-        color={primaryColor}
-        title={I18n.t('myDiary.copyTitle')}
-        onPress={onPressTitleCopy}
+      <CommonIcons
+        onPressSpeech={() => setVisibleSpeech('title')}
+        onPressCopy={onPressTitleCopy}
       />
       <Space size={16} />
       {textComponent}
-      <SmallButtonWhite
-        containerStyle={styles.copyTextButton}
-        icon={
-          <Icon
-            icon='community'
-            name='content-copy'
-            size={18}
-            color={primaryColor}
-          />
-        }
-        color={primaryColor}
-        title={I18n.t('myDiary.copyText')}
-        onPress={onPressTextCopy}
+      <CommonIcons
+        onPressSpeech={() => setVisibleSpeech('text')}
+        onPressCopy={onPressTextCopy}
+        onPressShare={onPressShare}
       />
       <Space size={16} />
+      <ModalSpeech
+        visible={!!visibleSpeech}
+        text={
+          !!visibleSpeech && visibleSpeech === 'title'
+            ? title
+            : !!visibleSpeech && visibleSpeech === 'text'
+            ? text
+            : ''
+        }
+        longCode={longCode}
+        onClose={(): void => setVisibleSpeech(null)}
+      />
     </>
   );
 };
 
-export default DiaryTitleAndText;
+export default CommonDiaryTitleAndText;

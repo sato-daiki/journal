@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import {
   Text,
   StyleSheet,
@@ -6,12 +6,14 @@ import {
   StyleProp,
   ViewStyle,
   TextStyle,
+  View,
 } from 'react-native';
 import { mainColor, fontSizeM, maxPartL } from '../../styles/Common';
 import Hoverable from './Hoverable';
 
 interface Props {
   containerStyle?: StyleProp<ViewStyle>;
+  icon?: ReactNode;
   textStyle?: StyleProp<TextStyle>;
   isLoading?: boolean;
   disable?: boolean;
@@ -29,6 +31,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
+    flexDirection: 'row',
+  },
+  icon: {
+    marginRight: 6,
   },
   title: {
     color: '#fff',
@@ -38,6 +44,7 @@ const styles = StyleSheet.create({
 });
 
 const SubmitButton: React.FC<Props> = ({
+  icon,
   isLoading = false,
   disable = false,
   title,
@@ -54,7 +61,10 @@ const SubmitButton: React.FC<Props> = ({
       {isLoading ? (
         <ActivityIndicator size='small' color='#fff' />
       ) : (
-        <Text style={[styles.title, textStyle]}>{title}</Text>
+        <>
+          {icon && <View style={styles.icon}>{icon}</View>}
+          <Text style={[styles.title, textStyle]}>{title}</Text>
+        </>
       )}
     </Hoverable>
   );

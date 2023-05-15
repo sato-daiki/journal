@@ -20,7 +20,6 @@ export { default as Lottie } from './Lottie';
 export { default as Note } from './Note';
 export { default as Pill } from './Pill';
 export { default as RadioBox } from './RadioBox';
-export { default as ShareButton } from './ShareButton';
 export { default as SmallButtonSubmit } from './SmallButtonSubmit';
 export { default as SmallButtonWhite } from './SmallButtonWhite';
 export { default as SmallPill } from './SmallPill';

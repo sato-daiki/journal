@@ -7,8 +7,10 @@ import { alert } from '@/utils/ErrorAlert';
 import { PostDraftDiaryNavigationProp } from './interfaces';
 import { useCommon } from '../PostDiaryScreen/useCommont';
 import firestore from '@react-native-firebase/firestore';
-import { getAiCheck, getLanguageToolShortName } from '@/utils/grammarCheck';
-import { Sapling } from '@/types/sapling';
+import {
+  getLanguageTool,
+  getLanguageToolShortName,
+} from '@/utils/grammarCheck';
 
 interface UsePostDraftDiary {
   user: User;
@@ -65,18 +67,14 @@ export const usePostDraftDiary = ({
   }, []);
 
   const getDiary = useCallback(
-    (
-      diaryStatus: DiaryStatus,
-      languageTool?: LanguageTool,
-      sapling?: Sapling,
-    ) => {
+    (diaryStatus: DiaryStatus, languageTool?: LanguageTool) => {
+      const languageToolInfo = languageTool ? { languageTool } : undefined;
       return {
         title,
         text,
         diaryStatus,
         longCode: selectedItem.value as LongCode,
-        languageTool: languageTool || null,
-        sapling: sapling || null,
+        ...languageToolInfo,
         updatedAt: firestore.FieldValue.serverTimestamp(),
       };
     },
@@ -135,14 +133,14 @@ export const usePostDraftDiary = ({
 
     setIsLoadingPublish(true);
 
-    const { languageTool, sapling } = await getAiCheck(
+    const languageTool = await getLanguageTool(
       selectedItem.value as LongCode,
       isTitleSkip,
       title,
       text,
     );
 
-    const diary = getDiary('checked', languageTool, sapling);
+    const diary = getDiary('checked', languageTool);
     const { runningDays, runningWeeks } = getRunning(user);
 
     let { themeDiaries } = user;

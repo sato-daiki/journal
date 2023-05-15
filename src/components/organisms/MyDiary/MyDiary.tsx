@@ -1,25 +1,32 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { TabView } from 'react-native-tab-view';
 import { Diary } from '@/types';
 
 import I18n from '@/utils/I18n';
 import { ParentTabBar } from '@/components/molecules';
 import AiCheck from '@/components/organisms/AiCheck';
+import { Key } from '@/screens/MyDiaryTab/MyDiaryScreen';
 
 interface Props {
+  isView: boolean;
   diary: Diary;
   editDiary: (objectID: string, diary: Diary) => void;
+  saplingSuccess?: boolean;
   checkPermissions?: () => Promise<boolean>;
   goToRecord?: () => void;
   onPressRevise?: () => void;
+  onPressAdReward?: (key: Key) => void;
 }
 
 const MyDiary: React.FC<Props> = ({
+  isView,
   diary,
   editDiary,
+  saplingSuccess,
   checkPermissions,
   goToRecord,
   onPressRevise,
+  onPressAdReward,
 }) => {
   const [index, setIndex] = useState(
     diary && (diary.reviseTitle || diary.reviseText) ? 0 : 1,
@@ -32,6 +39,11 @@ const MyDiary: React.FC<Props> = ({
   const onIndexChange = useCallback((i: number) => {
     setIndex(i);
   }, []);
+
+  const hasRevised = useMemo(
+    () => !!diary.reviseTitle || !!diary.reviseText,
+    [diary.reviseText, diary.reviseTitle],
+  );
 
   const renderScene = useCallback(
     ({ route }) => {
@@ -47,45 +59,59 @@ const MyDiary: React.FC<Props> = ({
               languageTool={diary.reviseLanguageTool}
               sapling={diary.reviseSapling}
               editDiary={editDiary}
+              saplingSuccess={saplingSuccess}
               checkPermissions={checkPermissions}
               goToRecord={goToRecord}
               onPressRevise={onPressRevise}
+              onPressAdReward={() =>
+                onPressAdReward && onPressAdReward('revised')
+              }
             />
           );
         case 'origin':
           return (
             <AiCheck
-              hideFooterButton={!!diary.reviseTitle || !!diary.reviseText}
+              hideFooterButton={isView || hasRevised}
               diary={diary}
               title={diary.title}
               text={diary.text}
               languageTool={diary.languageTool}
               sapling={diary.sapling}
               editDiary={editDiary}
+              saplingSuccess={saplingSuccess}
               checkPermissions={checkPermissions}
               goToRecord={goToRecord}
               onPressRevise={onPressRevise}
+              onPressAdReward={() =>
+                onPressAdReward && onPressAdReward('origin')
+              }
             />
           );
         default:
           return null;
       }
     },
-    [checkPermissions, diary, editDiary, goToRecord, onPressRevise],
+    [
+      checkPermissions,
+      diary,
+      editDiary,
+      goToRecord,
+      hasRevised,
+      isView,
+      onPressAdReward,
+      onPressRevise,
+      saplingSuccess,
+    ],
   );
 
   const renderTabBar = useCallback(
     (props) => {
-      if (diary && (diary.reviseTitle || diary.reviseText)) {
+      if (hasRevised) {
         return <ParentTabBar {...props} />;
       }
     },
-    [diary],
+    [hasRevised],
   );
-
-  if (!diary) {
-    return null;
-  }
 
   return (
     <TabView

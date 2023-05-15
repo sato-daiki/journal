@@ -61,7 +61,7 @@ const ViewMyDiaryScreen: React.FC<ScreenType> = ({
 
   return (
     <View style={styles.container}>
-      <MyDiary diary={diary} editDiary={editDiary} />
+      <MyDiary isView diary={diary} editDiary={editDiary} />
     </View>
   );
 };
