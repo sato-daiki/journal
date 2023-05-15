@@ -229,7 +229,7 @@ const DiaryFooter: React.FC<Props> = ({
           {/* saplingでまだチェックされていない時 */}
           {showAdReward && onPressAdReward && (
             <WhiteButton
-              containerStyle={styles.button}
+              containerStyle={[styles.button, { paddingHorizontal: 16 }]}
               icon={iconSpellcheck}
               title={I18n.t('myDiary.adReward')}
               onPress={onPressAdReward}

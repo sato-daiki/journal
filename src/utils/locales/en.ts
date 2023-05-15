@@ -168,6 +168,7 @@ const myDiary = {
   ignore: 'Ignore',
   start: 'Initially',
   revise: 'Revise based on the correction',
+  adReward: 'Correct text using other AI by watching ads',
   copiedTitle: 'The title was copied to your clipboard',
   copiedText: 'The text was copied to your clipboard',
   copied: 'The text was copied to your clipboard',
