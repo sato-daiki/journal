@@ -6,7 +6,7 @@ import { getIndexName } from './common';
 type SortType = 'createdAt' | 'updatedAt';
 
 export const getClient = (): SearchClient => {
-  return algoliasearch(ALGOLIA_API_KEY, ALGOLIA_ADMIN_API_KEY);
+  return algoliasearch('QFAU3ALJR1', 'e0ee910fde8e29ae51e4c9b0c4e66145');
 };
 
 class Algolia {
