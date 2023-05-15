@@ -18,7 +18,6 @@ interface Props {
   isEmpty: boolean;
   refreshing: boolean;
   diaries: Diary[];
-  diaryTotalNum: number;
   loadNextPage: () => void;
   onRefresh: () => void;
   handlePressItem: (item: Diary) => void;
@@ -38,7 +37,6 @@ const MyDiaryListFlatList: React.FC<Props> = ({
   isEmpty,
   refreshing,
   diaries,
-  diaryTotalNum,
   loadNextPage,
   handlePressItem,
   onRefresh,
@@ -54,10 +52,10 @@ const MyDiaryListFlatList: React.FC<Props> = ({
   const listHeaderComponent = useCallback(() => {
     return (
       <GrayHeader
-        title={I18n.t('myDiaryList.diaryList', { count: diaryTotalNum })}
+        title={I18n.t('myDiaryList.diaryList', { count: diaries.length })}
       />
     );
-  }, [diaryTotalNum]);
+  }, [diaries.length]);
 
   const renderItem: ListRenderItem<Diary> = useCallback(
     ({ item, index }) => {

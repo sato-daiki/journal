@@ -22,7 +22,6 @@ import {
 import { FetchInfoState } from '@/stores/reducers/diaryList';
 import EditMyDiaryListItem from '@/components/organisms/EditMyDiaryListItem';
 import { borderLightColor, fontSizeS, softRed } from '@/styles/Common';
-import Algolia from '@/utils/Algolia';
 import { alert } from '@/utils/ErrorAlert';
 import ModalConfirm from '@/components/organisms/ModalConfirm';
 import firestore from '@react-native-firebase/firestore';
@@ -97,14 +96,6 @@ const EditMyDiaryListScreen: React.FC<ScreenType> = ({
           readingNext: true,
         });
 
-        const index = await Algolia.getDiaryIndex();
-        const res = await index.search('', {
-          filters: `uid: ${user.uid}`,
-          page: nextPage,
-          hitsPerPage,
-        });
-        const { hits } = res;
-
         if (hits.length === 0) {
           setFetchInfo({
             ...fetchInfo,
@@ -128,7 +119,7 @@ const EditMyDiaryListScreen: React.FC<ScreenType> = ({
         alert({ err });
       }
     }
-  }, [addDiaries, fetchInfo, setFetchInfo, user.uid]);
+  }, [addDiaries, fetchInfo, setFetchInfo]);
 
   const onPressClose = useCallback(() => {
     navigation.goBack();

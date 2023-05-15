@@ -12,7 +12,7 @@ import {
   primaryColor,
   subTextColor,
 } from '@/styles/Common';
-import { getAlgoliaDay } from '@/utils/time';
+import { getDay } from '@/utils/time';
 import { getMarkedDates, MY_STATUS } from '@/utils/diary';
 import { ScrollView } from 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
@@ -112,7 +112,7 @@ const MyDiaryListCalendar: React.FC<Props> = ({
   handlePressDelete,
 }) => {
   const [selectedDay, setSelectedDay] = useState<string | null>(
-    getAlgoliaDay(new Date(), 'YYYY-MM-DD'),
+    getDay(new Date(), 'YYYY-MM-DD'),
   );
   const [targetDayDiaries, setTargetDayDiaries] = useState<Diary[]>([]);
 
@@ -135,7 +135,7 @@ const MyDiaryListCalendar: React.FC<Props> = ({
   useEffect(() => {
     const newDiaries = diaries.filter(
       (item) =>
-        getAlgoliaDay(item.publishedAt || item.createdAt, 'YYYY-MM-DD') ===
+        getDay(item.publishedAt || item.createdAt, 'YYYY-MM-DD') ===
         selectedDay,
     );
     setTargetDayDiaries(newDiaries);

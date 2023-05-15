@@ -12,12 +12,14 @@ import {
   softRed,
   primaryColor,
 } from '@/styles/Common';
-import firestore from '@react-native-firebase/firestore';
+import firestore, {
+  FirebaseFirestoreTypes,
+} from '@react-native-firebase/firestore';
 
 import { MarkedDates } from '@/components/organisms/MyDiaryList';
 import I18n from './I18n';
 import { getDateToStrDay, getLastMonday, getThisMonday } from './common';
-import { getAlgoliaDay } from './time';
+import { getDay } from './time';
 
 export const MAX_TITLE = 100;
 export const MAX_TEXT = 1200;
@@ -158,7 +160,7 @@ export const getMarkedDates = (newDiaries: Diary[]): MarkedDates =>
   newDiaries.reduce((prev, d) => {
     if (!d.objectID) return prev;
     const myDiaryStatus = getMyDiaryStatus(d);
-    const date = getAlgoliaDay(d.publishedAt || d.createdAt, 'YYYY-MM-DD');
+    const date = getDay(d.publishedAt || d.createdAt, 'YYYY-MM-DD');
     const params = {
       key: d.objectID,
       selectedDotColor: '#fff',
@@ -219,4 +221,35 @@ export const getIsTopic = (
     return true;
   }
   return false;
+};
+
+export const getDiaries = async (
+  uid: string,
+  lastVisible: FirebaseFirestoreTypes.FieldValue | Date | null,
+  hitPerPage: number,
+): Promise<Diary[]> => {
+  try {
+    console.log('lastVisible', lastVisible);
+    const snapshot = await firestore()
+      .collection('diaries')
+      .where('uid', '==', uid)
+      .orderBy('createdAt', 'desc')
+      .startAfter(lastVisible)
+      .limit(hitPerPage)
+      .get();
+
+    const diaries: Diary[] = [];
+
+    snapshot.forEach((doc) => {
+      const data = doc.data() as Diary;
+      diaries.push({
+        objectID: doc.id,
+        ...data,
+      });
+    });
+    return diaries;
+  } catch (e) {
+    console.warn('getDiaries', e);
+    return [];
+  }
 };

@@ -4,7 +4,7 @@ import { fontSizeS, subTextColor } from '../../styles/Common';
 import { CountryNameWithFlag } from '../atoms';
 import MyDiaryStatus from './MyDiaryStatus';
 import { Diary } from '@/types';
-import { getAlgoliaDate } from '@/utils/time';
+import { getDate } from '@/utils/time';
 
 type Props = {
   diary: Diary;
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
 
 const DiaryHeader: React.FC<Props> = ({ diary }) => {
   const postDayText = useMemo(() => {
-    return getAlgoliaDate(diary.createdAt);
+    return getDate(diary.createdAt);
   }, [diary.createdAt]);
 
   return (

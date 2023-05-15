@@ -27,8 +27,10 @@ import MyDiaryListCalendar from '@/components/organisms/MyDiaryList/MyDiaryListC
 import { User, Diary } from '@/types';
 import { FetchInfoState } from '@/stores/reducers/diaryList';
 import { useFirstScreen } from './useFirstScreen';
-import { useMyDiaryList } from './useMyDiaryList';
-import firestore from '@react-native-firebase/firestore';
+import firestore, {
+  FirebaseFirestoreTypes,
+} from '@react-native-firebase/firestore';
+import { getDiaries } from '@/utils/diary';
 
 export interface Props {
   user: User;
@@ -65,56 +67,90 @@ const styles = StyleSheet.create({
   },
 });
 
+const HIT_PER_PAGE = 10;
+
 /**
  * マイ日記一覧
  */
 const MyDiaryListScreen: React.FC<ScreenType> = ({
   user,
   diaries,
-  fetchInfo,
-  diaryTotalNum,
+  // fetchInfo,
   localStatus,
   deleteDiary,
   setDiaries,
   addDiaries,
-  setDiaryTotalNum,
-  setFetchInfo,
+  // setFetchInfo,
   setMyDiaryListView,
   navigation,
 }) => {
-  const [isLoading, setIsLoading] = useState(false);
   const elRefs = useRef<Swipeable[]>([]);
 
-  const {
-    isInitialLoading,
-    refreshing,
-    setRefreshing,
-    getNewDiary,
-    loadNextPage,
-  } = useMyDiaryList({
-    uid: user.uid,
-    fetchInfo,
-    localStatus,
-    setFetchInfo,
-    setDiaries,
-    addDiaries,
-    setDiaryTotalNum,
-  });
+  const [isLoading, setIsLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const lastVisible = useRef<FirebaseFirestoreTypes.FieldValue | null>(null);
+  const readingNext = useRef(false);
+  const readAllResults = useRef(false);
 
   // 初期データの取得
   useEffect(() => {
     const f = async (): Promise<void> => {
-      await getNewDiary();
+      const newDiaries = await getDiaries(user.uid, new Date(), HIT_PER_PAGE);
+      setDiaries(newDiaries);
+      if (newDiaries.length > 0) {
+        const { createdAt } = newDiaries[newDiaries.length - 1];
+        lastVisible.current = createdAt;
+      }
+      setIsLoading(false);
     };
     f();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onRefresh = useCallback(async (): Promise<void> => {
+    if (refreshing) return;
     setRefreshing(true);
-    await getNewDiary();
+    readingNext.current = false;
+    readAllResults.current = false;
+    const newDiaries = await getDiaries(user.uid, new Date(), HIT_PER_PAGE);
+
+    setDiaries(newDiaries);
+    if (newDiaries.length > 0) {
+      const { createdAt } = newDiaries[newDiaries.length - 1];
+      lastVisible.current = createdAt;
+    }
     setRefreshing(false);
-  }, [getNewDiary, setRefreshing]);
+  }, [refreshing, setDiaries, user.uid]);
+
+  const loadNextPage = useCallback(async (): Promise<void> => {
+    console.log('loadNextPage2', readingNext.current, readAllResults.current);
+    if (!readingNext.current && !readAllResults.current) {
+      console.log('loadNextPage2-2', lastVisible.current?.toDate());
+
+      try {
+        readingNext.current = true;
+        const newDiaries = await getDiaries(
+          user.uid,
+          lastVisible.current?.toDate(),
+          HIT_PER_PAGE,
+        );
+        console.log('newDiaries', newDiaries);
+
+        if (newDiaries.length === 0) {
+          readAllResults.current = true;
+          readingNext.current = false;
+        } else {
+          addDiaries(newDiaries);
+          lastVisible.current = newDiaries[newDiaries.length - 1].createdAt;
+          readingNext.current = false;
+        }
+      } catch (err: any) {
+        readingNext.current = false;
+        alert({ err });
+      }
+    }
+  }, [user.uid, addDiaries]);
 
   useFirstScreen({
     localStatus,
@@ -130,12 +166,11 @@ const MyDiaryListScreen: React.FC<ScreenType> = ({
           screen: 'PostDraftDiary',
           params: { item, objectID: item.objectID },
         });
-        return;
+      } else {
+        navigation.navigate('MyDiary', {
+          objectID: item.objectID,
+        });
       }
-
-      navigation.navigate('MyDiary', {
-        objectID: item.objectID,
-      });
     },
     [navigation],
   );
@@ -146,13 +181,12 @@ const MyDiaryListScreen: React.FC<ScreenType> = ({
       setIsLoading(true);
       await firestore().collection('diaries').doc(item.objectID).delete();
       deleteDiary(item.objectID);
-      setDiaryTotalNum(diaryTotalNum - 1);
       if (elRefs.current[index]) {
         elRefs.current[index].close();
       }
       setIsLoading(false);
     },
-    [deleteDiary, diaryTotalNum, setDiaryTotalNum],
+    [deleteDiary],
   );
 
   const handlePressDelete = useCallback(
@@ -177,9 +211,9 @@ const MyDiaryListScreen: React.FC<ScreenType> = ({
     [onDeleteDiary],
   );
 
-  const onPressEdit = useCallback(() => {
-    navigation.navigate('ModalEditMyDiaryList', { screen: 'EditMyDiaryList' });
-  }, [navigation]);
+  // const onPressEdit = useCallback(() => {
+  //   navigation.navigate('ModalEditMyDiaryList', { screen: 'EditMyDiaryList' });
+  // }, [navigation]);
 
   const onPressRight = useCallback(() => {
     setMyDiaryListView(
@@ -189,12 +223,12 @@ const MyDiaryListScreen: React.FC<ScreenType> = ({
     );
   }, [localStatus.myDiaryListView, setMyDiaryListView]);
 
-  const headerLeft = useCallback(() => {
-    if (diaryTotalNum > 0) {
-      return <HeaderText text={I18n.t('common.edit')} onPress={onPressEdit} />;
-    }
-    return null;
-  }, [diaryTotalNum, onPressEdit]);
+  // const headerLeft = useCallback(() => {
+  //   if (diaries.length > 0) {
+  //     return <HeaderText text={I18n.t('common.edit')} onPress={onPressEdit} />;
+  //   }
+  //   return null;
+  // }, [diaries.length, onPressEdit]);
 
   const headerRight = useCallback(
     () => (
@@ -213,29 +247,23 @@ const MyDiaryListScreen: React.FC<ScreenType> = ({
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerLeft,
+      // headerLeft,
       headerRight,
     });
-  }, [headerLeft, headerRight, navigation]);
+  }, [headerRight, navigation]);
 
   return (
     <Layout disableScroll showBottomAd>
       <View style={styles.container}>
-        <LoadingModal visible={isLoading || isInitialLoading} />
+        <LoadingModal visible={isLoading} />
         {!localStatus.myDiaryListView ||
         localStatus.myDiaryListView === 'list' ? (
           <MyDiaryListFlatList
             // emptyの時のレイアウトのため
             elRefs={elRefs}
-            isEmpty={
-              !isLoading &&
-              !isInitialLoading &&
-              !refreshing &&
-              diaries.length < 1
-            }
+            isEmpty={!isLoading && !refreshing && diaries.length < 1}
             refreshing={refreshing}
             diaries={diaries}
-            diaryTotalNum={diaryTotalNum}
             loadNextPage={loadNextPage}
             onRefresh={onRefresh}
             handlePressItem={handlePressItem}
