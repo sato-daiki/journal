@@ -4,6 +4,7 @@ module.exports = {
   GraduationSpeech: require('./graduationSpeech.png'),
   Grind: require('./grind.png'),
   Loading: require('./loading.gif'),
+  LoadingWhite: require('./loading-white.gif'),
   Logo: require('./logo.png'),
   Notification: require('./notification.png'),
   Office: require('./office.png'),

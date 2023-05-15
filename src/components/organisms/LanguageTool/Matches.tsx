@@ -69,9 +69,9 @@ const Matches: React.FC<Props> = ({
       <Card
         color={color}
         activeText={activeText}
-        shortMessage={match.shortMessage || match.rule?.issueType}
+        shortMessage={match.shortMessage || match.rule?.issueType || null}
         message={match.message}
-        urls={match?.rule?.urls}
+        urls={match.rule?.urls || null}
         replacements={match.replacements}
         onPressIgnore={onPressIgnore}
       />

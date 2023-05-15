@@ -1,5 +1,5 @@
-import React, { useCallback, useState, useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { useCallback, useState, useEffect, useRef } from 'react';
+import { Platform, StyleSheet, View } from 'react-native';
 import {
   connectActionSheet,
   useActionSheet,
@@ -8,6 +8,11 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
 import { Audio } from 'expo-av';
 import { LoadingModal, HeaderIcon } from '@/components/atoms';
+import Toast from 'react-native-root-toast';
+import {
+  RewardedAd,
+  RewardedAdEventType,
+} from 'react-native-google-mobile-ads';
 
 import { Diary } from '@/types';
 import {
@@ -18,6 +23,9 @@ import I18n from '@/utils/I18n';
 import firestore from '@react-native-firebase/firestore';
 import ModalConfirm from '@/components/organisms/ModalConfirm';
 import MyDiary from '@/components/organisms/MyDiary/MyDiary';
+import { transparentBlack } from '@/styles/Common';
+import { LoadingWhite } from '@/images';
+import { getSapling } from '@/utils/grammarCheck';
 
 export interface Props {
   diary?: Diary;
@@ -43,6 +51,23 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  adContainerStyle: {
+    backgroundColor: transparentBlack,
+  },
+  adTextStyle: {
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+});
+
+export type Key = 'revised' | 'origin';
+
+const IOS_AD_REWARD = 'ca-app-pub-0770181536572634/6050230343';
+const ANDROID_AD_REWARD = 'ca-app-pub-0770181536572634/2143323663';
+
+const adUnitId = Platform.OS === 'ios' ? IOS_AD_REWARD : ANDROID_AD_REWARD;
+const rewarded = RewardedAd.createForAdRequest(adUnitId, {
+  requestNonPersonalizedAdsOnly: true,
 });
 
 const MyDiaryScreen: React.FC<ScreenType> = ({
@@ -56,6 +81,35 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
   const [isModalDelete, setIsModalDelete] = useState(false);
   const [isModalAlertAudio, setIsModalAlertAudio] = useState(false);
   const [isModalConfirmation, setIsModalConfirmation] = useState(false); // 閉じる押した時
+  const [isAdLoading, setIsAdLoading] = useState(false);
+  const loaded = useRef<boolean>(false);
+  const pressKey = useRef<Key>();
+
+  const [saplingSuccess, setSaplingSuccess] = useState(false);
+
+  useEffect(() => {
+    const unsubscribeLoaded = rewarded.addAdEventListener(
+      RewardedAdEventType.LOADED,
+      () => {
+        setIsAdLoading(false);
+        loaded.current = true;
+        showAdReward();
+      },
+    );
+    const unsubscribeEarned = rewarded.addAdEventListener(
+      RewardedAdEventType.EARNED_REWARD,
+      (_reward) => {
+        // 獲得後
+        earnedReward();
+      },
+    );
+
+    return () => {
+      unsubscribeLoaded();
+      unsubscribeEarned();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onPressDelete = useCallback(async () => {
     if (!diary || !diary.objectID) return;
@@ -164,6 +218,78 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
     });
   }, [checkPermissions, diary, navigation]);
 
+  const onPressAdReward = useCallback((key: Key) => {
+    setIsAdLoading(true);
+    loaded.current = false;
+    rewarded.load();
+    pressKey.current = key;
+    setTimeout(() => {
+      setIsAdLoading(false);
+      if (loaded.current === false) {
+        Toast.show(I18n.t('myDiary.adRewardError'), {
+          duration: Toast.durations.SHORT,
+          position: Toast.positions.TOP,
+        });
+      }
+    }, 6000);
+  }, []);
+
+  const showAdReward = useCallback(async () => {
+    try {
+      console.log('showAdReward');
+      await rewarded.show();
+      console.log('showAdReward end');
+    } catch (err: any) {
+      Toast.show(I18n.t('myDiary.adRewardError'), {
+        duration: Toast.durations.SHORT,
+        position: Toast.positions.TOP,
+      });
+    }
+  }, []);
+
+  const earnedReward = useCallback(async () => {
+    // 広告最後までみた人が実行できる処理
+    if (!diary || !diary.objectID) return;
+
+    setIsLoading(true);
+    const isTitleSkip = !!diary.themeCategory && !!diary.themeSubcategory;
+
+    let saplingInfo;
+
+    if (pressKey.current === 'origin') {
+      const sapling = await getSapling(
+        diary.longCode,
+        isTitleSkip,
+        diary.title,
+        diary.text,
+      );
+      saplingInfo = sapling ? { sapling } : undefined;
+    } else {
+      const sapling = await getSapling(
+        diary.longCode,
+        isTitleSkip,
+        diary.reviseTitle || diary.title,
+        diary.reviseText || diary.text,
+      );
+      saplingInfo = sapling ? { reviseSapling: sapling } : undefined;
+    }
+
+    console.log('saplingInfo', pressKey.current, saplingInfo);
+
+    await firestore()
+      .doc(`diaries/${diary.objectID}`)
+      .update({
+        ...saplingInfo,
+        updatedAt: firestore.FieldValue.serverTimestamp(),
+      });
+    editDiary(diary.objectID, {
+      ...diary,
+      ...saplingInfo,
+    });
+    setIsLoading(false);
+    setSaplingSuccess(true);
+  }, [diary, editDiary]);
+
   if (!diary) {
     return null;
   }
@@ -171,6 +297,13 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
   return (
     <View style={styles.container}>
       <LoadingModal visible={isLoading} />
+      <LoadingModal
+        visible={isAdLoading}
+        text={I18n.t('myDiary.adLoading')}
+        source={LoadingWhite}
+        containerStyle={styles.adContainerStyle}
+        textStyle={styles.adTextStyle}
+      />
       <ModalConfirm
         visible={isModalDelete}
         isLoading={isLoading}
@@ -203,6 +336,8 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
         checkPermissions={checkPermissions}
         goToRecord={goToRecord}
         onPressRevise={onPressRevise}
+        onPressAdReward={onPressAdReward}
+        saplingSuccess={saplingSuccess}
       />
     </View>
   );

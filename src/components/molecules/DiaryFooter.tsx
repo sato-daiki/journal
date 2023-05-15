@@ -14,13 +14,14 @@ import ModalVoice from '../organisms/ModalVoice';
 import { LongCode } from '@/types';
 
 type Props = {
+  showAdReward: boolean;
   hideFooterButton: boolean;
   text: string;
   longCode: LongCode;
   voiceUrl?: string | null;
   onPressRevise?: () => void;
   checkPermissions?: () => Promise<boolean>;
-  onPressAdReward?: () => Promise<boolean>;
+  onPressAdReward?: () => void;
   goToRecord?: () => void;
 };
 
@@ -39,6 +40,7 @@ const styles = StyleSheet.create({
 });
 
 const DiaryFooter: React.FC<Props> = ({
+  showAdReward,
   hideFooterButton,
   text,
   voiceUrl,
@@ -224,41 +226,35 @@ const DiaryFooter: React.FC<Props> = ({
               onPress={onPressRevise}
             />
           )}
-
-          {/* {onPressAdReward && (
+          {/* saplingでまだチェックされていない時 */}
+          {showAdReward && onPressAdReward && (
             <WhiteButton
               containerStyle={styles.button}
               icon={iconSpellcheck}
               title={I18n.t('myDiary.adReward')}
               onPress={onPressAdReward}
             />
-          )} */}
-
-          <Space size={24} />
-          {goToRecord && (
-            <>
-              <GrayHeader
-                icon={iconHeader}
-                title={I18n.t('myDiary.voiceTitle')}
-              />
-              <Space size={24} />
-              {voiceUrl && (
-                <WhiteButton
-                  containerStyle={styles.button}
-                  icon={iconHeadphones}
-                  title={I18n.t('myDiary.myVoice')}
-                  onPress={onPressMyVoice}
-                />
-              )}
-              <WhiteButton
-                containerStyle={styles.button}
-                title={I18n.t('myDiary.record')}
-                icon={iconRecord}
-                onPress={goToRecord}
-              />
-              <Space size={32} />
-            </>
           )}
+          <Space size={24} />
+          <GrayHeader icon={iconHeader} title={I18n.t('myDiary.voiceTitle')} />
+          <Space size={24} />
+          {voiceUrl && (
+            <WhiteButton
+              containerStyle={styles.button}
+              icon={iconHeadphones}
+              title={I18n.t('myDiary.myVoice')}
+              onPress={onPressMyVoice}
+            />
+          )}
+          {goToRecord && (
+            <WhiteButton
+              containerStyle={styles.button}
+              title={I18n.t('myDiary.record')}
+              icon={iconRecord}
+              onPress={goToRecord}
+            />
+          )}
+          <Space size={32} />
         </>
       )}
       {voiceUrl ? (

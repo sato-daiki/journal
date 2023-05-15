@@ -171,6 +171,8 @@ const myDiary = {
   copiedTitle: 'The title was copied to your clipboard',
   copiedText: 'The text was copied to your clipboard',
   copied: 'The text was copied to your clipboard',
+  adRewardError: 'An error occurred while playing the video',
+  adLoading: 'Ad loading',
 };
 
 const viewMyDiary = {

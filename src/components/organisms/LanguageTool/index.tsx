@@ -11,6 +11,7 @@ import DiaryFooter from '@/components/molecules/DiaryFooter';
 import { useCommon } from './useCommon';
 
 export interface Props {
+  showAdReward: boolean;
   hideFooterButton: boolean;
   diary: Diary;
   title: string;
@@ -21,6 +22,7 @@ export interface Props {
   checkPermissions?: () => Promise<boolean>;
   goToRecord?: () => void;
   onPressRevise?: () => void;
+  onPressAdReward?: () => void;
 }
 
 const styles = StyleSheet.create({
@@ -42,6 +44,7 @@ const styles = StyleSheet.create({
 });
 
 const LanguageTool: React.FC<Props> = ({
+  showAdReward,
   hideFooterButton,
   diary,
   title,
@@ -52,6 +55,7 @@ const LanguageTool: React.FC<Props> = ({
   checkPermissions,
   goToRecord,
   onPressRevise,
+  onPressAdReward,
 }) => {
   const {
     viewShotRef,
@@ -135,8 +139,6 @@ const LanguageTool: React.FC<Props> = ({
     }
   }, [textActiveIndex, textArray, diary, editDiary, setTextActiveIndex]);
 
-  const onPressAdReward = () => {};
-
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollView}>
@@ -164,13 +166,14 @@ const LanguageTool: React.FC<Props> = ({
           </View>
           <DiaryFooter
             hideFooterButton={hideFooterButton}
+            showAdReward={showAdReward}
             text={text}
             longCode={diary.longCode}
             voiceUrl={diary.voiceUrl}
             checkPermissions={checkPermissions}
             goToRecord={goToRecord}
             onPressRevise={onPressRevise}
-            // onPressAdReward={onPressAdReward}
+            onPressAdReward={onPressAdReward}
           />
         </ViewShot>
         <Space size={32} />

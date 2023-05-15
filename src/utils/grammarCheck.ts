@@ -8,6 +8,8 @@ import {
   LanguageTool,
   LongCode,
   Match,
+  RawEdit,
+  RawMatch,
   Result,
   Sapling,
 } from '../types';
@@ -108,6 +110,25 @@ export const languageToolLanguages: LanguageInfo[] = [
   { code: 'nl', longCode: 'nl', name: 'Dutch' },
 ];
 
+const getMatches = (matches: RawMatch[]): Match[] => {
+  return matches.map((item) => {
+    return {
+      message: item.message,
+      shortMessage: item.shortMessage || null,
+      offset: item.offset,
+      length: item.length,
+      replacements: item.replacements.filter((_v, i) => i < 5),
+      rule: item.rule
+        ? {
+            description: item.rule.description,
+            urls: item.rule.urls || null,
+            issueType: item.rule.issueType || null,
+          }
+        : null,
+    };
+  });
+};
+
 const languageToolCheck = async (
   learnLanguage: LongCode,
   text: string,
@@ -131,7 +152,10 @@ const languageToolCheck = async (
     );
     if (response.status === 200 && response.data.matches) {
       return {
-        matches: response.data.matches,
+        matches:
+          response.data.matches.length > 0
+            ? getMatches(response.data.matches)
+            : [],
         result: response.data.matches.length === 0 ? 'perfect' : 'corrected',
         error: null,
       };
@@ -152,7 +176,7 @@ const languageToolCheck = async (
   }
 };
 
-const getLanguageTool = async (
+export const getLanguageTool = async (
   learnLanguage: LongCode,
   isTitleSkip: boolean,
   title: string,
@@ -197,6 +221,19 @@ export const getLanguageToolColors = (match: Match) => {
 
 const SPALING_ENDPOINT = 'https://api.sapling.ai/api/v1';
 
+const getEdites = (edits: RawEdit[]): Edit[] => {
+  return edits.map((item) => {
+    return {
+      sentence: item.sentence,
+      sentence_start: item.sentence_start,
+      start: item.start,
+      end: item.end,
+      replacement: item.replacement,
+      general_error_type: item.general_error_type,
+    };
+  });
+};
+
 const saplingCheck = async (
   learnLanguage: LongCode,
   text: string,
@@ -221,7 +258,8 @@ const saplingCheck = async (
     );
     if (response.status === 200 && response.data.edits) {
       return {
-        edits: response.data.edits,
+        edits:
+          response.data.edits.length > 0 ? getEdites(response.data.edits) : [],
         result: response.data.edits.length === 0 ? 'perfect' : 'corrected',
         error: null,
       };
@@ -242,7 +280,7 @@ const saplingCheck = async (
   }
 };
 
-const getSapling = async (
+export const getSapling = async (
   learnLanguage: LongCode,
   isTitleSkip: boolean,
   title: string,
@@ -282,22 +320,4 @@ export const getSaplingColors = (edit: Edit) => {
   } else {
     return { color: yellow, backgroundColor: yellowOpacy };
   }
-};
-
-export const getAiCheck = async (
-  learnLanguage: LongCode,
-  isTitleSkip: boolean,
-  title: string,
-  text: string,
-) => {
-  const languageTool = await getLanguageTool(
-    learnLanguage,
-    isTitleSkip,
-    title,
-    text,
-  );
-  console.log('languageTool', languageTool);
-  const sapling = await getSapling(learnLanguage, isTitleSkip, title, text);
-  console.log('sapling', sapling);
-  return { languageTool, sapling };
 };

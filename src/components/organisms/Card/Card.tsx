@@ -15,9 +15,9 @@ import I18n from '@/utils/I18n';
 interface Props {
   color: string;
   activeText: string;
-  shortMessage?: string;
+  shortMessage: string | null;
   message?: string;
-  urls?: { value: string }[];
+  urls?: { value: string }[] | null;
   replacements: { value: string }[];
   onPressIgnore: () => void;
 }
@@ -129,12 +129,6 @@ export const Card: React.FC<Props> = ({
     Linking.openURL(value);
   }, []);
 
-  const filterReplacements = useMemo(
-    // replacementsが多すぎる時があるため
-    () => replacements.filter((_v, i) => i < 5),
-    [replacements],
-  );
-
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View>
@@ -145,7 +139,7 @@ export const Card: React.FC<Props> = ({
         <View style={styles.secondRow}>
           <Text style={[styles.baseWord, { color: color }]}>{activeText}</Text>
           <Text style={styles.right}>→</Text>
-          {filterReplacements.map((replacement, index) => (
+          {replacements.map((replacement, index) => (
             <View key={index} style={styles.replacementContaienr}>
               <Text style={styles.replacement}>{replacement.value}</Text>
               <HoverableIcon
@@ -155,7 +149,7 @@ export const Card: React.FC<Props> = ({
                 color={primaryColor}
                 onPress={() => onPressCopy(replacement.value)}
               />
-              {index !== filterReplacements.length - 1 && (
+              {index !== replacements.length - 1 && (
                 <Text style={styles.or}>or</Text>
               )}
             </View>

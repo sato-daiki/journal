@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { TabView } from 'react-native-tab-view';
 import {
@@ -18,6 +18,8 @@ interface Props {
   onPressRevise?: () => void;
   checkPermissions?: () => Promise<boolean>;
   goToRecord?: () => void;
+  onPressAdReward?: () => void;
+  saplingSuccess?: boolean;
   title: string;
   text: string;
   languageTool?: LanguageToolType | null;
@@ -39,9 +41,11 @@ const AiCheck: React.FC<Props> = ({
   text,
   languageTool,
   sapling,
+  saplingSuccess,
   checkPermissions,
   goToRecord,
   onPressRevise,
+  onPressAdReward,
 }) => {
   const [index, setIndex] = useState(0);
   const [routes] = useState([
@@ -49,9 +53,25 @@ const AiCheck: React.FC<Props> = ({
     { key: 'ai2', title: I18n.t('myDiary.ai2') },
   ]);
 
+  useEffect(() => {
+    if (saplingSuccess) {
+      setIndex(1);
+    }
+  }, [saplingSuccess]);
+
   const onIndexChange = useCallback((i: number) => {
     setIndex(i);
   }, []);
+
+  const hasSapling = useMemo(
+    () =>
+      !!sapling &&
+      (sapling.titleResult === 'corrected' ||
+        sapling.titleResult === 'perfect' ||
+        sapling.textError === 'corrected' ||
+        sapling.textError === 'perfect'),
+    [sapling],
+  );
 
   const renderScene = useCallback(
     ({ route }) => {
@@ -59,6 +79,7 @@ const AiCheck: React.FC<Props> = ({
         case 'ai1':
           return (
             <LanguageTool
+              showAdReward={!hasSapling && !hideFooterButton}
               hideFooterButton={hideFooterButton}
               diary={diary}
               title={title}
@@ -69,11 +90,13 @@ const AiCheck: React.FC<Props> = ({
               checkPermissions={checkPermissions}
               goToRecord={goToRecord}
               onPressRevise={onPressRevise}
+              onPressAdReward={onPressAdReward}
             />
           );
         case 'ai2':
           return (
             <Sapling
+              showAdReward={false}
               hideFooterButton={hideFooterButton}
               diary={diary}
               title={title}
@@ -84,6 +107,7 @@ const AiCheck: React.FC<Props> = ({
               checkPermissions={checkPermissions}
               goToRecord={goToRecord}
               onPressRevise={onPressRevise}
+              onPressAdReward={onPressAdReward}
             />
           );
         default:
@@ -95,9 +119,11 @@ const AiCheck: React.FC<Props> = ({
       diary,
       editDiary,
       goToRecord,
+      hasSapling,
       hideFooterButton,
       languageTool?.textMatches,
       languageTool?.titleMatches,
+      onPressAdReward,
       onPressRevise,
       sapling?.textEdits,
       sapling?.titleEdits,
@@ -108,17 +134,11 @@ const AiCheck: React.FC<Props> = ({
 
   const renderTabBar = useCallback(
     (props) => {
-      if (
-        sapling &&
-        (sapling.titleResult === 'corrected' ||
-          sapling.titleResult === 'perfect' ||
-          sapling.textError === 'corrected' ||
-          sapling.textError === 'perfect')
-      ) {
+      if (hasSapling) {
         return <ChildTabBar {...props} />;
       }
     },
-    [sapling],
+    [hasSapling],
   );
 
   if (!diary) {

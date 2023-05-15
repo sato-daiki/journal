@@ -5,23 +5,28 @@ import { Diary } from '@/types';
 import I18n from '@/utils/I18n';
 import { ParentTabBar } from '@/components/molecules';
 import AiCheck from '@/components/organisms/AiCheck';
+import { Key } from '@/screens/MyDiaryTab/MyDiaryScreen';
 
 interface Props {
   isView: boolean;
   diary: Diary;
   editDiary: (objectID: string, diary: Diary) => void;
+  saplingSuccess?: boolean;
   checkPermissions?: () => Promise<boolean>;
   goToRecord?: () => void;
   onPressRevise?: () => void;
+  onPressAdReward?: (key: Key) => void;
 }
 
 const MyDiary: React.FC<Props> = ({
   isView,
   diary,
   editDiary,
+  saplingSuccess,
   checkPermissions,
   goToRecord,
   onPressRevise,
+  onPressAdReward,
 }) => {
   const [index, setIndex] = useState(
     diary && (diary.reviseTitle || diary.reviseText) ? 0 : 1,
@@ -54,9 +59,13 @@ const MyDiary: React.FC<Props> = ({
               languageTool={diary.reviseLanguageTool}
               sapling={diary.reviseSapling}
               editDiary={editDiary}
+              saplingSuccess={saplingSuccess}
               checkPermissions={checkPermissions}
               goToRecord={goToRecord}
               onPressRevise={onPressRevise}
+              onPressAdReward={() =>
+                onPressAdReward && onPressAdReward('revised')
+              }
             />
           );
         case 'origin':
@@ -69,9 +78,13 @@ const MyDiary: React.FC<Props> = ({
               languageTool={diary.languageTool}
               sapling={diary.sapling}
               editDiary={editDiary}
+              saplingSuccess={saplingSuccess}
               checkPermissions={checkPermissions}
               goToRecord={goToRecord}
               onPressRevise={onPressRevise}
+              onPressAdReward={() =>
+                onPressAdReward && onPressAdReward('origin')
+              }
             />
           );
         default:
@@ -85,7 +98,9 @@ const MyDiary: React.FC<Props> = ({
       goToRecord,
       hasRevised,
       isView,
+      onPressAdReward,
       onPressRevise,
+      saplingSuccess,
     ],
   );
 

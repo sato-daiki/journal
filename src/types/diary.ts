@@ -23,9 +23,9 @@ export interface Diary {
   voiceUrl?: string | null;
   publishedAt?: Timestamp | any;
   longCode: LongCode;
-  languageTool?: LanguageTool | null;
-  sapling?: Sapling | null;
-  reviseLanguageTool?: LanguageTool | null;
+  languageTool?: LanguageTool;
+  sapling?: Sapling;
+  reviseLanguageTool?: LanguageTool;
   reviseSapling?: Sapling | null;
   createdAt: Timestamp | any;
   updatedAt: Timestamp | any;

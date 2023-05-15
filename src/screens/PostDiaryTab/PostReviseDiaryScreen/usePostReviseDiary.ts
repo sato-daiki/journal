@@ -4,9 +4,8 @@ import { User, Diary, LongCode, LanguageTool } from '@/types';
 import { checkBeforePost } from '@/utils/diary';
 import { useCommon } from '../PostDiaryScreen/useCommont';
 import firestore from '@react-native-firebase/firestore';
-import { getAiCheck } from '@/utils/grammarCheck';
-import { Sapling } from '@/types/sapling';
 import { PostReviseDiaryNavigationProp } from './PostReviseDiaryScreen';
+import { getLanguageTool } from '@/utils/grammarCheck';
 
 interface UsePostReviseDiary {
   user: User;
@@ -55,12 +54,16 @@ export const usePostReviseDiary = ({
   }, []);
 
   const getDiary = useCallback(
-    (languageTool?: LanguageTool, sapling?: Sapling) => {
+    (languageTool?: LanguageTool) => {
+      const languageToolInfo = languageTool
+        ? { reviseLanguageTool: languageTool }
+        : undefined;
+
       return {
         reviseTitle: title,
         reviseText: text,
-        reviseLanguageTool: languageTool || null,
-        reviseSapling: sapling || null,
+        ...languageToolInfo,
+        reviseSapling: null,
         updatedAt: firestore.FieldValue.serverTimestamp(),
       };
     },
@@ -83,14 +86,14 @@ export const usePostReviseDiary = ({
 
     setIsLoadingPublish(true);
 
-    const { languageTool, sapling } = await getAiCheck(
+    const languageTool = await getLanguageTool(
       selectedItem.value as LongCode,
       isTitleSkip,
       title,
       text,
     );
 
-    const diary = getDiary(languageTool, sapling);
+    const diary = getDiary(languageTool);
     await firestore().doc(`diaries/${item.objectID}`).update(diary);
 
     // reduxを更新

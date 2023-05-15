@@ -11,6 +11,7 @@ import Edits from './Edits';
 import { useCommon } from '@/components/organisms/LanguageTool/useCommon';
 
 export interface Props {
+  showAdReward: boolean;
   hideFooterButton: boolean;
   diary: Diary;
   title: string;
@@ -21,6 +22,7 @@ export interface Props {
   checkPermissions?: () => Promise<boolean>;
   goToRecord?: () => void;
   onPressRevise?: () => void;
+  onPressAdReward?: () => void;
 }
 
 const styles = StyleSheet.create({
@@ -42,6 +44,7 @@ const styles = StyleSheet.create({
 });
 
 const Sapling: React.FC<Props> = ({
+  showAdReward,
   hideFooterButton,
   diary,
   title,
@@ -52,6 +55,7 @@ const Sapling: React.FC<Props> = ({
   checkPermissions,
   goToRecord,
   onPressRevise,
+  onPressAdReward,
 }) => {
   const {
     viewShotRef,
@@ -160,6 +164,7 @@ const Sapling: React.FC<Props> = ({
             />
           </View>
           <DiaryFooter
+            showAdReward={showAdReward}
             hideFooterButton={hideFooterButton}
             text={text}
             longCode={diary.longCode}
@@ -167,6 +172,7 @@ const Sapling: React.FC<Props> = ({
             checkPermissions={checkPermissions}
             goToRecord={goToRecord}
             onPressRevise={onPressRevise}
+            onPressAdReward={onPressAdReward}
           />
         </ViewShot>
         <Space size={32} />
