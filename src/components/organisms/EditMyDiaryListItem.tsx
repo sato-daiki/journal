@@ -9,7 +9,7 @@ import {
   green,
 } from '@/styles/Common';
 import { MyDiaryStatus } from '@/components/molecules';
-import { getAlgoliaDay } from '@/utils/time';
+import { getDay } from '@/utils/time';
 import { Diary } from '@/types';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { DiaryTitle } from '../atoms';
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
 const EditMyDiaryListItem = ({ item, handlePress }: Props) => {
   const { createdAt, title, text, themeCategory, themeSubcategory } = item;
   const [checked, setChecked] = useState(false);
-  const postDay = getAlgoliaDay(createdAt);
+  const postDay = getDay(createdAt);
 
   const onPress = useCallback(() => {
     if (!item.objectID) return;

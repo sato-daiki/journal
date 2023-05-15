@@ -2,22 +2,6 @@ import moment, { DurationInputArg1, DurationInputArg2 } from 'moment';
 import 'moment/locale/ja';
 import I18n from '@/utils/I18n';
 
-/** algoliaから取得した時とfirestoreから取得したときは方が異なるで別で関数を用意する */
-export const getAlgoliaDay = (timestamp: any, format = 'Y-M-D'): string => {
-  // eslint-disable-next-line no-underscore-dangle
-  if (!timestamp) {
-    return '';
-  }
-
-  // eslint-disable-next-line no-underscore-dangle
-  if (!timestamp._seconds) {
-    // reduxに登録された状態（日記投稿直後だとこちらに入る）
-    return moment(timestamp).format(format);
-  }
-  // eslint-disable-next-line no-underscore-dangle
-  return moment.unix(timestamp._seconds).format(format);
-};
-
 export const getDay = (timestamp: any): string => {
   if (!timestamp) {
     return '';
@@ -74,7 +58,7 @@ export const getShortDayName = (day: number | undefined): string => {
   }
 };
 
-export const getAlgoliaDate = (timestamp: any): string => {
+export const getDate = (timestamp: any): string => {
   if (!timestamp) {
     return '';
   }

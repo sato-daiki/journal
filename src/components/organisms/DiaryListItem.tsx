@@ -12,7 +12,7 @@ import {
   subTextColor,
   hoverGray,
 } from '@/styles/Common';
-import { getAlgoliaDay } from '@/utils/time';
+import { getDay } from '@/utils/time';
 import { Diary } from '@/types';
 
 interface Props {
@@ -66,7 +66,7 @@ const DiaryListItem = ({ item, onPressItem }: Props) => {
     themeCategory,
     themeSubcategory,
   } = item;
-  const postDay = getAlgoliaDay(createdAt);
+  const postDay = getDay(createdAt);
 
   const onPressRow = useCallback(() => {
     onPressItem(item);
