@@ -6,7 +6,9 @@ import { checkBeforePost, getRunning, getThemeDiaries } from '@/utils/diary';
 import { alert } from '@/utils/ErrorAlert';
 import { PostDraftDiaryNavigationProp } from './interfaces';
 import { useCommon } from '../PostDiaryScreen/useCommont';
-import firestore from '@react-native-firebase/firestore';
+import firestore, {
+  FirebaseFirestoreTypes,
+} from '@react-native-firebase/firestore';
 import {
   getLanguageTool,
   getLanguageToolShortName,
@@ -75,7 +77,8 @@ export const usePostDraftDiary = ({
         diaryStatus,
         longCode: selectedItem.value as LongCode,
         ...languageToolInfo,
-        updatedAt: firestore.FieldValue.serverTimestamp(),
+        updatedAt:
+          firestore.FieldValue.serverTimestamp() as FirebaseFirestoreTypes.Timestamp,
       };
     },
     [title, text, selectedItem.value],
@@ -191,7 +194,8 @@ export const usePostDraftDiary = ({
     editDiary(item.objectID, {
       ...item,
       ...diary,
-      updatedAt: firestore.FieldValue.serverTimestamp(),
+      updatedAt:
+        firestore.FieldValue.serverTimestamp() as FirebaseFirestoreTypes.Timestamp,
     });
 
     setUser({

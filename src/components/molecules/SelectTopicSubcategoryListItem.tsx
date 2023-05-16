@@ -96,7 +96,7 @@ const SelectTopicSubcategoryListItem: React.FC<Props> = ({
         {themeDiary ? (
           <View style={styles.textRight}>
             <Text style={styles.postDayText}>
-              {getDay(themeDiary.updatedAt)}
+              {getDay(themeDiary.updatedAt.toDate())}
             </Text>
             <DiaryStatusLabel
               color={MY_STATUS.checked.color}

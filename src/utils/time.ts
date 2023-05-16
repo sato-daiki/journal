@@ -2,11 +2,11 @@ import moment, { DurationInputArg1, DurationInputArg2 } from 'moment';
 import 'moment/locale/ja';
 import I18n from '@/utils/I18n';
 
-export const getDay = (timestamp: any): string => {
+export const getDay = (timestamp: Date, format = 'Y-M-D'): string => {
   if (!timestamp) {
     return '';
   }
-  return moment(timestamp.toDate()).format('Y-M-D');
+  return moment(timestamp).format(format);
 };
 
 export const getTime = (date: Date | undefined): string => {

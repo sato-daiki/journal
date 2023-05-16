@@ -69,7 +69,7 @@ const SelectEikenListItem: React.FC<Props> = ({
 }) => {
   const updatedAt = useMemo(() => {
     if (themeDiary) {
-      return getDay(themeDiary.updatedAt);
+      return getDay(themeDiary.updatedAt.toDate());
     }
   }, [themeDiary]);
 

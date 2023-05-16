@@ -17,6 +17,7 @@ interface Props {
   elRefs: React.MutableRefObject<Swipeable[]>;
   isEmpty: boolean;
   refreshing: boolean;
+  diaryTotalNum: number;
   diaries: Diary[];
   loadNextPage: () => void;
   onRefresh: () => void;
@@ -36,6 +37,7 @@ const MyDiaryListFlatList: React.FC<Props> = ({
   elRefs,
   isEmpty,
   refreshing,
+  diaryTotalNum,
   diaries,
   loadNextPage,
   handlePressItem,
@@ -52,10 +54,10 @@ const MyDiaryListFlatList: React.FC<Props> = ({
   const listHeaderComponent = useCallback(() => {
     return (
       <GrayHeader
-        title={I18n.t('myDiaryList.diaryList', { count: diaries.length })}
+        title={I18n.t('myDiaryList.diaryList', { count: diaryTotalNum })}
       />
     );
-  }, [diaries.length]);
+  }, [diaryTotalNum]);
 
   const renderItem: ListRenderItem<Diary> = useCallback(
     ({ item, index }) => {

@@ -22,9 +22,9 @@ import {
 import { FetchInfoState } from '@/stores/reducers/diaryList';
 import EditMyDiaryListItem from '@/components/organisms/EditMyDiaryListItem';
 import { borderLightColor, fontSizeS, softRed } from '@/styles/Common';
-import { alert } from '@/utils/ErrorAlert';
 import ModalConfirm from '@/components/organisms/ModalConfirm';
 import firestore from '@react-native-firebase/firestore';
+import { getLoadNextPage } from '@/utils/diary';
 
 export interface Props {
   user: User;
@@ -86,40 +86,8 @@ const EditMyDiaryListScreen: React.FC<ScreenType> = ({
   const checkedIds = useRef<string[]>([]);
 
   const loadNextPage = useCallback(async (): Promise<void> => {
-    if (!fetchInfo.readingNext && !fetchInfo.readAllResults) {
-      try {
-        const hitsPerPage = HIT_PER_PAGE;
-
-        const nextPage = fetchInfo.page + 1;
-        setFetchInfo({
-          ...fetchInfo,
-          readingNext: true,
-        });
-
-        if (hits.length === 0) {
-          setFetchInfo({
-            ...fetchInfo,
-            readAllResults: true,
-            readingNext: false,
-          });
-        } else {
-          const newDiaries = hits as Diary[];
-          addDiaries(newDiaries);
-          setFetchInfo({
-            ...fetchInfo,
-            page: nextPage,
-            readingNext: false,
-          });
-        }
-      } catch (err: any) {
-        setFetchInfo({
-          ...fetchInfo,
-          readingNext: false,
-        });
-        alert({ err });
-      }
-    }
-  }, [addDiaries, fetchInfo, setFetchInfo]);
+    getLoadNextPage(fetchInfo, setFetchInfo, user.uid, addDiaries);
+  }, [addDiaries, fetchInfo, setFetchInfo, user.uid]);
 
   const onPressClose = useCallback(() => {
     navigation.goBack();
@@ -136,8 +104,9 @@ const EditMyDiaryListScreen: React.FC<ScreenType> = ({
   const onDeleteDiaries = useCallback(async () => {
     if (checkedIds.current.length === 0) return;
     setIsLoading(true);
+
     checkedIds.current.forEach(async (id) => {
-      await firestore().collection('diaries').doc(id);
+      await firestore().collection('diaries').doc(id).delete();
     });
     setIsLoading(false);
 

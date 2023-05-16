@@ -2,9 +2,10 @@ import { Actions } from '../../types/state';
 import { Types } from '../types';
 import { Diary } from '../../types';
 import { DeleteDiaryAction } from '../actions/diaryList';
+import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
 
 export interface FetchInfoState {
-  page: number;
+  lastVisible: FirebaseFirestoreTypes.Timestamp | null;
   readingNext: boolean;
   readAllResults: boolean;
 }
@@ -19,7 +20,7 @@ const initialState: DiaryListState = {
   diaries: [],
   diaryTotalNum: 0,
   fetchInfo: {
-    page: 0,
+    lastVisible: null,
     readingNext: false,
     readAllResults: false,
   },
@@ -30,10 +31,10 @@ const editDiary = (
   payload: {
     objectID: string;
     diary: Diary;
-  }
+  },
 ): DiaryListState => {
   const { objectID, diary } = payload;
-  const newDiaries = state.diaries.map(item => {
+  const newDiaries = state.diaries.map((item) => {
     if (item.objectID !== objectID) {
       return item;
     }
@@ -50,12 +51,12 @@ const editDiary = (
 
 const deleteDiary = (
   state: DiaryListState,
-  action: DeleteDiaryAction
+  action: DeleteDiaryAction,
 ): DiaryListState => {
   const { objectID } = action;
   return {
     ...state,
-    diaries: state.diaries.filter(item => item.objectID !== objectID),
+    diaries: state.diaries.filter((item) => item.objectID !== objectID),
     diaryTotalNum: state.diaryTotalNum - 1,
   };
 };

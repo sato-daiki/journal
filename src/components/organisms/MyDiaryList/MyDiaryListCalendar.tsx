@@ -135,8 +135,12 @@ const MyDiaryListCalendar: React.FC<Props> = ({
   useEffect(() => {
     const newDiaries = diaries.filter(
       (item) =>
-        getDay(item.publishedAt || item.createdAt, 'YYYY-MM-DD') ===
-        selectedDay,
+        getDay(
+          item.publishedAt
+            ? item.publishedAt.toDate()
+            : item.createdAt.toDate(),
+          'YYYY-MM-DD',
+        ) === selectedDay,
     );
     setTargetDayDiaries(newDiaries);
   }, [diaries, selectedDay]);

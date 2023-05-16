@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { View, Text, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import {
   fontSizeS,
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
 const EditMyDiaryListItem = ({ item, handlePress }: Props) => {
   const { createdAt, title, text, themeCategory, themeSubcategory } = item;
   const [checked, setChecked] = useState(false);
-  const postDay = getDay(createdAt);
+  const postDay = useMemo(() => getDay(createdAt.toDate()), [createdAt]);
 
   const onPress = useCallback(() => {
     if (!item.objectID) return;

@@ -1,12 +1,7 @@
 import { ThemeCategory, ThemeSubcategory } from './user';
 import { LanguageTool, LongCode } from './languageTool';
 import { Sapling } from './sapling';
-
-// algolia経由で取得するのでtimestamp型が他と異なる
-export type Timestamp = {
-  _seconds: number;
-  _nanoseconds: number;
-};
+import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
 
 export type DiaryStatus = 'draft' | 'checked';
 
@@ -21,12 +16,12 @@ export interface Diary {
   reviseText?: string | null;
   diaryStatus: DiaryStatus;
   voiceUrl?: string | null;
-  publishedAt?: Timestamp | any;
+  publishedAt?: FirebaseFirestoreTypes.Timestamp;
   longCode: LongCode;
   languageTool?: LanguageTool;
   sapling?: Sapling;
   reviseLanguageTool?: LanguageTool;
   reviseSapling?: Sapling | null;
-  createdAt: Timestamp | any;
-  updatedAt: Timestamp | any;
+  createdAt: FirebaseFirestoreTypes.Timestamp;
+  updatedAt: FirebaseFirestoreTypes.Timestamp;
 }

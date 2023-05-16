@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 import { DiaryTitle, Hoverable } from '@/components/atoms';
@@ -66,7 +66,7 @@ const DiaryListItem = ({ item, onPressItem }: Props) => {
     themeCategory,
     themeSubcategory,
   } = item;
-  const postDay = getDay(createdAt);
+  const postDay = useMemo(() => getDay(createdAt.toDate()), [createdAt]);
 
   const onPressRow = useCallback(() => {
     onPressItem(item);
