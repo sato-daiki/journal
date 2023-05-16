@@ -262,8 +262,9 @@ export const getDiaryNum = async (uid: string): Promise<number> => {
   const snap = await firestore()
     .collection('diaries')
     .where('uid', '==', uid)
+    .countFromServer()
     .get();
-  return snap.size;
+  return snap.data().count;
 };
 
 const HIT_PER_PAGE = 20;
