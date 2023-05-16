@@ -202,7 +202,7 @@ export const getLanguageTool = async (
     if (textLanguageTool.result === 'error') {
       Toast.show(I18n.t('postDiary.correctError'), {
         duration: Toast.durations.LONG,
-        position: Toast.positions.TOP,
+        position: Toast.positions.CENTER,
       });
     }
 
@@ -218,7 +218,7 @@ export const getLanguageTool = async (
     console.warn(err);
     Toast.show(I18n.t('postDiary.correctError'), {
       duration: Toast.durations.LONG,
-      position: Toast.positions.TOP,
+      position: Toast.positions.CENTER,
     });
 
     return;
@@ -318,7 +318,7 @@ export const getSapling = async (
     if (textSapling.result === 'error') {
       Toast.show(I18n.t('postDiary.correctError'), {
         duration: Toast.durations.LONG,
-        position: Toast.positions.TOP,
+        position: Toast.positions.CENTER,
       });
     }
 
@@ -334,7 +334,7 @@ export const getSapling = async (
     console.warn(err);
     Toast.show(I18n.t('postDiary.correctError'), {
       duration: Toast.durations.LONG,
-      position: Toast.positions.TOP,
+      position: Toast.positions.CENTER,
     });
     return;
   }

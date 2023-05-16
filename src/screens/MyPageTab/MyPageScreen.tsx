@@ -3,6 +3,8 @@ import { StyleSheet, View, Text, ScrollView } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { LANGUAGE_TOOL_API_KEY, SAPLING_API_KEY } from '@env';
+
 import { primaryColor, subTextColor, fontSizeS } from '../../styles/Common';
 import { User } from '../../types';
 import {
@@ -95,6 +97,7 @@ const MyPageScreen: React.FC<ScreenType> = ({ navigation, user }) => {
           <CountryNameWithFlag size={'large'} longCode={user.learnLanguage} />
         </View>
         <Space size={16} />
+        <Text>{SAPLING_API_KEY}</Text>
         <SmallButtonWhite
           title={I18n.t('myPage.editButton')}
           onPress={onPressEdit}

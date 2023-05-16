@@ -170,7 +170,7 @@ const myDiary = {
   copiedText: '本文をコピーしました',
   copied: 'テキストをコピーしました',
   adRewardError: '動画再生においてエラーが発生しました。添削を終了します',
-  adLoading: '広告を読み込んでします',
+  adLoading: '広告を読み込んでいます',
 };
 
 const viewMyDiary = {
