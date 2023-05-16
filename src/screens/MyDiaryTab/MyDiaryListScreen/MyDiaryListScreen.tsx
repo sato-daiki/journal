@@ -92,6 +92,10 @@ const MyDiaryListScreen: React.FC<ScreenType> = ({
   // 初期データの取得
   useEffect(() => {
     const f = async (): Promise<void> => {
+      if (!user.uid) {
+        setIsLoading(false);
+        return;
+      }
       const newDiaries = await getDiaries(user.uid, new Date(), HIT_PER_PAGE);
       const newDiaryTotalNum = await getDiaryNum(user.uid);
       setDiaryTotalNum(newDiaryTotalNum);
