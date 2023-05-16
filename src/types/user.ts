@@ -1,3 +1,4 @@
+import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
 import { LongCode } from './languageTool';
 
 export type TopicCategory = 'first' | 'second';
@@ -111,8 +112,8 @@ export interface ThemeDiary {
   themeCategory: ThemeCategory;
   themeSubcategory: ThemeSubcategory;
   objectID: string;
-  updatedAt: any;
-  createdAt: any;
+  updatedAt: FirebaseFirestoreTypes.Timestamp;
+  createdAt: FirebaseFirestoreTypes.Timestamp;
 }
 
 export interface RemindeDay {
@@ -179,8 +180,7 @@ export interface User {
   reminder?: Reminder;
   runningDays?: number;
   runningWeeks?: number;
-  lastDiaryPostedAt?: any | null;
-  lastWatchAdAt: any | null;
-  createdAt: any;
-  updatedAt: any;
+  lastDiaryPostedAt?: FirebaseFirestoreTypes.Timestamp | null;
+  createdAt: FirebaseFirestoreTypes.Timestamp;
+  updatedAt: FirebaseFirestoreTypes.Timestamp;
 }

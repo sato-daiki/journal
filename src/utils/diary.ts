@@ -20,6 +20,7 @@ import { MarkedDates } from '@/components/organisms/MyDiaryList';
 import I18n from './I18n';
 import { getDateToStrDay, getLastMonday, getThisMonday } from './common';
 import { getDay } from './time';
+import { FetchInfoState } from '@/stores/reducers/diaryList';
 
 export const MAX_TITLE = 100;
 export const MAX_TEXT = 1200;
@@ -160,7 +161,10 @@ export const getMarkedDates = (newDiaries: Diary[]): MarkedDates =>
   newDiaries.reduce((prev, d) => {
     if (!d.objectID) return prev;
     const myDiaryStatus = getMyDiaryStatus(d);
-    const date = getDay(d.publishedAt || d.createdAt, 'YYYY-MM-DD');
+    const date = getDay(
+      d.publishedAt ? d.publishedAt.toDate() : d.createdAt.toDate(),
+      'YYYY-MM-DD',
+    );
     const params = {
       key: d.objectID,
       selectedDotColor: '#fff',
@@ -225,7 +229,7 @@ export const getIsTopic = (
 
 export const getDiaries = async (
   uid: string,
-  lastVisible: FirebaseFirestoreTypes.FieldValue | Date | null,
+  lastVisible: FirebaseFirestoreTypes.Timestamp | Date | null,
   hitPerPage: number,
 ): Promise<Diary[]> => {
   try {
@@ -251,5 +255,58 @@ export const getDiaries = async (
   } catch (e) {
     console.warn('getDiaries', e);
     return [];
+  }
+};
+
+export const getDiaryNum = async (uid: string): Promise<number> => {
+  const snap = await firestore()
+    .collection('diaries')
+    .where('uid', '==', uid)
+    .get();
+  return snap.size;
+};
+
+const HIT_PER_PAGE = 20;
+export const getLoadNextPage = async (
+  fetchInfo: FetchInfoState,
+  setFetchInfo: (fetchInfo: FetchInfoState) => void,
+  uid: string,
+  addDiaries: (diaries: Diary[]) => void,
+): Promise<void> => {
+  console.log('loadNextPage', fetchInfo);
+
+  if (!fetchInfo.readingNext && !fetchInfo.readAllResults) {
+    try {
+      setFetchInfo({
+        ...fetchInfo,
+        readingNext: true,
+      });
+      const newDiaries = await getDiaries(
+        uid,
+        fetchInfo.lastVisible,
+        HIT_PER_PAGE,
+      );
+
+      if (newDiaries.length === 0) {
+        setFetchInfo({
+          ...fetchInfo,
+          readAllResults: true,
+          readingNext: false,
+        });
+      } else {
+        addDiaries(newDiaries);
+        setFetchInfo({
+          ...fetchInfo,
+          lastVisible: newDiaries[newDiaries.length - 1].createdAt,
+          readingNext: false,
+        });
+      }
+    } catch (err: any) {
+      setFetchInfo({
+        ...fetchInfo,
+        readingNext: false,
+      });
+      alert({ err });
+    }
   }
 };

@@ -36,7 +36,9 @@ import {
 import I18n from '@/utils/I18n';
 import { CompositeNavigationProp } from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
+import firestore, {
+  FirebaseFirestoreTypes,
+} from '@react-native-firebase/firestore';
 
 export interface Props {
   user: User;
@@ -137,9 +139,10 @@ const SignUpScreen: React.FC<ScreenType> = ({
         runningDays: 0,
         runningWeeks: 0,
         lastDiaryPostedAt: null,
-        lastWatchAdAt: null,
-        createdAt: firestore.FieldValue.serverTimestamp(),
-        updatedAt: firestore.FieldValue.serverTimestamp(),
+        createdAt:
+          firestore.FieldValue.serverTimestamp() as FirebaseFirestoreTypes.Timestamp,
+        updatedAt:
+          firestore.FieldValue.serverTimestamp() as FirebaseFirestoreTypes.Timestamp,
       };
 
       firestore().doc(`users/${credentUser.uid}`).set(userInfo);

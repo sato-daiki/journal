@@ -16,7 +16,9 @@ import { logAnalytics, events } from '@/utils/Analytics';
 import { alert } from '@/utils/ErrorAlert';
 import { PostDiaryNavigationProp } from './interfaces';
 import { useCommon } from './useCommont';
-import firestore from '@react-native-firebase/firestore';
+import firestore, {
+  FirebaseFirestoreTypes,
+} from '@react-native-firebase/firestore';
 import { getLanguageTool } from '@/utils/grammarCheck';
 
 interface UsePostDiary {
@@ -80,8 +82,10 @@ export const usePostDiary = ({
         diaryStatus,
         longCode: selectedItem.value as LongCode,
         ...languageToolInfo,
-        createdAt: firestore.FieldValue.serverTimestamp(),
-        updatedAt: firestore.FieldValue.serverTimestamp(),
+        createdAt:
+          firestore.FieldValue.serverTimestamp() as FirebaseFirestoreTypes.Timestamp,
+        updatedAt:
+          firestore.FieldValue.serverTimestamp() as FirebaseFirestoreTypes.Timestamp,
       };
     },
     [title, text, themeCategory, themeSubcategory, selectedItem.value],

@@ -3,7 +3,9 @@ import { Keyboard } from 'react-native';
 import { User, Diary, LongCode, LanguageTool } from '@/types';
 import { checkBeforePost } from '@/utils/diary';
 import { useCommon } from '../PostDiaryScreen/useCommont';
-import firestore from '@react-native-firebase/firestore';
+import firestore, {
+  FirebaseFirestoreTypes,
+} from '@react-native-firebase/firestore';
 import { PostReviseDiaryNavigationProp } from './PostReviseDiaryScreen';
 import { getLanguageTool } from '@/utils/grammarCheck';
 
@@ -100,7 +102,8 @@ export const usePostReviseDiary = ({
     editDiary(item.objectID, {
       ...item,
       ...diary,
-      updatedAt: firestore.FieldValue.serverTimestamp(),
+      updatedAt:
+        firestore.FieldValue.serverTimestamp() as FirebaseFirestoreTypes.Timestamp,
     });
 
     setIsLoadingPublish(false);

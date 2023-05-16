@@ -1,4 +1,10 @@
-import React, { useCallback, useState, useEffect, useRef } from 'react';
+import React, {
+  useCallback,
+  useState,
+  useEffect,
+  useRef,
+  useLayoutEffect,
+} from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 import {
   connectActionSheet,
@@ -176,7 +182,7 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
     );
   }, [onPressMore]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     navigation.setOptions({
       title: diary ? diary.title : '',
       headerRight,
