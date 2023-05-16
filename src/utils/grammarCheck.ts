@@ -1,7 +1,5 @@
 import axios from 'axios';
 import * as Crypto from 'expo-crypto';
-// @ts-ignore
-import { LANGUAGE_TOOL_API_KEY, SAPLING_API_KEY } from '@env';
 import {
   Edit,
   LanguageInfo,
@@ -261,7 +259,7 @@ const saplingCheck = async (
       {
         lang: getLanguageToolCode(learnLanguage),
         text: text,
-        key: SAPLING_API_KEY,
+        key: 'PAN1SVG5YR444J1V2NU2RYLIOALGR6PI',
         session_id: session_id,
       },
       {
