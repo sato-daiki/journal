@@ -254,6 +254,7 @@ const editMyDiaryList = {
 const postDiary = {
   headerTitle: 'New Journal Entry',
   placeholder: '{{maxLength}} characters or less',
+  correctError: 'An error occurred during correcting.',
 };
 
 const postDraftDiary = {

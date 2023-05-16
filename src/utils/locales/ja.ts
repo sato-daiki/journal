@@ -252,6 +252,7 @@ const editMyDiaryList = {
 const postDiary = {
   headerTitle: '新規日記',
   placeholder: '{{maxLength}}字以内',
+  correctError: '添削でエラーが発生しました。添削を終了します',
 };
 
 const postDraftDiary = {

@@ -14,6 +14,8 @@ import {
   Sapling,
 } from '../types';
 import { softRed, softRedOpacy, yellow, yellowOpacy } from '@/styles/Common';
+import Toast from 'react-native-root-toast';
+import I18n from '@/utils/I18n';
 
 const LANGUAGE_TOOL_ENDPOINT = 'https://api.languagetoolplus.com/v2';
 
@@ -197,6 +199,13 @@ export const getLanguageTool = async (
 
     const textLanguageTool = await languageToolCheck(learnLanguage, text);
 
+    if (textLanguageTool.result === 'error') {
+      Toast.show(I18n.t('postDiary.correctError'), {
+        duration: Toast.durations.LONG,
+        position: Toast.positions.TOP,
+      });
+    }
+
     return {
       titleMatches,
       titleResult,
@@ -207,6 +216,11 @@ export const getLanguageTool = async (
     };
   } catch (err: any) {
     console.warn(err);
+    Toast.show(I18n.t('postDiary.correctError'), {
+      duration: Toast.durations.LONG,
+      position: Toast.positions.TOP,
+    });
+
     return;
   }
 };
@@ -300,6 +314,14 @@ export const getSapling = async (
     }
 
     const textSapling = await saplingCheck(learnLanguage, text);
+
+    if (textSapling.result === 'error') {
+      Toast.show(I18n.t('postDiary.correctError'), {
+        duration: Toast.durations.LONG,
+        position: Toast.positions.TOP,
+      });
+    }
+
     return {
       titleEdits,
       titleResult,
@@ -310,6 +332,10 @@ export const getSapling = async (
     };
   } catch (err: any) {
     console.warn(err);
+    Toast.show(I18n.t('postDiary.correctError'), {
+      duration: Toast.durations.LONG,
+      position: Toast.positions.TOP,
+    });
     return;
   }
 };
