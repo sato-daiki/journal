@@ -151,8 +151,8 @@ const myDiary = {
   menuDelete: '削除する',
   menuRevise: '修正する',
   confirmMessage: '本当に削除してよろしいでしょうか？',
-  origin: '原文の添削',
-  revised: '修正後の添削',
+  origin: '原文の添削結果',
+  revised: '修正後の添削結果',
   ai1: 'AI①の添削',
   ai2: 'AI②の添削',
   closeAlert: '保存されていない変更は失われます。閉じてよろしいですか？',
@@ -165,12 +165,18 @@ const myDiary = {
   ignore: '無視',
   start: '最初から',
   revise: '添削結果を元に修正する',
-  adReward: '動画広告を見て他のAIでも添削する',
+  adReward: '動画広告を見てAI②でも添削する',
   copiedTitle: 'タイトルをコピーしました',
   copiedText: '本文をコピーしました',
   copied: 'テキストをコピーしました',
   adRewardError: '動画再生においてエラーが発生しました。添削を終了します',
   adLoading: '広告を読み込んでいます',
+  noSapling:
+    '15~30秒の動画広告を見ることで、Saplingという言語チェックAIで添削を行えます。',
+  noSaplingInactive:
+    '※ 現在問題が発生しており、一時的にSaplingでのチェックは停止しております。',
+  noSaplingButton: '添削する',
+  noSaplingWhat: 'Saplingについて詳しくみる',
 };
 
 const viewMyDiary = {

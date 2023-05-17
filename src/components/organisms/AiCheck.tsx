@@ -6,10 +6,11 @@ import {
   LanguageTool as LanguageToolType,
   Sapling as SaplingType,
 } from '@/types';
-import { ChildTabBar } from '@/components/molecules';
+import { MyDiaryTabBar } from '@/components/molecules';
 import LanguageTool from '@/components/organisms/LanguageTool';
 import Sapling from '@/components/organisms/Sapling';
 import I18n from '@/utils/I18n';
+import NoSapling from './NoSapling';
 
 interface Props {
   hideFooterButton: boolean;
@@ -96,7 +97,7 @@ const AiCheck: React.FC<Props> = ({
             />
           );
         case 'ai2':
-          return (
+          return hasSapling ? (
             <Sapling
               showAdReward={false}
               hideFooterButton={hideFooterButton}
@@ -109,6 +110,11 @@ const AiCheck: React.FC<Props> = ({
               checkPermissions={checkPermissions}
               goToRecord={goToRecord}
               onPressRevise={onPressRevise}
+              onPressAdReward={onPressAdReward}
+            />
+          ) : (
+            <NoSapling
+              activeSapling={activeSapling}
               onPressAdReward={onPressAdReward}
             />
           );
@@ -135,14 +141,9 @@ const AiCheck: React.FC<Props> = ({
     ],
   );
 
-  const renderTabBar = useCallback(
-    (props) => {
-      if (hasSapling) {
-        return <ChildTabBar {...props} />;
-      }
-    },
-    [hasSapling],
-  );
+  const renderTabBar = useCallback((props) => {
+    return <MyDiaryTabBar {...props} />;
+  }, []);
 
   if (!diary) {
     return null;

@@ -1,21 +1,15 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   StyleProp,
   StyleSheet,
   TouchableOpacity,
   ViewStyle,
 } from 'react-native';
-import PModal from './PModal';
 import { CountryNameWithFlag, HoverableIcon } from '@/components/atoms';
 import { primaryColor } from '@/styles/Common';
 import { LongCode } from '@/types';
-
-export type PickerItem = {
-  value: string;
-  label: string;
-};
-
-export type Size = 'large' | 'small';
+import PModal from './ModalPicker/PModal';
+import { PickerItem, Size } from './ModalPicker';
 
 type Props = {
   containerStyle?: StyleProp<ViewStyle>;
