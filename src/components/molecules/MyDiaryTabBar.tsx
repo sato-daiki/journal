@@ -5,7 +5,7 @@ import {
   SceneRendererProps,
   TabBar,
 } from 'react-native-tab-view';
-import { fontSizeM, primaryColor, subTextColor } from '../../styles/Common';
+import { fontSizeM, mainColor, subTextColor } from '../../styles/Common';
 
 type Props = SceneRendererProps & {
   navigationState: NavigationState<{
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     fontSize: fontSizeM,
   },
   indicatorStyle: {
-    backgroundColor: primaryColor,
+    backgroundColor: mainColor,
   },
 });
 
@@ -47,7 +47,7 @@ const MyDiaryTabBar: React.FC<Props> = (props) => {
       style={styles.container}
       renderLabel={renderLabel}
       indicatorStyle={styles.indicatorStyle}
-      activeColor={primaryColor}
+      activeColor={mainColor}
       inactiveColor={subTextColor}
     />
   );

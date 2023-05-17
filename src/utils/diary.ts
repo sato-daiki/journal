@@ -133,7 +133,7 @@ export const getRunning = (user: User) => {
 
 export const MY_STATUS = {
   draft: { text: I18n.t('myDiaryStatus.draft'), color: subTextColor },
-  checked: { text: I18n.t('myDiaryStatus.checked'), color: mainColor },
+  checked: { text: I18n.t('myDiaryStatus.checked'), color: primaryColor },
   revised: { text: I18n.t('myDiaryStatus.revised'), color: green },
   recorded: { text: I18n.t('myDiaryStatus.recorded'), color: softRed },
 

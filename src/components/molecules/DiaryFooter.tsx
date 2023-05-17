@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { Text, StyleSheet } from 'react-native';
+import { Text, StyleSheet, View } from 'react-native';
 import { Audio, AVPlaybackStatus } from 'expo-av';
 import {
   fontSizeS,
@@ -33,8 +33,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   button: {
-    width: 300,
-    alignSelf: 'center',
+    marginHorizontal: 16,
     marginBottom: 16,
   },
 });
@@ -219,40 +218,45 @@ const DiaryFooter: React.FC<Props> = ({
         <>
           <Space size={24} />
           {onPressRevise && (
-            <SubmitButton
-              containerStyle={styles.button}
-              icon={iconPen}
-              title={I18n.t('myDiary.revise')}
-              onPress={onPressRevise}
-            />
+            <View style={styles.button}>
+              <SubmitButton
+                icon={iconPen}
+                title={I18n.t('myDiary.revise')}
+                onPress={onPressRevise}
+              />
+            </View>
           )}
           {/* saplingでまだチェックされていない時 */}
           {showAdReward && onPressAdReward && (
-            <WhiteButton
-              containerStyle={[styles.button, { paddingHorizontal: 16 }]}
-              icon={iconSpellcheck}
-              title={I18n.t('myDiary.adReward')}
-              onPress={onPressAdReward}
-            />
+            <View style={styles.button}>
+              <WhiteButton
+                containerStyle={{ paddingHorizontal: 16 }}
+                icon={iconSpellcheck}
+                title={I18n.t('myDiary.adReward')}
+                onPress={onPressAdReward}
+              />
+            </View>
           )}
           <Space size={24} />
           <GrayHeader icon={iconHeader} title={I18n.t('myDiary.voiceTitle')} />
           <Space size={24} />
           {voiceUrl && (
-            <WhiteButton
-              containerStyle={styles.button}
-              icon={iconHeadphones}
-              title={I18n.t('myDiary.myVoice')}
-              onPress={onPressMyVoice}
-            />
+            <View style={styles.button}>
+              <WhiteButton
+                icon={iconHeadphones}
+                title={I18n.t('myDiary.myVoice')}
+                onPress={onPressMyVoice}
+              />
+            </View>
           )}
           {goToRecord && (
-            <WhiteButton
-              containerStyle={styles.button}
-              title={I18n.t('myDiary.record')}
-              icon={iconRecord}
-              onPress={goToRecord}
-            />
+            <View style={styles.button}>
+              <WhiteButton
+                title={I18n.t('myDiary.record')}
+                icon={iconRecord}
+                onPress={goToRecord}
+              />
+            </View>
           )}
           <Space size={32} />
         </>

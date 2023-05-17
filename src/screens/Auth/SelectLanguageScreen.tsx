@@ -14,7 +14,7 @@ import { primaryColor, fontSizeL } from '@/styles/Common';
 import I18n from '@/utils/I18n';
 import LanguagePicker from '@/components/organisms/LanguagePicker';
 import { getLanguageToolName } from '@/utils/grammarCheck';
-import { PickerItem } from '@/components/molecules/LanguageModalPicker';
+import { PickerItem } from '@/components/molecules/ModalPicker';
 
 export interface Props {
   user: User;

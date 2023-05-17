@@ -8,7 +8,7 @@ import {
   getLanguageToolName,
   getLanguageToolShortName,
 } from '@/utils/grammarCheck';
-import { Size } from '../molecules/LanguageModalPicker';
+import { Size } from '../molecules/ModalPicker';
 
 interface Props {
   containerStyle?: StyleProp<ViewStyle>;
