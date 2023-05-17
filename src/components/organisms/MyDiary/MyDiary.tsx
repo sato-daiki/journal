@@ -11,7 +11,8 @@ interface Props {
   isView: boolean;
   diary: Diary;
   editDiary: (objectID: string, diary: Diary) => void;
-  saplingSuccess?: boolean;
+  successSapling?: boolean;
+  activeSapling?: boolean;
   checkPermissions?: () => Promise<boolean>;
   goToRecord?: () => void;
   onPressRevise?: () => void;
@@ -22,7 +23,8 @@ const MyDiary: React.FC<Props> = ({
   isView,
   diary,
   editDiary,
-  saplingSuccess,
+  successSapling,
+  activeSapling,
   checkPermissions,
   goToRecord,
   onPressRevise,
@@ -59,7 +61,8 @@ const MyDiary: React.FC<Props> = ({
               languageTool={diary.reviseLanguageTool}
               sapling={diary.reviseSapling}
               editDiary={editDiary}
-              saplingSuccess={saplingSuccess}
+              successSapling={successSapling}
+              activeSapling={activeSapling}
               checkPermissions={checkPermissions}
               goToRecord={goToRecord}
               onPressRevise={onPressRevise}
@@ -78,7 +81,8 @@ const MyDiary: React.FC<Props> = ({
               languageTool={diary.languageTool}
               sapling={diary.sapling}
               editDiary={editDiary}
-              saplingSuccess={saplingSuccess}
+              successSapling={successSapling}
+              activeSapling={activeSapling}
               checkPermissions={checkPermissions}
               goToRecord={goToRecord}
               onPressRevise={onPressRevise}
@@ -92,6 +96,7 @@ const MyDiary: React.FC<Props> = ({
       }
     },
     [
+      activeSapling,
       checkPermissions,
       diary,
       editDiary,
@@ -100,7 +105,7 @@ const MyDiary: React.FC<Props> = ({
       isView,
       onPressAdReward,
       onPressRevise,
-      saplingSuccess,
+      successSapling,
     ],
   );
 

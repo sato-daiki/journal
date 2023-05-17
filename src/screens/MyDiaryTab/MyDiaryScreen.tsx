@@ -5,7 +5,13 @@ import React, {
   useRef,
   useLayoutEffect,
 } from 'react';
-import { Platform, StyleSheet, View } from 'react-native';
+import {
+  AppState,
+  AppStateStatus,
+  Platform,
+  StyleSheet,
+  View,
+} from 'react-native';
 import {
   connectActionSheet,
   useActionSheet,
@@ -52,6 +58,10 @@ type ScreenType = {
 } & Props &
   DispatchProps;
 
+type ConfigAiCheck = {
+  activeSapling: boolean;
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -82,6 +92,7 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
   deleteDiary,
   editDiary,
 }) => {
+  const appState = useRef<AppStateStatus>(AppState.currentState);
   const { showActionSheetWithOptions } = useActionSheet();
   const [isLoading, setIsLoading] = useState(false);
   const [isModalDelete, setIsModalDelete] = useState(false);
@@ -91,9 +102,18 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
   const loaded = useRef<boolean>(false);
   const pressKey = useRef<Key>();
 
-  const [saplingSuccess, setSaplingSuccess] = useState(false);
+  const [successSapling, setSuccessSapling] = useState(false);
+  const [configAiCheck, setConfigAiCheck] = useState<ConfigAiCheck>({
+    activeSapling: false,
+  });
 
   useEffect(() => {
+    // saplingを外から止めるため
+    const subscription = AppState.addEventListener(
+      'change',
+      _handleAppStateChange,
+    );
+
     const unsubscribeLoaded = rewarded.addAdEventListener(
       RewardedAdEventType.LOADED,
       () => {
@@ -110,12 +130,33 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
       },
     );
 
+    // 初回と、アプリ立ち上げ両方で呼ぶ
+    getConfigAiCheck();
+
     return () => {
+      subscription.remove();
       unsubscribeLoaded();
       unsubscribeEarned();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const getConfigAiCheck = useCallback(async () => {
+    const doc = await firestore().doc('config/aiCheck').get();
+    const data = doc.data() as ConfigAiCheck;
+    setConfigAiCheck(data);
+  }, []);
+
+  const _handleAppStateChange = (nextAppState: AppStateStatus) => {
+    console.log('[handleAppStateChange]', nextAppState);
+    if (
+      appState.current.match(/inactive|background/) &&
+      nextAppState === 'active'
+    ) {
+      getConfigAiCheck();
+    }
+    appState.current = nextAppState;
+  };
 
   const onPressDelete = useCallback(async () => {
     if (!diary || !diary.objectID) return;
@@ -242,9 +283,7 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
 
   const showAdReward = useCallback(async () => {
     try {
-      console.log('showAdReward');
       await rewarded.show();
-      console.log('showAdReward end');
     } catch (err: any) {
       Toast.show(I18n.t('myDiary.adRewardError'), {
         duration: Toast.durations.SHORT,
@@ -280,8 +319,6 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
       saplingInfo = sapling ? { reviseSapling: sapling } : undefined;
     }
 
-    console.log('saplingInfo', pressKey.current, saplingInfo);
-
     await firestore()
       .doc(`diaries/${diary.objectID}`)
       .update({
@@ -293,7 +330,7 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
       ...saplingInfo,
     });
     setIsLoading(false);
-    setSaplingSuccess(true);
+    setSuccessSapling(true);
   }, [diary, editDiary]);
 
   if (!diary) {
@@ -343,7 +380,8 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
         goToRecord={goToRecord}
         onPressRevise={onPressRevise}
         onPressAdReward={onPressAdReward}
-        saplingSuccess={saplingSuccess}
+        successSapling={successSapling}
+        activeSapling={configAiCheck.activeSapling}
       />
     </View>
   );

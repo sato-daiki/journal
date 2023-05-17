@@ -19,7 +19,8 @@ interface Props {
   checkPermissions?: () => Promise<boolean>;
   goToRecord?: () => void;
   onPressAdReward?: () => void;
-  saplingSuccess?: boolean;
+  successSapling?: boolean;
+  activeSapling?: boolean;
   title: string;
   text: string;
   languageTool?: LanguageToolType | null;
@@ -41,7 +42,8 @@ const AiCheck: React.FC<Props> = ({
   text,
   languageTool,
   sapling,
-  saplingSuccess,
+  successSapling,
+  activeSapling,
   checkPermissions,
   goToRecord,
   onPressRevise,
@@ -54,10 +56,10 @@ const AiCheck: React.FC<Props> = ({
   ]);
 
   useEffect(() => {
-    if (saplingSuccess) {
+    if (successSapling) {
       setIndex(1);
     }
-  }, [saplingSuccess]);
+  }, [successSapling]);
 
   const onIndexChange = useCallback((i: number) => {
     setIndex(i);
@@ -79,7 +81,7 @@ const AiCheck: React.FC<Props> = ({
         case 'ai1':
           return (
             <LanguageTool
-              showAdReward={!hasSapling && !hideFooterButton}
+              showAdReward={!!activeSapling && !hasSapling && !hideFooterButton}
               hideFooterButton={hideFooterButton}
               diary={diary}
               title={title}
@@ -115,6 +117,7 @@ const AiCheck: React.FC<Props> = ({
       }
     },
     [
+      activeSapling,
       checkPermissions,
       diary,
       editDiary,
