@@ -26,7 +26,9 @@ export type HomeBottomNavigationProp = CompositeNavigationProp<
 >;
 
 export type HomeBottomParamList = {
-  MyDiaryTab: { screen: keyof MyDiaryTabStackParamList };
+  MyDiaryTab: {
+    screen: keyof MyDiaryTabStackParamList;
+  };
   PostDiaryTab: undefined;
   MyPageTab: { screen: keyof MyPageTabStackParamList };
 };

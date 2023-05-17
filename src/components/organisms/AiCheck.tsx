@@ -13,6 +13,7 @@ import I18n from '@/utils/I18n';
 import NoSapling from './NoSapling';
 
 interface Props {
+  isOrigin: boolean;
   hideFooterButton: boolean;
   diary: Diary;
   editDiary: (objectID: string, diary: Diary) => void;
@@ -36,6 +37,7 @@ const styles = StyleSheet.create({
 });
 
 const AiCheck: React.FC<Props> = ({
+  isOrigin,
   hideFooterButton,
   diary,
   editDiary,
@@ -82,6 +84,7 @@ const AiCheck: React.FC<Props> = ({
         case 'ai1':
           return (
             <LanguageTool
+              isOrigin={isOrigin}
               showAdReward={!!activeSapling && !hasSapling && !hideFooterButton}
               hideFooterButton={hideFooterButton}
               diary={diary}
@@ -99,6 +102,7 @@ const AiCheck: React.FC<Props> = ({
         case 'ai2':
           return hasSapling ? (
             <Sapling
+              isOrigin={isOrigin}
               showAdReward={false}
               hideFooterButton={hideFooterButton}
               diary={diary}
@@ -130,6 +134,7 @@ const AiCheck: React.FC<Props> = ({
       goToRecord,
       hasSapling,
       hideFooterButton,
+      isOrigin,
       languageTool?.textMatches,
       languageTool?.titleMatches,
       onPressAdReward,

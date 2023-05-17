@@ -162,7 +162,6 @@ const myDiary = {
   myVoice: '自分の音声を聞く',
   record: '録音する',
   recommend: '効率的な勉強方法とは？',
-  ignore: '無視',
   start: '最初から',
   revise: '添削結果を元に修正する',
   adReward: '動画広告を見てAI②でも添削する',

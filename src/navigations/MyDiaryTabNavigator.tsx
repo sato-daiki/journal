@@ -23,9 +23,18 @@ export type MyDiaryTabNavigationProp = CompositeNavigationProp<
   HomeBottomNavigationProp
 >;
 
+export type MyDiaryCaller =
+  | 'MyDiaryList'
+  | 'PostReviseDiary'
+  | 'PostDraftDiary'
+  | 'PostDiary';
+
 export type MyDiaryTabStackParamList = {
   MyDiaryList: undefined;
-  MyDiary: { objectID: string };
+  MyDiary: {
+    objectID: string;
+    caller: MyDiaryCaller;
+  };
 };
 
 const MyDiaryTabStack = createStackNavigator<MyDiaryTabStackParamList>();

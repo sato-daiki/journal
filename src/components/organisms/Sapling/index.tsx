@@ -11,6 +11,7 @@ import Edits from './Edits';
 import { useCommon } from '@/components/organisms/LanguageTool/useCommon';
 
 export interface Props {
+  isOrigin: boolean;
   showAdReward: boolean;
   hideFooterButton: boolean;
   diary: Diary;
@@ -44,6 +45,7 @@ const styles = StyleSheet.create({
 });
 
 const Sapling: React.FC<Props> = ({
+  isOrigin,
   showAdReward,
   hideFooterButton,
   diary,
@@ -83,19 +85,34 @@ const Sapling: React.FC<Props> = ({
       titleActiveIndex !== null &&
       titleArray &&
       titleArray.length > 0 &&
-      diary.objectID &&
-      diary.sapling
+      diary.objectID
     ) {
       const newEdits = titleArray.filter((_, i) => i !== titleActiveIndex);
+      let saplingInfo;
+      if (isOrigin && diary.sapling) {
+        saplingInfo = {
+          sapling: {
+            ...diary.sapling,
+            titleEdits: newEdits,
+          },
+        };
+      } else if (!isOrigin && diary.reviseSapling) {
+        saplingInfo = {
+          reviseSapling: {
+            ...diary.reviseSapling,
+            titleEdits: newEdits,
+          },
+        };
+      } else {
+        return;
+      }
 
-      const sapling = {
-        ...diary.sapling,
-        titleEdits: newEdits,
-      };
-      await firestore().doc(`diaries/${diary.objectID}`).update({
-        sapling,
-        updatedAt: firestore.FieldValue.serverTimestamp(),
-      });
+      await firestore()
+        .doc(`diaries/${diary.objectID}`)
+        .update({
+          ...saplingInfo,
+          updatedAt: firestore.FieldValue.serverTimestamp(),
+        });
 
       if (titleActiveIndex >= newEdits.length) {
         setTitleActiveIndex(null);
@@ -103,29 +120,51 @@ const Sapling: React.FC<Props> = ({
 
       editDiary(diary.objectID, {
         ...diary,
-        sapling,
+        ...saplingInfo,
       });
     }
-  }, [titleActiveIndex, titleArray, diary, editDiary, setTitleActiveIndex]);
+  }, [
+    titleActiveIndex,
+    titleArray,
+    diary,
+    isOrigin,
+    editDiary,
+    setTitleActiveIndex,
+  ]);
 
   const onPressIgnoreText = useCallback(async () => {
     if (
       textActiveIndex !== null &&
       textArray &&
       textArray.length > 0 &&
-      diary.objectID &&
-      diary.sapling
+      diary.objectID
     ) {
       const newEdits = textArray.filter((_, i) => i !== textActiveIndex);
+      let saplingInfo;
+      if (isOrigin && diary.sapling) {
+        saplingInfo = {
+          sapling: {
+            ...diary.sapling,
+            textEdits: newEdits,
+          },
+        };
+      } else if (!isOrigin && diary.reviseSapling) {
+        saplingInfo = {
+          reviseSapling: {
+            ...diary.reviseSapling,
+            textEdits: newEdits,
+          },
+        };
+      } else {
+        return;
+      }
 
-      const sapling = {
-        ...diary.sapling,
-        textEdits: newEdits,
-      };
-      await firestore().doc(`diaries/${diary.objectID}`).update({
-        sapling,
-        updatedAt: firestore.FieldValue.serverTimestamp(),
-      });
+      await firestore()
+        .doc(`diaries/${diary.objectID}`)
+        .update({
+          ...saplingInfo,
+          updatedAt: firestore.FieldValue.serverTimestamp(),
+        });
 
       if (textActiveIndex >= newEdits.length) {
         setTextActiveIndex(null);
@@ -133,10 +172,17 @@ const Sapling: React.FC<Props> = ({
 
       editDiary(diary.objectID, {
         ...diary,
-        sapling,
+        ...saplingInfo,
       });
     }
-  }, [textActiveIndex, textArray, diary, editDiary, setTextActiveIndex]);
+  }, [
+    textActiveIndex,
+    textArray,
+    diary,
+    isOrigin,
+    editDiary,
+    setTextActiveIndex,
+  ]);
 
   return (
     <View style={styles.container}>

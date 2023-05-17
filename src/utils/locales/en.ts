@@ -165,7 +165,6 @@ const myDiary = {
   myVoice: 'Listen to Your Recorded Voice',
   record: 'Voice Recording',
   recommend: 'What is an efficient study method?',
-  ignore: 'Ignore',
   start: 'Initially',
   revise: 'Revise based on the correction',
   adReward: 'Correct text using AI2 by watching ads',
