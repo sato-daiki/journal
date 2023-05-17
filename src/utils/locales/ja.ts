@@ -410,6 +410,11 @@ const language = {
   nl: 'オランダ語	',
 };
 
+const maintenance = {
+  defaultMessage:
+    '現在メンテナンス中です。\nご不便をおかけして申し訳ございません。\nしばらくお時間が経ってから\n再度ご利用ください',
+};
+
 const selectDiaryType = {
   headerTitle: '型の選択',
   recommend: 'おススメ',
@@ -661,6 +666,7 @@ const ja = {
   language,
   inquiry,
   first,
+  maintenance,
 };
 
 export default ja;

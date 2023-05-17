@@ -16,4 +16,5 @@ module.exports = {
   Swipe: require('./swipe.png'),
   Time: require('./time.png'),
   Write: require('./write.png'),
+  MaintenanceJson: require('./maintenance.json'),
 };

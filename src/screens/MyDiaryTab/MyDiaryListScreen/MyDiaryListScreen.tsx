@@ -114,11 +114,9 @@ const MyDiaryListScreen: React.FC<ScreenType> = ({
   }, []);
 
   const onRefresh = useCallback(async (): Promise<void> => {
-    console.log('onRefresh');
     if (refreshing) return;
     setRefreshing(true);
     const newDiaries = await getDiaries(user.uid, new Date(), HIT_PER_PAGE);
-    console.log('newDiaries', newDiaries);
 
     setDiaries(newDiaries);
     if (newDiaries.length > 0) {

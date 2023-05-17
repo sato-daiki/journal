@@ -415,6 +415,11 @@ const language = {
   nl: 'Dutch	',
 };
 
+const maintenance = {
+  defaultMessage:
+    'Currently under maintenance.\nWe apologize for the inconvenience.\nPlease try again after a while.',
+};
+
 const selectDiaryType = {
   headerTitle: 'Type Selection',
   recommend: 'Recommend',
@@ -670,6 +675,7 @@ const en = {
   language,
   inquiry,
   first,
+  maintenance,
 };
 
 export default en;

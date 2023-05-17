@@ -233,7 +233,6 @@ export const getDiaries = async (
   hitPerPage: number,
 ): Promise<Diary[]> => {
   try {
-    console.log('lastVisible', lastVisible);
     const snapshot = await firestore()
       .collection('diaries')
       .where('uid', '==', uid)
@@ -274,8 +273,6 @@ export const getLoadNextPage = async (
   uid: string,
   addDiaries: (diaries: Diary[]) => void,
 ): Promise<void> => {
-  console.log('loadNextPage', fetchInfo);
-
   if (!fetchInfo.readingNext && !fetchInfo.readAllResults) {
     try {
       setFetchInfo({
