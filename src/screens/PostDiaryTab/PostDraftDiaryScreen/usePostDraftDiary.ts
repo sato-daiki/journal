@@ -212,7 +212,7 @@ export const usePostDraftDiary = ({
       params: {
         screen: 'MyDiary',
         // @ts-ignore
-        params: { objectID: item.objectID },
+        params: { objectID: item.objectID, caller: 'PostDraftDiary' },
       },
     });
   }, [

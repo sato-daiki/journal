@@ -11,6 +11,7 @@ import DiaryFooter from '@/components/molecules/DiaryFooter';
 import { useCommon } from './useCommon';
 
 export interface Props {
+  isOrigin: boolean;
   showAdReward: boolean;
   hideFooterButton: boolean;
   diary: Diary;
@@ -44,6 +45,7 @@ const styles = StyleSheet.create({
 });
 
 const LanguageTool: React.FC<Props> = ({
+  isOrigin,
   showAdReward,
   hideFooterButton,
   diary,
@@ -83,20 +85,34 @@ const LanguageTool: React.FC<Props> = ({
       titleActiveIndex !== null &&
       titleArray &&
       titleArray.length > 0 &&
-      diary.objectID &&
-      diary.languageTool
+      diary.objectID
     ) {
       const newMatches = titleArray.filter((_, i) => i !== titleActiveIndex);
+      let languageToolInfo;
+      if (isOrigin && diary.languageTool) {
+        languageToolInfo = {
+          languageTool: {
+            ...diary.languageTool,
+            titleMatches: newMatches,
+          },
+        };
+      } else if (!isOrigin && diary.reviseLanguageTool) {
+        languageToolInfo = {
+          reviseLanguageTool: {
+            ...diary.reviseLanguageTool,
+            titleMatches: newMatches,
+          },
+        };
+      } else {
+        return;
+      }
 
-      const languageTool = {
-        ...diary.languageTool,
-        titleMatches: newMatches,
-      };
-
-      await firestore().doc(`diaries/${diary.objectID}`).update({
-        languageTool,
-        updatedAt: firestore.FieldValue.serverTimestamp(),
-      });
+      await firestore()
+        .doc(`diaries/${diary.objectID}`)
+        .update({
+          ...languageToolInfo,
+          updatedAt: firestore.FieldValue.serverTimestamp(),
+        });
 
       if (titleActiveIndex >= newMatches.length) {
         setTitleActiveIndex(null);
@@ -104,29 +120,50 @@ const LanguageTool: React.FC<Props> = ({
 
       editDiary(diary.objectID, {
         ...diary,
-        languageTool: languageTool || null,
+        ...languageToolInfo,
       });
     }
-  }, [titleActiveIndex, titleArray, diary, editDiary, setTitleActiveIndex]);
+  }, [
+    titleActiveIndex,
+    titleArray,
+    diary,
+    isOrigin,
+    editDiary,
+    setTitleActiveIndex,
+  ]);
 
   const onPressIgnoreText = useCallback(async () => {
     if (
       textActiveIndex !== null &&
       textArray &&
       textArray.length > 0 &&
-      diary.objectID &&
-      diary.languageTool
+      diary.objectID
     ) {
       const newMatches = textArray.filter((_, i) => i !== textActiveIndex);
-
-      const languageTool = {
-        ...diary.languageTool,
-        textMatches: newMatches,
-      };
-      await firestore().doc(`diaries/${diary.objectID}`).update({
-        languageTool,
-        updatedAt: firestore.FieldValue.serverTimestamp(),
-      });
+      let languageToolInfo;
+      if (isOrigin && diary.languageTool) {
+        languageToolInfo = {
+          languageTool: {
+            ...diary.languageTool,
+            textMatches: newMatches,
+          },
+        };
+      } else if (!isOrigin && diary.reviseLanguageTool) {
+        languageToolInfo = {
+          reviseLanguageTool: {
+            ...diary.reviseLanguageTool,
+            textMatches: newMatches,
+          },
+        };
+      } else {
+        return;
+      }
+      await firestore()
+        .doc(`diaries/${diary.objectID}`)
+        .update({
+          ...languageToolInfo,
+          updatedAt: firestore.FieldValue.serverTimestamp(),
+        });
 
       if (textActiveIndex >= newMatches.length) {
         setTextActiveIndex(null);
@@ -134,10 +171,17 @@ const LanguageTool: React.FC<Props> = ({
 
       editDiary(diary.objectID, {
         ...diary,
-        languageTool,
+        ...languageToolInfo,
       });
     }
-  }, [textActiveIndex, textArray, diary, editDiary, setTextActiveIndex]);
+  }, [
+    textActiveIndex,
+    textArray,
+    diary,
+    isOrigin,
+    editDiary,
+    setTextActiveIndex,
+  ]);
 
   return (
     <View style={styles.container}>

@@ -151,6 +151,7 @@ const MyDiaryListScreen: React.FC<ScreenType> = ({
       } else {
         navigation.navigate('MyDiary', {
           objectID: item.objectID,
+          caller: 'MyDiaryList',
         });
       }
     },

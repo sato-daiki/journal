@@ -220,7 +220,7 @@ export const usePostDiary = ({
       params: {
         screen: 'MyDiary',
         // @ts-ignore
-        params: { objectID: diaryId },
+        params: { objectID: diaryId, caller: 'PostDiary' },
       },
     });
   }, [

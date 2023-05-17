@@ -111,8 +111,8 @@ export const usePostReviseDiary = ({
       screen: 'MyDiaryTab',
       params: {
         screen: 'MyDiary',
-        // @ts-ignore
-        params: { objectID: item.objectID },
+        //@ts-ignore
+        params: { objectID: item.objectID, caller: 'PostReviseDiary' },
       },
     });
   }, [

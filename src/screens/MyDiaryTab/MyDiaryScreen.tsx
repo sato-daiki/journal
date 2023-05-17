@@ -5,7 +5,7 @@ import {
   useActionSheet,
 } from '@expo/react-native-action-sheet';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { CompositeNavigationProp } from '@react-navigation/native';
+import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 import { Audio } from 'expo-av';
 import { LoadingModal, HeaderIcon } from '@/components/atoms';
 
@@ -36,6 +36,7 @@ export type MyDiaryNavigationProp = CompositeNavigationProp<
 
 type ScreenType = {
   navigation: MyDiaryNavigationProp;
+  route: RouteProp<MyDiaryTabStackParamList, 'MyDiary'>;
 } & Props &
   DispatchProps;
 
@@ -55,6 +56,7 @@ const styles = StyleSheet.create({
 
 const MyDiaryScreen: React.FC<ScreenType> = ({
   navigation,
+  route,
   diary,
   deleteDiary,
   editDiary,
@@ -205,6 +207,7 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
       />
       <MyDiary
         isView={false}
+        caller={route.params.caller}
         navigation={navigation}
         diary={diary}
         editDiary={editDiary}

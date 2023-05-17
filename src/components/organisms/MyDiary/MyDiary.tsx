@@ -27,9 +27,11 @@ import { LoadingWhite } from '@/images';
 import firestore from '@react-native-firebase/firestore';
 import { transparentBlack } from '@/styles/Common';
 import { getSapling } from '@/utils/grammarCheck';
+import { MyDiaryCaller } from '@/navigations/MyDiaryTabNavigator';
 
 interface Props {
   isView: boolean;
+  caller?: MyDiaryCaller;
   navigation: MyDiaryNavigationProp | ViewMyDiaryNavigationProp;
   diary: Diary;
   editDiary: (objectID: string, diary: Diary) => void;
@@ -54,6 +56,7 @@ const rewarded = RewardedAd.createForAdRequest(adUnitId, {
 
 const MyDiary: React.FC<Props> = ({
   isView,
+  caller,
   navigation,
   diary,
   editDiary,
@@ -70,6 +73,21 @@ const MyDiary: React.FC<Props> = ({
     activeSapling: false,
   });
   const [successSapling, setSuccessSapling] = useState(false);
+
+  const hasRevised = useMemo(
+    () => !!diary.reviseTitle || !!diary.reviseText,
+    [diary.reviseText, diary.reviseTitle],
+  );
+
+  const [selectedItem, setSelectedItem] = useState<MyDiaryPickerItem>(
+    hasRevised ? myDiaryItems[1] : myDiaryItems[0],
+  );
+
+  useEffect(() => {
+    if (caller === 'PostReviseDiary' && hasRevised) {
+      setSelectedItem(myDiaryItems[1]);
+    }
+  }, [caller, hasRevised]);
 
   useEffect(() => {
     // saplingを外から止めるため
@@ -121,15 +139,6 @@ const MyDiary: React.FC<Props> = ({
     }
     appState.current = nextAppState;
   };
-
-  const hasRevised = useMemo(
-    () => !!diary.reviseTitle || !!diary.reviseText,
-    [diary.reviseText, diary.reviseTitle],
-  );
-
-  const [selectedItem, setSelectedItem] = useState<MyDiaryPickerItem>(
-    hasRevised ? myDiaryItems[1] : myDiaryItems[0],
-  );
 
   const onPressItem = useCallback((item: PickerItem) => {
     setSelectedItem(item as MyDiaryPickerItem);
@@ -229,6 +238,7 @@ const MyDiary: React.FC<Props> = ({
       />
       {selectedItem.value == 'origin' ? (
         <AiCheck
+          isOrigin
           hideFooterButton={isView || hasRevised}
           diary={diary}
           title={diary.title}
@@ -245,6 +255,7 @@ const MyDiary: React.FC<Props> = ({
         />
       ) : (
         <AiCheck
+          isOrigin={false}
           hideFooterButton={isView}
           diary={diary}
           title={diary.reviseTitle || diary.title}
