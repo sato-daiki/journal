@@ -168,12 +168,18 @@ const myDiary = {
   ignore: 'Ignore',
   start: 'Initially',
   revise: 'Revise based on the correction',
-  adReward: 'Correct text using other AI by watching ads',
+  adReward: 'Correct text using AI2 by watching ads',
   copiedTitle: 'The title was copied to your clipboard',
   copiedText: 'The text was copied to your clipboard',
   copied: 'The text was copied to your clipboard',
   adRewardError: 'An error occurred while playing the video',
   adLoading: 'Ad loading',
+  noSapling:
+    'By watching a video advertisement of 15 to 30 seconds, you can correct it with a language check AI called Sapling.',
+  noSaplingInactive:
+    '※ Due to a problem, Sapling checks are temporarily suspended.',
+  noSaplingButton: 'Correct the text',
+  noSaplingWhat: 'See more about Sapling',
 };
 
 const viewMyDiary = {

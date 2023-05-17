@@ -1,11 +1,7 @@
 import React, { useCallback } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { borderLightColor, fontSizeM } from '@/styles/Common';
-
-export type PickerItem = {
-  value: string;
-  label: string;
-};
+import { PickerItem } from '.';
 
 type Props = {
   item: PickerItem;

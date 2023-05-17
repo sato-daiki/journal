@@ -2,8 +2,8 @@ import { Animated } from 'react-native';
 import { ThemeCategory, ThemeSubcategory } from '@/types';
 import { PostDiaryNavigationProp } from '@/screens/PostDiaryTab/PostDiaryScreen/interfaces';
 import { PostDraftDiaryNavigationProp } from '@/screens/PostDiaryTab/PostDraftDiaryScreen/interfaces';
-import { PickerItem } from '@/components/molecules/LanguageModalPicker';
 import { PostReviseDiaryNavigationProp } from '@/screens/PostDiaryTab/PostReviseDiaryScreen/PostReviseDiaryScreen';
+import { PickerItem } from '@/components/molecules/ModalPicker';
 
 export interface PostDiaryKeyboardProps {
   title: string;

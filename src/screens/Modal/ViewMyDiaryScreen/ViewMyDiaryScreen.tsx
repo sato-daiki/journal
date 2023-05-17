@@ -20,13 +20,13 @@ interface DispatchProps {
   editDiary: (objectID: string, diary: Diary) => void;
 }
 
-type NavigationProp = CompositeNavigationProp<
+export type ViewMyDiaryNavigationProp = CompositeNavigationProp<
   StackNavigationProp<ModalViewMyDiaryStackParamList, 'ViewMyDiary'>,
   ModalViewMyDiaryStackNavigationProp
 >;
 
 type ScreenType = {
-  navigation: NavigationProp;
+  navigation: ViewMyDiaryNavigationProp;
 } & Props &
   DispatchProps;
 
@@ -61,7 +61,12 @@ const ViewMyDiaryScreen: React.FC<ScreenType> = ({
 
   return (
     <View style={styles.container}>
-      <MyDiary isView diary={diary} editDiary={editDiary} />
+      <MyDiary
+        isView
+        navigation={navigation}
+        diary={diary}
+        editDiary={editDiary}
+      />
     </View>
   );
 };
