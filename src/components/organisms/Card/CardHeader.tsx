@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { borderLightColor, primaryColor } from '@/styles/Common';
+import { borderLightColor, offWhite, primaryColor } from '@/styles/Common';
 import { HoverableIcon } from '@/components/atoms';
 
 export interface Props {
@@ -13,7 +13,9 @@ export interface Props {
 
 const styles = StyleSheet.create({
   header: {
+    backgroundColor: offWhite,
     height: 32,
+    paddingHorizontal: 8,
   },
   iconLeft: {
     position: 'absolute',

@@ -1,5 +1,6 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback } from 'react';
 import {
+  borderLightColor,
   fontSizeM,
   fontSizeS,
   primaryColor,
@@ -23,11 +24,17 @@ interface Props {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    paddingTop: 12,
-    paddingHorizontal: 8,
-    backgroundColor: '#fff',
+  scrollView: {
     paddingBottom: 20,
+    paddingHorizontal: 8,
+    marginHorizontal: 8,
+    borderColor: borderLightColor,
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingTop: 12,
+    backgroundColor: '#fff',
+    minHeight: 176,
+    justifyContent: 'space-between',
   },
   firstRow: {
     flexDirection: 'row',
@@ -64,13 +71,12 @@ const styles = StyleSheet.create({
     marginRight: 8,
     marginBottom: 8,
     flexDirection: 'row',
-    flexWrap: 'wrap',
     alignItems: 'center',
   },
   replacement: {
     fontSize: fontSizeM,
     fontWeight: 'bold',
-    marginRight: 8,
+    marginRight: 2,
   },
   or: {
     fontSize: fontSizeM,
@@ -130,7 +136,7 @@ export const Card: React.FC<Props> = ({
   }, []);
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView contentContainerStyle={styles.scrollView}>
       <View>
         <View style={styles.firstRow}>
           <View style={[styles.circle, { backgroundColor: color }]} />

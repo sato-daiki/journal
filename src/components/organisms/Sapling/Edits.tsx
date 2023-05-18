@@ -5,6 +5,7 @@ import { Edit } from '@/types';
 import { Card } from '@/components/organisms/Card/Card';
 import { getSaplingColors } from '@/utils/grammarCheck';
 import CardHeader from '../Card/CardHeader';
+import { styles } from '../LanguageTool/Matches';
 
 export interface Props {
   edits: Edit[];
@@ -16,14 +17,6 @@ export interface Props {
   onPressClose: () => void;
   onPressIgnore: () => void;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 8,
-    backgroundColor: offWhite,
-    height: 180,
-  },
-});
 
 const Edits: React.FC<Props> = ({
   edits,
