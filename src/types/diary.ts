@@ -2,6 +2,7 @@ import { ThemeCategory, ThemeSubcategory } from './user';
 import { LanguageTool, LongCode } from './languageTool';
 import { Sapling } from './sapling';
 import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
+import { Human } from './human';
 
 export type DiaryStatus = 'draft' | 'checked';
 
@@ -20,6 +21,7 @@ export interface Diary {
   longCode: LongCode;
   languageTool?: LanguageTool;
   sapling?: Sapling;
+  human?: Human;
   reviseLanguageTool?: LanguageTool;
   reviseSapling?: Sapling | null;
   createdAt: FirebaseFirestoreTypes.Timestamp;

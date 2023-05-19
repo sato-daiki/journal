@@ -18,12 +18,14 @@ export interface Props {
   onPressIgnore: () => void;
 }
 
+export const MATCH_HEIGHT = 240;
+
 export const styles = StyleSheet.create({
   container: {
     borderTopColor: borderLightColor,
     borderTopWidth: 1,
     backgroundColor: offWhite,
-    height: 240,
+    height: MATCH_HEIGHT,
   },
 });
 
