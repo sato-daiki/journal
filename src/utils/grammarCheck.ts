@@ -345,3 +345,7 @@ export const getSaplingColors = (edit: Edit) => {
     return { color: yellow, backgroundColor: yellowOpacy };
   }
 };
+
+export const getHumanColors = () => {
+  return { color: yellow, backgroundColor: yellowOpacy };
+};

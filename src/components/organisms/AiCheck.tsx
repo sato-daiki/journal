@@ -11,6 +11,9 @@ import LanguageTool from '@/components/organisms/LanguageTool';
 import Sapling from '@/components/organisms/Sapling';
 import I18n from '@/utils/I18n';
 import NoSapling from './NoSapling';
+import { ConfigAiCheck } from './MyDiary/MyDiary';
+import NoHuman from './NoHuman';
+import Human from './Human';
 
 interface Props {
   isOrigin: boolean;
@@ -22,7 +25,7 @@ interface Props {
   goToRecord?: () => void;
   onPressAdReward?: () => void;
   successSapling?: boolean;
-  activeSapling?: boolean;
+  configAiCheck: ConfigAiCheck;
   title: string;
   text: string;
   languageTool?: LanguageToolType | null;
@@ -46,7 +49,7 @@ const AiCheck: React.FC<Props> = ({
   languageTool,
   sapling,
   successSapling,
-  activeSapling,
+  configAiCheck,
   checkPermissions,
   goToRecord,
   onPressRevise,
@@ -56,6 +59,7 @@ const AiCheck: React.FC<Props> = ({
   const [routes] = useState([
     { key: 'ai1', title: I18n.t('myDiary.ai1') },
     { key: 'ai2', title: I18n.t('myDiary.ai2') },
+    { key: 'human', title: I18n.t('myDiary.human') },
   ]);
 
   useEffect(() => {
@@ -78,6 +82,8 @@ const AiCheck: React.FC<Props> = ({
     [sapling],
   );
 
+  const hasHuman = useMemo(() => !!diary.human, [diary.human]);
+
   const renderScene = useCallback(
     ({ route }) => {
       switch (route.key) {
@@ -85,7 +91,11 @@ const AiCheck: React.FC<Props> = ({
           return (
             <LanguageTool
               isOrigin={isOrigin}
-              showAdReward={!!activeSapling && !hasSapling && !hideFooterButton}
+              showAdReward={
+                !!configAiCheck.activeSapling &&
+                !hasSapling &&
+                !hideFooterButton
+              }
               hideFooterButton={hideFooterButton}
               diary={diary}
               title={title}
@@ -103,7 +113,6 @@ const AiCheck: React.FC<Props> = ({
           return hasSapling ? (
             <Sapling
               isOrigin={isOrigin}
-              showAdReward={false}
               hideFooterButton={hideFooterButton}
               diary={diary}
               title={title}
@@ -114,24 +123,38 @@ const AiCheck: React.FC<Props> = ({
               checkPermissions={checkPermissions}
               goToRecord={goToRecord}
               onPressRevise={onPressRevise}
-              onPressAdReward={onPressAdReward}
             />
           ) : (
             <NoSapling
-              activeSapling={activeSapling}
+              activeSapling={configAiCheck.activeSapling}
               onPressAdReward={onPressAdReward}
             />
+          );
+        case 'human':
+          return hasHuman ? (
+            <Human
+              hideFooterButton={hideFooterButton}
+              diary={diary}
+              editDiary={editDiary}
+              checkPermissions={checkPermissions}
+              goToRecord={goToRecord}
+              onPressRevise={onPressRevise}
+            />
+          ) : (
+            <NoHuman activeHuman={configAiCheck.activeHuman} />
           );
         default:
           return null;
       }
     },
     [
-      activeSapling,
       checkPermissions,
+      configAiCheck.activeHuman,
+      configAiCheck.activeSapling,
       diary,
       editDiary,
       goToRecord,
+      hasHuman,
       hasSapling,
       hideFooterButton,
       isOrigin,

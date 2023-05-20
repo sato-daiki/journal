@@ -157,6 +157,7 @@ const myDiary = {
   revised: 'Revised Correction',
   ai1: "AI1's correction",
   ai2: "AI2's correction",
+  human: "Human's correction",
   closeAlert:
     'Any edits that have not been saved will be lost. Would you like to exit?',
   permissionAudio:

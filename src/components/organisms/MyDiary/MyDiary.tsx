@@ -42,8 +42,9 @@ interface Props {
 
 export type Key = 'revised' | 'origin';
 
-type ConfigAiCheck = {
+export type ConfigAiCheck = {
   activeSapling: boolean;
+  activeHuman: boolean;
 };
 
 const IOS_AD_REWARD = 'ca-app-pub-0770181536572634/6050230343';
@@ -71,6 +72,7 @@ const MyDiary: React.FC<Props> = ({
   const [isAdLoading, setIsAdLoading] = useState(false);
   const [configAiCheck, setConfigAiCheck] = useState<ConfigAiCheck>({
     activeSapling: false,
+    activeHuman: false,
   });
   const [successSapling, setSuccessSapling] = useState(false);
 
@@ -247,7 +249,7 @@ const MyDiary: React.FC<Props> = ({
           sapling={diary.sapling}
           editDiary={editDiary}
           successSapling={successSapling}
-          activeSapling={configAiCheck.activeSapling}
+          configAiCheck={configAiCheck}
           checkPermissions={checkPermissions}
           goToRecord={goToRecord}
           onPressRevise={onPressRevise}
@@ -264,7 +266,7 @@ const MyDiary: React.FC<Props> = ({
           sapling={diary.reviseSapling}
           editDiary={editDiary}
           successSapling={successSapling}
-          activeSapling={configAiCheck.activeSapling}
+          configAiCheck={configAiCheck}
           checkPermissions={checkPermissions}
           goToRecord={goToRecord}
           onPressRevise={onPressRevise}

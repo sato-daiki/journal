@@ -14,13 +14,14 @@ import Toast from 'react-native-root-toast';
 import I18n from '@/utils/I18n';
 
 interface Props {
+  skipFirstRow?: boolean;
   color: string;
-  activeText: string;
+  activeText?: string;
   shortMessage: string | null;
   message?: string;
   urls?: { value: string }[] | null;
   replacements: { value: string }[];
-  onPressIgnore: () => void;
+  onPressIgnore?: () => void;
 }
 
 const styles = StyleSheet.create({
@@ -115,6 +116,7 @@ const styles = StyleSheet.create({
 });
 
 export const Card: React.FC<Props> = ({
+  skipFirstRow,
   color,
   activeText,
   shortMessage,
@@ -138,13 +140,21 @@ export const Card: React.FC<Props> = ({
   return (
     <ScrollView contentContainerStyle={styles.scrollView}>
       <View>
-        <View style={styles.firstRow}>
-          <View style={[styles.circle, { backgroundColor: color }]} />
-          <Text style={styles.shortMessage}>{shortMessage}</Text>
-        </View>
+        {!skipFirstRow && (
+          <View style={styles.firstRow}>
+            <View style={[styles.circle, { backgroundColor: color }]} />
+            <Text style={styles.shortMessage}>{shortMessage}</Text>
+          </View>
+        )}
         <View style={styles.secondRow}>
-          <Text style={[styles.baseWord, { color: color }]}>{activeText}</Text>
-          <Text style={styles.right}>→</Text>
+          {activeText && (
+            <>
+              <Text style={[styles.baseWord, { color: color }]}>
+                {activeText}
+              </Text>
+              <Text style={styles.right}>→</Text>
+            </>
+          )}
           {replacements.map((replacement, index) => (
             <View key={index} style={styles.replacementContaienr}>
               <Text style={styles.replacement}>{replacement.value}</Text>
@@ -185,13 +195,15 @@ export const Card: React.FC<Props> = ({
               </Hoverable>
             ))}
         </View>
-        <HoverableIcon
-          icon='feather'
-          name='trash-2'
-          color={primaryColor}
-          size={24}
-          onPress={onPressIgnore}
-        />
+        {onPressIgnore && (
+          <HoverableIcon
+            icon='feather'
+            name='trash-2'
+            color={primaryColor}
+            size={24}
+            onPress={onPressIgnore}
+          />
+        )}
       </View>
     </ScrollView>
   );

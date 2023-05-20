@@ -43,6 +43,13 @@
             "useFrameworks": "static"
           }
         }
+      ],
+      [
+        "@stripe/stripe-react-native",
+        {
+          "merchantIdentifier": "merchant.langjournal.daiki123456.app",
+          "enableGooglePay": true
+        }
       ]
     ],
     "extra": {

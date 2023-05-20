@@ -177,6 +177,10 @@ const myDiary = {
     '※ 現在問題が発生しており、一時的にSaplingでのチェックは停止しております。',
   noSaplingButton: '添削する',
   noSaplingWhat: 'Saplingについて詳しくみる',
+  noHuman: `AIのチェックだけでは不安。直接"人"にチェックしてもらいたい！そんな人におすすなサービスです。1文字あたり2円で添削をします。`,
+  noHumanInactive:
+    '※ 現在一時的にプロフェッショナルによる人の添削を停止しています。',
+  noHumanButton: '添削を依頼する',
 };
 
 const viewMyDiary = {
