@@ -1,5 +1,10 @@
-name: Typecheck and Lint
-on: [push]
+name: Typecheck, Lint and Test
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - develop
 
 jobs:
   typecheck-and-lint:
