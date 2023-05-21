@@ -28,6 +28,7 @@ import firestore from '@react-native-firebase/firestore';
 import { transparentBlack } from '@/styles/Common';
 import { getSapling } from '@/utils/grammarCheck';
 import { MyDiaryCaller } from '@/navigations/MyDiaryTabNavigator';
+import { logAnalytics } from '@/utils/Analytics';
 
 interface Props {
   isView: boolean;
@@ -146,12 +147,14 @@ const MyDiary: React.FC<Props> = ({
 
   const onPressAdReward = useCallback((key: Key) => {
     setIsAdLoading(true);
+    logAnalytics('on_press_ad_reward');
     loaded.current = false;
     rewarded.load();
     pressKey.current = key;
     setTimeout(() => {
       setIsAdLoading(false);
       if (loaded.current === false) {
+        logAnalytics('on_press_ad_reward_error');
         Toast.show(I18n.t('myDiary.adRewardError'), {
           duration: Toast.durations.SHORT,
           position: Toast.positions.TOP,
@@ -162,8 +165,10 @@ const MyDiary: React.FC<Props> = ({
 
   const showAdReward = useCallback(async () => {
     try {
+      logAnalytics('show_ad_reward');
       await rewarded.show();
     } catch (err: any) {
+      logAnalytics('err_show_ad_reward');
       Toast.show(I18n.t('myDiary.adRewardError'), {
         duration: Toast.durations.SHORT,
         position: Toast.positions.TOP,
@@ -181,6 +186,7 @@ const MyDiary: React.FC<Props> = ({
     let saplingInfo;
 
     if (pressKey.current === 'origin') {
+      logAnalytics('get_sapling_origin');
       const sapling = await getSapling(
         diary.longCode,
         isTitleSkip,
@@ -189,6 +195,7 @@ const MyDiary: React.FC<Props> = ({
       );
       saplingInfo = sapling ? { sapling } : undefined;
     } else {
+      logAnalytics('get_sapling_revise');
       const sapling = await getSapling(
         diary.longCode,
         isTitleSkip,

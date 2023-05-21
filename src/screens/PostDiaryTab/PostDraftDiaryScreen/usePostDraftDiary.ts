@@ -87,6 +87,8 @@ export const usePostDraftDiary = ({
   const onPressDraft = useCallback(async (): Promise<void> => {
     Keyboard.dismiss();
     if (isInitialLoading || isLoadingDraft || isLoadingPublish) return;
+    logAnalytics('on_press_draft_draft');
+
     try {
       if (!item.objectID) return;
 
@@ -124,6 +126,8 @@ export const usePostDraftDiary = ({
   const onPressCheck = useCallback(async (): Promise<void> => {
     Keyboard.dismiss();
     if (isInitialLoading || isLoadingDraft || isLoadingPublish) return;
+    logAnalytics('on_press_check_draft');
+
     if (!item.objectID) return;
     const isTitleSkip = !!item.themeCategory && !!item.themeSubcategory;
 

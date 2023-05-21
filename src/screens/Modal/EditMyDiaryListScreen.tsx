@@ -25,6 +25,7 @@ import { borderLightColor, fontSizeS, softRed } from '@/styles/Common';
 import ModalConfirm from '@/components/organisms/ModalConfirm';
 import firestore from '@react-native-firebase/firestore';
 import { getLoadNextPage } from '@/utils/diary';
+import { logAnalytics } from '@/utils/Analytics';
 
 export interface Props {
   user: User;
@@ -102,7 +103,7 @@ const EditMyDiaryListScreen: React.FC<ScreenType> = ({
   const onDeleteDiaries = useCallback(async () => {
     if (checkedIds.current.length === 0) return;
     setIsLoading(true);
-
+    logAnalytics('on_delete_diary_edit_my_diary_list');
     checkedIds.current.forEach(async (id) => {
       await firestore().collection('diaries').doc(id).delete();
     });

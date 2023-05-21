@@ -8,6 +8,7 @@ import firestore, {
 } from '@react-native-firebase/firestore';
 import { PostReviseDiaryNavigationProp } from './PostReviseDiaryScreen';
 import { getLanguageTool } from '@/utils/grammarCheck';
+import { logAnalytics } from '@/utils/Analytics';
 
 interface UsePostReviseDiary {
   user: User;
@@ -75,6 +76,8 @@ export const usePostReviseDiary = ({
   const onPressCheck = useCallback(async (): Promise<void> => {
     Keyboard.dismiss();
     if (isInitialLoading || isLoadingPublish) return;
+    logAnalytics('on_press_check_revise');
+
     if (!item.objectID) return;
     const isTitleSkip = !!item.themeCategory && !!item.themeSubcategory;
 

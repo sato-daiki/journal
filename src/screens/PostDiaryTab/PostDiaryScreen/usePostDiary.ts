@@ -94,6 +94,8 @@ export const usePostDiary = ({
   const onPressDraft = useCallback(async (): Promise<void> => {
     Keyboard.dismiss();
     if (isLoadingDraft || isLoadingPublish) return;
+    logAnalytics('on_press_draft_post');
+
     try {
       setIsLoadingDraft(true);
       const diary = getDiary(user.uid, 'draft');
@@ -127,8 +129,9 @@ export const usePostDiary = ({
   const onPressCheck = useCallback(async (): Promise<void> => {
     Keyboard.dismiss();
     if (isLoadingDraft || isLoadingPublish) return;
-    const isTitleSkip = !!themeCategory && !!themeSubcategory;
+    logAnalytics('on_press_check_post');
 
+    const isTitleSkip = !!themeCategory && !!themeSubcategory;
     const checked = checkBeforePost(isTitleSkip, title, text);
     if (!checked.result) {
       setErrorMessage(checked.errorMessage);
@@ -137,7 +140,6 @@ export const usePostDiary = ({
     }
 
     setIsLoadingPublish(true);
-
     const languageTool = await getLanguageTool(
       selectedItem.value as LongCode,
       isTitleSkip,

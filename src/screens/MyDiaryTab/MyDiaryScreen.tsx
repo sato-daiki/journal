@@ -19,6 +19,7 @@ import firestore from '@react-native-firebase/firestore';
 import ModalConfirm from '@/components/organisms/ModalConfirm';
 import MyDiary from '@/components/organisms/MyDiary/MyDiary';
 import { transparentBlack } from '@/styles/Common';
+import { logAnalytics } from '@/utils/Analytics';
 
 export interface Props {
   diary?: Diary;
@@ -70,6 +71,7 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
   const onPressDelete = useCallback(async () => {
     if (!diary || !diary.objectID) return;
     setIsLoading(true);
+    logAnalytics('on_delete_diary_my_diary');
     firestore().collection('diaries').doc(diary.objectID).delete();
     setIsModalDelete(false);
     // reduxの設定
@@ -84,6 +86,7 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
 
   const onPressRevise = useCallback(() => {
     if (diary && diary.objectID) {
+      logAnalytics('on_press_revise');
       navigation.navigate('ModalPostReviseDiary', {
         screen: 'PostReviseDiary',
         params: { item: diary, objectID: diary.objectID },
@@ -163,7 +166,7 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
 
   const goToRecord = useCallback(async (): Promise<void> => {
     if (!diary || !diary.objectID) return;
-
+    logAnalytics('go_to_record');
     const res = await checkPermissions();
     if (!res) return;
 
