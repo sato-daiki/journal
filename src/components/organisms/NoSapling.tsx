@@ -59,7 +59,7 @@ const NoSapling: React.FC<Props> = ({ activeSapling, onPressAdReward }) => {
       <LinkText
         containerStyle={styles.linkText}
         onPress={onPressWhat}
-        text={I18n.t('myDiary.noSaplingWhat')}
+        text={I18n.t('myDiary.moreAi', { aiName: 'Sapling' })}
       />
       {activeSapling && (
         <SubmitButton

@@ -38,6 +38,7 @@ const SaplingDiaryTitleAndText: React.FC<Props> = ({
     <CommonDiaryTitleAndText
       title={title}
       text={text}
+      aiName='Sapling'
       longCode={longCode}
       themeCategory={themeCategory}
       themeSubcategory={themeSubcategory}

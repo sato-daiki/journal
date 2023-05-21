@@ -50,6 +50,12 @@
           "merchantIdentifier": "merchant.langjournal.daiki123456.app",
           "enableGooglePay": true
         }
+      ],
+      [
+        "expo-tracking-transparency",
+        {
+          "userTrackingPermission": "This identifier will be used to deliver personalized ads to you."
+        }
       ]
     ],
     "extra": {

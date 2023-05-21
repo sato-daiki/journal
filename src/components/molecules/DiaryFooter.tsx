@@ -1,12 +1,7 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { Text, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Audio, AVPlaybackStatus } from 'expo-av';
-import {
-  fontSizeS,
-  mainColor,
-  primaryColor,
-  subTextColor,
-} from '../../styles/Common';
+import { mainColor, primaryColor } from '../../styles/Common';
 import I18n from '@/utils/I18n';
 import { GrayHeader, Space, SubmitButton, WhiteButton } from '../atoms';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -26,12 +21,6 @@ type Props = {
 };
 
 const styles = StyleSheet.create({
-  textLength: {
-    color: subTextColor,
-    fontSize: fontSizeS,
-    textAlign: 'right',
-    paddingHorizontal: 16,
-  },
   button: {
     marginHorizontal: 16,
     marginBottom: 16,
@@ -209,14 +198,10 @@ const DiaryFooter: React.FC<Props> = ({
 
   return (
     <>
-      <Text style={styles.textLength}>
-        {I18n.t('postDiaryComponent.textLength')}
-        {` ${text.length}`}
-      </Text>
       {/* ViewMidiaryの時と、修正後の原文は非表示にする */}
       {!hideFooterButton && (
         <>
-          <Space size={24} />
+          <Space size={48} />
           {onPressRevise && (
             <View style={styles.button}>
               <SubmitButton

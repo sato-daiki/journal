@@ -59,7 +59,7 @@ const AiCheck: React.FC<Props> = ({
   const [routes] = useState([
     { key: 'ai1', title: I18n.t('myDiary.ai1') },
     { key: 'ai2', title: I18n.t('myDiary.ai2') },
-    { key: 'human', title: I18n.t('myDiary.human') },
+    // { key: 'human', title: I18n.t('myDiary.human') },
   ]);
 
   useEffect(() => {

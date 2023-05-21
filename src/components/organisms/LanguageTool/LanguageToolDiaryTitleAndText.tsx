@@ -52,6 +52,7 @@ const LanguageToolDiaryTitleAndText: React.FC<Props> = ({
     <CommonDiaryTitleAndText
       title={title}
       text={text}
+      aiName='LanguageTool'
       longCode={longCode}
       themeCategory={themeCategory}
       themeSubcategory={themeSubcategory}

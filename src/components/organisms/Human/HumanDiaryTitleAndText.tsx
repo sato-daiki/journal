@@ -34,6 +34,7 @@ const HumanDiaryTitleAndText: React.FC<Props> = ({
     <CommonDiaryTitleAndText
       title={title}
       text={text}
+      aiName='Human'
       longCode={diary.longCode}
       themeCategory={diary.themeCategory}
       themeSubcategory={diary.themeSubcategory}

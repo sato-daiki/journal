@@ -179,7 +179,10 @@ const myDiary = {
   noSaplingInactive:
     '※ Due to a problem, Sapling checks are temporarily suspended.',
   noSaplingButton: 'Correct the text',
-  noSaplingWhat: 'See more about Sapling',
+
+  describeAi1: 'This correction was made by ',
+  describeAi2: '',
+  moreAi: 'See more about {{aiName}}',
 };
 
 const viewMyDiary = {
