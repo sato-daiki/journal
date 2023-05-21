@@ -164,18 +164,11 @@ export interface Reminder {
 
 export interface User {
   uid: string;
+  isPremium: boolean;
   learnLanguage: LongCode;
   diaryPosted: boolean;
   onboarding?: boolean;
-  tutorialTeachDiaryList: boolean;
-  tutorialCorrectiong: boolean;
   expoPushToken: string | null;
-  correctingObjectID: string | null;
-  correctingCorrectedNum: number | null;
-  notificationCorrection: boolean;
-  notificationReview: boolean;
-  mailCorrection?: boolean;
-  mailOperation?: boolean;
   themeDiaries?: ThemeDiary[] | null;
   reminder?: Reminder;
   runningDays?: number;

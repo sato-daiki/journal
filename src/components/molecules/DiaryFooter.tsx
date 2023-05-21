@@ -9,14 +9,17 @@ import ModalVoice from '../organisms/ModalVoice';
 import { LongCode } from '@/types';
 
 type Props = {
-  showAdReward: boolean;
+  isPremium?: boolean;
+  showSaplingCheck?: boolean;
   hideFooterButton: boolean;
   text: string;
   longCode: LongCode;
   voiceUrl?: string | null;
   onPressRevise?: () => void;
   checkPermissions?: () => Promise<boolean>;
+  onPressCheck?: () => void;
   onPressAdReward?: () => void;
+  onPressBecome?: () => void;
   goToRecord?: () => void;
 };
 
@@ -28,12 +31,15 @@ const styles = StyleSheet.create({
 });
 
 const DiaryFooter: React.FC<Props> = ({
-  showAdReward,
+  isPremium,
+  showSaplingCheck,
   hideFooterButton,
   text,
   voiceUrl,
   onPressRevise,
+  onPressCheck,
   onPressAdReward,
+  onPressBecome,
   checkPermissions,
   goToRecord,
 }) => {
@@ -171,6 +177,16 @@ const DiaryFooter: React.FC<Props> = ({
     [],
   );
 
+  const iconWatch = useMemo(
+    () => <MaterialCommunityIcons size={22} color={mainColor} name='play' />,
+    [],
+  );
+
+  const iconBecome = useMemo(
+    () => <MaterialCommunityIcons size={18} color={mainColor} name='star' />,
+    [],
+  );
+
   const iconHeader = useMemo(
     () => (
       <MaterialCommunityIcons
@@ -196,57 +212,79 @@ const DiaryFooter: React.FC<Props> = ({
     [],
   );
 
+  /* ViewMidiaryの時と、修正後の原文は非表示にする */
+  if (hideFooterButton) return null;
+
   return (
     <>
-      {/* ViewMidiaryの時と、修正後の原文は非表示にする */}
-      {!hideFooterButton && (
+      <Space size={48} />
+      {onPressRevise && (
+        <View style={styles.button}>
+          <SubmitButton
+            icon={iconPen}
+            title={I18n.t('myDiary.revise')}
+            onPress={onPressRevise}
+          />
+        </View>
+      )}
+      {!showSaplingCheck ? (
+        <></>
+      ) : isPremium ? (
+        <View style={styles.button}>
+          <WhiteButton
+            icon={iconSpellcheck}
+            title={I18n.t('myDiary.check')}
+            onPress={onPressCheck}
+          />
+        </View>
+      ) : (
         <>
-          <Space size={48} />
-          {onPressRevise && (
-            <View style={styles.button}>
-              <SubmitButton
-                icon={iconPen}
-                title={I18n.t('myDiary.revise')}
-                onPress={onPressRevise}
-              />
-            </View>
-          )}
-          {/* saplingでまだチェックされていない時 */}
-          {showAdReward && onPressAdReward && (
+          <Space size={16} />
+          {onPressAdReward && (
             <View style={styles.button}>
               <WhiteButton
                 containerStyle={{ paddingHorizontal: 16 }}
-                icon={iconSpellcheck}
+                icon={iconWatch}
                 title={I18n.t('myDiary.adReward')}
                 onPress={onPressAdReward}
               />
             </View>
           )}
-          <Space size={24} />
-          <GrayHeader icon={iconHeader} title={I18n.t('myDiary.voiceTitle')} />
-          <Space size={24} />
-          {voiceUrl && (
+          {onPressBecome && (
             <View style={styles.button}>
               <WhiteButton
-                icon={iconHeadphones}
-                title={I18n.t('myDiary.myVoice')}
-                onPress={onPressMyVoice}
+                icon={iconBecome}
+                title={I18n.t('myDiary.become')}
+                onPress={onPressBecome}
               />
             </View>
           )}
-          {goToRecord && (
-            <View style={styles.button}>
-              <WhiteButton
-                title={I18n.t('myDiary.record')}
-                icon={iconRecord}
-                onPress={goToRecord}
-              />
-            </View>
-          )}
-          <Space size={32} />
         </>
       )}
-      {voiceUrl ? (
+
+      <Space size={24} />
+      <GrayHeader icon={iconHeader} title={I18n.t('myDiary.voiceTitle')} />
+      <Space size={24} />
+      {!!voiceUrl && (
+        <View style={styles.button}>
+          <WhiteButton
+            icon={iconHeadphones}
+            title={I18n.t('myDiary.myVoice')}
+            onPress={onPressMyVoice}
+          />
+        </View>
+      )}
+      {goToRecord && (
+        <View style={styles.button}>
+          <WhiteButton
+            title={I18n.t('myDiary.record')}
+            icon={iconRecord}
+            onPress={goToRecord}
+          />
+        </View>
+      )}
+      <Space size={32} />
+      {!!voiceUrl && (
         <ModalVoice
           visible={visibleVoice}
           text={text}
@@ -260,7 +298,7 @@ const DiaryFooter: React.FC<Props> = ({
           onPlayPausePressed={onPlayPausePressed}
           onPressClose={onPressClose}
         />
-      ) : null}
+      )}
     </>
   );
 };

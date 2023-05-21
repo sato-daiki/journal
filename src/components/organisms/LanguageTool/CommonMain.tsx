@@ -8,14 +8,17 @@ import DiaryFooter from '@/components/molecules/DiaryFooter';
 
 export interface Props {
   viewShotRef: React.MutableRefObject<ViewShot | null>;
-  showAdReward: boolean;
+  isPremium?: boolean;
+  showSaplingCheck?: boolean;
   hideFooterButton: boolean;
   diary: Diary;
   text: string;
   checkPermissions?: () => Promise<boolean>;
   goToRecord?: () => void;
   onPressRevise?: () => void;
+  onPressCheck?: () => void;
   onPressAdReward?: () => void;
+  onPressBecome?: () => void;
   cardTitle: ReactNode;
   cardText: ReactNode;
   titleAndText: ReactNode;
@@ -40,14 +43,17 @@ const styles = StyleSheet.create({
 
 const CommonMain: React.FC<Props> = ({
   viewShotRef,
-  showAdReward,
+  isPremium,
+  showSaplingCheck,
   hideFooterButton,
   diary,
   text,
   checkPermissions,
   goToRecord,
   onPressRevise,
+  onPressCheck,
   onPressAdReward,
+  onPressBecome,
   titleAndText,
   cardTitle,
   cardText,
@@ -65,15 +71,18 @@ const CommonMain: React.FC<Props> = ({
             {titleAndText}
           </View>
           <DiaryFooter
+            isPremium={isPremium}
             hideFooterButton={hideFooterButton}
-            showAdReward={showAdReward}
+            showSaplingCheck={showSaplingCheck}
             text={text}
             longCode={diary.longCode}
             voiceUrl={diary.voiceUrl}
             checkPermissions={checkPermissions}
             goToRecord={goToRecord}
             onPressRevise={onPressRevise}
+            onPressCheck={onPressCheck}
             onPressAdReward={onPressAdReward}
+            onPressBecome={onPressBecome}
           />
         </ViewShot>
         <Space size={32} />

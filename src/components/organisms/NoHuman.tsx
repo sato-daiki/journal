@@ -1,12 +1,10 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { View, StyleSheet, Text, Image } from 'react-native';
 import I18n from '@/utils/I18n';
-import * as Linking from 'expo-linking';
-import { LinkText, SubmitButton } from '../atoms';
+import { SubmitButton } from '../atoms';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { fontSizeM } from '@/styles/Common';
 import { SaplingLogo } from '@/images';
-import { saplingUrl } from '@/constants/url';
 
 const styles = StyleSheet.create({
   container: {
@@ -35,18 +33,13 @@ const styles = StyleSheet.create({
 
 interface Props {
   activeHuman: boolean | undefined;
-  onPressAdReward?: () => void;
 }
 
-const NoHuman: React.FC<Props> = ({ activeHuman, onPressAdReward }) => {
+const NoHuman: React.FC<Props> = ({ activeHuman }) => {
   const iconSpellcheck = useMemo(
     () => <MaterialCommunityIcons size={22} color={'#fff'} name='spellcheck' />,
     [],
   );
-
-  const onPressWhat = useCallback(() => {
-    Linking.openURL(saplingUrl);
-  }, []);
 
   return (
     <View style={styles.container}>
@@ -60,7 +53,6 @@ const NoHuman: React.FC<Props> = ({ activeHuman, onPressAdReward }) => {
         <SubmitButton
           icon={iconSpellcheck}
           title={I18n.t('myDiary.noHumanButton')}
-          onPress={onPressAdReward}
           containerStyle={styles.submitButton}
         />
       )}

@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   icon: {
-    marginRight: 8,
+    marginRight: 6,
   },
 });
 

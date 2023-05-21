@@ -7,7 +7,8 @@ import CommonMain from './CommonMain';
 
 export interface Props {
   isOriginal: boolean;
-  showAdReward: boolean;
+  isPremium: boolean;
+  showSaplingCheck: boolean;
   hideFooterButton: boolean;
   diary: Diary;
   title: string;
@@ -18,12 +19,15 @@ export interface Props {
   checkPermissions?: () => Promise<boolean>;
   goToRecord?: () => void;
   onPressRevise?: () => void;
+  onPressCheck;
   onPressAdReward?: () => void;
+  onPressBecome?: () => void;
 }
 
 const LanguageTool: React.FC<Props> = ({
   isOriginal,
-  showAdReward,
+  isPremium,
+  showSaplingCheck,
   hideFooterButton,
   diary,
   title,
@@ -34,7 +38,9 @@ const LanguageTool: React.FC<Props> = ({
   checkPermissions,
   goToRecord,
   onPressRevise,
+  onPressCheck,
   onPressAdReward,
+  onPressBecome,
 }) => {
   const getTitleInfo = useCallback(
     (newMatches: Match[]) => {
@@ -112,14 +118,17 @@ const LanguageTool: React.FC<Props> = ({
   return (
     <CommonMain
       viewShotRef={viewShotRef}
-      showAdReward={showAdReward}
+      isPremium={isPremium}
+      showSaplingCheck={showSaplingCheck}
       hideFooterButton={hideFooterButton}
       diary={diary}
       text={text}
       checkPermissions={checkPermissions}
       goToRecord={goToRecord}
       onPressRevise={onPressRevise}
+      onPressCheck={onPressCheck}
       onPressAdReward={onPressAdReward}
+      onPressBecome={onPressBecome}
       titleAndText={
         <LanguageToolDiaryTitleAndText
           title={title}
