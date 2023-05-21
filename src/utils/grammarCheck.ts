@@ -132,7 +132,7 @@ const getMatches = (matches: RawMatch[]): Match[] => {
   });
 };
 
-const languageToolCheck = async (
+export const languageToolCheck = async (
   learnLanguage: LongCode,
   text: string,
 ): Promise<{ matches: Match[] | []; result: Result; error: string | null }> => {
@@ -256,13 +256,20 @@ const getEdites = (edits: RawEdit[]): Edit[] => {
   });
 };
 
-const saplingCheck = async (
+export const saplingCheck = async (
   learnLanguage: LongCode,
   text: string,
+  isTest?: boolean,
 ): Promise<{ edits: Edit[] | []; result: Result; error: string | null }> => {
   try {
     // ランダムの値を作る必要があるため
-    const session_id = Crypto.randomUUID();
+    let session_id;
+    if (isTest) {
+      // jestの時 Cryptoを呼ぶと落ちてしまうので
+      session_id = Math.floor(Math.random() * 10000).toString();
+    } else {
+      session_id = Crypto.randomUUID();
+    }
 
     const response = await axios.post(
       `${SPALING_ENDPOINT}/edits`,
