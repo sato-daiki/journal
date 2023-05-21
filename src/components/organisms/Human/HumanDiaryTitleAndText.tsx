@@ -1,18 +1,16 @@
 import React from 'react';
 import { Text } from 'react-native';
-import { ThemeCategory, ThemeSubcategory, Edit, LongCode } from '@/types';
-import SaplingWords from './SaplingWords';
+import { Diary, HumanCorrect } from '@/types';
 import { styles } from '../LanguageTool/LanguageToolDiaryTitleAndText';
 import CommonDiaryTitleAndText from '../LanguageTool/CommonDiaryTitleAndText';
+import HumanWords from './HumanWords';
 
 interface Props {
+  diary: Diary;
   title: string;
   text: string;
-  longCode: LongCode;
-  themeCategory?: ThemeCategory | null;
-  themeSubcategory?: ThemeSubcategory | null;
-  titleEdits?: Edit[] | [];
-  textEdits?: Edit[] | [];
+  titleArray: HumanCorrect[] | [] | undefined;
+  textArray: HumanCorrect[] | [] | undefined;
   titleActiveIndex?: number | null;
   textActiveIndex?: number | null;
   setTitleActiveIndex?: (activeId: number | null) => void;
@@ -20,14 +18,12 @@ interface Props {
   onPressShare: () => void;
 }
 
-const SaplingDiaryTitleAndText: React.FC<Props> = ({
+const HumanDiaryTitleAndText: React.FC<Props> = ({
+  diary,
   title,
   text,
-  longCode,
-  themeCategory,
-  themeSubcategory,
-  titleEdits,
-  textEdits,
+  titleArray,
+  textArray,
   titleActiveIndex,
   textActiveIndex,
   setTitleActiveIndex,
@@ -38,16 +34,15 @@ const SaplingDiaryTitleAndText: React.FC<Props> = ({
     <CommonDiaryTitleAndText
       title={title}
       text={text}
-      aiName='Sapling'
-      longCode={longCode}
-      themeCategory={themeCategory}
-      themeSubcategory={themeSubcategory}
+      aiName='Human'
+      longCode={diary.longCode}
+      themeCategory={diary.themeCategory}
+      themeSubcategory={diary.themeSubcategory}
       titleComponent={
-        titleEdits && titleEdits.length > 0 ? (
-          <SaplingWords
+        titleArray && titleArray.length > 0 ? (
+          <HumanWords
             textStyle={styles.title}
-            text={title}
-            edits={titleEdits}
+            humanCorrects={titleArray}
             activeIndex={titleActiveIndex}
             setActiveIndex={setTitleActiveIndex}
             setOtherIndex={setTextActiveIndex}
@@ -57,10 +52,9 @@ const SaplingDiaryTitleAndText: React.FC<Props> = ({
         )
       }
       textComponent={
-        textEdits && textEdits.length > 0 ? (
-          <SaplingWords
-            text={text}
-            edits={textEdits}
+        textArray && textArray.length > 0 ? (
+          <HumanWords
+            humanCorrects={textArray}
             activeIndex={textActiveIndex}
             setActiveIndex={setTextActiveIndex}
             setOtherIndex={setTitleActiveIndex}
@@ -74,4 +68,4 @@ const SaplingDiaryTitleAndText: React.FC<Props> = ({
   );
 };
 
-export default SaplingDiaryTitleAndText;
+export default HumanDiaryTitleAndText;

@@ -7,6 +7,7 @@ import { MenuProvider } from 'react-native-popup-menu';
 import { NavigationContainer } from '@react-navigation/native';
 import { RootSiblingParent } from 'react-native-root-siblings';
 import firestore from '@react-native-firebase/firestore';
+import { StripeProvider } from '@stripe/stripe-react-native';
 
 import { configureStore } from '@/stores/Store';
 
@@ -72,15 +73,20 @@ const App = () => {
   return (
     <Provider store={store}>
       <PersistGate loading={<LoadingScreen />} persistor={persistor}>
-        <ActionSheetProvider>
-          <RootSiblingParent>
-            <MenuProvider>
-              <NavigationContainer>
-                <RootNavigatorContainer />
-              </NavigationContainer>
-            </MenuProvider>
-          </RootSiblingParent>
-        </ActionSheetProvider>
+        <StripeProvider
+          publishableKey='pk_test_51N9RAbDpsgOkHekxO90VbMC5OiXjHtvhcK3NmhbhcNU7okHS1lYqwAn3kgCUpNzVMIGeH07d2bU6PQ9bGUAeokW500qIqU6mDb'
+          merchantIdentifier='merchant.langjournal.daiki123456.app'
+        >
+          <ActionSheetProvider>
+            <RootSiblingParent>
+              <MenuProvider>
+                <NavigationContainer>
+                  <RootNavigatorContainer />
+                </NavigationContainer>
+              </MenuProvider>
+            </RootSiblingParent>
+          </ActionSheetProvider>
+        </StripeProvider>
       </PersistGate>
     </Provider>
   );

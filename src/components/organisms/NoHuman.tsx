@@ -34,11 +34,11 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  activeSapling: boolean | undefined;
+  activeHuman: boolean | undefined;
   onPressAdReward?: () => void;
 }
 
-const NoSapling: React.FC<Props> = ({ activeSapling, onPressAdReward }) => {
+const NoHuman: React.FC<Props> = ({ activeHuman, onPressAdReward }) => {
   const iconSpellcheck = useMemo(
     () => <MaterialCommunityIcons size={22} color={'#fff'} name='spellcheck' />,
     [],
@@ -52,19 +52,14 @@ const NoSapling: React.FC<Props> = ({ activeSapling, onPressAdReward }) => {
     <View style={styles.container}>
       <Image source={SaplingLogo} style={styles.image} />
       <Text style={styles.text}>
-        {activeSapling
-          ? I18n.t('myDiary.noSapling')
-          : I18n.t('myDiary.noSaplingInactive')}
+        {activeHuman
+          ? I18n.t('myDiary.noHuman')
+          : I18n.t('myDiary.noHumanInactive')}
       </Text>
-      <LinkText
-        containerStyle={styles.linkText}
-        onPress={onPressWhat}
-        text={I18n.t('myDiary.moreAi', { aiName: 'Sapling' })}
-      />
-      {activeSapling && (
+      {activeHuman && (
         <SubmitButton
           icon={iconSpellcheck}
-          title={I18n.t('myDiary.noSaplingButton')}
+          title={I18n.t('myDiary.noHumanButton')}
           onPress={onPressAdReward}
           containerStyle={styles.submitButton}
         />
@@ -73,4 +68,4 @@ const NoSapling: React.FC<Props> = ({ activeSapling, onPressAdReward }) => {
   );
 };
 
-export default NoSapling;
+export default NoHuman;

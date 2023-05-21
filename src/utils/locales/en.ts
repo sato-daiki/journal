@@ -157,6 +157,7 @@ const myDiary = {
   revised: 'Revised Correction',
   ai1: "AI1's correction",
   ai2: "AI2's correction",
+  human: "Human's correction",
   closeAlert:
     'Any edits that have not been saved will be lost. Would you like to exit?',
   permissionAudio:
@@ -178,7 +179,10 @@ const myDiary = {
   noSaplingInactive:
     '※ Due to a problem, Sapling checks are temporarily suspended.',
   noSaplingButton: 'Correct the text',
-  noSaplingWhat: 'See more about Sapling',
+
+  describeAi1: 'This correction was made by ',
+  describeAi2: '',
+  moreAi: 'See more about {{aiName}}',
 };
 
 const viewMyDiary = {

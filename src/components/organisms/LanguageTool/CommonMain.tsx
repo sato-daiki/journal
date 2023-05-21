@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { StyleSheet, View, ScrollView } from 'react-native';
+import { StyleSheet, View, ScrollView, Text } from 'react-native';
 import ViewShot from 'react-native-view-shot';
 import { Diary } from '../../../types';
 import { Space } from '../../atoms';
@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     paddingHorizontal: 16,
-    paddingBottom: 32,
   },
   scrollView: {
     flex: 1,

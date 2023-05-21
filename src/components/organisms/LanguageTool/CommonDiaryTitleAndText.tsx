@@ -1,17 +1,21 @@
 import React, { ReactNode, useCallback, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import { LongCode, ThemeCategory, ThemeSubcategory } from '@/types';
-import { Space } from '@/components/atoms';
+import { LinkText, Space } from '@/components/atoms';
 import CommonSmallPill from '../../molecules/CommonSmallPill';
 import I18n from '@/utils/I18n';
 import * as Clipboard from 'expo-clipboard';
+import * as Linking from 'expo-linking';
 import Toast from 'react-native-root-toast';
 import ModalSpeech from '../ModalSpeech';
 import CommonIcons from './CommonIcons';
+import { fontSizeS, subTextColor } from '@/styles/Common';
+import { AiName, getWhatUrl } from '@/utils/grammarCheck';
 
 interface Props {
   title: string;
   text: string;
+  aiName: AiName;
   longCode: LongCode;
   themeCategory?: ThemeCategory | null;
   themeSubcategory?: ThemeSubcategory | null;
@@ -28,11 +32,28 @@ export const styles = StyleSheet.create({
     paddingTop: 8,
     paddingBottom: 8,
   },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  describeAi: {
+    color: subTextColor,
+    fontSize: fontSizeS,
+  },
+  linkText: {
+    fontSize: fontSizeS,
+  },
+  textLength: {
+    alignSelf: 'flex-end',
+    color: subTextColor,
+    fontSize: fontSizeS,
+  },
 });
 
 const CommonDiaryTitleAndText: React.FC<Props> = ({
   title,
   text,
+  aiName,
   longCode,
   themeCategory,
   themeSubcategory,
@@ -60,6 +81,13 @@ const CommonDiaryTitleAndText: React.FC<Props> = ({
     });
   }, [text]);
 
+  const onPressWhat = useCallback(() => {
+    const url = getWhatUrl(aiName);
+    if (url) {
+      Linking.openURL(url);
+    }
+  }, [aiName]);
+
   return (
     <>
       <View style={styles.titleContainer}>
@@ -74,12 +102,27 @@ const CommonDiaryTitleAndText: React.FC<Props> = ({
       />
       <Space size={16} />
       {textComponent}
+      <Space size={8} />
+      <Text style={styles.textLength}>
+        {I18n.t('postDiaryComponent.textLength')}
+        {` ${text.length}`}
+      </Text>
+      <Space size={8} />
       <CommonIcons
         onPressSpeech={() => setVisibleSpeech('text')}
         onPressCopy={onPressTextCopy}
         onPressShare={onPressShare}
       />
       <Space size={16} />
+      <View style={styles.row}>
+        <Text style={styles.describeAi}>{I18n.t('myDiary.describeAi1')}</Text>
+        <LinkText
+          textStyle={styles.linkText}
+          onPress={onPressWhat}
+          text={aiName}
+        />
+        <Text style={styles.describeAi}>{I18n.t('myDiary.describeAi2')}</Text>
+      </View>
       <ModalSpeech
         visible={!!visibleSpeech}
         text={

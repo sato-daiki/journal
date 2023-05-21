@@ -4,23 +4,28 @@ export interface HumanCorrect {
 }
 
 export interface Human {
-  titleCorrect: HumanCorrect[] | [];
-  textCorrect: HumanCorrect[] | [];
+  titleCorrects: HumanCorrect[] | [];
+  textCorrects: HumanCorrect[] | [];
 }
 
 export const humanSample: Human = {
-  titleCorrect: [
+  titleCorrects: [
     {
       original:
         'LangJournal is a language learning application specializing in writing.',
+      correction:
+        'Supported languages: English, German, Spanish, French, Portuguese, Dutch (more languages will be added)',
     },
   ],
-  textCorrect: [
+  textCorrects: [
     {
       original:
         'Supported languages: English, German, Spanish, French, Portuguese, Dutch (to be expanded)',
       correction:
         'Supported languages: English, German, Spanish, French, Portuguese, Dutch (more languages will be added)',
+    },
+    {
+      original: 'www',
     },
     {
       original:
