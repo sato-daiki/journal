@@ -42,3 +42,5 @@ eas build --profile production --platform all
 eas submit -p ios
 
 eas submit -p android
+
+https://github.com/sato-daiki/journal/compare/main...develop
