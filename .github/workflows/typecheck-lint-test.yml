@@ -1,5 +1,4 @@
 name: Typecheck and Lint
-
 on: [push]
 
 jobs:
