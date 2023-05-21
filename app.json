@@ -14,7 +14,7 @@
     "assetBundlePatterns": ["**/*"],
     "jsEngine": "hermes",
     "ios": {
-      "buildNumber": "1022500",
+      "buildNumber": "1022600",
       "googleServicesFile": "./GoogleService-Info.plist",
       "supportsTablet": true,
       "bundleIdentifier": "app.daiki123456.langjournal"
