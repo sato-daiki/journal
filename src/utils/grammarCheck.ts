@@ -13,7 +13,10 @@ import {
 } from '../types';
 import { softRed, softRedOpacy, yellow, yellowOpacy } from '@/styles/Common';
 import Toast from 'react-native-root-toast';
+import firestore from '@react-native-firebase/firestore';
 import I18n from '@/utils/I18n';
+import { logAnalytics } from './Analytics';
+import { WhichDiaryKey } from '@/components/organisms/MyDiaryHeaderTitle';
 
 const LANGUAGE_TOOL_ENDPOINT = 'https://api.languagetoolplus.com/v2';
 
@@ -129,7 +132,7 @@ const getMatches = (matches: RawMatch[]): Match[] => {
   });
 };
 
-const languageToolCheck = async (
+export const languageToolCheck = async (
   learnLanguage: LongCode,
   text: string,
 ): Promise<{ matches: Match[] | []; result: Result; error: string | null }> => {
@@ -151,6 +154,7 @@ const languageToolCheck = async (
       },
     );
     if (response.status === 200 && response.data.matches) {
+      logAnalytics('language_tool_check_success');
       return {
         matches:
           response.data.matches.length > 0
@@ -160,6 +164,7 @@ const languageToolCheck = async (
         error: null,
       };
     }
+    logAnalytics('language_tool_check_error');
     console.warn('response', response);
     return {
       matches: [],
@@ -167,6 +172,7 @@ const languageToolCheck = async (
       error: '想定外のエラー1',
     };
   } catch (err: any) {
+    logAnalytics('language_tool_check_error_catch');
     console.warn('catch err', err);
     return {
       matches: [],
@@ -198,10 +204,13 @@ export const getLanguageTool = async (
     const textLanguageTool = await languageToolCheck(learnLanguage, text);
 
     if (textLanguageTool.result === 'error') {
+      logAnalytics('get_language_tool_error');
       Toast.show(I18n.t('postDiary.correctError'), {
         duration: Toast.durations.LONG,
         position: Toast.positions.CENTER,
       });
+    } else {
+      logAnalytics('get_language_tool_success');
     }
 
     return {
@@ -214,6 +223,7 @@ export const getLanguageTool = async (
     };
   } catch (err: any) {
     console.warn(err);
+    logAnalytics('get_language_tool_error_catch');
     Toast.show(I18n.t('postDiary.correctError'), {
       duration: Toast.durations.LONG,
       position: Toast.positions.CENTER,
@@ -246,13 +256,20 @@ const getEdites = (edits: RawEdit[]): Edit[] => {
   });
 };
 
-const saplingCheck = async (
+export const saplingCheck = async (
   learnLanguage: LongCode,
   text: string,
+  isTest?: boolean,
 ): Promise<{ edits: Edit[] | []; result: Result; error: string | null }> => {
   try {
     // ランダムの値を作る必要があるため
-    const session_id = Crypto.randomUUID();
+    let session_id;
+    if (isTest) {
+      // jestの時 Cryptoを呼ぶと落ちてしまうので
+      session_id = Math.floor(Math.random() * 10000).toString();
+    } else {
+      session_id = Crypto.randomUUID();
+    }
 
     const response = await axios.post(
       `${SPALING_ENDPOINT}/edits`,
@@ -269,6 +286,7 @@ const saplingCheck = async (
       },
     );
     if (response.status === 200 && response.data.edits) {
+      logAnalytics('sapling_check_success');
       return {
         edits:
           response.data.edits.length > 0 ? getEdites(response.data.edits) : [],
@@ -277,6 +295,7 @@ const saplingCheck = async (
       };
     }
     console.warn(response);
+    logAnalytics('sapling_check_error');
     return {
       edits: [],
       result: 'error',
@@ -284,6 +303,7 @@ const saplingCheck = async (
     };
   } catch (err: any) {
     console.warn(err);
+    logAnalytics('sapling_check_error_catch');
     return {
       edits: [],
       result: 'error',
@@ -318,6 +338,9 @@ export const getSapling = async (
         duration: Toast.durations.LONG,
         position: Toast.positions.CENTER,
       });
+      logAnalytics('get_sapling_error');
+    } else {
+      logAnalytics('get_sapling_success');
     }
 
     return {
@@ -348,4 +371,25 @@ export const getSaplingColors = (edit: Edit) => {
 
 export const getHumanColors = () => {
   return { color: yellow, backgroundColor: yellowOpacy };
+};
+
+export const addAiCheckError = async (
+  aiName: 'LanguageTool' | 'Sapling',
+  whichDiary: WhichDiaryKey,
+  caller:
+    | 'usePostDiary'
+    | 'usePostDraftDiary'
+    | 'usePostReviseDiary'
+    | 'MyDiary',
+  uid: string,
+  diaryId: string,
+) => {
+  await firestore().collection(`aiCheckError`).add({
+    aiName,
+    whichDiary,
+    caller,
+    uid,
+    diaryId,
+    createdAt: firestore.FieldValue.serverTimestamp(),
+  });
 };

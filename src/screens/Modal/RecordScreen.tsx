@@ -5,6 +5,7 @@ import { Audio, AVPlaybackStatus } from 'expo-av';
 import * as FileSystem from 'expo-file-system';
 import { CompositeNavigationProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { logAnalytics } from '@/utils/Analytics';
 import {
   HeaderText,
   HoverableIcon,
@@ -360,6 +361,7 @@ export default class RecordScreen extends React.Component<ScreenType, State> {
     if (isRecording) {
       this.stopRecordingAndEnablePlayback();
     } else {
+      logAnalytics('on_record_pressed_begin');
       this.stopPlaybackAndBeginRecording();
     }
   };
@@ -453,6 +455,8 @@ export default class RecordScreen extends React.Component<ScreenType, State> {
 
     if (!this.recording || !diary || !diary.objectID) return;
     if (isLoading || isSaving) return;
+    logAnalytics('on_press_save_record');
+
     this.setState({
       isSaving: true,
     });
@@ -485,6 +489,8 @@ export default class RecordScreen extends React.Component<ScreenType, State> {
 
     if (!this.recording || !diary || !diary.objectID) return;
     if (isLoading || isSaving) return;
+    logAnalytics('on_press_voice_delete');
+
     this.setState({
       isSaving: true,
     });

@@ -153,7 +153,7 @@ const myDiary = {
   menuDelete: 'Delete',
   menuRevise: 'Revise',
   confirmMessage: 'Are you sure you want to delete this journal entry?',
-  origin: 'Original Correction',
+  original: 'Original Correction',
   revised: 'Revised Correction',
   ai1: "AI1's correction",
   ai2: "AI2's correction",

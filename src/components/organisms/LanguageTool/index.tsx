@@ -6,7 +6,7 @@ import { useCommon } from './useCommon';
 import CommonMain from './CommonMain';
 
 export interface Props {
-  isOrigin: boolean;
+  isOriginal: boolean;
   showAdReward: boolean;
   hideFooterButton: boolean;
   diary: Diary;
@@ -22,7 +22,7 @@ export interface Props {
 }
 
 const LanguageTool: React.FC<Props> = ({
-  isOrigin,
+  isOriginal,
   showAdReward,
   hideFooterButton,
   diary,
@@ -38,14 +38,14 @@ const LanguageTool: React.FC<Props> = ({
 }) => {
   const getTitleInfo = useCallback(
     (newMatches: Match[]) => {
-      if (isOrigin && diary.languageTool) {
+      if (isOriginal && diary.languageTool) {
         return {
           languageTool: {
             ...diary.languageTool,
             titleMatches: newMatches,
           },
         };
-      } else if (!isOrigin && diary.reviseLanguageTool) {
+      } else if (!isOriginal && diary.reviseLanguageTool) {
         return {
           reviseLanguageTool: {
             ...diary.reviseLanguageTool,
@@ -56,19 +56,19 @@ const LanguageTool: React.FC<Props> = ({
         return;
       }
     },
-    [diary.languageTool, diary.reviseLanguageTool, isOrigin],
+    [diary.languageTool, diary.reviseLanguageTool, isOriginal],
   );
 
   const getTextInfo = useCallback(
     (newMatches: Match[]) => {
-      if (isOrigin && diary.languageTool) {
+      if (isOriginal && diary.languageTool) {
         return {
           languageTool: {
             ...diary.languageTool,
             textMatches: newMatches,
           },
         };
-      } else if (!isOrigin && diary.reviseLanguageTool) {
+      } else if (!isOriginal && diary.reviseLanguageTool) {
         return {
           reviseLanguageTool: {
             ...diary.reviseLanguageTool,
@@ -79,7 +79,7 @@ const LanguageTool: React.FC<Props> = ({
         return;
       }
     },
-    [diary.languageTool, diary.reviseLanguageTool, isOrigin],
+    [diary.languageTool, diary.reviseLanguageTool, isOriginal],
   );
 
   const {

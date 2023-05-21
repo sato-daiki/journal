@@ -16,7 +16,7 @@ import NoHuman from './NoHuman';
 import Human from './Human';
 
 interface Props {
-  isOrigin: boolean;
+  isOriginal: boolean;
   hideFooterButton: boolean;
   diary: Diary;
   editDiary: (objectID: string, diary: Diary) => void;
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
 });
 
 const AiCheck: React.FC<Props> = ({
-  isOrigin,
+  isOriginal,
   hideFooterButton,
   diary,
   editDiary,
@@ -90,7 +90,7 @@ const AiCheck: React.FC<Props> = ({
         case 'ai1':
           return (
             <LanguageTool
-              isOrigin={isOrigin}
+              isOriginal={isOriginal}
               showAdReward={
                 !!configAiCheck.activeSapling &&
                 !hasSapling &&
@@ -112,7 +112,7 @@ const AiCheck: React.FC<Props> = ({
         case 'ai2':
           return hasSapling ? (
             <Sapling
-              isOrigin={isOrigin}
+              isOriginal={isOriginal}
               hideFooterButton={hideFooterButton}
               diary={diary}
               title={title}
@@ -157,7 +157,7 @@ const AiCheck: React.FC<Props> = ({
       hasHuman,
       hasSapling,
       hideFooterButton,
-      isOrigin,
+      isOriginal,
       languageTool?.textMatches,
       languageTool?.titleMatches,
       onPressAdReward,

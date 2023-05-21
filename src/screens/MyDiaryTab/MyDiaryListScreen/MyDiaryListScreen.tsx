@@ -29,6 +29,7 @@ import { FetchInfoState } from '@/stores/reducers/diaryList';
 import { useFirstScreen } from './useFirstScreen';
 import firestore from '@react-native-firebase/firestore';
 import { getDiaries, getDiaryNum, getLoadNextPage } from '@/utils/diary';
+import { logAnalytics } from '@/utils/Analytics';
 
 export interface Props {
   user: User;
@@ -162,6 +163,7 @@ const MyDiaryListScreen: React.FC<ScreenType> = ({
     async (item: Diary, index: number) => {
       if (!item.objectID) return;
       setIsLoading(true);
+      logAnalytics('on_delete_diary_my_diary_list');
       await firestore().collection('diaries').doc(item.objectID).delete();
       deleteDiary(item.objectID);
       if (elRefs.current[index]) {
