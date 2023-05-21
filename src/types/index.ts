@@ -1,4 +1,5 @@
 export * from './user';
+export * from './human';
 export * from './languageTool';
 export * from './sapling';
 export * from './diary';

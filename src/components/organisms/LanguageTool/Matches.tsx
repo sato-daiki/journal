@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { offWhite } from '@/styles/Common';
+import { borderLightColor, offWhite } from '@/styles/Common';
 import { Match } from '@/types';
 import { Card } from '../Card/Card';
 import { getLanguageToolColors } from '@/utils/grammarCheck';
@@ -18,11 +18,14 @@ export interface Props {
   onPressIgnore: () => void;
 }
 
-const styles = StyleSheet.create({
+export const MATCH_HEIGHT = 240;
+
+export const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 8,
+    borderTopColor: borderLightColor,
+    borderTopWidth: 1,
     backgroundColor: offWhite,
-    height: 180,
+    height: MATCH_HEIGHT,
   },
 });
 
