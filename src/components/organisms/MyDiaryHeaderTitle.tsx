@@ -3,10 +3,10 @@ import { PickerItem } from '../molecules/ModalPicker';
 import I18n from '@/utils/I18n';
 import MyDiaryModalPicker from '../molecules/MyDiaryModalPicker';
 
-export type MyDiaryValue = 'revised' | 'origin';
+export type WhichDiaryKey = 'revised' | 'original';
 
 export type MyDiaryPickerItem = {
-  value: MyDiaryValue;
+  value: WhichDiaryKey;
   label: string;
 };
 
@@ -17,7 +17,7 @@ interface Props {
 }
 
 export const myDiaryItems: MyDiaryPickerItem[] = [
-  { value: 'origin', label: I18n.t('myDiary.origin') },
+  { value: 'original', label: I18n.t('myDiary.original') },
   { value: 'revised', label: I18n.t('myDiary.revised') },
 ];
 

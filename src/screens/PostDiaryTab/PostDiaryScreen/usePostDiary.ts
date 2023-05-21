@@ -19,7 +19,7 @@ import { useCommon } from './useCommont';
 import firestore, {
   FirebaseFirestoreTypes,
 } from '@react-native-firebase/firestore';
-import { getLanguageTool } from '@/utils/grammarCheck';
+import { addAiCheckError, getLanguageTool } from '@/utils/grammarCheck';
 
 interface UsePostDiary {
   navigation: PostDiaryNavigationProp;
@@ -216,6 +216,20 @@ export const usePostDiary = ({
     });
 
     setIsLoadingPublish(false);
+
+    if (
+      languageTool?.titleResult === 'error' ||
+      languageTool?.textResult === 'error'
+    ) {
+      // // ログを出す
+      await addAiCheckError(
+        'LanguageTool',
+        'original',
+        'usePostDiary',
+        user.uid,
+        diaryId,
+      );
+    }
 
     navigation.navigate('Home', {
       screen: 'MyDiaryTab',

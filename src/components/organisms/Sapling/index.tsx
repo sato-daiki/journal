@@ -6,7 +6,7 @@ import { useCommon } from '@/components/organisms/LanguageTool/useCommon';
 import CommonMain from '../LanguageTool/CommonMain';
 
 export interface Props {
-  isOrigin: boolean;
+  isOriginal: boolean;
   showAdReward: boolean;
   hideFooterButton: boolean;
   diary: Diary;
@@ -22,7 +22,7 @@ export interface Props {
 }
 
 const Sapling: React.FC<Props> = ({
-  isOrigin,
+  isOriginal,
   showAdReward,
   hideFooterButton,
   diary,
@@ -38,14 +38,14 @@ const Sapling: React.FC<Props> = ({
 }) => {
   const getTitleInfo = useCallback(
     (newEdits: Edit[]) => {
-      if (isOrigin && diary.sapling) {
+      if (isOriginal && diary.sapling) {
         return {
           sapling: {
             ...diary.sapling,
             titleEdits: newEdits,
           },
         };
-      } else if (!isOrigin && diary.reviseSapling) {
+      } else if (!isOriginal && diary.reviseSapling) {
         return {
           reviseSapling: {
             ...diary.reviseSapling,
@@ -56,19 +56,19 @@ const Sapling: React.FC<Props> = ({
         return;
       }
     },
-    [diary.reviseSapling, diary.sapling, isOrigin],
+    [diary.reviseSapling, diary.sapling, isOriginal],
   );
 
   const getTextInfo = useCallback(
     (newEdits: Edit[]) => {
-      if (isOrigin && diary.sapling) {
+      if (isOriginal && diary.sapling) {
         return {
           sapling: {
             ...diary.sapling,
             textEdits: newEdits,
           },
         };
-      } else if (!isOrigin && diary.reviseSapling) {
+      } else if (!isOriginal && diary.reviseSapling) {
         return {
           reviseSapling: {
             ...diary.reviseSapling,
@@ -79,7 +79,7 @@ const Sapling: React.FC<Props> = ({
         return;
       }
     },
-    [diary.reviseSapling, diary.sapling, isOrigin],
+    [diary.reviseSapling, diary.sapling, isOriginal],
   );
 
   const {

@@ -10,6 +10,7 @@ import firestore, {
   FirebaseFirestoreTypes,
 } from '@react-native-firebase/firestore';
 import {
+  addAiCheckError,
   getLanguageTool,
   getLanguageToolShortName,
 } from '@/utils/grammarCheck';
@@ -211,6 +212,20 @@ export const usePostDraftDiary = ({
       diaryPosted: true,
     });
     setIsLoadingPublish(false);
+
+    if (
+      languageTool?.titleResult === 'error' ||
+      languageTool?.textResult === 'error'
+    ) {
+      // ログを出す
+      await addAiCheckError(
+        'LanguageTool',
+        'original',
+        'usePostDraftDiary',
+        user.uid,
+        item.objectID,
+      );
+    }
     navigation.navigate('Home', {
       screen: 'MyDiaryTab',
       params: {

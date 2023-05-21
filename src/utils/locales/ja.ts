@@ -151,7 +151,7 @@ const myDiary = {
   menuDelete: '削除する',
   menuRevise: '修正する',
   confirmMessage: '本当に削除してよろしいでしょうか？',
-  origin: '原文の添削結果',
+  original: '原文の添削結果',
   revised: '修正後の添削結果',
   ai1: 'AI①の添削',
   ai2: 'AI②の添削',

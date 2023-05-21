@@ -7,7 +7,7 @@ import firestore, {
   FirebaseFirestoreTypes,
 } from '@react-native-firebase/firestore';
 import { PostReviseDiaryNavigationProp } from './PostReviseDiaryScreen';
-import { getLanguageTool } from '@/utils/grammarCheck';
+import { addAiCheckError, getLanguageTool } from '@/utils/grammarCheck';
 import { logAnalytics } from '@/utils/Analytics';
 
 interface UsePostReviseDiary {
@@ -110,6 +110,19 @@ export const usePostReviseDiary = ({
     });
 
     setIsLoadingPublish(false);
+    if (
+      languageTool?.titleResult === 'error' ||
+      languageTool?.textResult === 'error'
+    ) {
+      // ログを出す
+      await addAiCheckError(
+        'LanguageTool',
+        'revised',
+        'usePostReviseDiary',
+        user.uid,
+        item.objectID,
+      );
+    }
     navigation.navigate('Home', {
       screen: 'MyDiaryTab',
       params: {
@@ -131,6 +144,7 @@ export const usePostReviseDiary = ({
     setIsModalError,
     text,
     title,
+    user.uid,
   ]);
 
   const onPressMyDiary = useCallback(() => {

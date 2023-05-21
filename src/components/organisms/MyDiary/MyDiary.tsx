@@ -18,6 +18,7 @@ import AiCheck from '@/components/organisms/AiCheck';
 import { MyDiaryNavigationProp } from '@/screens/MyDiaryTab/MyDiaryScreen';
 import MyDiaryHeaderTitle, {
   MyDiaryPickerItem,
+  WhichDiaryKey,
   myDiaryItems,
 } from '../MyDiaryHeaderTitle';
 import { PickerItem } from '@/components/molecules/ModalPicker';
@@ -26,7 +27,7 @@ import { LoadingModal } from '@/components/atoms';
 import { LoadingWhite } from '@/images';
 import firestore from '@react-native-firebase/firestore';
 import { transparentBlack } from '@/styles/Common';
-import { getSapling } from '@/utils/grammarCheck';
+import { addAiCheckError, getSapling } from '@/utils/grammarCheck';
 import { MyDiaryCaller } from '@/navigations/MyDiaryTabNavigator';
 import { logAnalytics } from '@/utils/Analytics';
 
@@ -40,8 +41,6 @@ interface Props {
   goToRecord?: () => void;
   onPressRevise?: () => void;
 }
-
-export type Key = 'revised' | 'origin';
 
 type ConfigAiCheck = {
   activeSapling: boolean;
@@ -67,7 +66,7 @@ const MyDiary: React.FC<Props> = ({
 }) => {
   const appState = useRef<AppStateStatus>(AppState.currentState);
   const loaded = useRef<boolean>(false);
-  const pressKey = useRef<Key>();
+  const pressKey = useRef<WhichDiaryKey>();
   const [isLoading, setIsLoading] = useState(false);
   const [isAdLoading, setIsAdLoading] = useState(false);
   const [configAiCheck, setConfigAiCheck] = useState<ConfigAiCheck>({
@@ -145,7 +144,7 @@ const MyDiary: React.FC<Props> = ({
     setSelectedItem(item as MyDiaryPickerItem);
   }, []);
 
-  const onPressAdReward = useCallback((key: Key) => {
+  const onPressAdReward = useCallback((key: WhichDiaryKey) => {
     setIsAdLoading(true);
     logAnalytics('on_press_ad_reward');
     loaded.current = false;
@@ -185,7 +184,7 @@ const MyDiary: React.FC<Props> = ({
 
     let saplingInfo;
 
-    if (pressKey.current === 'origin') {
+    if (pressKey.current === 'original') {
       logAnalytics('get_sapling_origin');
       const sapling = await getSapling(
         diary.longCode,
@@ -194,6 +193,19 @@ const MyDiary: React.FC<Props> = ({
         diary.text,
       );
       saplingInfo = sapling ? { sapling } : undefined;
+      if (
+        sapling &&
+        (sapling.titleResult === 'error' || sapling.textResult === 'error')
+      ) {
+        // ログを出す
+        await addAiCheckError(
+          'Sapling',
+          'original',
+          'MyDiary',
+          diary.uid,
+          diary.objectID,
+        );
+      }
     } else {
       logAnalytics('get_sapling_revise');
       const sapling = await getSapling(
@@ -203,6 +215,19 @@ const MyDiary: React.FC<Props> = ({
         diary.reviseText || diary.text,
       );
       saplingInfo = sapling ? { reviseSapling: sapling } : undefined;
+      if (
+        sapling &&
+        (sapling.titleResult === 'error' || sapling.textResult === 'error')
+      ) {
+        // ログを出す
+        await addAiCheckError(
+          'Sapling',
+          'revised',
+          'MyDiary',
+          diary.uid,
+          diary.objectID,
+        );
+      }
     }
 
     await firestore()
@@ -243,9 +268,9 @@ const MyDiary: React.FC<Props> = ({
         containerStyle={styles.adContainerStyle}
         textStyle={styles.adTextStyle}
       />
-      {selectedItem.value == 'origin' ? (
+      {selectedItem.value == 'original' ? (
         <AiCheck
-          isOrigin
+          isOriginal
           hideFooterButton={isView || hasRevised}
           diary={diary}
           title={diary.title}
@@ -258,11 +283,11 @@ const MyDiary: React.FC<Props> = ({
           checkPermissions={checkPermissions}
           goToRecord={goToRecord}
           onPressRevise={onPressRevise}
-          onPressAdReward={() => onPressAdReward && onPressAdReward('origin')}
+          onPressAdReward={() => onPressAdReward && onPressAdReward('original')}
         />
       ) : (
         <AiCheck
-          isOrigin={false}
+          isOriginal={false}
           hideFooterButton={isView}
           diary={diary}
           title={diary.reviseTitle || diary.title}
