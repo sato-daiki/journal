@@ -2,6 +2,7 @@ export type MyDiaryListView = 'list' | 'calendar';
 
 export interface LocalStatus {
   isLoading: boolean;
+  isPremium: boolean;
   onboarding?: boolean | null;
   firstLogin: boolean;
   myDiaryListView: MyDiaryListView;

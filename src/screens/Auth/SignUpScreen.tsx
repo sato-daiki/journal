@@ -123,7 +123,6 @@ const SignUpScreen: React.FC<ScreenType> = ({
   const createUser = useCallback(
     async (credentUser): Promise<void> => {
       const userInfo = {
-        isPremium: false,
         learnLanguage: user.learnLanguage,
         diaryPosted: false,
         onboarding: false,

@@ -34,6 +34,8 @@ import {
   ModalSelectDiaryTypeNavigator,
   ModalTopicGuideStackParamList,
   ModalTopicGuideNavigator,
+  ModalBecomePremiumStackParamList,
+  ModalBecomePremiumeNavigator,
 } from './ModalNavigator';
 import { MyDiaryTabStackParamList } from './MyDiaryTabNavigator';
 import { maxMain } from '../styles/Common';
@@ -95,6 +97,7 @@ export type MainStackParamList = {
     };
   };
   ModalEditMyProfile: { screen: keyof ModalEditMyProfileStackParamList };
+  ModalBecomePremium: { screen: keyof ModalBecomePremiumStackParamList };
   ModalReview: {
     screen: keyof ModalReviewStackParamList;
     params: {
@@ -164,10 +167,13 @@ const MainNavigator = () => {
         name='ModalViewMyDiary'
         component={ModalViewMyDiaryNavigator}
       />
-
       <MainStack.Screen
         name='ModalEditMyProfile'
         component={ModalEditMyProfileNavigator}
+      />
+      <MainStack.Screen
+        name='ModalBecomePremium'
+        component={ModalBecomePremiumeNavigator}
       />
     </MainStack.Navigator>
   );

@@ -286,11 +286,6 @@ const registerEmailPassword = {
   password: 'Password (6 or more characters)',
 };
 
-const reviewList = {
-  headerTitle: 'List of Reviews',
-  reviewList: 'List of Reviews',
-};
-
 const selectLanguage = {
   headerTitle: 'Language Selection',
   title: 'Please Choose a language to learn.',
@@ -390,7 +385,6 @@ const modalSendEmail = {
 const myDiaryListMenu = {
   myPage: 'My Page',
   draftList: 'List of Drafts',
-  reviewList: 'List of Reviews',
 };
 
 const postDiaryComponent = {
@@ -661,7 +655,6 @@ const en = {
   postDraftDiary,
   postReviseDiary,
   registerEmailPassword,
-  reviewList,
   selectLanguage,
   selectDiaryType,
   selectTopicSubcategory,

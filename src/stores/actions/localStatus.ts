@@ -1,17 +1,15 @@
 import { Action } from 'redux';
-import { LocalStatus, MyDiaryListView } from '../../types/localStatus';
+import { MyDiaryListView } from '../../types/localStatus';
 import { Types } from '../types';
 
 export interface SetLocalStatusAction extends Action {
-  type: Types.SET_LOCAL_STATUS;
-  localStatus: LocalStatus;
+  type: Types.SET_IS_PREMIUM;
+  isPremium: boolean;
 }
 
-export const setLocalStatus = (
-  localStatus: LocalStatus,
-): SetLocalStatusAction => ({
-  type: Types.SET_LOCAL_STATUS,
-  localStatus,
+export const setIsPremium = (isPremium: boolean): SetLocalStatusAction => ({
+  type: Types.SET_IS_PREMIUM,
+  isPremium,
 });
 
 export interface SetMyDiaryListViewAction extends Action {

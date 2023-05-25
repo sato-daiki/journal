@@ -91,6 +91,17 @@ const errorMessage = {
   video: '動画再生においてエラーが発生しました',
 };
 
+const becomePremium = {
+  headerTitle: 'Premium会員でできること',
+  description: 'Premium会員は下記機能がご利用いただけます',
+  props1: '動画広告の視聴なしで添削ができます',
+  // props2: 'アプリ内の広告がなくなります',
+  MONTHLY: '月額500円',
+  ANNUAL: '年額5,000円',
+  purchase: '購入',
+  restore: '復元はこちら',
+};
+
 const deleteAcount = {
   headerTitle: '退会について',
   text: '退会すると投稿した日記の情報が完全に消去され、復元することはできません。\n\nそれでも退会を希望する方は下のボタンから退会してください。',
@@ -290,11 +301,6 @@ const registerEmailPassword = {
   password: 'パスワード（６ケタ以上）',
 };
 
-const reviewList = {
-  headerTitle: 'レビュー一覧',
-  reviewList: 'レビュー一覧',
-};
-
 const selectLanguage = {
   headerTitle: '言語の選択',
   title: '学習する言語を選択してください',
@@ -391,7 +397,6 @@ const modalSendEmail = {
 const myDiaryListMenu = {
   myPage: 'マイページ',
   draftList: '下書き一覧',
-  reviewList: 'レビュー一覧',
 };
 
 const postDiaryComponent = {
@@ -631,6 +636,7 @@ const first = {
 
 const ja = {
   common,
+  becomePremium,
   day,
   shortDay,
   errorMessage,
@@ -658,7 +664,6 @@ const ja = {
   postDraftDiary,
   postReviseDiary,
   registerEmailPassword,
-  reviewList,
   selectLanguage,
   selectDiaryType,
   selectTopicSubcategory,

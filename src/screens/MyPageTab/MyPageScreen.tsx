@@ -11,7 +11,7 @@ import {
   fontSizeL,
   mainColor,
 } from '../../styles/Common';
-import { User } from '../../types';
+import { LocalStatus, User } from '../../types';
 import {
   SmallButtonWhite,
   HeaderIcon,
@@ -27,6 +27,7 @@ import {
 
 export interface Props {
   user: User;
+  localStatus: LocalStatus;
 }
 
 interface DispatchProps {
@@ -95,7 +96,11 @@ const styles = StyleSheet.create({
 /**
  * マイページ
  */
-const MyPageScreen: React.FC<ScreenType> = ({ navigation, user }) => {
+const MyPageScreen: React.FC<ScreenType> = ({
+  navigation,
+  user,
+  localStatus,
+}) => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -112,7 +117,9 @@ const MyPageScreen: React.FC<ScreenType> = ({ navigation, user }) => {
     navigation.navigate('ModalEditMyProfile', { screen: 'EditMyProfile' });
   }, [navigation]);
 
-  const onPressBecome = useCallback(() => {}, []);
+  const onPressBecome = useCallback(() => {
+    navigation.navigate('ModalBecomePremium', { screen: 'BecomePremium' });
+  }, [navigation]);
 
   return (
     <ScrollView style={styles.container}>
@@ -133,7 +140,7 @@ const MyPageScreen: React.FC<ScreenType> = ({ navigation, user }) => {
           />
         </View>
 
-        {user.isPremium ? (
+        {localStatus.isPremium ? (
           <>
             <View style={styles.labelContainer}>
               <MaterialCommunityIcons
@@ -163,13 +170,13 @@ const MyPageScreen: React.FC<ScreenType> = ({ navigation, user }) => {
                 {I18n.t('myPage.becomeWithout')}
               </Text>
             </View>
-            <Space size={8} />
+            {/* <Space size={8} />
             <View style={styles.labelContainer}>
               <MaterialCommunityIcons size={16} color={'#fff'} name='check' />
               <Text style={styles.becomeText}>
                 {I18n.t('myPage.becomeLonger')}
               </Text>
-            </View>
+            </View> */}
             <Space size={24} />
             <WhiteButton
               containerStyle={{ backgroundColor: '#fff' }}

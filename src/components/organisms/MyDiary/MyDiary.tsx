@@ -166,7 +166,10 @@ const MyDiary: React.FC<Props> = ({
     }, 6000);
   }, []);
 
-  const onPressBecome = useCallback(() => {}, []);
+  const onPressBecome = useCallback(() => {
+    // @ts-ignore
+    navigation.navigate('ModalBecomePremium', { screen: 'BecomePremium' });
+  }, [navigation]);
 
   const showSaplingCheck = useCallback(async () => {
     try {
