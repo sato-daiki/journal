@@ -11,17 +11,9 @@ import Purchases, {
   PurchasesOffering,
   PurchasesPackage,
 } from 'react-native-purchases';
-import {
-  HeaderText,
-  LinkText,
-  LoadingModal,
-  RadioBox,
-  Space,
-  SubmitButton,
-  WhiteButton,
-} from '@/components/atoms';
+import auth from '@react-native-firebase/auth';
+import Toast from 'react-native-root-toast';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { User } from '@/types';
 import I18n from '@/utils/I18n';
 import {
   ModalBecomePremiumStackNavigationProp,
@@ -31,8 +23,16 @@ import {
   DefaultModalLayoutOptions,
   DefaultNavigationOptions,
 } from '@/constants/NavigationOptions';
-import { fontSizeM, mainColor, subTextColor } from '@/styles/Common';
-import Toast from 'react-native-root-toast';
+
+import {
+  HeaderText,
+  LinkText,
+  LoadingModal,
+  RadioBox,
+  Space,
+  SubmitButton,
+} from '@/components/atoms';
+import { fontSizeM, mainColor, softRed, subTextColor } from '@/styles/Common';
 import { checkPremium } from '@/utils/purchase';
 
 interface DispatchProps {
@@ -76,9 +76,29 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  noEmail: {
+    paddingTop: 8,
+    fontSize: fontSizeM,
+    lineHeight: fontSizeM * 1.3,
+    color: softRed,
+  },
   slash: {
     paddingHorizontal: 16,
     color: subTextColor,
+  },
+  priceContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingLeft: 8,
+  },
+  priceTitle: {
+    fontSize: fontSizeM,
+  },
+  priceString: {
+    fontSize: fontSizeM,
+    fontWeight: 'bold',
   },
 });
 
@@ -86,6 +106,8 @@ const BecomePremiumScreen: React.FC<ScreenType> = ({
   setIsPremium,
   navigation,
 }) => {
+  const { currentUser } = auth();
+
   const [currentOffering, setCurrentOffering] =
     useState<PurchasesOffering | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -99,7 +121,6 @@ const BecomePremiumScreen: React.FC<ScreenType> = ({
   useEffect(() => {
     const f = async () => {
       const offerings = await Purchases.getOfferings();
-      console.log('offerings', offerings);
       if (
         offerings.current !== null &&
         offerings.current.availablePackages.length !== 0
@@ -128,9 +149,9 @@ const BecomePremiumScreen: React.FC<ScreenType> = ({
   }, [navigation, onPressClose]);
 
   const onPressSubmit = useCallback(async () => {
-    if (!purchasesPackage) return;
+    if (!purchasesPackage || isLoading) return;
+    setIsLoading(true);
     try {
-      console.log('onPressSubmit', purchasesPackage);
       const { customerInfo } = await Purchases.purchasePackage(
         purchasesPackage,
       );
@@ -141,30 +162,35 @@ const BecomePremiumScreen: React.FC<ScreenType> = ({
     } catch (e: any) {
       if (!e.userCancelled) {
         console.log(e);
-        // TODO
-        // Toast.show(e, {
-        //   duration: Toast.durations.SHORT,
-        //   position: Toast.positions.CENTER,
-        // });
+        Toast.show(I18n.t('becomePremium.error'), {
+          duration: Toast.durations.LONG,
+          position: Toast.positions.CENTER,
+        });
       }
+    } finally {
+      setIsLoading(false);
     }
-  }, [navigation, purchasesPackage, setIsPremium]);
+  }, [isLoading, navigation, purchasesPackage, setIsPremium]);
 
   const onPressRestore = useCallback(async () => {
+    if (isLoading) return;
+    setIsLoading(true);
     try {
       const restore = await Purchases.restorePurchases();
       if (checkPremium(restore)) {
         setIsPremium(true);
+        navigation.goBack();
       }
     } catch (e) {
       console.log(e);
-      // TODO
-      // Toast.show(e, {
-      //   duration: Toast.durations.SHORT,
-      //   position: Toast.positions.CENTER,
-      // });
+      Toast.show(I18n.t('becomePremium.error'), {
+        duration: Toast.durations.LONG,
+        position: Toast.positions.CENTER,
+      });
+    } finally {
+      setIsLoading(false);
     }
-  }, [setIsPremium]);
+  }, [isLoading, navigation, setIsPremium]);
 
   return (
     <View style={styles.container}>
@@ -183,27 +209,40 @@ const BecomePremiumScreen: React.FC<ScreenType> = ({
       <Space size={32} />
       {currentOffering &&
         currentOffering.availablePackages.map((item) => (
-          <>
+          <View key={item.identifier}>
             <RadioBox
               checked={item.identifier === purchasesPackage?.identifier}
               color={mainColor}
-              text={I18n.t(`becomePremium.${item.packageType}`)}
-              onPress={() => onPressItem(item)}
+              textComponent={
+                <View style={styles.priceContainer}>
+                  <Text style={styles.priceTitle}>{item.product.title}</Text>
+                  <Text style={styles.priceString}>
+                    {item.product.priceString}
+                  </Text>
+                </View>
+              }
+              onPress={() => {
+                onPressItem(item);
+              }}
             />
             <Space size={16} />
-          </>
+          </View>
         ))}
       <Space size={8} />
       <SubmitButton
-        disable={!purchasesPackage}
+        disable={!purchasesPackage || !currentUser || !currentUser.email}
         title={I18n.t(`becomePremium.purchase`)}
         onPress={onPressSubmit}
       />
-      <LinkText
-        containerStyle={styles.linkTextContaienr}
-        onPress={onPressRestore}
-        text={I18n.t('becomePremium.restore')}
-      />
+      {currentUser && currentUser.email ? (
+        <LinkText
+          containerStyle={styles.linkTextContaienr}
+          onPress={onPressRestore}
+          text={I18n.t('becomePremium.restore')}
+        />
+      ) : (
+        <Text style={styles.noEmail}>{I18n.t(`becomePremium.noEmail`)}</Text>
+      )}
     </View>
   );
 };

@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, ScrollView } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import * as Linking from 'expo-linking';
 
 import {
   subTextColor,
@@ -11,19 +12,22 @@ import {
   fontSizeL,
   mainColor,
 } from '../../styles/Common';
-import { LocalStatus, User } from '../../types';
+import { LocalStatus, LongCode, User } from '../../types';
 import {
   SmallButtonWhite,
   HeaderIcon,
   CountryNameWithFlag,
   WhiteButton,
   Space,
+  LinkText,
 } from '../../components/atoms';
 import I18n from '../../utils/I18n';
 import {
   MyPageTabStackParamList,
   MyPageTabNavigationProp,
 } from '../../navigations/MyPageTabNavigator';
+import { getLanguageToolCode } from '@/utils/grammarCheck';
+import { cancelEnUrl, cancelJaUrl } from '@/constants/url';
 
 export interface Props {
   user: User;
@@ -121,6 +125,15 @@ const MyPageScreen: React.FC<ScreenType> = ({
     navigation.navigate('ModalBecomePremium', { screen: 'BecomePremium' });
   }, [navigation]);
 
+  const onPressCancel = useCallback(() => {
+    const languageCode = getLanguageToolCode(I18n.locale as LongCode);
+    if (languageCode === 'ja') {
+      Linking.openURL(cancelJaUrl);
+    } else {
+      Linking.openURL(cancelEnUrl);
+    }
+  }, []);
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.main}>
@@ -150,12 +163,12 @@ const MyPageScreen: React.FC<ScreenType> = ({
               />
               <Text style={styles.label}>{I18n.t('myPage.status')}</Text>
             </View>
-
+            <Space size={4} />
             <View style={styles.valueContainer}>
               <Text style={styles.text}>{I18n.t('myPage.premium')}</Text>
-              <SmallButtonWhite
-                title={I18n.t('myPage.editButton')}
-                onPress={onPressEdit}
+              <LinkText
+                text={I18n.t('myPage.aboutCancel')}
+                onPress={onPressCancel}
               />
             </View>
           </>

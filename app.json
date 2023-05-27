@@ -20,7 +20,7 @@
       "bundleIdentifier": "app.daiki123456.langjournal"
     },
     "android": {
-      "versionCode": 1022700,
+      "versionCode": 1022701,
       "permissions": ["RECORD_AUDIO"],
       "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {

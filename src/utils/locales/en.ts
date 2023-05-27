@@ -91,17 +91,6 @@ const errorMessage = {
   video: 'An error occurred during video playback',
 };
 
-const becomePremium = {
-  headerTitle: 'Premium会員でできること',
-  description: 'Premium会員は下記機能がご利用いただけます',
-  props1: '動画広告の視聴なしで添削ができます',
-  // props2: 'アプリ内の広告がなくなります',
-  MONTHLY: '月額500円',
-  ANNUAL: '年額5,000円',
-  purchase: '購入',
-  restore: '復元はこちら',
-};
-
 const deleteAcount = {
   headerTitle: 'About Account Deletion',
   text: 'If you delete your account, all information about the journal entries you published will be deleted and cannot be retrieved. If you would still like to delete your account, please tap the button below.',
@@ -227,6 +216,21 @@ const myPage = {
   becomeWithout: 'Correct without watching video ads',
   becomeLonger: 'Check longer texts',
   becomeButton: 'For more detail',
+  aboutCancel: 'About cancellation',
+};
+
+const becomePremium = {
+  headerTitle: 'About Premium members',
+  description: 'Premium members can use the following functions',
+  props1: 'Correct without watching video ads',
+  // props2: 'アプリ内の広告がなくなります',
+  MONTHLY: '月額500円',
+  ANNUAL: '年額5,000円',
+  purchase: 'Subscribe',
+  restore: 'Restore',
+  error: 'Failed to purchase',
+  noEmail:
+    'To become a premium member, you need to register an email address and password. Please register from "My Page" and "Settings".',
 };
 
 const onboarding = {

@@ -91,17 +91,6 @@ const errorMessage = {
   video: '動画再生においてエラーが発生しました',
 };
 
-const becomePremium = {
-  headerTitle: 'Premium会員でできること',
-  description: 'Premium会員は下記機能がご利用いただけます',
-  props1: '動画広告の視聴なしで添削ができます',
-  // props2: 'アプリ内の広告がなくなります',
-  MONTHLY: '月額500円',
-  ANNUAL: '年額5,000円',
-  purchase: '購入',
-  restore: '復元はこちら',
-};
-
 const deleteAcount = {
   headerTitle: '退会について',
   text: '退会すると投稿した日記の情報が完全に消去され、復元することはできません。\n\nそれでも退会を希望する方は下のボタンから退会してください。',
@@ -230,6 +219,21 @@ const myPage = {
   becomeWithout: '動画広告の視聴なしで添削ができます',
   becomeLonger: '添削可能な文字数が増えます',
   becomeButton: '詳しくみる',
+  aboutCancel: 'キャンセルについて',
+};
+
+const becomePremium = {
+  headerTitle: 'Premium会員について',
+  description: 'Premium会員は下記機能がご利用いただけます',
+  props1: '動画広告の視聴なしで添削ができます',
+  // props2: 'アプリ内の広告がなくなります',
+  MONTHLY: '月額500円',
+  ANNUAL: '年額5,000円',
+  purchase: '購入',
+  restore: '購入情報の復元',
+  error: '購入に失敗しました',
+  noEmail:
+    'プレミアム会員になるには、メールアドレスとパスワードの登録が必要です。「マイページ」「設定」から登録してください。',
 };
 
 const onboarding = {
