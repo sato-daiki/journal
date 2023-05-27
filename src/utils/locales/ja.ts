@@ -117,13 +117,6 @@ const editEmail = {
 
 const editMyProfile = {
   headerTitle: 'プロフィール変更',
-  name: '名前',
-  userName: 'ユーザー\nネーム',
-  placeholderIntroduction: '自己紹介(200字以内)',
-  learn: '勉強中',
-  native: '話せる言語',
-  spoken: 'その他の\n話せる言語',
-  imageButton: '画像を変更する',
 };
 
 const editPassword = {
@@ -165,26 +158,34 @@ const myDiary = {
   recommend: '効率的な勉強方法とは？',
   start: '最初から',
   revise: '添削結果を元に修正する',
+  check: 'AI②でも添削する',
   adReward: '動画広告を見てAI②でも添削する',
   copiedTitle: 'タイトルをコピーしました',
   copiedText: '本文をコピーしました',
   copied: 'テキストをコピーしました',
   adRewardError: '動画再生においてエラーが発生しました。添削を終了します',
   adLoading: '広告を読み込んでいます',
-  noSapling:
-    '15~30秒の動画広告を見ることで、Saplingという言語チェックAIで添削を行えます。',
-  noSaplingInactive:
+  become: 'プレミアム会員になる',
+  describeAi1: 'この添削は',
+  describeAi2: 'で行われています',
+};
+
+const noSapling = {
+  premiumText: 'プレミアム会員はSaplingでも添削を行えます',
+  text: '15~30秒の動画広告を見ることで、Saplingという言語チェックAIで添削を行えます。\nまたは、プレミアム会員になることで、動画の視聴なしで添削が行えます。',
+  inactive:
     '※ 現在問題が発生しており、一時的にSaplingでのチェックは停止しております。',
-  noSaplingButton: '添削する',
+  moreAi: 'Saplingについて詳しくみる',
+  check: '添削する',
+  watch: '動画を見て添削する',
+};
+
+const noHuman = {
   noHuman: `AIのチェックだけでは不安。直接"人"にチェックしてもらいたい！そんな人におすすなサービスです。1文字あたり2円で添削をします。`,
   noHumanInactive:
     '※ 現在一時的にプロフェッショナルによる人の添削を停止しています。',
   noHumanButton: '添削を依頼する',
-  describeAi1: 'この添削は',
-  describeAi2: 'で行われています',
-  moreAi: '{{aiName}}について詳しくみる',
 };
-
 const viewMyDiary = {
   headerTitle: '添削結果',
 };
@@ -211,8 +212,28 @@ const themeCategory = {
 const myPage = {
   headerTitle: 'マイページ',
   editButton: '編集する',
-  adGetPoints: '動画広告を見て{{points}}P 獲得',
-  timeOut: '次の動画広告 {{activeHour}}~',
+  learn: '勉強中の言語',
+  status: '会員ステータス',
+  premium: 'プレミアム会員',
+  becomeTitle: 'プレミアム会員になる',
+  becomeWithout: '動画広告の視聴なしで添削ができます',
+  becomeLonger: '添削可能な文字数が増えます',
+  becomeButton: '詳しくみる',
+  aboutCancel: 'キャンセルについて',
+};
+
+const becomePremium = {
+  headerTitle: 'Premium会員について',
+  description: 'Premium会員は下記機能がご利用いただけます',
+  props1: '動画広告の視聴なしで添削ができます',
+  // props2: 'アプリ内の広告がなくなります',
+  MONTHLY: '月額500円',
+  ANNUAL: '年額5,000円',
+  purchase: '購入',
+  restore: '購入情報の復元',
+  error: '購入に失敗しました',
+  noEmail:
+    'プレミアム会員になるには、メールアドレスとパスワードの登録が必要です。「マイページ」「設定」から登録してください。',
 };
 
 const onboarding = {
@@ -284,11 +305,6 @@ const registerEmailPassword = {
   password: 'パスワード（６ケタ以上）',
 };
 
-const reviewList = {
-  headerTitle: 'レビュー一覧',
-  reviewList: 'レビュー一覧',
-};
-
 const selectLanguage = {
   headerTitle: '言語の選択',
   title: '学習する言語を選択してください',
@@ -353,10 +369,6 @@ const emptyDiary = {
   empty: '日記がまだ投稿されていません。',
 };
 
-const profileLanguage = {
-  learn: '勉強中の言語',
-};
-
 const inquiry = {
   headerTitle: 'お問い合わせ',
   email: 'メールアドレス',
@@ -389,7 +401,6 @@ const modalSendEmail = {
 const myDiaryListMenu = {
   myPage: 'マイページ',
   draftList: '下書き一覧',
-  reviewList: 'レビュー一覧',
 };
 
 const postDiaryComponent = {
@@ -629,6 +640,7 @@ const first = {
 
 const ja = {
   common,
+  becomePremium,
   day,
   shortDay,
   errorMessage,
@@ -641,6 +653,7 @@ const ja = {
   foregetPassword,
   initialize,
   myDiary,
+  noSapling,
   myDiaryList,
   viewMyDiary,
   themeCategory,
@@ -655,7 +668,6 @@ const ja = {
   postDraftDiary,
   postReviseDiary,
   registerEmailPassword,
-  reviewList,
   selectLanguage,
   selectDiaryType,
   selectTopicSubcategory,
@@ -666,7 +678,6 @@ const ja = {
   userProfile,
   record,
   emptyDiary,
-  profileLanguage,
   emptyMyDiaryList,
   modalDeleteAcount,
   modalDiaryCancel,

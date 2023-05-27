@@ -117,13 +117,6 @@ const editEmail = {
 
 const editMyProfile = {
   headerTitle: 'Edit User',
-  name: 'Name',
-  userName: 'Username',
-  placeholderIntroduction: 'Self Introduction (200 characters or less)',
-  learn: 'Leaning',
-  native: 'Teaching',
-  spoken: 'Other Languages\nyou can speak',
-  imageButton: 'Upload an Image',
 };
 
 const editPassword = {
@@ -168,21 +161,26 @@ const myDiary = {
   recommend: 'What is an efficient study method?',
   start: 'Initially',
   revise: 'Revise based on the correction',
+  check: 'Correct with AI2',
   adReward: 'Correct text using AI2 by watching ads',
   copiedTitle: 'The title was copied to your clipboard',
   copiedText: 'The text was copied to your clipboard',
   copied: 'The text was copied to your clipboard',
   adRewardError: 'An error occurred while playing the video',
   adLoading: 'Ad loading',
-  noSapling:
-    'By watching a video advertisement of 15 to 30 seconds, you can correct it with a language check AI called Sapling.',
-  noSaplingInactive:
-    '※ Due to a problem, Sapling checks are temporarily suspended.',
-  noSaplingButton: 'Correct the text',
+  become: 'Become a premium member',
 
   describeAi1: 'This correction was made by ',
   describeAi2: '',
-  moreAi: 'See more about {{aiName}}',
+};
+
+const noSapling = {
+  premiumText: 'Premium members can also correct on Sapling',
+  text: 'By watching a video advertisement of 15 to 30 seconds, you can correct it with a language check AI called Sapling.',
+  inactive: '※ Due to a problem, Sapling checks are temporarily suspended.',
+  moreAi: 'See more about Sapling',
+  check: 'Correct',
+  watch: 'Watch ads and correct the text',
 };
 
 const viewMyDiary = {
@@ -211,8 +209,28 @@ const themeCategory = {
 const myPage = {
   headerTitle: 'My Page',
   editButton: 'Edit',
-  adGetPoints: 'Earn {{points}}P by watching ads',
-  timeOut: 'Next video ads {{activeHour}}~',
+  learn: 'Learning',
+  status: 'Membership status',
+  premium: 'Premium member',
+  becomeTitle: 'Become a premium member',
+  becomeWithout: 'Correct without watching video ads',
+  becomeLonger: 'Check longer texts',
+  becomeButton: 'For more detail',
+  aboutCancel: 'About cancellation',
+};
+
+const becomePremium = {
+  headerTitle: 'About Premium members',
+  description: 'Premium members can use the following functions',
+  props1: 'Correct without watching video ads',
+  // props2: 'アプリ内の広告がなくなります',
+  MONTHLY: '月額500円',
+  ANNUAL: '年額5,000円',
+  purchase: 'Subscribe',
+  restore: 'Restore',
+  error: 'Failed to purchase',
+  noEmail:
+    'To become a premium member, you need to register an email address and password. Please register from "My Page" and "Settings".',
 };
 
 const onboarding = {
@@ -283,11 +301,6 @@ const registerEmailPassword = {
   password: 'Password (6 or more characters)',
 };
 
-const reviewList = {
-  headerTitle: 'List of Reviews',
-  reviewList: 'List of Reviews',
-};
-
 const selectLanguage = {
   headerTitle: 'Language Selection',
   title: 'Please Choose a language to learn.',
@@ -353,10 +366,6 @@ const emptyDiary = {
   empty: 'You haven’t posted any journal entries.',
 };
 
-const profileLanguage = {
-  learn: 'Learning',
-};
-
 const inquiry = {
   headerTitle: 'Inquiry',
   email: 'Email Address',
@@ -391,7 +400,6 @@ const modalSendEmail = {
 const myDiaryListMenu = {
   myPage: 'My Page',
   draftList: 'List of Drafts',
-  reviewList: 'List of Reviews',
 };
 
 const postDiaryComponent = {
@@ -635,6 +643,7 @@ const first = {
 
 const en = {
   common,
+  becomePremium,
   day,
   shortDay,
   errorMessage,
@@ -647,8 +656,9 @@ const en = {
   foregetPassword,
   initialize,
   myDiary,
-  viewMyDiary,
+  noSapling,
   myDiaryList,
+  viewMyDiary,
   themeCategory,
   myPage,
   onboarding,
@@ -661,7 +671,6 @@ const en = {
   postDraftDiary,
   postReviseDiary,
   registerEmailPassword,
-  reviewList,
   selectLanguage,
   selectDiaryType,
   selectTopicSubcategory,
@@ -672,7 +681,6 @@ const en = {
   userProfile,
   record,
   emptyDiary,
-  profileLanguage,
   emptyMyDiaryList,
   modalDeleteAcount,
   modalDiaryCancel,

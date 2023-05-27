@@ -7,16 +7,21 @@ import { MenuProvider } from 'react-native-popup-menu';
 import { NavigationContainer } from '@react-navigation/native';
 import { RootSiblingParent } from 'react-native-root-siblings';
 import firestore from '@react-native-firebase/firestore';
-import { StripeProvider } from '@stripe/stripe-react-native';
+import Purchases, { LOG_LEVEL } from 'react-native-purchases';
 
 import { configureStore } from '@/stores/Store';
 
 import RootNavigatorContainer from '@/containers/RootNavigatorContainer';
 import LoadingScreen from '@/screens/LoadingScreen';
-import { AppState, AppStateStatus } from 'react-native';
+import { AppState, AppStateStatus, Platform } from 'react-native';
 import MaintenanceScreen from './screens/MaintenanceScreen';
 
 const { store, persistor } = configureStore();
+
+const APIKeys = {
+  apple: 'appl_denpLMXScStqtYegoDgBcBkOhNC',
+  google: 'goog_BXJfBLRItsmNnWnxIxlLfOkDKFZ',
+};
 
 type ConfigMaintenance = {
   status: boolean;
@@ -38,11 +43,21 @@ const App = () => {
     setMaintenance(data);
   }, []);
 
+  const initPurchases = useCallback(() => {
+    Purchases.setLogLevel(LOG_LEVEL.VERBOSE);
+    if (Platform.OS === 'ios') {
+      Purchases.configure({ apiKey: APIKeys.apple });
+    } else if (Platform.OS === 'android') {
+      Purchases.configure({ apiKey: APIKeys.google });
+    }
+  }, []);
+
   useEffect(() => {
     const subscription = AppState.addEventListener(
       'change',
       _handleAppStateChange,
     );
+    initPurchases();
 
     return () => {
       subscription.remove();
@@ -73,20 +88,15 @@ const App = () => {
   return (
     <Provider store={store}>
       <PersistGate loading={<LoadingScreen />} persistor={persistor}>
-        <StripeProvider
-          publishableKey='pk_test_51N9RAbDpsgOkHekxO90VbMC5OiXjHtvhcK3NmhbhcNU7okHS1lYqwAn3kgCUpNzVMIGeH07d2bU6PQ9bGUAeokW500qIqU6mDb'
-          merchantIdentifier='merchant.langjournal.daiki123456.app'
-        >
-          <ActionSheetProvider>
-            <RootSiblingParent>
-              <MenuProvider>
-                <NavigationContainer>
-                  <RootNavigatorContainer />
-                </NavigationContainer>
-              </MenuProvider>
-            </RootSiblingParent>
-          </ActionSheetProvider>
-        </StripeProvider>
+        <ActionSheetProvider>
+          <RootSiblingParent>
+            <MenuProvider>
+              <NavigationContainer>
+                <RootNavigatorContainer />
+              </NavigationContainer>
+            </MenuProvider>
+          </RootSiblingParent>
+        </ActionSheetProvider>
       </PersistGate>
     </Provider>
   );

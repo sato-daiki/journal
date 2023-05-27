@@ -108,7 +108,6 @@ const Sapling: React.FC<Props> = ({
   return (
     <CommonMain
       viewShotRef={viewShotRef}
-      showAdReward={false}
       hideFooterButton={hideFooterButton}
       diary={diary}
       text={text}

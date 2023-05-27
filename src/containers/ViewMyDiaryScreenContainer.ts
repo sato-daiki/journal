@@ -14,11 +14,13 @@ interface OwnProps {
 
 const mapStateToProps = (state: State, ownProps: OwnProps): Props => {
   const { diaries } = state.rootReducer.diaryList;
+  const localStatus = state.rootReducer.localStatus;
 
   const objectID = ownProps.route.params?.objectID;
   const diary = diaries.find((d) => d.objectID === objectID);
   return {
     diary,
+    localStatus,
   };
 };
 

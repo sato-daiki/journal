@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
-import { Diary } from '@/types';
+import { Diary, LocalStatus } from '@/types';
 import MyDiary from '@/components/organisms/MyDiary/MyDiary';
 import {
   ModalViewMyDiaryStackNavigationProp,
@@ -14,6 +14,7 @@ import I18n from '@/utils/I18n';
 
 export interface Props {
   diary?: Diary;
+  localStatus: LocalStatus;
 }
 
 interface DispatchProps {
@@ -40,6 +41,7 @@ const styles = StyleSheet.create({
 const ViewMyDiaryScreen: React.FC<ScreenType> = ({
   navigation,
   diary,
+  localStatus,
   editDiary,
 }) => {
   const onPressClose = useCallback(() => {
@@ -65,6 +67,7 @@ const ViewMyDiaryScreen: React.FC<ScreenType> = ({
         isView
         navigation={navigation}
         diary={diary}
+        isPremium={localStatus.isPremium}
         editDiary={editDiary}
       />
     </View>

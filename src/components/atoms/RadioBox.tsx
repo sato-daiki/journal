@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import {
   View,
@@ -14,7 +14,8 @@ interface Props {
   textStyle?: StyleProp<TextStyle>;
   checked: boolean;
   color: string;
-  text: string;
+  text?: string;
+  textComponent?: ReactNode;
   onPress: () => void;
 }
 
@@ -31,11 +32,12 @@ const styles = StyleSheet.create({
 });
 
 const RadioBox: React.FC<Props> = ({
+  textStyle,
   checked,
   color = mainColor,
   text,
+  textComponent,
   onPress,
-  textStyle,
 }: Props) => {
   return (
     <TouchableWithoutFeedback onPress={onPress}>
@@ -45,7 +47,8 @@ const RadioBox: React.FC<Props> = ({
           color={color}
           name={checked ? 'radiobox-marked' : 'radiobox-blank'}
         />
-        <Text style={[styles.radioBoxText, textStyle]}>{text}</Text>
+        {text && <Text style={[styles.radioBoxText, textStyle]}>{text}</Text>}
+        {textComponent && textComponent}
       </View>
     </TouchableWithoutFeedback>
   );

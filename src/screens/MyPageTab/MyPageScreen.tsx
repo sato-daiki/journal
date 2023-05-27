@@ -3,23 +3,35 @@ import { StyleSheet, View, Text, ScrollView } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import * as Linking from 'expo-linking';
 
-import { primaryColor, subTextColor, fontSizeS } from '../../styles/Common';
-import { User } from '../../types';
+import {
+  subTextColor,
+  fontSizeS,
+  fontSizeM,
+  fontSizeL,
+  mainColor,
+} from '../../styles/Common';
+import { LocalStatus, LongCode, User } from '../../types';
 import {
   SmallButtonWhite,
-  Space,
   HeaderIcon,
   CountryNameWithFlag,
+  WhiteButton,
+  Space,
+  LinkText,
 } from '../../components/atoms';
 import I18n from '../../utils/I18n';
 import {
   MyPageTabStackParamList,
   MyPageTabNavigationProp,
 } from '../../navigations/MyPageTabNavigator';
+import { getLanguageToolCode } from '@/utils/grammarCheck';
+import { cancelEnUrl, cancelJaUrl } from '@/constants/url';
 
 export interface Props {
   user: User;
+  localStatus: LocalStatus;
 }
 
 interface DispatchProps {
@@ -45,10 +57,15 @@ const styles = StyleSheet.create({
   main: {
     paddingHorizontal: 16,
   },
-  languageContainer: {
+  labelContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingBottom: 8,
+  },
+  valueContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingBottom: 32,
   },
   label: {
     fontSize: fontSizeS,
@@ -56,17 +73,38 @@ const styles = StyleSheet.create({
     paddingLeft: 2,
     paddingRight: 16,
   },
-  language: {
-    fontSize: fontSizeS,
-    color: primaryColor,
-    marginRight: 8,
+  text: {
+    fontSize: fontSizeM,
+  },
+  becomeContainer: {
+    marginTop: 16,
+    backgroundColor: mainColor,
+    borderRadius: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+  },
+  becomeTitle: {
+    fontSize: fontSizeL,
+    fontWeight: 'bold',
+    color: '#fff',
+    paddingBottom: 16,
+  },
+  becomeText: {
+    fontSize: fontSizeM,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginLeft: 8,
   },
 });
 
 /**
  * マイページ
  */
-const MyPageScreen: React.FC<ScreenType> = ({ navigation, user }) => {
+const MyPageScreen: React.FC<ScreenType> = ({
+  navigation,
+  user,
+  localStatus,
+}) => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -83,23 +121,83 @@ const MyPageScreen: React.FC<ScreenType> = ({ navigation, user }) => {
     navigation.navigate('ModalEditMyProfile', { screen: 'EditMyProfile' });
   }, [navigation]);
 
+  const onPressBecome = useCallback(() => {
+    navigation.navigate('ModalBecomePremium', { screen: 'BecomePremium' });
+  }, [navigation]);
+
+  const onPressCancel = useCallback(() => {
+    const languageCode = getLanguageToolCode(I18n.locale as LongCode);
+    if (languageCode === 'ja') {
+      Linking.openURL(cancelJaUrl);
+    } else {
+      Linking.openURL(cancelEnUrl);
+    }
+  }, []);
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.main}>
-        <View style={styles.languageContainer}>
+        <View style={styles.labelContainer}>
           <MaterialCommunityIcons
             size={14}
             color={subTextColor}
             name='pencil'
           />
-          <Text style={styles.label}>{I18n.t('profileLanguage.learn')}</Text>
-          <CountryNameWithFlag size={'large'} longCode={user.learnLanguage} />
+          <Text style={styles.label}>{I18n.t('myPage.learn')}</Text>
         </View>
-        <Space size={16} />
-        <SmallButtonWhite
-          title={I18n.t('myPage.editButton')}
-          onPress={onPressEdit}
-        />
+        <View style={styles.valueContainer}>
+          <CountryNameWithFlag size={'large'} longCode={user.learnLanguage} />
+          <SmallButtonWhite
+            title={I18n.t('myPage.editButton')}
+            onPress={onPressEdit}
+          />
+        </View>
+
+        {localStatus.isPremium ? (
+          <>
+            <View style={styles.labelContainer}>
+              <MaterialCommunityIcons
+                size={14}
+                color={subTextColor}
+                name='star'
+              />
+              <Text style={styles.label}>{I18n.t('myPage.status')}</Text>
+            </View>
+            <Space size={4} />
+            <View style={styles.valueContainer}>
+              <Text style={styles.text}>{I18n.t('myPage.premium')}</Text>
+              <LinkText
+                text={I18n.t('myPage.aboutCancel')}
+                onPress={onPressCancel}
+              />
+            </View>
+          </>
+        ) : (
+          <View style={styles.becomeContainer}>
+            <Text style={styles.becomeTitle}>
+              {I18n.t('myPage.becomeTitle')}
+            </Text>
+            <View style={styles.labelContainer}>
+              <MaterialCommunityIcons size={16} color={'#fff'} name='check' />
+              <Text style={styles.becomeText}>
+                {I18n.t('myPage.becomeWithout')}
+              </Text>
+            </View>
+            {/* <Space size={8} />
+            <View style={styles.labelContainer}>
+              <MaterialCommunityIcons size={16} color={'#fff'} name='check' />
+              <Text style={styles.becomeText}>
+                {I18n.t('myPage.becomeLonger')}
+              </Text>
+            </View> */}
+            <Space size={24} />
+            <WhiteButton
+              containerStyle={{ backgroundColor: '#fff' }}
+              title={I18n.t('myPage.becomeButton')}
+              onPress={onPressBecome}
+            />
+          </View>
+        )}
       </View>
     </ScrollView>
   );

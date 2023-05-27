@@ -11,7 +11,6 @@ export { default as MyDiaryStatus } from './MyDiaryStatus';
 export { default as MyDiaryTabBar } from './MyDiaryTabBar';
 export { default as OnOffSmallButton } from './OnOffSmallButton';
 export { default as OptionItem } from './OptionItem';
-export { default as ProfileLanguage } from './ProfileLanguage';
 export { default as SelecttionBox } from './SelecttionBox';
 export { default as SelectTopicSubcategoryListItem } from './SelectTopicSubcategoryListItem';
 export { default as SelectTimeItem } from './SelectTimeItem';

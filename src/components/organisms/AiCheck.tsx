@@ -17,13 +17,16 @@ import Human from './Human';
 
 interface Props {
   isOriginal: boolean;
+  isPremium: boolean;
   hideFooterButton: boolean;
   diary: Diary;
   editDiary: (objectID: string, diary: Diary) => void;
   onPressRevise?: () => void;
+  onPressCheck?: () => void;
   checkPermissions?: () => Promise<boolean>;
   goToRecord?: () => void;
   onPressAdReward?: () => void;
+  onPressBecome?: () => void;
   successSapling?: boolean;
   configAiCheck: ConfigAiCheck;
   title: string;
@@ -41,6 +44,7 @@ const styles = StyleSheet.create({
 
 const AiCheck: React.FC<Props> = ({
   isOriginal,
+  isPremium,
   hideFooterButton,
   diary,
   editDiary,
@@ -53,7 +57,9 @@ const AiCheck: React.FC<Props> = ({
   checkPermissions,
   goToRecord,
   onPressRevise,
+  onPressCheck,
   onPressAdReward,
+  onPressBecome,
 }) => {
   const [index, setIndex] = useState(0);
   const [routes] = useState([
@@ -91,7 +97,8 @@ const AiCheck: React.FC<Props> = ({
           return (
             <LanguageTool
               isOriginal={isOriginal}
-              showAdReward={
+              isPremium={isPremium}
+              showSaplingCheck={
                 !!configAiCheck.activeSapling &&
                 !hasSapling &&
                 !hideFooterButton
@@ -106,7 +113,9 @@ const AiCheck: React.FC<Props> = ({
               checkPermissions={checkPermissions}
               goToRecord={goToRecord}
               onPressRevise={onPressRevise}
+              onPressCheck={onPressCheck}
               onPressAdReward={onPressAdReward}
+              onPressBecome={onPressBecome}
             />
           );
         case 'ai2':
@@ -126,8 +135,11 @@ const AiCheck: React.FC<Props> = ({
             />
           ) : (
             <NoSapling
+              isPremium={isPremium}
               activeSapling={configAiCheck.activeSapling}
+              onPressCheck={onPressCheck}
               onPressAdReward={onPressAdReward}
+              onPressBecome={onPressBecome}
             />
           );
         case 'human':
@@ -158,9 +170,12 @@ const AiCheck: React.FC<Props> = ({
       hasSapling,
       hideFooterButton,
       isOriginal,
+      isPremium,
       languageTool?.textMatches,
       languageTool?.titleMatches,
       onPressAdReward,
+      onPressBecome,
+      onPressCheck,
       onPressRevise,
       sapling?.textEdits,
       sapling?.titleEdits,

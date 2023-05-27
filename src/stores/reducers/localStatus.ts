@@ -4,6 +4,7 @@ import { LocalStatus } from '../../types';
 
 const initialState: LocalStatus = {
   isLoading: true,
+  isPremium: false,
   onboarding: null,
   firstLogin: false,
   myDiaryListView: 'list',
@@ -11,15 +12,16 @@ const initialState: LocalStatus = {
 };
 
 const localStatus = (state = initialState, action: Actions): LocalStatus => {
-  console.log('localStatus', state, action);
-
   switch (action.type) {
-    case Types.SET_LOCAL_STATUS:
-      return action.localStatus;
     case Types.SET_MY_DIARY_LIST_VIEW:
       return {
         ...state,
         myDiaryListView: action.myDiaryListView,
+      };
+    case Types.SET_IS_PREMIUM:
+      return {
+        ...state,
+        isPremium: action.isPremium,
       };
     case Types.RESTORE_UID:
       return {
