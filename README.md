@@ -44,3 +44,6 @@ eas submit -p ios
 eas submit -p android
 
 https://github.com/sato-daiki/journal/compare/main...develop
+
+nodebrew ls
+nodebrew use v16.14.0
