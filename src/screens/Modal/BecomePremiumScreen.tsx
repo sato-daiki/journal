@@ -121,6 +121,7 @@ const BecomePremiumScreen: React.FC<ScreenType> = ({
   useEffect(() => {
     const f = async () => {
       const offerings = await Purchases.getOfferings();
+
       if (
         offerings.current !== null &&
         offerings.current.availablePackages.length !== 0
@@ -215,7 +216,9 @@ const BecomePremiumScreen: React.FC<ScreenType> = ({
               color={mainColor}
               textComponent={
                 <View style={styles.priceContainer}>
-                  <Text style={styles.priceTitle}>{item.product.title}</Text>
+                  <Text style={styles.priceTitle}>
+                    {I18n.t(`becomePremium.${item.packageType}`)}
+                  </Text>
                   <Text style={styles.priceString}>
                     {item.product.priceString}
                   </Text>
