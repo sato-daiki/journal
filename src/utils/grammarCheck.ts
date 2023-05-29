@@ -369,8 +369,14 @@ export const getSaplingColors = (edit: Edit) => {
   }
 };
 
+export const getHumanColors = () => {
+  return { color: yellow, backgroundColor: yellowOpacy };
+};
+
+export type AiName = 'LanguageTool' | 'Sapling' | 'Human';
+
 export const addAiCheckError = async (
-  aiName: 'LanguageTool' | 'Sapling',
+  aiName: AiName,
   whichDiary: WhichDiaryKey,
   caller:
     | 'usePostDiary'
@@ -388,4 +394,16 @@ export const addAiCheckError = async (
     diaryId,
     createdAt: firestore.FieldValue.serverTimestamp(),
   });
+};
+
+const languageToolUrl = 'https://languagetool.org/';
+const saplingUrl = 'https://sapling.ai/';
+
+export const getWhatUrl = (aiName: AiName) => {
+  switch (aiName) {
+    case 'LanguageTool':
+      return languageToolUrl;
+    case 'Sapling':
+      return saplingUrl;
+  }
 };

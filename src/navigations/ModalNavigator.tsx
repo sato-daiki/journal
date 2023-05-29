@@ -32,6 +32,7 @@ import SelectDiaryTypeScreen from '@/screens/Modal/SelectDiaryTypeScreen';
 import SelectEikenScreenContainer from '@/containers/SelectEikenScreenContainer';
 import TopicGuideScreenContainer from '@/containers/TopicGuideScreenContainer';
 import ViewMyDiaryScreenContainer from '@/containers/ViewMyDiaryScreenContainer';
+import BecomePremiumScreenContainer from '@/containers/BecomePremiumScreenContainer';
 
 export type ModalEditMyDiaryListStackParamList = {
   EditMyDiaryList: undefined;
@@ -80,6 +81,9 @@ export type ModalEditMyProfileStackParamList = {
   EditMyProfile: undefined;
   EditUserName: { userName: string; setUserName: (text: string) => void };
 };
+export type ModalBecomePremiumStackParamList = {
+  BecomePremium: undefined;
+};
 export type ModalReviewStackParamList = {
   Review: {
     objectID: string;
@@ -126,6 +130,10 @@ export type ModalEditMyProfileStackNavigationProp = StackNavigationProp<
   MainStackParamList,
   'ModalEditMyProfile'
 >;
+export type ModalBecomePremiumStackNavigationProp = StackNavigationProp<
+  MainStackParamList,
+  'ModalBecomePremium'
+>;
 export type ModalReviewStackNavigationProp = StackNavigationProp<
   MainStackParamList,
   'ModalReview'
@@ -151,6 +159,8 @@ const ModalViewMyDiaryStack =
   createStackNavigator<ModalViewMyDiaryStackParamList>();
 const ModalEditMyProfileStack =
   createStackNavigator<ModalEditMyProfileStackParamList>();
+const ModalBecomePremiumStack =
+  createStackNavigator<ModalBecomePremiumStackParamList>();
 const ModalRecordStack = createStackNavigator<ModalRecordStackParamList>();
 
 export const ModalEditMyDiaryListNavigator = () => {
@@ -276,6 +286,16 @@ export const ModalEditMyProfileNavigator = () => {
         }}
       />
     </ModalEditMyProfileStack.Navigator>
+  );
+};
+export const ModalBecomePremiumeNavigator = () => {
+  return (
+    <ModalBecomePremiumStack.Navigator initialRouteName='BecomePremium'>
+      <ModalBecomePremiumStack.Screen
+        name='BecomePremium'
+        component={BecomePremiumScreenContainer}
+      />
+    </ModalBecomePremiumStack.Navigator>
   );
 };
 

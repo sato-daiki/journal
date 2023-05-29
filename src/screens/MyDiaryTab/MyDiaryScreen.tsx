@@ -9,7 +9,7 @@ import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 import { Audio } from 'expo-av';
 import { LoadingModal, HeaderIcon } from '@/components/atoms';
 
-import { Diary } from '@/types';
+import { Diary, LocalStatus } from '@/types';
 import {
   MyDiaryTabNavigationProp,
   MyDiaryTabStackParamList,
@@ -23,6 +23,7 @@ import { logAnalytics } from '@/utils/Analytics';
 
 export interface Props {
   diary?: Diary;
+  localStatus: LocalStatus;
 }
 
 interface DispatchProps {
@@ -58,6 +59,7 @@ const styles = StyleSheet.create({
 const MyDiaryScreen: React.FC<ScreenType> = ({
   navigation,
   route,
+  localStatus,
   diary,
   deleteDiary,
   editDiary,
@@ -210,6 +212,7 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
       />
       <MyDiary
         isView={false}
+        isPremium={localStatus.isPremium}
         caller={route.params.caller}
         navigation={navigation}
         diary={diary}

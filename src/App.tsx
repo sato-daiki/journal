@@ -7,15 +7,21 @@ import { MenuProvider } from 'react-native-popup-menu';
 import { NavigationContainer } from '@react-navigation/native';
 import { RootSiblingParent } from 'react-native-root-siblings';
 import firestore from '@react-native-firebase/firestore';
+import Purchases, { LOG_LEVEL } from 'react-native-purchases';
 
 import { configureStore } from '@/stores/Store';
 
 import RootNavigatorContainer from '@/containers/RootNavigatorContainer';
 import LoadingScreen from '@/screens/LoadingScreen';
-import { AppState, AppStateStatus } from 'react-native';
+import { AppState, AppStateStatus, Platform } from 'react-native';
 import MaintenanceScreen from './screens/MaintenanceScreen';
 
 const { store, persistor } = configureStore();
+
+const APIKeys = {
+  apple: 'appl_denpLMXScStqtYegoDgBcBkOhNC',
+  google: 'goog_BXJfBLRItsmNnWnxIxlLfOkDKFZ',
+};
 
 type ConfigMaintenance = {
   status: boolean;
@@ -37,11 +43,21 @@ const App = () => {
     setMaintenance(data);
   }, []);
 
+  const initPurchases = useCallback(() => {
+    Purchases.setLogLevel(LOG_LEVEL.VERBOSE);
+    if (Platform.OS === 'ios') {
+      Purchases.configure({ apiKey: APIKeys.apple });
+    } else if (Platform.OS === 'android') {
+      Purchases.configure({ apiKey: APIKeys.google });
+    }
+  }, []);
+
   useEffect(() => {
     const subscription = AppState.addEventListener(
       'change',
       _handleAppStateChange,
     );
+    initPurchases();
 
     return () => {
       subscription.remove();

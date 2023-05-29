@@ -7,7 +7,6 @@ import CommonMain from '../LanguageTool/CommonMain';
 
 export interface Props {
   isOriginal: boolean;
-  showAdReward: boolean;
   hideFooterButton: boolean;
   diary: Diary;
   title: string;
@@ -18,12 +17,10 @@ export interface Props {
   checkPermissions?: () => Promise<boolean>;
   goToRecord?: () => void;
   onPressRevise?: () => void;
-  onPressAdReward?: () => void;
 }
 
 const Sapling: React.FC<Props> = ({
   isOriginal,
-  showAdReward,
   hideFooterButton,
   diary,
   title,
@@ -34,7 +31,6 @@ const Sapling: React.FC<Props> = ({
   checkPermissions,
   goToRecord,
   onPressRevise,
-  onPressAdReward,
 }) => {
   const getTitleInfo = useCallback(
     (newEdits: Edit[]) => {
@@ -112,14 +108,12 @@ const Sapling: React.FC<Props> = ({
   return (
     <CommonMain
       viewShotRef={viewShotRef}
-      showAdReward={showAdReward}
       hideFooterButton={hideFooterButton}
       diary={diary}
       text={text}
       checkPermissions={checkPermissions}
       goToRecord={goToRecord}
       onPressRevise={onPressRevise}
-      onPressAdReward={onPressAdReward}
       titleAndText={
         <SaplingDiaryTitleAndText
           title={title}

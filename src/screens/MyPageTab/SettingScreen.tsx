@@ -170,10 +170,14 @@ const SettingScreen: React.FC<ScreenType> = ({ navigation, user, signOut }) => {
           navigation.navigate('DeleteAcount');
         }}
       />
-      <Space size={16} />
-      <Hoverable style={styles.logoutButton} onPress={onPressLogout}>
-        <Text style={styles.logout}>{I18n.t('setting.logout')}</Text>
-      </Hoverable>
+      {currentUser && currentUser.email && (
+        <>
+          <Space size={16} />
+          <Hoverable style={styles.logoutButton} onPress={onPressLogout}>
+            <Text style={styles.logout}>{I18n.t('setting.logout')}</Text>
+          </Hoverable>
+        </>
+      )}
       <Space size={16} />
       <Text style={styles.versionText}>{version}</Text>
     </ScrollView>

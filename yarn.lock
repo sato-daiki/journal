@@ -5666,6 +5666,11 @@ expo-structured-headers@~3.1.0:
   resolved "https://registry.yarnpkg.com/expo-structured-headers/-/expo-structured-headers-3.1.1.tgz#198d44260f4b128d41313ef78df02fa6e20c5054"
   integrity sha512-oV6yNGsJxQt7S9HYZTr+4L0I/yRwOF38USJ81I1KiN3GQI4C2z7P5OosyREA2VL9O+kUZVCCpNYsBLSa3/5bAQ==
 
+expo-tracking-transparency@~3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/expo-tracking-transparency/-/expo-tracking-transparency-3.0.3.tgz#ed18aa32cdabca54dacc241bafdf38b3ba079c35"
+  integrity sha512-jM/wIEKGV6DlHKNcEWN39HRPosJhRcbCrmfgWVn5A3ILYsWWvM4pToKGz34BLmg/6iTsq+ONNzuQiwBxJJzbWA==
+
 expo-updates-interface@~0.9.0:
   version "0.9.1"
   resolved "https://registry.yarnpkg.com/expo-updates-interface/-/expo-updates-interface-0.9.1.tgz#e81308d551ed5a4c35c8770ac61434f6ca749610"
@@ -10102,6 +10107,11 @@ react-native-popup-menu@^0.16.1:
   version "0.16.1"
   resolved "https://registry.yarnpkg.com/react-native-popup-menu/-/react-native-popup-menu-0.16.1.tgz#b1bb56be5c0838bbc2f532af7b1f554b7ceef566"
   integrity sha512-xRS7mRh0exwu7Iw8PPVHdM11d13A/KzYjy0/fZx3zVtxISxPkNaDGayau6oa7HqO3Nj0oS9ulFCYjcQfG6vahA==
+
+react-native-purchases@^5.14.0:
+  version "5.14.0"
+  resolved "https://registry.yarnpkg.com/react-native-purchases/-/react-native-purchases-5.14.0.tgz#2c1d00d9e91a015c673b1c381e31b21fc686aaa2"
+  integrity sha512-cek8SdFJ8obcKh3OwEQvSd8WLKhs4jsVRsTTfJnGZMXlxFXfv1GS0F4BnAD/eP5J1GcAUw1RGyJB9gC/iqoglw==
 
 react-native-reanimated@~2.14.4:
   version "2.14.4"

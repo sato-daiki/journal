@@ -1,5 +1,7 @@
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import * as Notifications from 'expo-notifications';
+import mobileAds from 'react-native-google-mobile-ads';
+import { requestTrackingPermissionsAsync } from 'expo-tracking-transparency';
 
 import { LocalStatus } from '@/types';
 import { setPushotifications } from '@/utils/Notification';
@@ -19,14 +21,29 @@ export const useFirstScreen = ({
   const notificationListener = useRef<any>();
   const responseListener = useRef<any>();
 
+  const initAd = useCallback(async () => {
+    try {
+      const { status } = await requestTrackingPermissionsAsync();
+      if (status === 'granted') {
+        console.log('Yay! I have user permission to track data');
+      }
+      await mobileAds().initialize();
+    } catch (err) {
+      console.warn('initAd', err);
+    }
+  }, []);
+
   // 初期データの取得
   useEffect(() => {
     const f = async (): Promise<void> => {
+      initAd();
+
       // 初回登録でskipした場合は入らないようにする
       if (!localStatus.firstLogin && localStatus.uid) {
         setPushotifications(localStatus.uid);
       }
     };
+
     f();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

@@ -2,12 +2,14 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { getUser } from '@/utils/user';
 import { User, LocalStatus } from '@/types';
+import Purchases from 'react-native-purchases';
 
 import AuthNavigator from './AuthNavigator';
 import MainNavigator from './MainNavigator';
 import OnboardingNavigator from './OnboardingNavigator';
 import LoadingScreen from '@/screens/LoadingScreen';
 import auth from '@react-native-firebase/auth';
+import { checkPremium } from '@/utils/purchase';
 
 export type RootStackParamList = {
   Loading: undefined;
@@ -18,19 +20,19 @@ export type RootStackParamList = {
 };
 
 export interface Props {
-  user: User;
   localStatus: LocalStatus;
 }
 
 interface DispatchProps {
   setUser: (user: User) => void;
+  setIsPremium: (isPremium: boolean) => void;
   restoreUid: (uid: string | null, onboarding?: boolean) => void;
 }
 
 const RootNavigator: React.FC<Props & DispatchProps> = ({
   localStatus,
-  user,
   setUser,
+  setIsPremium,
   restoreUid,
 }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -39,6 +41,11 @@ const RootNavigator: React.FC<Props & DispatchProps> = ({
     async (authUser): Promise<void> => {
       if (authUser) {
         const newUser = await getUser(authUser.uid);
+        const { customerInfo } = await Purchases.logIn(authUser.uid);
+        if (checkPremium(customerInfo)) {
+          setIsPremium(true);
+        }
+
         if (newUser) {
           setUser(newUser);
           restoreUid(authUser.uid, newUser.onboarding);
@@ -46,7 +53,7 @@ const RootNavigator: React.FC<Props & DispatchProps> = ({
       }
       if (isLoading) setIsLoading(false);
     },
-    [isLoading, restoreUid, setUser],
+    [isLoading, restoreUid, setIsPremium, setUser],
   );
 
   useEffect(() => {

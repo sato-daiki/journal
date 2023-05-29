@@ -33,6 +33,7 @@ import { logAnalytics } from '@/utils/Analytics';
 
 interface Props {
   isView: boolean;
+  isPremium: boolean;
   caller?: MyDiaryCaller;
   navigation: MyDiaryNavigationProp | ViewMyDiaryNavigationProp;
   diary: Diary;
@@ -42,8 +43,9 @@ interface Props {
   onPressRevise?: () => void;
 }
 
-type ConfigAiCheck = {
+export type ConfigAiCheck = {
   activeSapling: boolean;
+  activeHuman: boolean;
 };
 
 const IOS_AD_REWARD = 'ca-app-pub-0770181536572634/6050230343';
@@ -56,6 +58,7 @@ const rewarded = RewardedAd.createForAdRequest(adUnitId, {
 
 const MyDiary: React.FC<Props> = ({
   isView,
+  isPremium,
   caller,
   navigation,
   diary,
@@ -71,6 +74,7 @@ const MyDiary: React.FC<Props> = ({
   const [isAdLoading, setIsAdLoading] = useState(false);
   const [configAiCheck, setConfigAiCheck] = useState<ConfigAiCheck>({
     activeSapling: false,
+    activeHuman: false,
   });
   const [successSapling, setSuccessSapling] = useState(false);
 
@@ -101,7 +105,7 @@ const MyDiary: React.FC<Props> = ({
       () => {
         setIsAdLoading(false);
         loaded.current = true;
-        showAdReward();
+        showSaplingCheck();
       },
     );
     const unsubscribeEarned = rewarded.addAdEventListener(
@@ -162,7 +166,12 @@ const MyDiary: React.FC<Props> = ({
     }, 6000);
   }, []);
 
-  const showAdReward = useCallback(async () => {
+  const onPressBecome = useCallback(() => {
+    // @ts-ignore
+    navigation.navigate('ModalBecomePremium', { screen: 'BecomePremium' });
+  }, [navigation]);
+
+  const showSaplingCheck = useCallback(async () => {
     try {
       logAnalytics('show_ad_reward');
       await rewarded.show();
@@ -176,7 +185,7 @@ const MyDiary: React.FC<Props> = ({
   }, []);
 
   const earnedReward = useCallback(async () => {
-    // 広告最後までみた人が実行できる処理
+    // 広告最後までみた人 or プレミアム会員が実行できる処理
     if (!diary || !diary.objectID) return;
 
     setIsLoading(true);
@@ -244,6 +253,15 @@ const MyDiary: React.FC<Props> = ({
     setSuccessSapling(true);
   }, [diary, editDiary]);
 
+  const onPressCheck = useCallback(
+    (key: WhichDiaryKey) => {
+      logAnalytics('on_press_check_premium');
+      pressKey.current = key;
+      earnedReward();
+    },
+    [earnedReward],
+  );
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: () => (
@@ -271,6 +289,7 @@ const MyDiary: React.FC<Props> = ({
       {selectedItem.value == 'original' ? (
         <AiCheck
           isOriginal
+          isPremium={isPremium}
           hideFooterButton={isView || hasRevised}
           diary={diary}
           title={diary.title}
@@ -279,15 +298,18 @@ const MyDiary: React.FC<Props> = ({
           sapling={diary.sapling}
           editDiary={editDiary}
           successSapling={successSapling}
-          activeSapling={configAiCheck.activeSapling}
+          configAiCheck={configAiCheck}
           checkPermissions={checkPermissions}
           goToRecord={goToRecord}
           onPressRevise={onPressRevise}
-          onPressAdReward={() => onPressAdReward && onPressAdReward('original')}
+          onPressCheck={() => onPressCheck('original')}
+          onPressAdReward={() => onPressAdReward('original')}
+          onPressBecome={onPressBecome}
         />
       ) : (
         <AiCheck
           isOriginal={false}
+          isPremium={isPremium}
           hideFooterButton={isView}
           diary={diary}
           title={diary.reviseTitle || diary.title}
@@ -296,11 +318,13 @@ const MyDiary: React.FC<Props> = ({
           sapling={diary.reviseSapling}
           editDiary={editDiary}
           successSapling={successSapling}
-          activeSapling={configAiCheck.activeSapling}
+          configAiCheck={configAiCheck}
           checkPermissions={checkPermissions}
           goToRecord={goToRecord}
           onPressRevise={onPressRevise}
-          onPressAdReward={() => onPressAdReward && onPressAdReward('revised')}
+          onPressCheck={() => onPressCheck('revised')}
+          onPressAdReward={() => onPressAdReward('revised')}
+          onPressBecome={onPressBecome}
         />
       )}
     </>

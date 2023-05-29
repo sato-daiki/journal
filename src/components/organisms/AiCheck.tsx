@@ -11,18 +11,24 @@ import LanguageTool from '@/components/organisms/LanguageTool';
 import Sapling from '@/components/organisms/Sapling';
 import I18n from '@/utils/I18n';
 import NoSapling from './NoSapling';
+import { ConfigAiCheck } from './MyDiary/MyDiary';
+import NoHuman from './NoHuman';
+import Human from './Human';
 
 interface Props {
   isOriginal: boolean;
+  isPremium: boolean;
   hideFooterButton: boolean;
   diary: Diary;
   editDiary: (objectID: string, diary: Diary) => void;
   onPressRevise?: () => void;
+  onPressCheck?: () => void;
   checkPermissions?: () => Promise<boolean>;
   goToRecord?: () => void;
   onPressAdReward?: () => void;
+  onPressBecome?: () => void;
   successSapling?: boolean;
-  activeSapling?: boolean;
+  configAiCheck: ConfigAiCheck;
   title: string;
   text: string;
   languageTool?: LanguageToolType | null;
@@ -38,6 +44,7 @@ const styles = StyleSheet.create({
 
 const AiCheck: React.FC<Props> = ({
   isOriginal,
+  isPremium,
   hideFooterButton,
   diary,
   editDiary,
@@ -46,16 +53,19 @@ const AiCheck: React.FC<Props> = ({
   languageTool,
   sapling,
   successSapling,
-  activeSapling,
+  configAiCheck,
   checkPermissions,
   goToRecord,
   onPressRevise,
+  onPressCheck,
   onPressAdReward,
+  onPressBecome,
 }) => {
   const [index, setIndex] = useState(0);
   const [routes] = useState([
     { key: 'ai1', title: I18n.t('myDiary.ai1') },
     { key: 'ai2', title: I18n.t('myDiary.ai2') },
+    // { key: 'human', title: I18n.t('myDiary.human') },
   ]);
 
   useEffect(() => {
@@ -78,6 +88,8 @@ const AiCheck: React.FC<Props> = ({
     [sapling],
   );
 
+  const hasHuman = useMemo(() => !!diary.human, [diary.human]);
+
   const renderScene = useCallback(
     ({ route }) => {
       switch (route.key) {
@@ -85,7 +97,12 @@ const AiCheck: React.FC<Props> = ({
           return (
             <LanguageTool
               isOriginal={isOriginal}
-              showAdReward={!!activeSapling && !hasSapling && !hideFooterButton}
+              isPremium={isPremium}
+              showSaplingCheck={
+                !!configAiCheck.activeSapling &&
+                !hasSapling &&
+                !hideFooterButton
+              }
               hideFooterButton={hideFooterButton}
               diary={diary}
               title={title}
@@ -96,14 +113,15 @@ const AiCheck: React.FC<Props> = ({
               checkPermissions={checkPermissions}
               goToRecord={goToRecord}
               onPressRevise={onPressRevise}
+              onPressCheck={onPressCheck}
               onPressAdReward={onPressAdReward}
+              onPressBecome={onPressBecome}
             />
           );
         case 'ai2':
           return hasSapling ? (
             <Sapling
               isOriginal={isOriginal}
-              showAdReward={false}
               hideFooterButton={hideFooterButton}
               diary={diary}
               title={title}
@@ -114,30 +132,50 @@ const AiCheck: React.FC<Props> = ({
               checkPermissions={checkPermissions}
               goToRecord={goToRecord}
               onPressRevise={onPressRevise}
-              onPressAdReward={onPressAdReward}
             />
           ) : (
             <NoSapling
-              activeSapling={activeSapling}
+              isPremium={isPremium}
+              activeSapling={configAiCheck.activeSapling}
+              onPressCheck={onPressCheck}
               onPressAdReward={onPressAdReward}
+              onPressBecome={onPressBecome}
             />
+          );
+        case 'human':
+          return hasHuman ? (
+            <Human
+              hideFooterButton={hideFooterButton}
+              diary={diary}
+              editDiary={editDiary}
+              checkPermissions={checkPermissions}
+              goToRecord={goToRecord}
+              onPressRevise={onPressRevise}
+            />
+          ) : (
+            <NoHuman activeHuman={configAiCheck.activeHuman} />
           );
         default:
           return null;
       }
     },
     [
-      activeSapling,
       checkPermissions,
+      configAiCheck.activeHuman,
+      configAiCheck.activeSapling,
       diary,
       editDiary,
       goToRecord,
+      hasHuman,
       hasSapling,
       hideFooterButton,
       isOriginal,
+      isPremium,
       languageTool?.textMatches,
       languageTool?.titleMatches,
       onPressAdReward,
+      onPressBecome,
+      onPressCheck,
       onPressRevise,
       sapling?.textEdits,
       sapling?.titleEdits,
