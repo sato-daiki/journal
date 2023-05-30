@@ -148,6 +148,7 @@ const myDiary = {
   revised: '修正後の添削結果',
   ai1: 'AI①の添削',
   ai2: 'AI②の添削',
+  ai3: 'AI③の添削',
   human: 'プロの人間の添削',
   closeAlert: '保存されていない変更は失われます。閉じてよろしいですか？',
   permissionAudio:
@@ -170,12 +171,12 @@ const myDiary = {
   describeAi2: 'で行われています',
 };
 
-const noSapling = {
-  premiumText: 'プレミアム会員はSaplingでも添削を行えます',
-  text: '15~30秒の動画広告を見ることで、Saplingという言語チェックAIで添削を行えます。\nまたは、プレミアム会員になることで、動画の視聴なしで添削が行えます。',
+const noAi = {
+  premiumText: 'プレミアム会員は{{aiName}}でも添削を行えます',
+  text: '15~30秒の動画広告を見ることで、{{aiName}}という言語チェックAIで添削を行えます。\nまたは、プレミアム会員になることで、動画の視聴なしで添削が行えます。',
   inactive:
-    '※ 現在問題が発生しており、一時的にSaplingでのチェックは停止しております。',
-  moreAi: 'Saplingについて詳しくみる',
+    '※ 現在問題が発生しており、一時的に{{aiName}}でのチェックは停止しております。',
+  moreAi: '{{aiName}}について詳しくみる',
   check: '添削する',
   watch: '動画を見て添削する',
 };
@@ -653,7 +654,7 @@ const ja = {
   foregetPassword,
   initialize,
   myDiary,
-  noSapling,
+  noAi,
   myDiaryList,
   viewMyDiary,
   themeCategory,

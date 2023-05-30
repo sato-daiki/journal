@@ -1,4 +1,8 @@
-import { saplingCheck, languageToolCheck } from './grammarCheck';
+import {
+  saplingCheck,
+  languageToolCheck,
+  proWritingAidCheck,
+} from './grammarCheck';
 
 jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter');
 
@@ -50,4 +54,23 @@ it('saplingCheck', async () => {
 
   expect(sapling.result).toBe('corrected');
   expect(sapling.error).toBeNull();
+});
+
+it('proWritingAidCheck', async () => {
+  const proWritingAid = await proWritingAidCheck(
+    'en-US',
+    'he main reason why people say a sanctions tool need is that if it exists countries would hesitate to behave selfishly and the world would become safer.',
+  );
+  const { tags } = proWritingAid;
+
+  expect(tags.length).toBeGreaterThanOrEqual(1);
+  expect(tags[0].startPos).toBeGreaterThanOrEqual(0);
+  expect(tags[0].endPos).toBeGreaterThanOrEqual(0);
+  expect(tags[0].hint.length).toBeGreaterThanOrEqual(1);
+  expect(tags[0].category.length).toBeGreaterThanOrEqual(1);
+  expect(tags[0].categoryDisplayName.length).toBeGreaterThanOrEqual(1);
+  expect(tags[0].suggestions.length).toBeGreaterThanOrEqual(1);
+
+  expect(proWritingAid.result).toBe('corrected');
+  expect(proWritingAid.error).toBeNull();
 });

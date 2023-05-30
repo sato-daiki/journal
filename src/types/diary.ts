@@ -3,6 +3,7 @@ import { LanguageTool, LongCode } from './languageTool';
 import { Sapling } from './sapling';
 import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
 import { Human } from './human';
+import { ProWritingAid } from './proWritingAid';
 
 export type DiaryStatus = 'draft' | 'checked';
 
@@ -21,9 +22,11 @@ export interface Diary {
   longCode: LongCode;
   languageTool?: LanguageTool;
   sapling?: Sapling;
+  proWritingAid?: ProWritingAid;
   human?: Human;
   reviseLanguageTool?: LanguageTool;
   reviseSapling?: Sapling | null;
+  reviseProWritingAid?: ProWritingAid | null;
   createdAt: FirebaseFirestoreTypes.Timestamp;
   updatedAt: FirebaseFirestoreTypes.Timestamp;
 }

@@ -5,15 +5,18 @@ import {
   Diary,
   LanguageTool as LanguageToolType,
   Sapling as SaplingType,
+  ProWritingAid as ProWritingAidType,
 } from '@/types';
 import { MyDiaryTabBar } from '@/components/molecules';
 import LanguageTool from '@/components/organisms/LanguageTool';
 import Sapling from '@/components/organisms/Sapling';
 import I18n from '@/utils/I18n';
-import NoSapling from './NoSapling';
+import NoAi from './NoAi';
 import { ConfigAiCheck } from './MyDiary/MyDiary';
 import NoHuman from './NoHuman';
 import Human from './Human';
+import { AiName, getLanguageToolCode } from '@/utils/grammarCheck';
+import ProWritingAid from './ProWritingAid';
 
 interface Props {
   isOriginal: boolean;
@@ -22,17 +25,19 @@ interface Props {
   diary: Diary;
   editDiary: (objectID: string, diary: Diary) => void;
   onPressRevise?: () => void;
-  onPressCheck?: () => void;
+  onPressCheck?: (aiName: AiName) => void;
   checkPermissions?: () => Promise<boolean>;
   goToRecord?: () => void;
-  onPressAdReward?: () => void;
+  onPressAdReward?: (aiName: AiName) => void;
   onPressBecome?: () => void;
   successSapling?: boolean;
+  successProWritingAid?: boolean;
   configAiCheck: ConfigAiCheck;
   title: string;
   text: string;
   languageTool?: LanguageToolType | null;
   sapling?: SaplingType | null;
+  proWritingAid?: ProWritingAidType | null;
 }
 
 const styles = StyleSheet.create({
@@ -52,7 +57,9 @@ const AiCheck: React.FC<Props> = ({
   text,
   languageTool,
   sapling,
+  proWritingAid,
   successSapling,
+  successProWritingAid,
   configAiCheck,
   checkPermissions,
   goToRecord,
@@ -62,17 +69,33 @@ const AiCheck: React.FC<Props> = ({
   onPressBecome,
 }) => {
   const [index, setIndex] = useState(0);
-  const [routes] = useState([
-    { key: 'ai1', title: I18n.t('myDiary.ai1') },
-    { key: 'ai2', title: I18n.t('myDiary.ai2') },
-    // { key: 'human', title: I18n.t('myDiary.human') },
-  ]);
+  const routes = useMemo(() => {
+    const shortLongCode = getLanguageToolCode(diary.longCode);
+    if (shortLongCode === 'en') {
+      return [
+        { key: 'ai1', title: I18n.t('myDiary.ai1') },
+        { key: 'ai2', title: I18n.t('myDiary.ai2') },
+        { key: 'ai3', title: I18n.t('myDiary.ai3') },
+      ];
+    } else {
+      return [
+        { key: 'ai1', title: I18n.t('myDiary.ai1') },
+        { key: 'ai2', title: I18n.t('myDiary.ai2') },
+      ];
+    }
+  }, [diary.longCode]);
 
   useEffect(() => {
     if (successSapling) {
       setIndex(1);
     }
   }, [successSapling]);
+
+  useEffect(() => {
+    if (successProWritingAid) {
+      setIndex(2);
+    }
+  }, [successProWritingAid]);
 
   const onIndexChange = useCallback((i: number) => {
     setIndex(i);
@@ -86,6 +109,16 @@ const AiCheck: React.FC<Props> = ({
         sapling.textError === 'corrected' ||
         sapling.textError === 'perfect'),
     [sapling],
+  );
+
+  const hasProWritingAid = useMemo(
+    () =>
+      !!proWritingAid &&
+      (proWritingAid.titleResult === 'corrected' ||
+        proWritingAid.titleResult === 'perfect' ||
+        proWritingAid.textError === 'corrected' ||
+        proWritingAid.textError === 'perfect'),
+    [proWritingAid],
   );
 
   const hasHuman = useMemo(() => !!diary.human, [diary.human]);
@@ -114,7 +147,7 @@ const AiCheck: React.FC<Props> = ({
               goToRecord={goToRecord}
               onPressRevise={onPressRevise}
               onPressCheck={onPressCheck}
-              onPressAdReward={onPressAdReward}
+              onPressAdReward={() => onPressAdReward?.('Sapling')}
               onPressBecome={onPressBecome}
             />
           );
@@ -134,9 +167,35 @@ const AiCheck: React.FC<Props> = ({
               onPressRevise={onPressRevise}
             />
           ) : (
-            <NoSapling
+            <NoAi
               isPremium={isPremium}
-              activeSapling={configAiCheck.activeSapling}
+              aiName={'Sapling'}
+              active={configAiCheck.activeSapling}
+              onPressCheck={onPressCheck}
+              onPressAdReward={onPressAdReward}
+              onPressBecome={onPressBecome}
+            />
+          );
+        case 'ai3':
+          return hasProWritingAid ? (
+            <ProWritingAid
+              isOriginal={isOriginal}
+              hideFooterButton={hideFooterButton}
+              diary={diary}
+              title={title}
+              text={text}
+              titleArray={proWritingAid?.titleTags}
+              textArray={proWritingAid?.textTags}
+              editDiary={editDiary}
+              checkPermissions={checkPermissions}
+              goToRecord={goToRecord}
+              onPressRevise={onPressRevise}
+            />
+          ) : (
+            <NoAi
+              isPremium={isPremium}
+              aiName={'ProWritingAid'}
+              active={configAiCheck.activeProWritingAid}
               onPressCheck={onPressCheck}
               onPressAdReward={onPressAdReward}
               onPressBecome={onPressBecome}
@@ -162,11 +221,13 @@ const AiCheck: React.FC<Props> = ({
     [
       checkPermissions,
       configAiCheck.activeHuman,
+      configAiCheck.activeProWritingAid,
       configAiCheck.activeSapling,
       diary,
       editDiary,
       goToRecord,
       hasHuman,
+      hasProWritingAid,
       hasSapling,
       hideFooterButton,
       isOriginal,
@@ -177,6 +238,8 @@ const AiCheck: React.FC<Props> = ({
       onPressBecome,
       onPressCheck,
       onPressRevise,
+      proWritingAid?.textTags,
+      proWritingAid?.titleTags,
       sapling?.textEdits,
       sapling?.titleEdits,
       text,
@@ -203,4 +266,5 @@ const AiCheck: React.FC<Props> = ({
     </View>
   );
 };
+
 export default AiCheck;

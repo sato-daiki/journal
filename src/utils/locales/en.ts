@@ -150,6 +150,7 @@ const myDiary = {
   revised: 'Revised Correction',
   ai1: "AI1's correction",
   ai2: "AI2's correction",
+  ai3: "AI3's correction",
   human: "Human's correction",
   closeAlert:
     'Any edits that have not been saved will be lost. Would you like to exit?',
@@ -174,11 +175,11 @@ const myDiary = {
   describeAi2: '',
 };
 
-const noSapling = {
-  premiumText: 'Premium members can also correct on Sapling',
-  text: 'By watching a video advertisement of 15 to 30 seconds, you can correct it with a language check AI called Sapling.',
-  inactive: '※ Due to a problem, Sapling checks are temporarily suspended.',
-  moreAi: 'See more about Sapling',
+const noAi = {
+  premiumText: 'Premium members can also correct on {{aiName}}',
+  text: 'By watching a video advertisement of 15 to 30 seconds, you can correct it with a language check AI called {{aiName}}.',
+  inactive: '※ Due to a problem, {{aiName}} checks are temporarily suspended.',
+  moreAi: 'See more about {{aiName}}',
   check: 'Correct',
   watch: 'Watch ads and correct the text',
 };
@@ -656,7 +657,7 @@ const en = {
   foregetPassword,
   initialize,
   myDiary,
-  noSapling,
+  noAi,
   myDiaryList,
   viewMyDiary,
   themeCategory,

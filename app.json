@@ -17,7 +17,10 @@
       "buildNumber": "1030100",
       "googleServicesFile": "./GoogleService-Info.plist",
       "supportsTablet": true,
-      "bundleIdentifier": "app.daiki123456.langjournal"
+      "bundleIdentifier": "app.daiki123456.langjournal",
+      "infoPlist": {
+        "CFBundleAllowMixedLocalizations": true
+      }
     },
     "android": {
       "versionCode": 1030100,
@@ -32,6 +35,10 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
+    "locales": {
+      "en": "./src/utils/locales/appJson/english.json",
+      "ja": "./src/utils/locales/appJson/japanese.json"
+    },
     "plugins": [
       "@react-native-firebase/app",
       "@react-native-firebase/crashlytics",
@@ -44,12 +51,7 @@
           }
         }
       ],
-      [
-        "expo-tracking-transparency",
-        {
-          "userTrackingPermission": "This identifier will be used to deliver personalized ads to you."
-        }
-      ]
+      "expo-tracking-transparency"
     ],
     "extra": {
       "eas": {
