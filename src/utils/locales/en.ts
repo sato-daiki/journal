@@ -338,6 +338,12 @@ const signUp = {
     'You will need this data when switching devices. You can also register at a later time.',
   email: 'Email Address',
   password: 'Password (6 or more characters)',
+  without: 'Start without registering an email address',
+  agree1: 'You have to agree with the ',
+  terms: 'Terms of Service',
+  agree2: ' and ',
+  privacy: 'Privacy Policy',
+  agree3: 'to start using the service',
 };
 
 const userProfile = {

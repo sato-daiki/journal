@@ -1,9 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useCallback,
-  useLayoutEffect,
-} from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, StyleSheet, Platform } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -13,7 +8,8 @@ import {
   Space,
   SubmitButton,
   LoadingModal,
-  HeaderText,
+  WhiteButton,
+  LinkText,
 } from '@/components/atoms';
 
 import {
@@ -26,6 +22,7 @@ import {
   fontSizeM,
   subTextColor,
   fontSizeL,
+  fontSizeS,
 } from '@/styles/Common';
 import { logAnalytics, events } from '@/utils/Analytics';
 import {
@@ -39,6 +36,7 @@ import auth from '@react-native-firebase/auth';
 import firestore, {
   FirebaseFirestoreTypes,
 } from '@react-native-firebase/firestore';
+import { PRIVACY_POLICY, TERMS } from '@/constants/url';
 
 export interface Props {
   user: User;
@@ -75,6 +73,32 @@ const styles = StyleSheet.create({
     paddingBottom: 16,
     lineHeight: fontSizeL * 1.3,
     textAlign: Platform.OS === 'web' ? 'center' : 'left',
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+  },
+  line: {
+    borderBottomColor: subTextColor,
+    borderBottomWidth: 1,
+    flex: 1,
+  },
+  or: {
+    color: subTextColor,
+    textAlign: 'center',
+    fontSize: fontSizeM,
+    paddingHorizontal: 16,
+  },
+  agree: {
+    color: subTextColor,
+    fontSize: fontSizeS,
+    lineHeight: fontSizeS * 1.3,
+  },
+  linkText: {
+    fontSize: fontSizeS,
+    lineHeight: fontSizeM * 1.3,
   },
   subText: {
     color: subTextColor,
@@ -158,14 +182,6 @@ const SignUpScreen: React.FC<ScreenType> = ({
       setIsLoading(false);
     }
   }, [clearErrorMessage, createUser]);
-
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <HeaderText text={I18n.t('common.skip')} onPress={onPressSkip} />
-      ),
-    });
-  }, [navigation, onPressSkip]);
 
   const onPressSubmit = useCallback(async (): Promise<void> => {
     setIsLoading(true);
@@ -263,13 +279,40 @@ const SignUpScreen: React.FC<ScreenType> = ({
           isCheckOk={isPasswordCheckOk}
           errorMessage={errorPassword}
         />
-        <Space size={32} />
+        <Space size={16} />
         <SubmitButton
           title={I18n.t('common.register')}
           onPress={onPressSubmit}
           disable={!(isEmailCheckOk && isPasswordCheckOk)}
         />
+        <Space size={32} />
+        <View style={styles.row}>
+          <View style={styles.line} />
+          <Text style={styles.or}>or</Text>
+          <View style={styles.line} />
+        </View>
+        <Space size={32} />
+        <WhiteButton title={I18n.t('signUp.without')} onPress={onPressSkip} />
         <Space size={16} />
+        <View style={styles.row}>
+          <Text style={styles.agree}>{I18n.t('signUp.agree1')}</Text>
+          <LinkText
+            textStyle={styles.linkText}
+            onPress={(): void => {
+              navigation.navigate('AuthWebView', TERMS);
+            }}
+            text={I18n.t('signUp.terms')}
+          />
+          <Text style={styles.agree}>{I18n.t('signUp.agree2')}</Text>
+          <LinkText
+            textStyle={styles.linkText}
+            onPress={(): void => {
+              navigation.navigate('AuthWebView', PRIVACY_POLICY);
+            }}
+            text={I18n.t('signUp.privacy')}
+          />
+          <Text style={styles.agree}>{I18n.t('signUp.agree3')}</Text>
+        </View>
       </View>
     </KeyboardAwareScrollView>
   );
