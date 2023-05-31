@@ -146,7 +146,7 @@ const AiCheck: React.FC<Props> = ({
               checkPermissions={checkPermissions}
               goToRecord={goToRecord}
               onPressRevise={onPressRevise}
-              onPressCheck={onPressCheck}
+              onPressCheck={() => onPressCheck?.('Sapling')}
               onPressAdReward={() => onPressAdReward?.('Sapling')}
               onPressBecome={onPressBecome}
             />
