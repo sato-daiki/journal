@@ -19,7 +19,7 @@ export interface Props {
   checkPermissions?: () => Promise<boolean>;
   goToRecord?: () => void;
   onPressRevise?: () => void;
-  onPressCheck;
+  onPressCheck?: () => void;
   onPressAdReward?: () => void;
   onPressBecome?: () => void;
 }
