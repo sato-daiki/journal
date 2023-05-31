@@ -17,6 +17,7 @@ import {
 } from '@/constants/NavigationOptions';
 import I18n from '@/utils/I18n';
 import { RootStackParamList } from './RootNavigator';
+import { WebViewNavParams, WebViewScreen } from '@/screens/WebViewScreen';
 
 export type AuthNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -29,6 +30,7 @@ export type AuthStackParamList = {
   SignIn: undefined;
   SignUp: undefined;
   ForegetPassword: undefined;
+  AuthWebView: WebViewNavParams;
 };
 
 const Stack = createStackNavigator<AuthStackParamList>();
@@ -81,6 +83,7 @@ export const AuthNavigator = () => {
           title: I18n.t('foregetPassword.headerTitle'),
         }}
       />
+      <Stack.Screen name='AuthWebView' component={WebViewScreen} />
     </Stack.Navigator>
   );
 };

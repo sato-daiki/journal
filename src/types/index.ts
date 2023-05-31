@@ -2,6 +2,7 @@ export * from './user';
 export * from './human';
 export * from './languageTool';
 export * from './sapling';
+export * from './proWritingAid';
 export * from './diary';
 export * from './screenName';
 export * from './report';

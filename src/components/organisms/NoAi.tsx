@@ -5,18 +5,15 @@ import * as Linking from 'expo-linking';
 import { LinkText, Space, SubmitButton, WhiteButton } from '../atoms';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { fontSizeM, mainColor } from '@/styles/Common';
-import { SaplingLogo } from '@/images';
-import { saplingUrl } from '@/constants/url';
+import { proWritingAidUrl, saplingUrl } from '@/constants/url';
+import { AiName } from '@/utils/grammarCheck';
+import { SaplingLogo, ProWritingAidLogo } from '@/images';
 
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 16,
     paddingTop: 32,
     alignItems: 'center',
-  },
-  image: {
-    width: 300,
-    height: 76,
   },
   text: {
     fontSize: fontSizeM,
@@ -29,21 +26,31 @@ const styles = StyleSheet.create({
   submitButton: {
     paddingHorizontal: 16,
   },
+  saplingLogo: {
+    width: 300,
+    height: 76,
+  },
+  proWritingAidLogo: {
+    width: 300,
+    height: 64,
+  },
 });
 
 interface Props {
   isPremium: boolean;
-  activeSapling: boolean | undefined;
-  onPressCheck?: () => void;
-  onPressAdReward?: () => void;
+  aiName: AiName;
+  active: boolean | undefined;
+  onPressCheck?: (aiName: AiName) => void;
+  onPressAdReward?: (aiName: AiName) => void;
   onPressBecome?: () => void;
 }
 
-const NoSapling: React.FC<Props> = ({
+const NoAi: React.FC<Props> = ({
   isPremium,
-  activeSapling,
-  onPressCheck,
-  onPressAdReward,
+  aiName,
+  active,
+  onPressCheck: propsPressCheck,
+  onPressAdReward: propsPressAdReward,
   onPressBecome,
 }) => {
   const iconSpellcheck = useMemo(
@@ -62,46 +69,64 @@ const NoSapling: React.FC<Props> = ({
   );
 
   const onPressWhat = useCallback(() => {
-    Linking.openURL(saplingUrl);
-  }, []);
+    if (aiName === 'Sapling') {
+      Linking.openURL(saplingUrl);
+    } else if (aiName === 'ProWritingAid') {
+      Linking.openURL(proWritingAidUrl);
+    }
+  }, [aiName]);
+
+  const onPressCheck = useCallback(() => {
+    propsPressCheck?.(aiName);
+  }, [aiName, propsPressCheck]);
+
+  const onPressAdReward = useCallback(() => {
+    propsPressAdReward?.(aiName);
+  }, [aiName, propsPressAdReward]);
 
   return (
     <View style={styles.container}>
-      <Image source={SaplingLogo} style={styles.image} />
+      {aiName === 'Sapling' ? (
+        <Image source={SaplingLogo} style={styles.saplingLogo} />
+      ) : aiName === 'ProWritingAid' ? (
+        <Image source={ProWritingAidLogo} style={styles.proWritingAidLogo} />
+      ) : null}
       <Space size={16} />
-      {!activeSapling ? (
-        <Text style={styles.text}>{I18n.t('noSapling.inactive')}</Text>
+      {!active ? (
+        <Text style={styles.text}>{I18n.t('noAi.inactive', { aiName })}</Text>
       ) : (
         <>
           {isPremium ? (
             <>
-              <Text style={styles.text}>{I18n.t('noSapling.premiumText')}</Text>
+              <Text style={styles.text}>
+                {I18n.t('noAi.premiumText', { aiName })}
+              </Text>
               <Space size={16} />
               <LinkText
                 containerStyle={styles.linkText}
                 onPress={onPressWhat}
-                text={I18n.t('noSapling.moreAi')}
+                text={I18n.t('noAi.moreAi', { aiName })}
               />
               <Space size={32} />
               <SubmitButton
                 icon={iconSpellcheck}
-                title={I18n.t('noSapling.check')}
+                title={I18n.t('noAi.check')}
                 onPress={onPressCheck}
               />
             </>
           ) : (
             <>
-              <Text style={styles.text}>{I18n.t('noSapling.text')}</Text>
+              <Text style={styles.text}>{I18n.t('noAi.text', { aiName })}</Text>
               <Space size={4} />
               <LinkText
                 containerStyle={styles.linkText}
                 onPress={onPressWhat}
-                text={I18n.t('noSapling.moreAi')}
+                text={I18n.t('noAi.moreAi', { aiName })}
               />
               <Space size={32} />
               <SubmitButton
                 icon={iconWatch}
-                title={I18n.t('noSapling.watch')}
+                title={I18n.t('noAi.watch')}
                 onPress={onPressAdReward}
                 containerStyle={styles.submitButton}
               />
@@ -120,4 +145,4 @@ const NoSapling: React.FC<Props> = ({
   );
 };
 
-export default NoSapling;
+export default NoAi;

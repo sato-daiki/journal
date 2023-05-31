@@ -6,10 +6,13 @@ import {
   LanguageTool,
   LongCode,
   Match,
+  ProWritingAid,
   RawEdit,
   RawMatch,
+  RawTag,
   Result,
   Sapling,
+  Tag,
 } from '../types';
 import { softRed, softRedOpacy, yellow, yellowOpacy } from '@/styles/Common';
 import Toast from 'react-native-root-toast';
@@ -369,11 +372,141 @@ export const getSaplingColors = (edit: Edit) => {
   }
 };
 
+/////////
+
+const PRO_WRITING_AID_ENDPOINT =
+  'https://cloud.prowritingaid.com/analysis/api/async';
+
+const getTags = (tags: RawTag[]): Tag[] => {
+  return tags.map((item) => {
+    return {
+      startPos: item.startPos,
+      endPos: item.endPos,
+      hint: item.hint,
+      category: item.category,
+      categoryDisplayName: item.categoryDisplayName,
+      suggestions: item.suggestions,
+      urls: item.urls,
+    };
+  });
+};
+
+export const proWritingAidCheck = async (
+  learnLanguage: LongCode,
+  text: string,
+): Promise<{ tags: Tag[] | []; result: Result; error: string | null }> => {
+  try {
+    const response = await axios.post(
+      `${PRO_WRITING_AID_ENDPOINT}/text`,
+      {
+        text: text,
+        includeParagraphStats: false,
+        reports: ['grammar'],
+        style: 'General',
+        documentType: 0,
+        language: 'en',
+      },
+      {
+        headers: {
+          Accept: 'application/json',
+          licenseCode: '8D9BB99A-C6D5-4194-8DF0-B7BB1C6D26CB',
+        },
+      },
+    );
+    console.log(response);
+    if (response.status === 200 && response.data?.Result?.Tags) {
+      logAnalytics('pro_writing_aid_check_success');
+      return {
+        tags:
+          response.data.Result.Tags.length > 0
+            ? getTags(response.data.Result.Tags)
+            : [],
+        result:
+          response.data.Result.Tags.length === 0 ? 'perfect' : 'corrected',
+        error: null,
+      };
+    }
+    console.warn(response);
+    logAnalytics('pro_writing_aid_check_error');
+    return {
+      tags: [],
+      result: 'error',
+      error: '想定外のエラー3',
+    };
+  } catch (err: any) {
+    console.warn(err);
+    logAnalytics('pro_writing_aid_check_error_catch');
+    return {
+      tags: [],
+      result: 'error',
+      error: err.message || "'想定外のエラー4",
+    };
+  }
+};
+
+export const getProWritingAid = async (
+  learnLanguage: LongCode,
+  isTitleSkip: boolean,
+  title: string,
+  text: string,
+): Promise<ProWritingAid | undefined> => {
+  try {
+    let titleTags: Tag[] | [] = [];
+    let titleResult: Result;
+    let titleError: string | null = null;
+    if (isTitleSkip) {
+      titleResult = 'skip';
+    } else {
+      const titleProWritingAid = await proWritingAidCheck(learnLanguage, title);
+      titleTags = titleProWritingAid.tags;
+      titleResult = titleProWritingAid.result;
+      titleError = titleProWritingAid.error;
+    }
+
+    const textProWritingAid = await proWritingAidCheck(learnLanguage, text);
+
+    if (textProWritingAid.result === 'error') {
+      Toast.show(I18n.t('postDiary.correctError'), {
+        duration: Toast.durations.LONG,
+        position: Toast.positions.CENTER,
+      });
+      logAnalytics('get_pro_writing_aid_error');
+    } else {
+      logAnalytics('get_pro_writing_aid_success');
+    }
+
+    return {
+      titleTags,
+      titleResult,
+      titleError,
+      textTags: textProWritingAid.tags,
+      textResult: textProWritingAid.result,
+      textError: textProWritingAid.error,
+    };
+  } catch (err: any) {
+    console.warn(err);
+    Toast.show(I18n.t('postDiary.correctError'), {
+      duration: Toast.durations.LONG,
+      position: Toast.positions.CENTER,
+    });
+    return;
+  }
+};
+
+export const getProWritingAidColors = (tag: Tag) => {
+  if (tag.category === 'grammarspelling') {
+    return { color: softRed, backgroundColor: softRedOpacy };
+  } else {
+    return { color: yellow, backgroundColor: yellowOpacy };
+  }
+};
+/////////
+
 export const getHumanColors = () => {
   return { color: yellow, backgroundColor: yellowOpacy };
 };
 
-export type AiName = 'LanguageTool' | 'Sapling' | 'Human';
+export type AiName = 'LanguageTool' | 'Sapling' | 'ProWritingAid' | 'Human';
 
 export const addAiCheckError = async (
   aiName: AiName,

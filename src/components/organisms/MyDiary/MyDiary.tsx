@@ -27,7 +27,12 @@ import { LoadingModal } from '@/components/atoms';
 import { LoadingWhite } from '@/images';
 import firestore from '@react-native-firebase/firestore';
 import { transparentBlack } from '@/styles/Common';
-import { addAiCheckError, getSapling } from '@/utils/grammarCheck';
+import {
+  AiName,
+  addAiCheckError,
+  getProWritingAid,
+  getSapling,
+} from '@/utils/grammarCheck';
 import { MyDiaryCaller } from '@/navigations/MyDiaryTabNavigator';
 import { logAnalytics } from '@/utils/Analytics';
 
@@ -45,6 +50,7 @@ interface Props {
 
 export type ConfigAiCheck = {
   activeSapling: boolean;
+  activeProWritingAid: boolean;
   activeHuman: boolean;
 };
 
@@ -70,13 +76,16 @@ const MyDiary: React.FC<Props> = ({
   const appState = useRef<AppStateStatus>(AppState.currentState);
   const loaded = useRef<boolean>(false);
   const pressKey = useRef<WhichDiaryKey>();
+  const pressAiName = useRef<AiName>();
   const [isLoading, setIsLoading] = useState(false);
   const [isAdLoading, setIsAdLoading] = useState(false);
   const [configAiCheck, setConfigAiCheck] = useState<ConfigAiCheck>({
     activeSapling: false,
     activeHuman: false,
+    activeProWritingAid: false,
   });
   const [successSapling, setSuccessSapling] = useState(false);
+  const [successProWritingAid, setSuccessProWritingAid] = useState(false);
 
   const hasRevised = useMemo(
     () => !!diary.reviseTitle || !!diary.reviseText,
@@ -112,7 +121,7 @@ const MyDiary: React.FC<Props> = ({
       RewardedAdEventType.EARNED_REWARD,
       (_reward) => {
         // 獲得後
-        earnedReward();
+        aiCheck();
       },
     );
 
@@ -148,12 +157,13 @@ const MyDiary: React.FC<Props> = ({
     setSelectedItem(item as MyDiaryPickerItem);
   }, []);
 
-  const onPressAdReward = useCallback((key: WhichDiaryKey) => {
+  const onPressAdReward = useCallback((key: WhichDiaryKey, aiName: AiName) => {
     setIsAdLoading(true);
     logAnalytics('on_press_ad_reward');
     loaded.current = false;
     rewarded.load();
     pressKey.current = key;
+    pressAiName.current = aiName;
     setTimeout(() => {
       setIsAdLoading(false);
       if (loaded.current === false) {
@@ -184,82 +194,123 @@ const MyDiary: React.FC<Props> = ({
     }
   }, []);
 
-  const earnedReward = useCallback(async () => {
+  const showError = useCallback(async () => {
+    if (pressAiName.current && pressKey.current && diary.objectID) {
+      await addAiCheckError(
+        pressAiName.current,
+        pressKey.current,
+        'MyDiary',
+        diary.uid,
+        diary.objectID,
+      );
+    }
+  }, [diary.objectID, diary.uid]);
+
+  const aiCheck = useCallback(async () => {
     // 広告最後までみた人 or プレミアム会員が実行できる処理
     if (!diary || !diary.objectID) return;
 
     setIsLoading(true);
     const isTitleSkip = !!diary.themeCategory && !!diary.themeSubcategory;
 
-    let saplingInfo;
+    let aiInfo;
 
-    if (pressKey.current === 'original') {
-      logAnalytics('get_sapling_origin');
-      const sapling = await getSapling(
-        diary.longCode,
-        isTitleSkip,
-        diary.title,
-        diary.text,
-      );
-      saplingInfo = sapling ? { sapling } : undefined;
-      if (
-        sapling &&
-        (sapling.titleResult === 'error' || sapling.textResult === 'error')
-      ) {
-        // ログを出す
-        await addAiCheckError(
-          'Sapling',
-          'original',
-          'MyDiary',
-          diary.uid,
-          diary.objectID,
+    if (pressAiName.current === 'Sapling') {
+      if (pressKey.current === 'original') {
+        logAnalytics('get_sapling_origin');
+        const sapling = await getSapling(
+          diary.longCode,
+          isTitleSkip,
+          diary.title,
+          diary.text,
         );
+        aiInfo = sapling ? { sapling } : undefined;
+        if (
+          sapling &&
+          (sapling.titleResult === 'error' || sapling.textResult === 'error')
+        ) {
+          await showError();
+        }
+      } else {
+        logAnalytics('get_sapling_revise');
+        const sapling = await getSapling(
+          diary.longCode,
+          isTitleSkip,
+          diary.reviseTitle || diary.title,
+          diary.reviseText || diary.text,
+        );
+        aiInfo = sapling ? { reviseSapling: sapling } : undefined;
+        if (
+          sapling &&
+          (sapling.titleResult === 'error' || sapling.textResult === 'error')
+        ) {
+          await showError();
+        }
       }
-    } else {
-      logAnalytics('get_sapling_revise');
-      const sapling = await getSapling(
-        diary.longCode,
-        isTitleSkip,
-        diary.reviseTitle || diary.title,
-        diary.reviseText || diary.text,
-      );
-      saplingInfo = sapling ? { reviseSapling: sapling } : undefined;
-      if (
-        sapling &&
-        (sapling.titleResult === 'error' || sapling.textResult === 'error')
-      ) {
-        // ログを出す
-        await addAiCheckError(
-          'Sapling',
-          'revised',
-          'MyDiary',
-          diary.uid,
-          diary.objectID,
+    } else if (pressAiName.current === 'ProWritingAid') {
+      if (pressKey.current === 'original') {
+        logAnalytics('get_pro_writing_aid_origin');
+        const proWritingAid = await getProWritingAid(
+          diary.longCode,
+          isTitleSkip,
+          diary.title,
+          diary.text,
         );
+        aiInfo = proWritingAid ? { proWritingAid } : undefined;
+        if (
+          proWritingAid &&
+          (proWritingAid.titleResult === 'error' ||
+            proWritingAid.textResult === 'error')
+        ) {
+          await showError();
+        }
+      } else {
+        logAnalytics('get_pro_writing_aid_revise');
+        const proWritingAid = await getProWritingAid(
+          diary.longCode,
+          isTitleSkip,
+          diary.reviseTitle || diary.title,
+          diary.reviseText || diary.text,
+        );
+        aiInfo = proWritingAid
+          ? { reviseProWritingAid: proWritingAid }
+          : undefined;
+        if (
+          proWritingAid &&
+          (proWritingAid.titleResult === 'error' ||
+            proWritingAid.textResult === 'error')
+        ) {
+          await showError();
+        }
       }
     }
 
     await firestore()
       .doc(`diaries/${diary.objectID}`)
       .update({
-        ...saplingInfo,
+        ...aiInfo,
         updatedAt: firestore.FieldValue.serverTimestamp(),
       });
     editDiary(diary.objectID, {
       ...diary,
-      ...saplingInfo,
+      ...aiInfo,
     });
     setIsLoading(false);
-    setSuccessSapling(true);
-  }, [diary, editDiary]);
+    if (pressAiName.current === 'Sapling') {
+      setSuccessSapling(true);
+    } else if (pressAiName.current === 'ProWritingAid') {
+      setSuccessProWritingAid(true);
+    }
+  }, [diary, editDiary, showError]);
 
   const onPressCheck = useCallback(
-    (key: WhichDiaryKey) => {
+    (key: WhichDiaryKey, aiName: AiName) => {
       logAnalytics('on_press_check_premium');
       pressKey.current = key;
-      earnedReward();
+      pressAiName.current = aiName;
+      aiCheck();
     },
-    [earnedReward],
+    [aiCheck],
   );
 
   useLayoutEffect(() => {
@@ -296,14 +347,18 @@ const MyDiary: React.FC<Props> = ({
           text={diary.text}
           languageTool={diary.languageTool}
           sapling={diary.sapling}
+          proWritingAid={diary.proWritingAid}
           editDiary={editDiary}
           successSapling={successSapling}
+          successProWritingAid={successProWritingAid}
           configAiCheck={configAiCheck}
           checkPermissions={checkPermissions}
           goToRecord={goToRecord}
           onPressRevise={onPressRevise}
-          onPressCheck={() => onPressCheck('original')}
-          onPressAdReward={() => onPressAdReward('original')}
+          onPressCheck={(aiName: AiName) => onPressCheck('original', aiName)}
+          onPressAdReward={(aiName: AiName) =>
+            onPressAdReward('original', aiName)
+          }
           onPressBecome={onPressBecome}
         />
       ) : (
@@ -316,14 +371,18 @@ const MyDiary: React.FC<Props> = ({
           text={diary.reviseText || diary.text}
           languageTool={diary.reviseLanguageTool}
           sapling={diary.reviseSapling}
+          proWritingAid={diary.reviseProWritingAid}
           editDiary={editDiary}
           successSapling={successSapling}
+          successProWritingAid={successProWritingAid}
           configAiCheck={configAiCheck}
           checkPermissions={checkPermissions}
           goToRecord={goToRecord}
           onPressRevise={onPressRevise}
-          onPressCheck={() => onPressCheck('revised')}
-          onPressAdReward={() => onPressAdReward('revised')}
+          onPressCheck={(aiName: AiName) => onPressCheck('revised', aiName)}
+          onPressAdReward={(aiName: AiName) =>
+            onPressAdReward('revised', aiName)
+          }
           onPressBecome={onPressBecome}
         />
       )}
