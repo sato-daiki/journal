@@ -8,9 +8,11 @@ import React, {
 } from 'react';
 import { AppState, AppStateStatus, Platform, StyleSheet } from 'react-native';
 import Toast from 'react-native-root-toast';
+import * as StatusBar from 'expo-status-bar';
 import {
   RewardedAd,
   RewardedAdEventType,
+  AdEventType,
 } from 'react-native-google-mobile-ads';
 import I18n from '@/utils/I18n';
 import { Diary } from '@/types';
@@ -125,6 +127,13 @@ const MyDiary: React.FC<Props> = ({
       },
     );
 
+    const unsubscribeClosed = rewarded.addAdEventListener(
+      AdEventType.CLOSED,
+      () => {
+        StatusBar.setStatusBarHidden(false, 'none');
+      },
+    );
+
     // 初回と、アプリ立ち上げ両方で呼ぶ
     getConfigAiCheck();
 
@@ -132,6 +141,7 @@ const MyDiary: React.FC<Props> = ({
       subscription.remove();
       unsubscribeLoaded();
       unsubscribeEarned();
+      unsubscribeClosed();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -184,9 +194,11 @@ const MyDiary: React.FC<Props> = ({
   const showSaplingCheck = useCallback(async () => {
     try {
       logAnalytics('show_ad_reward');
+      StatusBar.setStatusBarHidden(true, 'none');
       await rewarded.show();
     } catch (err: any) {
       logAnalytics('err_show_ad_reward');
+      StatusBar.setStatusBarHidden(false, 'none');
       Toast.show(I18n.t('myDiary.adRewardError'), {
         duration: Toast.durations.SHORT,
         position: Toast.positions.TOP,

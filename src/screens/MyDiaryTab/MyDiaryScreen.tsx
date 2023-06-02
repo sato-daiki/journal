@@ -7,7 +7,7 @@ import {
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 import { Audio } from 'expo-av';
-import { LoadingModal, HeaderIcon } from '@/components/atoms';
+import { LoadingModal, HeaderIcon, Layout } from '@/components/atoms';
 
 import { Diary, LocalStatus } from '@/types';
 import {
@@ -183,45 +183,47 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
   }
 
   return (
-    <View style={styles.container}>
-      <LoadingModal visible={isLoading} />
-      <ModalConfirm
-        visible={isModalDelete}
-        isLoading={isLoading}
-        title={I18n.t('common.confirmation')}
-        message={I18n.t('myDiary.confirmMessage')}
-        mainButtonText={I18n.t('myDiary.menuDelete')}
-        onPressMain={onPressDelete}
-        onPressClose={onPressCloseModalDelete}
-      />
-      <ModalConfirm
-        visible={isModalConfirmation}
-        title={I18n.t('common.confirmation')}
-        message={I18n.t('myDiary.closeAlert')}
-        mainButtonText='OK'
-        onPressMain={onClose}
-        onPressClose={onPressCloseModalConfirmation}
-      />
-      <ModalConfirm
-        visible={isModalAlertAudio}
-        title={I18n.t('common.confirmation')}
-        message={I18n.t('myDiary.permissionAudio')}
-        mainButtonText='OK'
-        onPressMain={onPressCloseModalAlertAudio}
-        onPressClose={onPressCloseModalAlertAudio}
-      />
-      <MyDiary
-        isView={false}
-        isPremium={localStatus.isPremium}
-        caller={route.params.caller}
-        navigation={navigation}
-        diary={diary}
-        editDiary={editDiary}
-        checkPermissions={checkPermissions}
-        goToRecord={goToRecord}
-        onPressRevise={onPressRevise}
-      />
-    </View>
+    <Layout showBottomAd enableSafeArea>
+      <View style={styles.container}>
+        <LoadingModal visible={isLoading} />
+        <ModalConfirm
+          visible={isModalDelete}
+          isLoading={isLoading}
+          title={I18n.t('common.confirmation')}
+          message={I18n.t('myDiary.confirmMessage')}
+          mainButtonText={I18n.t('myDiary.menuDelete')}
+          onPressMain={onPressDelete}
+          onPressClose={onPressCloseModalDelete}
+        />
+        <ModalConfirm
+          visible={isModalConfirmation}
+          title={I18n.t('common.confirmation')}
+          message={I18n.t('myDiary.closeAlert')}
+          mainButtonText='OK'
+          onPressMain={onClose}
+          onPressClose={onPressCloseModalConfirmation}
+        />
+        <ModalConfirm
+          visible={isModalAlertAudio}
+          title={I18n.t('common.confirmation')}
+          message={I18n.t('myDiary.permissionAudio')}
+          mainButtonText='OK'
+          onPressMain={onPressCloseModalAlertAudio}
+          onPressClose={onPressCloseModalAlertAudio}
+        />
+        <MyDiary
+          isView={false}
+          isPremium={localStatus.isPremium}
+          caller={route.params.caller}
+          navigation={navigation}
+          diary={diary}
+          editDiary={editDiary}
+          checkPermissions={checkPermissions}
+          goToRecord={goToRecord}
+          onPressRevise={onPressRevise}
+        />
+      </View>
+    </Layout>
   );
 };
 export default connectActionSheet(MyDiaryScreen);
