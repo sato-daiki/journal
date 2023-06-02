@@ -46,13 +46,13 @@ const NoHuman: React.FC<Props> = ({ activeHuman }) => {
       <Image source={SaplingLogo} style={styles.image} />
       <Text style={styles.text}>
         {activeHuman
-          ? I18n.t('myDiary.noHuman')
-          : I18n.t('myDiary.noHumanInactive')}
+          ? I18n.t('noHuman.noHuman')
+          : I18n.t('noHuman.noHumanInactive')}
       </Text>
       {activeHuman && (
         <SubmitButton
           icon={iconSpellcheck}
-          title={I18n.t('myDiary.noHumanButton')}
+          title={I18n.t('noHuman.noHumanButton')}
           containerStyle={styles.submitButton}
         />
       )}

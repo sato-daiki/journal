@@ -76,11 +76,19 @@ const AiCheck: React.FC<Props> = ({
         { key: 'ai1', title: I18n.t('myDiary.ai1') },
         { key: 'ai2', title: I18n.t('myDiary.ai2') },
         { key: 'ai3', title: I18n.t('myDiary.ai3') },
+        // { key: 'human', title: I18n.t('myDiary.human') },
+      ];
+    } else if (shortLongCode === 'nl') {
+      // オランダ
+      return [
+        { key: 'ai1', title: I18n.t('myDiary.ai1') },
+        { key: 'ai2', title: I18n.t('myDiary.ai2') },
       ];
     } else {
       return [
         { key: 'ai1', title: I18n.t('myDiary.ai1') },
         { key: 'ai2', title: I18n.t('myDiary.ai2') },
+        // { key: 'human', title: I18n.t('myDiary.human') },
       ];
     }
   }, [diary.longCode]);

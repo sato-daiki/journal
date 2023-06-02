@@ -179,11 +179,15 @@ const MyPageScreen: React.FC<ScreenType> = ({
             </Text>
             <View style={styles.labelContainer}>
               <MaterialCommunityIcons size={16} color={'#fff'} name='check' />
-              <Text style={styles.becomeText}>
-                {I18n.t('myPage.becomeWithout')}
-              </Text>
+              <Text style={styles.becomeText}>{I18n.t('myPage.props1')}</Text>
             </View>
-            {/* <Space size={8} />
+            <Space size={8} />
+            <View style={styles.labelContainer}>
+              <MaterialCommunityIcons size={16} color={'#fff'} name='check' />
+              <Text style={styles.becomeText}>{I18n.t('myPage.props2')}</Text>
+            </View>
+            {/*
+             <Space size={8} />
             <View style={styles.labelContainer}>
               <MaterialCommunityIcons size={16} color={'#fff'} name='check' />
               <Text style={styles.becomeText}>
