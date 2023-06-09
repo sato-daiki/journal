@@ -1,7 +1,6 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, TextInput } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { TextInput } from 'react-native-gesture-handler';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
 import { Space, SubmitButton, LoadingModal } from '../../components/atoms';
@@ -23,6 +22,7 @@ import {
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import ModalConfirm from '@/components/organisms/ModalConfirm';
+import EmailTextInput from '@/components/organisms/EmailTextInput';
 
 export interface Props {
   user: User;
@@ -87,9 +87,6 @@ const styles = StyleSheet.create({
   },
 });
 
-/**
- * 添削中
- */
 const InquiryScreen: React.FC<ScreenType> = ({ navigation, user }) => {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
@@ -172,18 +169,7 @@ const InquiryScreen: React.FC<ScreenType> = ({ navigation, user }) => {
       {!isSuccess ? (
         <View style={styles.main}>
           <Text style={styles.label}>{I18n.t('inquiry.email')}</Text>
-          <TextInput
-            style={styles.textInput}
-            value={email}
-            onChangeText={(text: string): void => setEmail(text)}
-            maxLength={50}
-            placeholder='Enter your email address'
-            keyboardType='email-address'
-            autoCapitalize='none'
-            autoCorrect={false}
-            underlineColorAndroid='transparent'
-            returnKeyType='done'
-          />
+          <EmailTextInput value={email} onChangeText={setEmail} />
           <Text style={styles.label}>{I18n.t('inquiry.message')}</Text>
           <TextInput
             style={[styles.textInput, styles.message]}

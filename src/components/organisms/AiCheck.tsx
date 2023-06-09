@@ -1,11 +1,12 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Dimensions, StyleSheet, View } from 'react-native';
 import { TabView } from 'react-native-tab-view';
 import {
   Diary,
   LanguageTool as LanguageToolType,
   Sapling as SaplingType,
   ProWritingAid as ProWritingAidType,
+  User,
 } from '@/types';
 import { MyDiaryTabBar } from '@/components/molecules';
 import LanguageTool from '@/components/organisms/LanguageTool';
@@ -17,6 +18,7 @@ import NoHuman from './NoHuman';
 import Human from './Human';
 import { AiName, getLanguageToolCode } from '@/utils/grammarCheck';
 import ProWritingAid from './ProWritingAid';
+import { WhichDiaryKey } from './MyDiaryHeaderTitle';
 
 interface Props {
   isOriginal: boolean;
@@ -38,6 +40,8 @@ interface Props {
   languageTool?: LanguageToolType | null;
   sapling?: SaplingType | null;
   proWritingAid?: ProWritingAidType | null;
+  user: User;
+  setUser: (user: User) => void;
 }
 
 const styles = StyleSheet.create({
@@ -46,6 +50,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
 });
+
+const initialLayout = { width: Dimensions.get('window').width };
+
+export type TabKey = 'ai1' | 'ai2' | 'ai3' | 'human';
 
 const AiCheck: React.FC<Props> = ({
   isOriginal,
@@ -61,22 +69,24 @@ const AiCheck: React.FC<Props> = ({
   successSapling,
   successProWritingAid,
   configAiCheck,
+  user,
   checkPermissions,
   goToRecord,
   onPressRevise,
   onPressCheck,
   onPressAdReward,
   onPressBecome,
+  setUser,
 }) => {
   const [index, setIndex] = useState(0);
-  const routes = useMemo(() => {
+  const routes: { key: TabKey; title: string }[] = useMemo(() => {
     const shortLongCode = getLanguageToolCode(diary.longCode);
     if (shortLongCode === 'en') {
       return [
         { key: 'ai1', title: I18n.t('myDiary.ai1') },
         { key: 'ai2', title: I18n.t('myDiary.ai2') },
         { key: 'ai3', title: I18n.t('myDiary.ai3') },
-        // { key: 'human', title: I18n.t('myDiary.human') },
+        { key: 'human', title: I18n.t('myDiary.human') },
       ];
     } else if (shortLongCode === 'nl') {
       // オランダ
@@ -220,7 +230,12 @@ const AiCheck: React.FC<Props> = ({
               onPressRevise={onPressRevise}
             />
           ) : (
-            <NoHuman activeHuman={configAiCheck.activeHuman} />
+            <NoHuman
+              activeHuman={configAiCheck.activeHuman}
+              diary={diary}
+              user={user}
+              setUser={setUser}
+            />
           );
         default:
           return null;
@@ -250,8 +265,10 @@ const AiCheck: React.FC<Props> = ({
       proWritingAid?.titleTags,
       sapling?.textEdits,
       sapling?.titleEdits,
+      setUser,
       text,
       title,
+      user,
     ],
   );
 
@@ -264,14 +281,14 @@ const AiCheck: React.FC<Props> = ({
   }
 
   return (
-    <View style={styles.container}>
-      <TabView
-        renderTabBar={renderTabBar}
-        navigationState={{ index, routes }}
-        renderScene={renderScene}
-        onIndexChange={onIndexChange}
-      />
-    </View>
+    <TabView
+      lazy={({ route }) => route.key === 'human'}
+      renderTabBar={renderTabBar}
+      navigationState={{ index, routes }}
+      renderScene={renderScene}
+      onIndexChange={onIndexChange}
+      initialLayout={initialLayout}
+    />
   );
 };
 

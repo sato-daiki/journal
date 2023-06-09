@@ -24,8 +24,11 @@ const APIKeys = {
   google: 'goog_BXJfBLRItsmNnWnxIxlLfOkDKFZ',
 };
 
+// const STRIPE_PUBLBISHABLE_KEY =
+//   'pk_live_51N9RAbDpsgOkHekxCQkgM8RBg9YENJYSxBsoriUl9n3MLM9h3gkGq9ld3gSLl7rA2Rcow2vVue4pjbf8caT4kOQJ00CEvOYVup';
+
 const STRIPE_PUBLBISHABLE_KEY =
-  'pk_live_51N9RAbDpsgOkHekxCQkgM8RBg9YENJYSxBsoriUl9n3MLM9h3gkGq9ld3gSLl7rA2Rcow2vVue4pjbf8caT4kOQJ00CEvOYVup';
+  'pk_test_51N9RAbDpsgOkHekxO90VbMC5OiXjHtvhcK3NmhbhcNU7okHS1lYqwAn3kgCUpNzVMIGeH07d2bU6PQ9bGUAeokW500qIqU6mDb';
 
 type ConfigMaintenance = {
   status: boolean;

@@ -15,7 +15,7 @@ import {
   AdEventType,
 } from 'react-native-google-mobile-ads';
 import I18n from '@/utils/I18n';
-import { Diary } from '@/types';
+import { Diary, User } from '@/types';
 import AiCheck from '@/components/organisms/AiCheck';
 import { MyDiaryNavigationProp } from '@/screens/MyDiaryTab/MyDiaryScreen';
 import MyDiaryHeaderTitle, {
@@ -44,6 +44,8 @@ interface Props {
   caller?: MyDiaryCaller;
   navigation: MyDiaryNavigationProp | ViewMyDiaryNavigationProp;
   diary: Diary;
+  user: User;
+  setUser: (user: User) => void;
   editDiary: (objectID: string, diary: Diary) => void;
   checkPermissions?: () => Promise<boolean>;
   goToRecord?: () => void;
@@ -70,6 +72,8 @@ const MyDiary: React.FC<Props> = ({
   caller,
   navigation,
   diary,
+  user,
+  setUser,
   editDiary,
   checkPermissions,
   goToRecord,
@@ -360,6 +364,8 @@ const MyDiary: React.FC<Props> = ({
           languageTool={diary.languageTool}
           sapling={diary.sapling}
           proWritingAid={diary.proWritingAid}
+          user={user}
+          setUser={setUser}
           editDiary={editDiary}
           successSapling={successSapling}
           successProWritingAid={successProWritingAid}
@@ -384,6 +390,8 @@ const MyDiary: React.FC<Props> = ({
           languageTool={diary.reviseLanguageTool}
           sapling={diary.reviseSapling}
           proWritingAid={diary.reviseProWritingAid}
+          user={user}
+          setUser={setUser}
           editDiary={editDiary}
           successSapling={successSapling}
           successProWritingAid={successProWritingAid}
