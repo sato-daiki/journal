@@ -15,7 +15,7 @@ import {
   AdEventType,
 } from 'react-native-google-mobile-ads';
 import I18n from '@/utils/I18n';
-import { Diary, User } from '@/types';
+import { Diary, Human, User } from '@/types';
 import AiCheck from '@/components/organisms/AiCheck';
 import { MyDiaryNavigationProp } from '@/screens/MyDiaryTab/MyDiaryScreen';
 import MyDiaryHeaderTitle, {

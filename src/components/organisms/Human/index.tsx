@@ -1,9 +1,10 @@
-import React, { useCallback, useMemo } from 'react';
-import { Diary, HumanCorrect } from '../../../types';
+import React, { useCallback, useEffect, useMemo } from 'react';
+import { Diary, HumanCorrect, Human as HumanType } from '../../../types';
 import { useCommon } from '@/components/organisms/LanguageTool/useCommon';
 import CommonMain from '../LanguageTool/CommonMain';
 import HumanDiaryTitleAndText from './HumanDiaryTitleAndText';
 import HumanCorrects from './HumanCorrects';
+import firestore from '@react-native-firebase/firestore';
 
 export interface Props {
   hideFooterButton: boolean;
@@ -22,9 +23,32 @@ const Human: React.FC<Props> = ({
   goToRecord,
   onPressRevise,
 }) => {
+  useEffect(() => {
+    console.log('Human');
+    const f = async () => {
+      if (diary.human?.status === 'unread') {
+        // eslint-disable-next-line no-undef
+        const newHuman: HumanType = {
+          ...diary.human,
+          status: 'done',
+        };
+        await firestore().doc(`diaries/${diary.objectID}`).update({
+          human: newHuman,
+          updatedAt: firestore.FieldValue.serverTimestamp(),
+        });
+        editDiary(diary.objectID!, {
+          ...diary,
+          human: newHuman,
+        });
+      }
+    };
+    f();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const title = useMemo(() => {
     let newTitle = '';
-    if (diary.human) {
+    if (diary.human && diary.human.titleCorrects) {
       for (let i = 0; i < diary.human.titleCorrects.length; i++) {
         newTitle += diary.human.titleCorrects[i];
       }
@@ -34,7 +58,7 @@ const Human: React.FC<Props> = ({
 
   const text = useMemo(() => {
     let newText = '';
-    if (diary.human) {
+    if (diary.human && diary.human.textCorrects) {
       for (let i = 0; i < diary.human.textCorrects.length; i++) {
         newText += diary.human.textCorrects[i];
       }
@@ -43,12 +67,12 @@ const Human: React.FC<Props> = ({
   }, [diary.human]);
 
   const titleFilterArray = useMemo(
-    () => diary.human?.titleCorrects.filter((item) => !!item.correction),
+    () => diary.human?.titleCorrects?.filter((item) => !!item.correction),
     [diary.human?.titleCorrects],
   );
 
   const textFilterArray = useMemo(
-    () => diary.human?.textCorrects.filter((item) => !!item.correction),
+    () => diary.human?.textCorrects?.filter((item) => !!item.correction),
     [diary.human?.textCorrects],
   );
 

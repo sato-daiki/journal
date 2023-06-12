@@ -515,7 +515,8 @@ export const addAiCheckError = async (
     | 'usePostDiary'
     | 'usePostDraftDiary'
     | 'usePostReviseDiary'
-    | 'MyDiary',
+    | 'MyDiary'
+    | 'NoHuman',
   uid: string,
   diaryId: string,
 ) => {

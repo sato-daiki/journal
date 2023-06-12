@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { Dimensions } from 'react-native';
 import { TabView } from 'react-native-tab-view';
 import {
   Diary,
@@ -18,7 +18,7 @@ import NoHuman from './NoHuman';
 import Human from './Human';
 import { AiName, getLanguageToolCode } from '@/utils/grammarCheck';
 import ProWritingAid from './ProWritingAid';
-import { WhichDiaryKey } from './MyDiaryHeaderTitle';
+import YetHuman from './YetHuman';
 
 interface Props {
   isOriginal: boolean;
@@ -43,13 +43,6 @@ interface Props {
   user: User;
   setUser: (user: User) => void;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});
 
 const initialLayout = { width: Dimensions.get('window').width };
 
@@ -139,8 +132,6 @@ const AiCheck: React.FC<Props> = ({
     [proWritingAid],
   );
 
-  const hasHuman = useMemo(() => !!diary.human, [diary.human]);
-
   const renderScene = useCallback(
     ({ route }) => {
       switch (route.key) {
@@ -220,7 +211,17 @@ const AiCheck: React.FC<Props> = ({
             />
           );
         case 'human':
-          return hasHuman ? (
+          return !diary.human ? (
+            <NoHuman
+              activeHuman={configAiCheck.activeHuman}
+              diary={diary}
+              user={user}
+              setUser={setUser}
+              editDiary={editDiary}
+            />
+          ) : diary.human.status === 'yet' ? (
+            <YetHuman />
+          ) : (
             <Human
               hideFooterButton={hideFooterButton}
               diary={diary}
@@ -228,13 +229,6 @@ const AiCheck: React.FC<Props> = ({
               checkPermissions={checkPermissions}
               goToRecord={goToRecord}
               onPressRevise={onPressRevise}
-            />
-          ) : (
-            <NoHuman
-              activeHuman={configAiCheck.activeHuman}
-              diary={diary}
-              user={user}
-              setUser={setUser}
             />
           );
         default:
@@ -249,7 +243,6 @@ const AiCheck: React.FC<Props> = ({
       diary,
       editDiary,
       goToRecord,
-      hasHuman,
       hasProWritingAid,
       hasSapling,
       hideFooterButton,

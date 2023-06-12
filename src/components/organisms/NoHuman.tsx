@@ -1,46 +1,131 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { View, StyleSheet, Text, Image } from 'react-native';
+import { View, StyleSheet, Text, ScrollView } from 'react-native';
 import I18n from '@/utils/I18n';
-import { SubmitButton } from '../atoms';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { fontSizeM, softRed } from '@/styles/Common';
-import { SaplingLogo } from '@/images';
+import { Space, SubmitButton } from '../atoms';
+import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import {
+  borderLightColor,
+  fontSizeL,
+  fontSizeM,
+  fontSizeS,
+  primaryColor,
+  softRed,
+  subTextColor,
+} from '@/styles/Common';
 import { useStripe } from '@stripe/stripe-react-native';
-import { firebase } from '@react-native-firebase/firestore';
-import { Diary, User } from '@/types';
-import firestore from '@react-native-firebase/firestore';
+import { Diary, Human, User } from '@/types';
 import auth from '@react-native-firebase/auth';
+import firestore, {
+  FirebaseFirestoreTypes,
+} from '@react-native-firebase/firestore';
+import { firebase } from '@react-native-firebase/functions';
+
+import Toast from 'react-native-root-toast';
+import { addAiCheckError } from '@/utils/grammarCheck';
 
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 16,
     paddingTop: 32,
-    alignItems: 'center',
   },
   image: {
-    width: 300,
-    height: 76,
-    marginBottom: 16,
+    alignSelf: 'center',
+  },
+  rowLabel: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   text: {
     fontSize: fontSizeM,
     lineHeight: fontSizeM * 1.3,
-    marginBottom: 8,
   },
-  linkText: {
+  textLabel: {
+    fontSize: fontSizeS,
+    lineHeight: fontSizeS * 1.3,
+    color: subTextColor,
+    paddingLeft: 4,
+  },
+  textBox: {
+    borderColor: borderLightColor,
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+  },
+  box: {
+    borderColor: borderLightColor,
+    borderWidth: 1,
+    borderRadius: 8,
+  },
+  line: {
+    borderBottomColor: borderLightColor,
+    borderBottomWidth: 1,
+  },
+  topBox: {
+    paddingTop: 8,
+    paddingHorizontal: 16,
+  },
+  topBottom: {
+    paddingTop: 16,
+    paddingBottom: 16,
+    paddingHorizontal: 16,
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+  },
+  rowUnit: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+  label: {
+    fontSize: fontSizeM,
+    lineHeight: fontSizeM * 1.3,
+    fontWeight: 'bold',
+  },
+  labelL: {
+    fontSize: fontSizeL,
+    lineHeight: fontSizeL * 1.3,
+    fontWeight: 'bold',
+  },
+  value: {
+    fontSize: fontSizeM,
+    lineHeight: fontSizeM * 1.3,
+    fontWeight: 'bold',
+  },
+  valueL: {
+    fontSize: fontSizeL,
+    lineHeight: fontSizeL * 1.3,
+    fontWeight: 'bold',
+  },
+  unit: {
+    paddingLeft: 4,
+    fontSize: fontSizeS,
+    lineHeight: fontSizeS * 1.3,
     alignSelf: 'flex-end',
-    marginBottom: 64,
+    textAlign: 'right',
+  },
+  unitL: {
+    paddingLeft: 4,
+    fontSize: fontSizeM,
+    lineHeight: fontSizeM * 1.3,
+    alignSelf: 'flex-end',
+    textAlign: 'right',
+  },
+  describe: {
+    color: subTextColor,
+    fontSize: fontSizeS,
+    lineHeight: fontSizeS * 1.3,
   },
   submitButton: {
     paddingHorizontal: 16,
-    marginBottom: 16,
   },
   error: {
     fontSize: fontSizeM,
     lineHeight: fontSizeM * 1.3,
     color: softRed,
     fontWeight: 'bold',
-    marginBottom: 8,
   },
 });
 
@@ -49,9 +134,32 @@ interface Props {
   diary: Diary;
   user: User;
   setUser: (user: User) => void;
+  editDiary: (objectID: string, diary: Diary) => void;
 }
 
-const NoHuman: React.FC<Props> = ({ activeHuman, diary, user, setUser }) => {
+const MINIMUM_PRICE = 50;
+const AMOUNT_PER_LENGTH = 2;
+export const BUSINESS_DAYS = 3;
+
+const NoHuman: React.FC<Props> = ({
+  activeHuman,
+  diary,
+  user,
+  setUser,
+  editDiary,
+}) => {
+  const text = useMemo(
+    () => diary.reviseText || diary.text,
+    [diary.reviseText, diary.text],
+  );
+  const amount = useMemo(
+    () =>
+      text.length * AMOUNT_PER_LENGTH >= MINIMUM_PRICE
+        ? text.length * AMOUNT_PER_LENGTH
+        : MINIMUM_PRICE,
+    [text.length],
+  );
+
   const [initialLoading, setInitialLoading] = useState(true);
   const [initialLoadError, setInitialLoadError] = useState(false);
 
@@ -61,20 +169,17 @@ const NoHuman: React.FC<Props> = ({ activeHuman, diary, user, setUser }) => {
 
   useEffect(() => {
     const f = async () => {
-      console.log('useEffect', user.stripeCustomerId);
-
       const response = await firebase
         .app()
         .functions('asia-northeast1')
         .httpsCallable('onPaymentSheet')({
         // 50円以下だとエラーになる
-        amount: diary.text.length * 2 >= 50 ? diary.text.length * 2 : 50,
+        amount,
         currency: 'jpy',
         stripeCustomerId: user.stripeCustomerId || null,
       });
       const { paymentIntent, ephemeralKey, customerId } = response.data;
 
-      console.log('customerId', customerId);
       if (!user.stripeCustomerId) {
         await firestore().doc(`users/${user.uid}`).update({
           stripeCustomerId: customerId,
@@ -112,56 +217,165 @@ const NoHuman: React.FC<Props> = ({ activeHuman, diary, user, setUser }) => {
     [],
   );
 
-  const fetchPaymentSheetParams = async () => {
-    const response = await firebase
-      .app()
-      .functions('asia-northeast1')
-      .httpsCallable('onPaymentSheet')({
-      amount: diary.text.length * 2,
-      currency: 'jpy',
+  const showError = useCallback(async () => {
+    await addAiCheckError(
+      'Human',
+      'original',
+      'NoHuman',
+      diary.uid,
+      diary.objectID || '',
+    );
+    Toast.show(I18n.t('noHuman.error'), {
+      duration: Toast.durations.LONG,
+      position: Toast.positions.TOP,
     });
-    return response.data;
-  };
+  }, [diary.objectID, diary.uid]);
 
   const onPressSubmit = useCallback(async () => {
     const { error } = await presentPaymentSheet();
 
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Success');
+    try {
+      if (error) {
+        console.error(error);
+        showError();
+      } else {
+        const newHuman: Human = {
+          status: 'yet',
+          createdAt:
+            firestore.FieldValue.serverTimestamp() as FirebaseFirestoreTypes.Timestamp,
+          titleCorrects: null,
+          textCorrects: null,
+        };
+        await firestore().doc(`diaries/${diary.objectID}`).update({
+          human: newHuman,
+          updatedAt: firestore.FieldValue.serverTimestamp(),
+        });
+        editDiary(diary.objectID!, {
+          ...diary,
+          human: newHuman,
+        });
+      }
+    } catch (err) {
+      console.error(err);
+      showError();
     }
-  }, [presentPaymentSheet]);
+  }, [diary, editDiary, presentPaymentSheet, showError]);
 
   return (
-    <View style={styles.container}>
-      <Image source={SaplingLogo} style={styles.image} />
-      <Text style={styles.text}>
-        {activeHuman
-          ? I18n.t('noHuman.noHuman')
-          : I18n.t('noHuman.noHumanInactive')}
-      </Text>
-      {activeHuman && (
-        <>
-          <SubmitButton
-            disable={!activeHuman || !currentUser || !currentUser.email}
-            icon={iconSpellcheck}
-            title={I18n.t('noHuman.noHumanButton')}
-            containerStyle={styles.submitButton}
-            onPress={onPressSubmit}
-            isLoading={initialLoading || loading}
+    <ScrollView>
+      <View style={styles.container}>
+        <MaterialCommunityIcons
+          size={80}
+          color={primaryColor}
+          name='face-man-shimmer'
+          style={styles.image}
+        />
+        <Space size={16} />
+        <Text style={styles.text}>
+          {activeHuman
+            ? I18n.t('noHuman.noHuman')
+            : I18n.t('noHuman.noHumanInactive')}
+        </Text>
+
+        <Space size={32} />
+
+        <View style={styles.rowLabel}>
+          <MaterialCommunityIcons
+            size={14}
+            color={subTextColor}
+            name='file-document-outline'
           />
-          {initialLoadError && (
-            <Text style={styles.error}>
-              {I18n.t('noHuman.initialLoadError')}
-            </Text>
-          )}
-          {(!currentUser || !currentUser.email) && (
-            <Text style={styles.error}>{I18n.t(`noHuman.noEmail`)}</Text>
-          )}
-        </>
-      )}
-    </View>
+          <Text style={styles.textLabel}>
+            {I18n.t('noHuman.noHumanButton')}
+          </Text>
+        </View>
+        <Space size={8} />
+        <View style={styles.textBox}>
+          <Text style={styles.text}>{text}</Text>
+        </View>
+
+        <Space size={32} />
+
+        <View style={styles.rowLabel}>
+          <MaterialIcons size={14} color={subTextColor} name='attach-money' />
+          <Text style={styles.textLabel}>{I18n.t('noHuman.labelAmount')}</Text>
+        </View>
+        <Space size={8} />
+        <View style={styles.box}>
+          <View style={styles.topBox}>
+            <View style={styles.row}>
+              <Text style={styles.label}>
+                {I18n.t('noHuman.labelAmountPerLength')}
+              </Text>
+              <View style={styles.rowUnit}>
+                <Text style={styles.value}>{AMOUNT_PER_LENGTH}</Text>
+                <Text style={styles.unit}>{I18n.t('noHuman.unitYen')}</Text>
+              </View>
+            </View>
+            <Space size={8} />
+            <View style={styles.row}>
+              <Text style={styles.label}>{I18n.t('noHuman.labelLength')}</Text>
+              <View style={styles.rowUnit}>
+                <Text style={styles.value}>{text.length}</Text>
+                <Text style={styles.unit}>{I18n.t('noHuman.unitLength')}</Text>
+              </View>
+            </View>
+            <Space size={8} />
+          </View>
+
+          <View style={styles.line} />
+
+          <View style={styles.topBottom}>
+            <View style={styles.row}>
+              <Text style={styles.labelL}>{I18n.t('noHuman.labelSum')}</Text>
+              <View style={styles.rowUnit}>
+                <Text style={styles.valueL}>{amount}</Text>
+                <Text style={styles.unitL}>{I18n.t('noHuman.unitYen')}</Text>
+              </View>
+            </View>
+            <Space size={8} />
+            {amount === MINIMUM_PRICE && (
+              <Text style={styles.describe}>
+                {I18n.t('noHuman.unitYen', {
+                  minimumPrice: MINIMUM_PRICE,
+                  minimumLength: MINIMUM_PRICE / AMOUNT_PER_LENGTH,
+                })}
+              </Text>
+            )}
+          </View>
+        </View>
+
+        <Space size={32} />
+
+        {activeHuman && (
+          <>
+            <SubmitButton
+              disable={!activeHuman || !currentUser || !currentUser.email}
+              icon={iconSpellcheck}
+              title={I18n.t('noHuman.noHumanButton')}
+              containerStyle={styles.submitButton}
+              onPress={onPressSubmit}
+              isLoading={initialLoading || loading}
+            />
+            <Space size={16} />
+            {initialLoadError && (
+              <>
+                <Text style={styles.error}>
+                  {I18n.t('noHuman.initialLoadError')}
+                </Text>
+                <Space size={8} />
+              </>
+            )}
+            {(!currentUser || !currentUser.email) && (
+              <>
+                <Text style={styles.error}>{I18n.t(`noHuman.noEmail`)}</Text>
+                <Space size={8} />
+              </>
+            )}
+          </>
+        )}
+      </View>
+    </ScrollView>
   );
 };
 

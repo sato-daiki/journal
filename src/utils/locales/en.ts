@@ -321,6 +321,7 @@ const setting = {
   logout: 'Logout',
   inquiry: 'Contact',
   about: 'What is LangJournal',
+  creditCard: 'Method of Payment',
 };
 
 const signIn = {
@@ -383,6 +384,11 @@ const inquiry = {
     'We will reply to you within a few days. Please kindly wait for a moment.',
 };
 
+const creditCard = {
+  headerTitle: 'Method of Payment',
+  save: 'Save card during payment',
+};
+
 const emptyMyDiaryList = {
   text: 'You haven’t posted any journal entries.',
 };
@@ -427,7 +433,8 @@ const myDiaryStatus = {
   draft: 'Draft',
   checked: 'Corrected',
   revised: 'Revised',
-  recorded: 'Recorded',
+  yet: 'Waiting for Corrections',
+  unread: 'Unread',
   done: 'Finished',
 };
 
@@ -699,6 +706,7 @@ const en = {
   myDiaryStatus,
   language,
   inquiry,
+  creditCard,
   first,
   maintenance,
 };
