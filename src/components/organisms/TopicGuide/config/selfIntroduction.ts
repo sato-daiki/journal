@@ -2,6 +2,7 @@ import I18n from '@/utils/I18n';
 import { President } from '@/images';
 import { Entry } from '../interface';
 import { GetParams, getWords } from '../util';
+import { getLanguageToolCode } from '@/utils/grammarCheck';
 
 const WORD_NUM = 10;
 
@@ -22,7 +23,9 @@ export const selfIntroduction = ({
       key: 'introduction',
       params: {
         text: I18n.t('first.selfIntroduction.introduction', {
-          learnLanguage: 'en',
+          learnLanguage: I18n.t(
+            `language.${getLanguageToolCode(learnLanguage)}`,
+          ),
         }),
         source: President,
       },

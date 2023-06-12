@@ -8,12 +8,14 @@ import React, {
 } from 'react';
 import { AppState, AppStateStatus, Platform, StyleSheet } from 'react-native';
 import Toast from 'react-native-root-toast';
+import * as StatusBar from 'expo-status-bar';
 import {
   RewardedAd,
   RewardedAdEventType,
+  AdEventType,
 } from 'react-native-google-mobile-ads';
 import I18n from '@/utils/I18n';
-import { Diary } from '@/types';
+import { Diary, Human, User } from '@/types';
 import AiCheck from '@/components/organisms/AiCheck';
 import { MyDiaryNavigationProp } from '@/screens/MyDiaryTab/MyDiaryScreen';
 import MyDiaryHeaderTitle, {
@@ -42,6 +44,8 @@ interface Props {
   caller?: MyDiaryCaller;
   navigation: MyDiaryNavigationProp | ViewMyDiaryNavigationProp;
   diary: Diary;
+  user: User;
+  setUser: (user: User) => void;
   editDiary: (objectID: string, diary: Diary) => void;
   checkPermissions?: () => Promise<boolean>;
   goToRecord?: () => void;
@@ -68,6 +72,8 @@ const MyDiary: React.FC<Props> = ({
   caller,
   navigation,
   diary,
+  user,
+  setUser,
   editDiary,
   checkPermissions,
   goToRecord,
@@ -125,6 +131,13 @@ const MyDiary: React.FC<Props> = ({
       },
     );
 
+    const unsubscribeClosed = rewarded.addAdEventListener(
+      AdEventType.CLOSED,
+      () => {
+        StatusBar.setStatusBarHidden(false, 'none');
+      },
+    );
+
     // 初回と、アプリ立ち上げ両方で呼ぶ
     getConfigAiCheck();
 
@@ -132,6 +145,7 @@ const MyDiary: React.FC<Props> = ({
       subscription.remove();
       unsubscribeLoaded();
       unsubscribeEarned();
+      unsubscribeClosed();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -184,9 +198,11 @@ const MyDiary: React.FC<Props> = ({
   const showSaplingCheck = useCallback(async () => {
     try {
       logAnalytics('show_ad_reward');
+      StatusBar.setStatusBarHidden(true, 'none');
       await rewarded.show();
     } catch (err: any) {
       logAnalytics('err_show_ad_reward');
+      StatusBar.setStatusBarHidden(false, 'none');
       Toast.show(I18n.t('myDiary.adRewardError'), {
         duration: Toast.durations.SHORT,
         position: Toast.positions.TOP,
@@ -348,6 +364,8 @@ const MyDiary: React.FC<Props> = ({
           languageTool={diary.languageTool}
           sapling={diary.sapling}
           proWritingAid={diary.proWritingAid}
+          user={user}
+          setUser={setUser}
           editDiary={editDiary}
           successSapling={successSapling}
           successProWritingAid={successProWritingAid}
@@ -372,6 +390,8 @@ const MyDiary: React.FC<Props> = ({
           languageTool={diary.reviseLanguageTool}
           sapling={diary.reviseSapling}
           proWritingAid={diary.reviseProWritingAid}
+          user={user}
+          setUser={setUser}
           editDiary={editDiary}
           successSapling={successSapling}
           successProWritingAid={successProWritingAid}

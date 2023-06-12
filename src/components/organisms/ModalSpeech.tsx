@@ -10,7 +10,7 @@ import {
 import * as Speech from 'expo-speech';
 import { LongCode } from '@/types';
 import I18n from '@/utils/I18n';
-import { primaryColor, fontSizeM } from '@/styles/Common';
+import { primaryColor, fontSizeM, mainColor } from '@/styles/Common';
 import { Modal } from '@/components/template';
 import {
   WhiteButton,
@@ -145,8 +145,7 @@ const ModalSpeech: React.FC<Props> = ({
           />
           <View style={styles.switchContainer}>
             <Switch
-              thumbColor='#fff'
-              trackColor={{ false: '#767577', true: '#81b0ff' }}
+              trackColor={{ true: mainColor }}
               onValueChange={(): void => setIsSlow(!isSlow)}
               value={isSlow}
               disabled={!initial}

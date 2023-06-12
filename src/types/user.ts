@@ -170,8 +170,9 @@ export interface User {
   expoPushToken: string | null;
   themeDiaries?: ThemeDiary[] | null;
   reminder?: Reminder;
-  runningDays?: number;
-  runningWeeks?: number;
+  runningDays: number;
+  runningWeeks: number;
+  stripeCustomerId?: string;
   lastDiaryPostedAt?: FirebaseFirestoreTypes.Timestamp | null;
   createdAt: FirebaseFirestoreTypes.Timestamp;
   updatedAt: FirebaseFirestoreTypes.Timestamp;

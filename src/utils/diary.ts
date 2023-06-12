@@ -135,7 +135,8 @@ export const MY_STATUS = {
   draft: { text: I18n.t('myDiaryStatus.draft'), color: subTextColor },
   checked: { text: I18n.t('myDiaryStatus.checked'), color: primaryColor },
   revised: { text: I18n.t('myDiaryStatus.revised'), color: green },
-  recorded: { text: I18n.t('myDiaryStatus.recorded'), color: softRed },
+  yet: { text: I18n.t('myDiaryStatus.yet'), color: subTextColor }, //人間の添削来待ち
+  unread: { text: I18n.t('myDiaryStatus.unread'), color: softRed }, //人間の添削来待ち
 
   // テーマ一覧に出すよう
   done: { text: I18n.t('myDiaryStatus.done'), color: primaryColor },
@@ -145,8 +146,11 @@ export const getMyDiaryStatus = (diary: Diary) => {
   if (diary.diaryStatus === 'draft') {
     return MY_STATUS.draft;
   }
-  if (diary.voiceUrl) {
-    return MY_STATUS.recorded;
+  if (diary.human?.status === 'yet') {
+    return MY_STATUS.yet;
+  }
+  if (diary.human?.status === 'unread') {
+    return MY_STATUS.unread;
   }
 
   if (diary.reviseText || diary.reviseTitle) {

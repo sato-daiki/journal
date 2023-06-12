@@ -76,6 +76,7 @@ const TopicGuideScreen: React.FC<ScreenType> = ({
   }, [navigation, route.params.topicSubcategory]);
 
   const onPressEnd = useCallback(() => {
+    console.log('caller', caller);
     // SelectTopicSubcategory選択からした場合は遷移 / PostDiaryからきた場合はback
     if (caller === 'SelectTopicSubcategory') {
       navigation.navigate('ModalPostDiary', {
