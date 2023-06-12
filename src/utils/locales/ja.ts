@@ -149,7 +149,7 @@ const myDiary = {
   ai1: 'AI①の添削',
   ai2: 'AI②の添削',
   ai3: 'AI③の添削',
-  human: 'プロの人間の添削',
+  human: '翻訳者による添削',
   closeAlert: '保存されていない変更は失われます。閉じてよろしいですか？',
   permissionAudio:
     'マイクの権限がないため、起動できません。設定画面からマイクの設定をONにしてください',
@@ -186,7 +186,27 @@ const noHuman = {
   noHumanInactive:
     '※ 現在一時的にプロフェッショナルによる人の添削を停止しています。',
   noHumanButton: '添削を依頼する',
+  initialLoadError:
+    '支払いの読み込み処理で失敗しました。再度このページをロードしてください。',
+  noEmail:
+    '翻訳依頼をする場合は、メールアドレスとパスワードの登録が必要です。「マイページ」「設定」から登録してください。',
+  labelText: '修正依頼する文章',
+  labelAmount: '料金',
+  labelAmountPerLength: '1文字あたりの料金',
+  unitYen: '円',
+  labelLength: '文字数',
+  unitLength: '文字',
+  labelSum: '合計',
+  describe:
+    '※最低料金は{minimumPrice}円のため、{minimumLength}文字以下でも上記の料金になります。',
+  error:
+    '支払いプロセスでエラーが発生しました。再度時間を置いてから試してください。',
 };
+
+const yetHuman = {
+  text: '現在添削中です。{{days}}営業日以内に添削をします。添削が完了したら、登録しているメールアドレスにメールが届きます。',
+};
+
 const viewMyDiary = {
   headerTitle: '添削結果',
 };
@@ -217,8 +237,8 @@ const myPage = {
   status: '会員ステータス',
   premium: 'プレミアム会員',
   becomeTitle: 'プレミアム会員になる',
-  becomeWithout: '動画広告の視聴なしで添削ができます',
-  becomeLonger: '添削可能な文字数が増えます',
+  props1: '動画広告の視聴なしで添削ができます',
+  props2: '広告が非表示になります',
   becomeButton: '詳しくみる',
   aboutCancel: 'キャンセルについて',
 };
@@ -227,7 +247,7 @@ const becomePremium = {
   headerTitle: 'Premium会員について',
   description: 'Premium会員は下記機能がご利用いただけます',
   props1: '動画広告の視聴なしで添削ができます',
-  // props2: 'アプリ内の広告がなくなります',
+  props2: '広告が非表示になります',
   MONTHLY: 'プレミアム会員(月払い)',
   ANNUAL: 'プレミアム会員(年払い)',
   purchase: '購入',
@@ -427,7 +447,8 @@ const myDiaryStatus = {
   draft: '下書き',
   checked: '添削完了',
   revised: '修正済',
-  recorded: '録音済',
+  yet: '添削待ち',
+  unread: '未読',
   done: '完了',
 };
 
@@ -662,6 +683,8 @@ const ja = {
   myDiary,
   noAi,
   myDiaryList,
+  noHuman,
+  yetHuman,
   viewMyDiary,
   themeCategory,
   myPage,

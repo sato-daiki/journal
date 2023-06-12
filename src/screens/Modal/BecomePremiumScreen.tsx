@@ -203,10 +203,10 @@ const BecomePremiumScreen: React.FC<ScreenType> = ({
         <MaterialCommunityIcons size={16} name='check' />
         <Text style={styles.becomeText}>{I18n.t('becomePremium.props1')}</Text>
       </View>
-      {/* <View style={styles.labelContainer}>
+      <View style={styles.labelContainer}>
         <MaterialCommunityIcons size={16} name='check' />
         <Text style={styles.becomeText}>{I18n.t('becomePremium.props2')}</Text>
-      </View> */}
+      </View>
       <Space size={32} />
       {currentOffering &&
         currentOffering.availablePackages.map((item) => (

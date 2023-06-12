@@ -1,11 +1,13 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Dimensions } from 'react-native';
 import { TabView } from 'react-native-tab-view';
 import {
   Diary,
   LanguageTool as LanguageToolType,
   Sapling as SaplingType,
   ProWritingAid as ProWritingAidType,
+  User,
+  LongCode,
 } from '@/types';
 import { MyDiaryTabBar } from '@/components/molecules';
 import LanguageTool from '@/components/organisms/LanguageTool';
@@ -17,6 +19,7 @@ import NoHuman from './NoHuman';
 import Human from './Human';
 import { AiName, getLanguageToolCode } from '@/utils/grammarCheck';
 import ProWritingAid from './ProWritingAid';
+import YetHuman from './YetHuman';
 
 interface Props {
   isOriginal: boolean;
@@ -38,14 +41,13 @@ interface Props {
   languageTool?: LanguageToolType | null;
   sapling?: SaplingType | null;
   proWritingAid?: ProWritingAidType | null;
+  user: User;
+  setUser: (user: User) => void;
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});
+const initialLayout = { width: Dimensions.get('window').width };
+
+export type TabKey = 'ai1' | 'ai2' | 'ai3' | 'human';
 
 const AiCheck: React.FC<Props> = ({
   isOriginal,
@@ -61,28 +63,31 @@ const AiCheck: React.FC<Props> = ({
   successSapling,
   successProWritingAid,
   configAiCheck,
+  user,
   checkPermissions,
   goToRecord,
   onPressRevise,
   onPressCheck,
   onPressAdReward,
   onPressBecome,
+  setUser,
 }) => {
   const [index, setIndex] = useState(0);
-  const routes = useMemo(() => {
+  const routes: { key: string; title: string }[] = useMemo(() => {
     const shortLongCode = getLanguageToolCode(diary.longCode);
+    const localeLongCode = getLanguageToolCode(I18n.locale as LongCode);
+    const baseRoutes = [
+      { key: 'ai1', title: I18n.t('myDiary.ai1') },
+      { key: 'ai2', title: I18n.t('myDiary.ai2') },
+    ];
     if (shortLongCode === 'en') {
-      return [
-        { key: 'ai1', title: I18n.t('myDiary.ai1') },
-        { key: 'ai2', title: I18n.t('myDiary.ai2') },
-        { key: 'ai3', title: I18n.t('myDiary.ai3') },
-      ];
-    } else {
-      return [
-        { key: 'ai1', title: I18n.t('myDiary.ai1') },
-        { key: 'ai2', title: I18n.t('myDiary.ai2') },
-      ];
+      baseRoutes.push({ key: 'ai3', title: I18n.t('myDiary.ai3') });
     }
+
+    // if (shortLongCode !== 'nl' && localeLongCode === 'ja') {
+    //   baseRoutes.push({ key: 'human', title: I18n.t('myDiary.human') });
+    // }
+    return baseRoutes;
   }, [diary.longCode]);
 
   useEffect(() => {
@@ -120,8 +125,6 @@ const AiCheck: React.FC<Props> = ({
         proWritingAid.textError === 'perfect'),
     [proWritingAid],
   );
-
-  const hasHuman = useMemo(() => !!diary.human, [diary.human]);
 
   const renderScene = useCallback(
     ({ route }) => {
@@ -202,7 +205,17 @@ const AiCheck: React.FC<Props> = ({
             />
           );
         case 'human':
-          return hasHuman ? (
+          return !diary.human ? (
+            <NoHuman
+              activeHuman={configAiCheck.activeHuman}
+              diary={diary}
+              user={user}
+              setUser={setUser}
+              editDiary={editDiary}
+            />
+          ) : diary.human.status === 'yet' ? (
+            <YetHuman />
+          ) : (
             <Human
               hideFooterButton={hideFooterButton}
               diary={diary}
@@ -211,8 +224,6 @@ const AiCheck: React.FC<Props> = ({
               goToRecord={goToRecord}
               onPressRevise={onPressRevise}
             />
-          ) : (
-            <NoHuman activeHuman={configAiCheck.activeHuman} />
           );
         default:
           return null;
@@ -226,7 +237,6 @@ const AiCheck: React.FC<Props> = ({
       diary,
       editDiary,
       goToRecord,
-      hasHuman,
       hasProWritingAid,
       hasSapling,
       hideFooterButton,
@@ -242,8 +252,10 @@ const AiCheck: React.FC<Props> = ({
       proWritingAid?.titleTags,
       sapling?.textEdits,
       sapling?.titleEdits,
+      setUser,
       text,
       title,
+      user,
     ],
   );
 
@@ -256,14 +268,14 @@ const AiCheck: React.FC<Props> = ({
   }
 
   return (
-    <View style={styles.container}>
-      <TabView
-        renderTabBar={renderTabBar}
-        navigationState={{ index, routes }}
-        renderScene={renderScene}
-        onIndexChange={onIndexChange}
-      />
-    </View>
+    <TabView
+      lazy={({ route }) => route.key === 'human'}
+      renderTabBar={renderTabBar}
+      navigationState={{ index, routes }}
+      renderScene={renderScene}
+      onIndexChange={onIndexChange}
+      initialLayout={initialLayout}
+    />
   );
 };
 

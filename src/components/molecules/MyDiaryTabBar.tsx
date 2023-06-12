@@ -44,6 +44,7 @@ const MyDiaryTabBar: React.FC<Props> = (props) => {
   return (
     <TabBar
       {...props}
+      scrollEnabled
       style={styles.container}
       renderLabel={renderLabel}
       indicatorStyle={styles.indicatorStyle}

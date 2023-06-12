@@ -7,9 +7,9 @@ import {
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 import { Audio } from 'expo-av';
-import { LoadingModal, HeaderIcon } from '@/components/atoms';
+import { LoadingModal, HeaderIcon, Layout } from '@/components/atoms';
 
-import { Diary, LocalStatus } from '@/types';
+import { Diary, LocalStatus, User } from '@/types';
 import {
   MyDiaryTabNavigationProp,
   MyDiaryTabStackParamList,
@@ -24,11 +24,13 @@ import { logAnalytics } from '@/utils/Analytics';
 export interface Props {
   diary?: Diary;
   localStatus: LocalStatus;
+  user: User;
 }
 
 interface DispatchProps {
   editDiary: (objectID: string, diary: Diary) => void;
   deleteDiary: (objectID: string) => void;
+  setUser: (user: User) => void;
 }
 
 export type MyDiaryNavigationProp = CompositeNavigationProp<
@@ -61,8 +63,10 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
   route,
   localStatus,
   diary,
+  user,
   deleteDiary,
   editDiary,
+  setUser,
 }) => {
   const { showActionSheetWithOptions } = useActionSheet();
   const [isLoading, setIsLoading] = useState(false);
@@ -216,10 +220,12 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
         caller={route.params.caller}
         navigation={navigation}
         diary={diary}
+        user={user}
         editDiary={editDiary}
         checkPermissions={checkPermissions}
         goToRecord={goToRecord}
         onPressRevise={onPressRevise}
+        setUser={setUser}
       />
     </View>
   );

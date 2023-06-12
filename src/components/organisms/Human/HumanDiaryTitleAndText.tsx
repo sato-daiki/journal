@@ -9,8 +9,8 @@ interface Props {
   diary: Diary;
   title: string;
   text: string;
-  titleArray: HumanCorrect[] | [] | undefined;
-  textArray: HumanCorrect[] | [] | undefined;
+  titleArray: HumanCorrect[] | [] | undefined | null;
+  textArray: HumanCorrect[] | [] | undefined | null;
   titleActiveIndex?: number | null;
   textActiveIndex?: number | null;
   setTitleActiveIndex?: (activeId: number | null) => void;

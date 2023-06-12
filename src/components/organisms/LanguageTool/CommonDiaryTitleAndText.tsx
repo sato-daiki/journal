@@ -113,16 +113,24 @@ const CommonDiaryTitleAndText: React.FC<Props> = ({
         onPressCopy={onPressTextCopy}
         onPressShare={onPressShare}
       />
-      <Space size={16} />
-      <View style={styles.row}>
-        <Text style={styles.describeAi}>{I18n.t('myDiary.describeAi1')}</Text>
-        <LinkText
-          textStyle={styles.linkText}
-          onPress={onPressWhat}
-          text={aiName}
-        />
-        <Text style={styles.describeAi}>{I18n.t('myDiary.describeAi2')}</Text>
-      </View>
+      {aiName !== 'Human' && (
+        <>
+          <Space size={16} />
+          <View style={styles.row}>
+            <Text style={styles.describeAi}>
+              {I18n.t('myDiary.describeAi1')}
+            </Text>
+            <LinkText
+              textStyle={styles.linkText}
+              onPress={onPressWhat}
+              text={aiName}
+            />
+            <Text style={styles.describeAi}>
+              {I18n.t('myDiary.describeAi2')}
+            </Text>
+          </View>
+        </>
+      )}
       <ModalSpeech
         visible={!!visibleSpeech}
         text={
