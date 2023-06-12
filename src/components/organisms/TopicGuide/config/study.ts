@@ -2,6 +2,7 @@ import I18n from '@/utils/I18n';
 import { Grind } from '@/images';
 import { Entry } from '../interface';
 import { GetParams, getWords } from '../util';
+import { getLanguageToolCode } from '@/utils/grammarCheck';
 
 const WORD_NUM = 7;
 
@@ -22,7 +23,9 @@ export const study = ({
       key: 'introduction',
       params: {
         text: I18n.t('first.study.introduction', {
-          learnLanguage: 'en',
+          learnLanguage: I18n.t(
+            `language.${getLanguageToolCode(learnLanguage)}`,
+          ),
         }),
         source: Grind,
       },
