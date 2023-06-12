@@ -1,5 +1,3 @@
-import { Platform } from 'react-native';
-
 // 共通のワード
 const common = {
   cancel: 'Cancel',
@@ -48,7 +46,7 @@ const shortDay = {
 // タブ
 const mainTab = {
   myDiary: 'My Entries',
-  postDiary: Platform.OS === 'web' ? 'Write an Entry' : 'Write',
+  postDiary: 'Write',
   myPage: 'My Page',
 };
 
@@ -182,6 +180,32 @@ const noAi = {
   moreAi: 'See more about {{aiName}}',
   check: 'Correct',
   watch: 'Watch ads and correct the text',
+};
+
+const noHuman = {
+  noHuman: `AIのチェックだけでは不安。直接"人"にチェックしてもらいたい！そんな人におすすなサービスです。1文字あたり2円で添削をします。`,
+  noHumanInactive:
+    '※ 現在一時的にプロフェッショナルによる人の添削を停止しています。',
+  noHumanButton: '添削を依頼する',
+  initialLoadError:
+    '支払いの読み込み処理で失敗しました。再度このページをロードしてください。',
+  noEmail:
+    '翻訳依頼をする場合は、メールアドレスとパスワードの登録が必要です。「マイページ」「設定」から登録してください。',
+  labelText: '修正依頼する文章',
+  labelAmount: '料金',
+  labelAmountPerLength: '1文字あたりの料金',
+  unitYen: '円',
+  labelLength: '文字数',
+  unitLength: '文字',
+  labelSum: '合計',
+  describe:
+    '※最低料金は{minimumPrice}円のため、{minimumLength}文字以下でも上記の料金になります。',
+  error:
+    '支払いプロセスでエラーが発生しました。再度時間を置いてから試してください。',
+};
+
+const yetHuman = {
+  text: '現在添削中です。{{days}}営業日以内に添削をします。添削が完了したら、登録しているメールアドレスにメールが届きます。',
 };
 
 const viewMyDiary = {
@@ -321,7 +345,6 @@ const setting = {
   logout: 'Logout',
   inquiry: 'Contact',
   about: 'What is LangJournal',
-  creditCard: 'Method of Payment',
 };
 
 const signIn = {
@@ -382,11 +405,6 @@ const inquiry = {
   title: 'Thank you for your inquiry.',
   thanks:
     'We will reply to you within a few days. Please kindly wait for a moment.',
-};
-
-const creditCard = {
-  headerTitle: 'Method of Payment',
-  save: 'Save card during payment',
 };
 
 const emptyMyDiaryList = {
@@ -673,6 +691,8 @@ const en = {
   myDiary,
   noAi,
   myDiaryList,
+  noHuman,
+  yetHuman,
   viewMyDiary,
   themeCategory,
   myPage,
@@ -706,7 +726,6 @@ const en = {
   myDiaryStatus,
   language,
   inquiry,
-  creditCard,
   first,
   maintenance,
 };

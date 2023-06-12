@@ -186,7 +186,27 @@ const noHuman = {
   noHumanInactive:
     '※ 現在一時的にプロフェッショナルによる人の添削を停止しています。',
   noHumanButton: '添削を依頼する',
+  initialLoadError:
+    '支払いの読み込み処理で失敗しました。再度このページをロードしてください。',
+  noEmail:
+    '翻訳依頼をする場合は、メールアドレスとパスワードの登録が必要です。「マイページ」「設定」から登録してください。',
+  labelText: '修正依頼する文章',
+  labelAmount: '料金',
+  labelAmountPerLength: '1文字あたりの料金',
+  unitYen: '円',
+  labelLength: '文字数',
+  unitLength: '文字',
+  labelSum: '合計',
+  describe:
+    '※最低料金は{minimumPrice}円のため、{minimumLength}文字以下でも上記の料金になります。',
+  error:
+    '支払いプロセスでエラーが発生しました。再度時間を置いてから試してください。',
 };
+
+const yetHuman = {
+  text: '現在添削中です。{{days}}営業日以内に添削をします。添削が完了したら、登録しているメールアドレスにメールが届きます。',
+};
+
 const viewMyDiary = {
   headerTitle: '添削結果',
 };
@@ -427,7 +447,8 @@ const myDiaryStatus = {
   draft: '下書き',
   checked: '添削完了',
   revised: '修正済',
-  recorded: '録音済',
+  yet: '添削待ち',
+  unread: '未読',
   done: '完了',
 };
 
@@ -663,6 +684,7 @@ const ja = {
   noAi,
   myDiaryList,
   noHuman,
+  yetHuman,
   viewMyDiary,
   themeCategory,
   myPage,

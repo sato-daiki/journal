@@ -7,6 +7,7 @@ import {
   Sapling as SaplingType,
   ProWritingAid as ProWritingAidType,
   User,
+  LongCode,
 } from '@/types';
 import { MyDiaryTabBar } from '@/components/molecules';
 import LanguageTool from '@/components/organisms/LanguageTool';
@@ -72,28 +73,21 @@ const AiCheck: React.FC<Props> = ({
   setUser,
 }) => {
   const [index, setIndex] = useState(0);
-  const routes: { key: TabKey; title: string }[] = useMemo(() => {
+  const routes: { key: string; title: string }[] = useMemo(() => {
     const shortLongCode = getLanguageToolCode(diary.longCode);
+    const localeLongCode = getLanguageToolCode(I18n.locale as LongCode);
+    const baseRoutes = [
+      { key: 'ai1', title: I18n.t('myDiary.ai1') },
+      { key: 'ai2', title: I18n.t('myDiary.ai2') },
+    ];
     if (shortLongCode === 'en') {
-      return [
-        { key: 'ai1', title: I18n.t('myDiary.ai1') },
-        { key: 'ai2', title: I18n.t('myDiary.ai2') },
-        { key: 'ai3', title: I18n.t('myDiary.ai3') },
-        { key: 'human', title: I18n.t('myDiary.human') },
-      ];
-    } else if (shortLongCode === 'nl') {
-      // オランダ
-      return [
-        { key: 'ai1', title: I18n.t('myDiary.ai1') },
-        { key: 'ai2', title: I18n.t('myDiary.ai2') },
-      ];
-    } else {
-      return [
-        { key: 'ai1', title: I18n.t('myDiary.ai1') },
-        { key: 'ai2', title: I18n.t('myDiary.ai2') },
-        // { key: 'human', title: I18n.t('myDiary.human') },
-      ];
+      baseRoutes.push({ key: 'ai3', title: I18n.t('myDiary.ai3') });
     }
+
+    if (shortLongCode !== 'nl' && localeLongCode === 'ja') {
+      baseRoutes.push({ key: 'human', title: I18n.t('myDiary.human') });
+    }
+    return baseRoutes;
   }, [diary.longCode]);
 
   useEffect(() => {
