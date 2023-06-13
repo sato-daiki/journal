@@ -109,20 +109,20 @@ const AiCheck: React.FC<Props> = ({
   const hasSapling = useMemo(
     () =>
       !!sapling &&
-      (sapling.titleResult === 'corrected' ||
-        sapling.titleResult === 'perfect' ||
-        sapling.textError === 'corrected' ||
-        sapling.textError === 'perfect'),
+      (sapling.titleResult === 'perfect' ||
+        sapling.titleResult === 'corrected' ||
+        sapling.textResult === 'perfect' ||
+        sapling.textResult === 'corrected'),
     [sapling],
   );
 
   const hasProWritingAid = useMemo(
     () =>
       !!proWritingAid &&
-      (proWritingAid.titleResult === 'corrected' ||
-        proWritingAid.titleResult === 'perfect' ||
-        proWritingAid.textError === 'corrected' ||
-        proWritingAid.textError === 'perfect'),
+      (proWritingAid.titleResult === 'perfect' ||
+        proWritingAid.titleResult === 'corrected' ||
+        proWritingAid.textResult === 'perfect' ||
+        proWritingAid.textResult === 'corrected'),
     [proWritingAid],
   );
 
