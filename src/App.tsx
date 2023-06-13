@@ -8,7 +8,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { RootSiblingParent } from 'react-native-root-siblings';
 import firestore from '@react-native-firebase/firestore';
 import Purchases, { LOG_LEVEL } from 'react-native-purchases';
-import { StripeProvider } from '@stripe/stripe-react-native';
+// import { StripeProvider } from '@stripe/stripe-react-native';
 
 import { configureStore } from '@/stores/Store';
 
@@ -97,13 +97,13 @@ const App = () => {
       <PersistGate loading={<LoadingScreen />} persistor={persistor}>
         <ActionSheetProvider>
           <RootSiblingParent>
-            <StripeProvider publishableKey={STRIPE_PUBLBISHABLE_KEY}>
-              <MenuProvider>
-                <NavigationContainer>
-                  <RootNavigatorContainer />
-                </NavigationContainer>
-              </MenuProvider>
-            </StripeProvider>
+            {/* <StripeProvider publishableKey={STRIPE_PUBLBISHABLE_KEY}> */}
+            <MenuProvider>
+              <NavigationContainer>
+                <RootNavigatorContainer />
+              </NavigationContainer>
+            </MenuProvider>
+            {/* </StripeProvider> */}
           </RootSiblingParent>
         </ActionSheetProvider>
       </PersistGate>
