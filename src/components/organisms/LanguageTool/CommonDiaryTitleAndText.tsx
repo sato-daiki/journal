@@ -69,7 +69,7 @@ const CommonDiaryTitleAndText: React.FC<Props> = ({
     await Clipboard.setStringAsync(title);
     Toast.show(I18n.t('myDiary.copiedTitle'), {
       duration: Toast.durations.SHORT,
-      position: Toast.positions.TOP,
+      position: Toast.positions.CENTER,
     });
   }, [title]);
 
@@ -77,7 +77,7 @@ const CommonDiaryTitleAndText: React.FC<Props> = ({
     await Clipboard.setStringAsync(text);
     Toast.show(I18n.t('myDiary.copiedText'), {
       duration: Toast.durations.SHORT,
-      position: Toast.positions.TOP,
+      position: Toast.positions.CENTER,
     });
   }, [text]);
 

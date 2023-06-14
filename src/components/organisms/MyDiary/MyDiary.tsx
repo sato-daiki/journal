@@ -184,7 +184,7 @@ const MyDiary: React.FC<Props> = ({
         logAnalytics('on_press_ad_reward_error');
         Toast.show(I18n.t('myDiary.adRewardError'), {
           duration: Toast.durations.SHORT,
-          position: Toast.positions.TOP,
+          position: Toast.positions.CENTER,
         });
       }
     }, 6000);
@@ -205,7 +205,7 @@ const MyDiary: React.FC<Props> = ({
       StatusBar.setStatusBarHidden(false, 'none');
       Toast.show(I18n.t('myDiary.adRewardError'), {
         duration: Toast.durations.SHORT,
-        position: Toast.positions.TOP,
+        position: Toast.positions.CENTER,
       });
     }
   }, []);

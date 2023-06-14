@@ -20,6 +20,7 @@ import firestore from '@react-native-firebase/firestore';
 import I18n from '@/utils/I18n';
 import { logAnalytics } from './Analytics';
 import { WhichDiaryKey } from '@/components/organisms/MyDiaryHeaderTitle';
+import { languageToolUrl, proWritingAidUrl, saplingUrl } from '@/constants/url';
 
 const LANGUAGE_TOOL_ENDPOINT = 'https://api.languagetoolplus.com/v2';
 
@@ -530,14 +531,13 @@ export const addAiCheckError = async (
   });
 };
 
-const languageToolUrl = 'https://languagetool.org/';
-const saplingUrl = 'https://sapling.ai/';
-
 export const getWhatUrl = (aiName: AiName) => {
   switch (aiName) {
     case 'LanguageTool':
       return languageToolUrl;
     case 'Sapling':
       return saplingUrl;
+    case 'ProWritingAid':
+      return proWritingAidUrl;
   }
 };
