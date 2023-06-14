@@ -2,7 +2,12 @@ import { useState, useCallback, useEffect } from 'react';
 import { Keyboard } from 'react-native';
 import { logAnalytics, events } from '@/utils/Analytics';
 import { DiaryStatus, User, Diary, LongCode, LanguageTool } from '@/types';
-import { checkBeforePost, getRunning, getThemeDiaries } from '@/utils/diary';
+import {
+  checkBeforePost,
+  getRunning,
+  getThemeDiaries,
+  getTitleTextPrettier,
+} from '@/utils/diary';
 import { alert } from '@/utils/ErrorAlert';
 import { PostDraftDiaryNavigationProp } from './interfaces';
 import { useCommon } from '../PostDiaryScreen/useCommont';
@@ -70,19 +75,23 @@ export const usePostDraftDiary = ({
   }, []);
 
   const getDiary = useCallback(
-    (diaryStatus: DiaryStatus, languageTool?: LanguageTool) => {
-      const languageToolInfo = languageTool ? { languageTool } : undefined;
+    (
+      diaryStatus: DiaryStatus,
+      newTitle: string,
+      newText: string,
+      languageTool?: LanguageTool,
+    ) => {
       return {
-        title,
-        text,
+        title: newTitle,
+        text: newText,
         diaryStatus,
         longCode: selectedItem.value as LongCode,
-        ...languageToolInfo,
+        ...(languageTool ? { languageTool } : {}),
         updatedAt:
           firestore.FieldValue.serverTimestamp() as FirebaseFirestoreTypes.Timestamp,
       };
     },
-    [title, text, selectedItem.value],
+    [selectedItem.value],
   );
 
   const onPressDraft = useCallback(async (): Promise<void> => {
@@ -94,7 +103,13 @@ export const usePostDraftDiary = ({
       if (!item.objectID) return;
 
       setIsLoadingDraft(true);
-      const diary = getDiary('draft');
+      const isTitleSkip = !!item.themeCategory && !!item.themeSubcategory;
+      const { newTitle, newText } = getTitleTextPrettier(
+        isTitleSkip,
+        title,
+        text,
+      );
+      const diary = getDiary('draft', newTitle, newText);
       const refDiary = firestore().doc(`diaries/${item.objectID}`);
       await refDiary.update(diary);
       logAnalytics(events.CREATED_DIARY);
@@ -122,6 +137,8 @@ export const usePostDraftDiary = ({
     item,
     navigation,
     setIsLoadingDraft,
+    text,
+    title,
   ]);
 
   const onPressCheck = useCallback(async (): Promise<void> => {
@@ -140,15 +157,19 @@ export const usePostDraftDiary = ({
     }
 
     setIsLoadingPublish(true);
-
-    const languageTool = await getLanguageTool(
-      selectedItem.value as LongCode,
+    const { newTitle, newText } = getTitleTextPrettier(
       isTitleSkip,
       title,
       text,
     );
+    const languageTool = await getLanguageTool(
+      selectedItem.value as LongCode,
+      isTitleSkip,
+      newTitle,
+      newText,
+    );
 
-    const diary = getDiary('checked', languageTool);
+    const diary = getDiary('checked', newTitle, newText, languageTool);
     const { runningDays, runningWeeks } = getRunning(user);
 
     let { themeDiaries } = user;

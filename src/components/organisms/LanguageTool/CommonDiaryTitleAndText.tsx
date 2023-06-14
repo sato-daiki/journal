@@ -103,16 +103,16 @@ const CommonDiaryTitleAndText: React.FC<Props> = ({
       <Space size={16} />
       {textComponent}
       <Space size={8} />
-      <Text style={styles.textLength}>
-        {I18n.t('postDiaryComponent.textLength')}
-        {` ${text.length}`}
-      </Text>
-      <Space size={8} />
       <CommonIcons
         onPressSpeech={() => setVisibleSpeech('text')}
         onPressCopy={onPressTextCopy}
         onPressShare={onPressShare}
       />
+      <Space size={16} />
+      <Text style={styles.textLength}>
+        {I18n.t('postDiaryComponent.textLength')}
+        {` ${text.length}`}
+      </Text>
       {aiName !== 'Human' && (
         <>
           <Space size={16} />
