@@ -8,7 +8,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { RootSiblingParent } from 'react-native-root-siblings';
 import firestore from '@react-native-firebase/firestore';
 import Purchases, { LOG_LEVEL } from 'react-native-purchases';
-// import { StripeProvider } from '@stripe/stripe-react-native';
+import { StripeProvider } from '@stripe/stripe-react-native';
 
 import { configureStore } from '@/stores/Store';
 
@@ -24,11 +24,9 @@ const APIKeys = {
   google: 'goog_BXJfBLRItsmNnWnxIxlLfOkDKFZ',
 };
 
-// const STRIPE_PUBLBISHABLE_KEY =
-//   'pk_live_51N9RAbDpsgOkHekxCQkgM8RBg9YENJYSxBsoriUl9n3MLM9h3gkGq9ld3gSLl7rA2Rcow2vVue4pjbf8caT4kOQJ00CEvOYVup';
-
-const STRIPE_PUBLBISHABLE_KEY =
-  'pk_test_51N9RAbDpsgOkHekxO90VbMC5OiXjHtvhcK3NmhbhcNU7okHS1lYqwAn3kgCUpNzVMIGeH07d2bU6PQ9bGUAeokW500qIqU6mDb';
+const STRIPE_PUBLBISHABLE_KEY = __DEV__
+  ? 'pk_test_51N9RAbDpsgOkHekxO90VbMC5OiXjHtvhcK3NmhbhcNU7okHS1lYqwAn3kgCUpNzVMIGeH07d2bU6PQ9bGUAeokW500qIqU6mDb'
+  : 'pk_live_51N9RAbDpsgOkHekxCQkgM8RBg9YENJYSxBsoriUl9n3MLM9h3gkGq9ld3gSLl7rA2Rcow2vVue4pjbf8caT4kOQJ00CEvOYVup';
 
 type ConfigMaintenance = {
   status: boolean;
@@ -97,13 +95,13 @@ const App = () => {
       <PersistGate loading={<LoadingScreen />} persistor={persistor}>
         <ActionSheetProvider>
           <RootSiblingParent>
-            {/* <StripeProvider publishableKey={STRIPE_PUBLBISHABLE_KEY}> */}
-            <MenuProvider>
-              <NavigationContainer>
-                <RootNavigatorContainer />
-              </NavigationContainer>
-            </MenuProvider>
-            {/* </StripeProvider> */}
+            <StripeProvider publishableKey={STRIPE_PUBLBISHABLE_KEY}>
+              <MenuProvider>
+                <NavigationContainer>
+                  <RootNavigatorContainer />
+                </NavigationContainer>
+              </MenuProvider>
+            </StripeProvider>
           </RootSiblingParent>
         </ActionSheetProvider>
       </PersistGate>
