@@ -44,6 +44,7 @@ const HumanCorrects: React.FC<Props> = ({
       />
       <Card
         skipFirstRow
+        activeText={humanCorrect.original}
         color={color}
         shortMessage={''}
         replacements={[{ value: humanCorrect.correction || '' }]}
