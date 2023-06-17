@@ -58,10 +58,11 @@ export type ConfigAiCheck = {
   activeHuman: boolean;
 };
 
-const IOS_AD_REWARD = 'ca-app-pub-0770181536572634/6050230343';
-const ANDROID_AD_REWARD = 'ca-app-pub-0770181536572634/2143323663';
+const adUnitId =
+  Platform.OS === 'ios'
+    ? process.env.IOS_AD_REWARD!
+    : process.env.ANDROID_AD_REWARD!;
 
-const adUnitId = Platform.OS === 'ios' ? IOS_AD_REWARD : ANDROID_AD_REWARD;
 const rewarded = RewardedAd.createForAdRequest(adUnitId, {
   requestNonPersonalizedAdsOnly: true,
 });

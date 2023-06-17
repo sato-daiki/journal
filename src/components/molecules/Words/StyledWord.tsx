@@ -7,7 +7,6 @@ type Props = {
   word: Word;
   isActive: boolean;
   onPressChecked: (checkIndex: number) => void;
-  onPressUnChecked: () => void;
 };
 
 const styles = StyleSheet.create({
@@ -20,12 +19,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const StyledWord: React.FC<Props> = ({
-  word,
-  isActive,
-  onPressChecked,
-  onPressUnChecked,
-}) => {
+const StyledWord: React.FC<Props> = ({ word, isActive, onPressChecked }) => {
   const onPressTextChecked = useCallback(() => {
     if (word.checkIndex !== undefined) {
       onPressChecked(word.checkIndex);
@@ -51,9 +45,7 @@ const StyledWord: React.FC<Props> = ({
           {word.text}
         </Text>
       ) : (
-        <Text style={styles.common} onPress={onPressUnChecked}>
-          {word.text}
-        </Text>
+        <Text style={styles.common}>{word.text}</Text>
       )}{' '}
     </Text>
   );

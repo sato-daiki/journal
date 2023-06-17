@@ -14,7 +14,7 @@
     "assetBundlePatterns": ["**/*"],
     "jsEngine": "hermes",
     "ios": {
-      "buildNumber": "1030701",
+      "buildNumber": "1030702",
       "googleServicesFile": "./GoogleService-Info.plist",
       "supportsTablet": true,
       "bundleIdentifier": "app.daiki123456.langjournal",
@@ -24,7 +24,7 @@
       }
     },
     "android": {
-      "versionCode": 1030701,
+      "versionCode": 1030702,
       "permissions": ["RECORD_AUDIO"],
       "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {

@@ -1,5 +1,11 @@
 import React, { useCallback, useMemo } from 'react';
-import { StyleProp, Text, TextStyle } from 'react-native';
+import {
+  StyleProp,
+  Text,
+  TextStyle,
+  TouchableNativeFeedback,
+  View,
+} from 'react-native';
 import { HumanCorrect, Word } from '@/types';
 import StyledWord from '@/components/molecules/Words/StyledWord';
 import { getHumanColors } from '@/utils/grammarCheck';
@@ -58,23 +64,26 @@ const HumanWords: React.FC<Props> = ({
   }, [backgroundColor, color, humanCorrects]);
 
   return (
-    <Text style={textStyle}>
-      {!!words &&
-        words.length > 0 &&
-        words.map((word, index) => (
-          <StyledWord
-            key={index}
-            isActive={
-              activeIndex !== null &&
-              word.checkIndex !== undefined &&
-              activeIndex === word.checkIndex
-            }
-            word={word}
-            onPressChecked={onPressChecked}
-            onPressUnChecked={onPressUnChecked}
-          />
-        ))}
-    </Text>
+    <TouchableNativeFeedback onPress={onPressUnChecked}>
+      <View>
+        <Text style={textStyle}>
+          {!!words &&
+            words.length > 0 &&
+            words.map((word, index) => (
+              <StyledWord
+                key={index}
+                isActive={
+                  activeIndex !== null &&
+                  word.checkIndex !== undefined &&
+                  activeIndex === word.checkIndex
+                }
+                word={word}
+                onPressChecked={onPressChecked}
+              />
+            ))}
+        </Text>
+      </View>
+    </TouchableNativeFeedback>
   );
 };
 
