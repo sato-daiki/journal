@@ -1,5 +1,11 @@
 import React, { useCallback, useMemo } from 'react';
-import { StyleProp, Text, TextStyle } from 'react-native';
+import {
+  StyleProp,
+  Text,
+  TextStyle,
+  TouchableNativeFeedback,
+  View,
+} from 'react-native';
 import { Match, Word } from '@/types';
 import { getLanguageToolColors } from '@/utils/grammarCheck';
 import StyledWord from '@/components/molecules/Words/StyledWord';
@@ -78,23 +84,26 @@ const LanguageToolWords: React.FC<Props> = ({
   }, [matches, text]);
 
   return (
-    <Text style={textStyle}>
-      {!!words &&
-        words.map((word, index) => (
-          <StyledWord
-            key={index}
-            isActive={
-              !word.ignore &&
-              activeIndex !== null &&
-              word.checkIndex !== undefined &&
-              activeIndex === word.checkIndex
-            }
-            word={word}
-            onPressChecked={onPressChecked}
-            onPressUnChecked={onPressUnChecked}
-          />
-        ))}
-    </Text>
+    <TouchableNativeFeedback onPress={onPressUnChecked}>
+      <View>
+        <Text style={textStyle}>
+          {!!words &&
+            words.map((word, index) => (
+              <StyledWord
+                key={index}
+                isActive={
+                  !word.ignore &&
+                  activeIndex !== null &&
+                  word.checkIndex !== undefined &&
+                  activeIndex === word.checkIndex
+                }
+                word={word}
+                onPressChecked={onPressChecked}
+              />
+            ))}
+        </Text>
+      </View>
+    </TouchableNativeFeedback>
   );
 };
 

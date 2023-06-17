@@ -47,3 +47,7 @@ https://github.com/sato-daiki/journal/compare/main...develop
 
 nodebrew ls
 nodebrew use v16.14.0
+
+# secret 登録
+
+eas secret:push --scope project --env-file .env

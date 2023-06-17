@@ -9,6 +9,7 @@ import { RootSiblingParent } from 'react-native-root-siblings';
 import firestore from '@react-native-firebase/firestore';
 import Purchases, { LOG_LEVEL } from 'react-native-purchases';
 import { StripeProvider } from '@stripe/stripe-react-native';
+import { EventProvider } from 'react-native-outside-press';
 
 import { configureStore } from '@/stores/Store';
 
@@ -18,15 +19,6 @@ import { AppState, AppStateStatus, Platform } from 'react-native';
 import MaintenanceScreen from './screens/MaintenanceScreen';
 
 const { store, persistor } = configureStore();
-
-const APIKeys = {
-  apple: 'appl_denpLMXScStqtYegoDgBcBkOhNC',
-  google: 'goog_BXJfBLRItsmNnWnxIxlLfOkDKFZ',
-};
-
-const STRIPE_PUBLBISHABLE_KEY = __DEV__
-  ? 'pk_test_51N9RAbDpsgOkHekxO90VbMC5OiXjHtvhcK3NmhbhcNU7okHS1lYqwAn3kgCUpNzVMIGeH07d2bU6PQ9bGUAeokW500qIqU6mDb'
-  : 'pk_live_51N9RAbDpsgOkHekxCQkgM8RBg9YENJYSxBsoriUl9n3MLM9h3gkGq9ld3gSLl7rA2Rcow2vVue4pjbf8caT4kOQJ00CEvOYVup';
 
 type ConfigMaintenance = {
   status: boolean;
@@ -51,9 +43,9 @@ const App = () => {
   const initPurchases = useCallback(() => {
     Purchases.setLogLevel(LOG_LEVEL.VERBOSE);
     if (Platform.OS === 'ios') {
-      Purchases.configure({ apiKey: APIKeys.apple });
+      Purchases.configure({ apiKey: process.env.IOS_PURCHASES! });
     } else if (Platform.OS === 'android') {
-      Purchases.configure({ apiKey: APIKeys.google });
+      Purchases.configure({ apiKey: process.env.ANDROID_PURCHASES! });
     }
   }, []);
 
@@ -95,12 +87,20 @@ const App = () => {
       <PersistGate loading={<LoadingScreen />} persistor={persistor}>
         <ActionSheetProvider>
           <RootSiblingParent>
-            <StripeProvider publishableKey={STRIPE_PUBLBISHABLE_KEY}>
-              <MenuProvider>
-                <NavigationContainer>
-                  <RootNavigatorContainer />
-                </NavigationContainer>
-              </MenuProvider>
+            <StripeProvider
+              publishableKey={
+                __DEV__
+                  ? process.env.TEST_STRIPE_PUBLBISHABLE_KEY!
+                  : process.env.ADMIN_STRIPE_PUBLBISHABLE_KEY!
+              }
+            >
+              <EventProvider style={{ flex: 1 }}>
+                <MenuProvider>
+                  <NavigationContainer>
+                    <RootNavigatorContainer />
+                  </NavigationContainer>
+                </MenuProvider>
+              </EventProvider>
             </StripeProvider>
           </RootSiblingParent>
         </ActionSheetProvider>

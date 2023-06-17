@@ -13,8 +13,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const IOS_AD_UNIT_ID = 'ca-app-pub-0770181536572634/6920458887';
-const ANDROID_AD_UNIT_ID = 'ca-app-pub-0770181536572634/3456405335';
+const unitId =
+  Platform.OS === 'ios'
+    ? process.env.IOS_AD_UNIT_ID!
+    : process.env.ANDROID_AD_UNIT_ID!;
 
 const BottomBanner: React.FC = () => {
   const { localStatus } = useSelector((state: State) => state.rootReducer);
@@ -30,7 +32,7 @@ const BottomBanner: React.FC = () => {
       return (
         <View style={styles.adMobBanner}>
           <BannerAd
-            unitId={Platform.OS === 'ios' ? IOS_AD_UNIT_ID : ANDROID_AD_UNIT_ID}
+            unitId={unitId}
             size={BannerAdSize.BANNER}
             requestOptions={{
               requestNonPersonalizedAdsOnly: true,

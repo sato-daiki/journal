@@ -148,7 +148,7 @@ export const languageToolCheck = async (
         text: text,
         // PROの時必要
         // username: 'daiki12345daiki12345@gmail.com',
-        // apiKey: LANGUAGE_TOOL_API_KEY,
+        // apiKey: process.env.LANGUAGE_TOOL_API_KEY,
       },
       {
         headers: {
@@ -280,7 +280,7 @@ export const saplingCheck = async (
       {
         lang: getLanguageToolCode(learnLanguage),
         text: text,
-        key: 'PAN1SVG5YR444J1V2NU2RYLIOALGR6PI',
+        key: process.env.SAPLING_API_KEY!,
         session_id: session_id,
       },
       {
@@ -410,7 +410,7 @@ export const proWritingAidCheck = async (
       {
         headers: {
           Accept: 'application/json',
-          licenseCode: '8D9BB99A-C6D5-4194-8DF0-B7BB1C6D26CB',
+          licenseCode: process.env.PRO_WRITING_LICENSE_CODE!,
         },
       },
     );

@@ -1,8 +1,9 @@
 import React, { useCallback, useMemo } from 'react';
-import { StyleProp, Text, TextStyle } from 'react-native';
+import { StyleProp, Text, TextStyle, View } from 'react-native';
 import { Edit, Word } from '@/types';
 import { getSaplingColors } from '@/utils/grammarCheck';
 import StyledWord from '@/components/molecules/Words/StyledWord';
+import { TouchableNativeFeedback } from 'react-native';
 
 type Props = {
   textStyle?: StyleProp<TextStyle>;
@@ -86,24 +87,27 @@ const SaplingWords: React.FC<Props> = ({
   }, [edits, text]);
 
   return (
-    <Text style={textStyle}>
-      {!!words &&
-        words.length > 0 &&
-        words.map((word, index) => (
-          <StyledWord
-            key={index}
-            isActive={
-              !word.ignore &&
-              activeIndex !== null &&
-              word.checkIndex !== undefined &&
-              activeIndex === word.checkIndex
-            }
-            word={word}
-            onPressChecked={onPressChecked}
-            onPressUnChecked={onPressUnChecked}
-          />
-        ))}
-    </Text>
+    <TouchableNativeFeedback onPress={onPressUnChecked}>
+      <View>
+        <Text style={textStyle}>
+          {!!words &&
+            words.length > 0 &&
+            words.map((word, index) => (
+              <StyledWord
+                key={index}
+                isActive={
+                  !word.ignore &&
+                  activeIndex !== null &&
+                  word.checkIndex !== undefined &&
+                  activeIndex === word.checkIndex
+                }
+                word={word}
+                onPressChecked={onPressChecked}
+              />
+            ))}
+        </Text>
+      </View>
+    </TouchableNativeFeedback>
   );
 };
 
