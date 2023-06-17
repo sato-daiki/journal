@@ -6,6 +6,7 @@ import { styles } from '../LanguageTool/LanguageToolDiaryTitleAndText';
 import CommonDiaryTitleAndText from '../LanguageTool/CommonDiaryTitleAndText';
 
 interface Props {
+  isPerfect: boolean;
   title: string;
   text: string;
   longCode: LongCode;
@@ -21,6 +22,7 @@ interface Props {
 }
 
 const SaplingDiaryTitleAndText: React.FC<Props> = ({
+  isPerfect,
   title,
   text,
   longCode,
@@ -36,6 +38,7 @@ const SaplingDiaryTitleAndText: React.FC<Props> = ({
 }) => {
   return (
     <CommonDiaryTitleAndText
+      isPerfect={isPerfect}
       title={title}
       text={text}
       aiName='Sapling'

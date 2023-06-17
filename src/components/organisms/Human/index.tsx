@@ -150,6 +150,7 @@ const Human: React.FC<Props> = ({
       onPressRevise={onPressRevise}
       titleAndText={
         <HumanDiaryTitleAndText
+          isPerfect={false}
           diary={diary}
           title={title}
           text={text}

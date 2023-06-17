@@ -6,6 +6,7 @@ import CommonDiaryTitleAndText from '../LanguageTool/CommonDiaryTitleAndText';
 import HumanWords from './HumanWords';
 
 interface Props {
+  isPerfect: boolean;
   diary: Diary;
   title: string;
   text: string;
@@ -19,6 +20,7 @@ interface Props {
 }
 
 const HumanDiaryTitleAndText: React.FC<Props> = ({
+  isPerfect,
   diary,
   title,
   text,
@@ -32,6 +34,7 @@ const HumanDiaryTitleAndText: React.FC<Props> = ({
 }) => {
   return (
     <CommonDiaryTitleAndText
+      isPerfect={isPerfect}
       title={title}
       text={text}
       aiName='Human'

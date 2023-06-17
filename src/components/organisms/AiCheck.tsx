@@ -132,6 +132,10 @@ const AiCheck: React.FC<Props> = ({
         case 'ai1':
           return (
             <LanguageTool
+              isPerfect={
+                languageTool?.titleResult === 'perfect' &&
+                languageTool?.textResult === 'perfect'
+              }
               isOriginal={isOriginal}
               isPremium={isPremium}
               showSaplingCheck={
@@ -157,6 +161,10 @@ const AiCheck: React.FC<Props> = ({
         case 'ai2':
           return hasSapling ? (
             <Sapling
+              isPerfect={
+                sapling?.titleResult === 'perfect' &&
+                sapling?.textResult === 'perfect'
+              }
               isOriginal={isOriginal}
               hideFooterButton={hideFooterButton}
               diary={diary}
@@ -182,6 +190,10 @@ const AiCheck: React.FC<Props> = ({
         case 'ai3':
           return hasProWritingAid ? (
             <ProWritingAid
+              isPerfect={
+                proWritingAid?.titleResult === 'perfect' &&
+                proWritingAid?.textResult === 'perfect'
+              }
               isOriginal={isOriginal}
               hideFooterButton={hideFooterButton}
               diary={diary}
@@ -243,15 +255,21 @@ const AiCheck: React.FC<Props> = ({
       isOriginal,
       isPremium,
       languageTool?.textMatches,
+      languageTool?.textResult,
       languageTool?.titleMatches,
+      languageTool?.titleResult,
       onPressAdReward,
       onPressBecome,
       onPressCheck,
       onPressRevise,
+      proWritingAid?.textResult,
       proWritingAid?.textTags,
+      proWritingAid?.titleResult,
       proWritingAid?.titleTags,
       sapling?.textEdits,
+      sapling?.textResult,
       sapling?.titleEdits,
+      sapling?.titleResult,
       setUser,
       text,
       title,

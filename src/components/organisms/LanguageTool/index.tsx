@@ -6,6 +6,7 @@ import { useCommon } from './useCommon';
 import CommonMain from './CommonMain';
 
 export interface Props {
+  isPerfect: boolean;
   isOriginal: boolean;
   isPremium: boolean;
   showSaplingCheck: boolean;
@@ -25,6 +26,7 @@ export interface Props {
 }
 
 const LanguageTool: React.FC<Props> = ({
+  isPerfect,
   isOriginal,
   isPremium,
   showSaplingCheck,
@@ -131,6 +133,7 @@ const LanguageTool: React.FC<Props> = ({
       onPressBecome={onPressBecome}
       titleAndText={
         <LanguageToolDiaryTitleAndText
+          isPerfect={isPerfect}
           title={title}
           text={text}
           longCode={diary.longCode}

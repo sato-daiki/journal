@@ -13,6 +13,7 @@ import { fontSizeS, subTextColor } from '@/styles/Common';
 import { AiName, getWhatUrl } from '@/utils/grammarCheck';
 
 interface Props {
+  isPerfect: boolean;
   title: string;
   text: string;
   aiName: AiName;
@@ -43,6 +44,10 @@ export const styles = StyleSheet.create({
   linkText: {
     fontSize: fontSizeS,
   },
+  perfect: {
+    color: subTextColor,
+    fontSize: fontSizeS,
+  },
   textLength: {
     alignSelf: 'flex-end',
     color: subTextColor,
@@ -51,6 +56,7 @@ export const styles = StyleSheet.create({
 });
 
 const CommonDiaryTitleAndText: React.FC<Props> = ({
+  isPerfect,
   title,
   text,
   aiName,
@@ -113,6 +119,12 @@ const CommonDiaryTitleAndText: React.FC<Props> = ({
         {I18n.t('postDiaryComponent.textLength')}
         {` ${text.length}`}
       </Text>
+      {isPerfect && (
+        <>
+          <Space size={16} />
+          <Text style={styles.perfect}>※{I18n.t('myDiary.perfect')}</Text>
+        </>
+      )}
       {aiName !== 'Human' && (
         <>
           <Space size={16} />

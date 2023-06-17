@@ -308,6 +308,7 @@ export const getLoadNextPage = async (
 };
 
 const getPrettier = (text: string): string => {
+  // eslint-disable-next-line no-irregular-whitespace
   return text.replace(/[ 　]+/g, ' ');
 };
 

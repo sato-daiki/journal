@@ -92,6 +92,7 @@ const MyDiary: React.FC<Props> = ({
   });
   const [successSapling, setSuccessSapling] = useState(false);
   const [successProWritingAid, setSuccessProWritingAid] = useState(false);
+  const [earned, setEarned] = useState(false);
 
   const hasRevised = useMemo(
     () => !!diary.reviseTitle || !!diary.reviseText,
@@ -123,11 +124,12 @@ const MyDiary: React.FC<Props> = ({
         showSaplingCheck();
       },
     );
+
     const unsubscribeEarned = rewarded.addAdEventListener(
       RewardedAdEventType.EARNED_REWARD,
       (_reward) => {
-        // 獲得後
-        aiCheck();
+        // 広告見た後
+        setEarned(true);
       },
     );
 
@@ -318,6 +320,14 @@ const MyDiary: React.FC<Props> = ({
       setSuccessProWritingAid(true);
     }
   }, [diary, editDiary, showError]);
+
+  useEffect(() => {
+    if (earned) {
+      // 直接呼ぶとdiaryが古くうまくいかないため
+      setEarned(false);
+      aiCheck();
+    }
+  }, [aiCheck, earned]);
 
   const onPressCheck = useCallback(
     (key: WhichDiaryKey, aiName: AiName) => {

@@ -169,6 +169,7 @@ const myDiary = {
   become: 'プレミアム会員になる',
   describeAi1: 'この添削は',
   describeAi2: 'で行われています',
+  perfect: '修正点はありませんでした',
 };
 
 const noAi = {

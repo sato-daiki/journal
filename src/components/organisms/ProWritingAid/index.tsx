@@ -6,6 +6,7 @@ import CommonMain from '../LanguageTool/CommonMain';
 import Tags from './Tags';
 
 export interface Props {
+  isPerfect: boolean;
   isOriginal: boolean;
   hideFooterButton: boolean;
   diary: Diary;
@@ -20,6 +21,7 @@ export interface Props {
 }
 
 const ProWritingAid: React.FC<Props> = ({
+  isPerfect,
   isOriginal,
   hideFooterButton,
   diary,
@@ -116,6 +118,7 @@ const ProWritingAid: React.FC<Props> = ({
       onPressRevise={onPressRevise}
       titleAndText={
         <ProWritingAidDiaryTitleAndText
+          isPerfect={isPerfect}
           title={title}
           text={text}
           longCode={diary.longCode}
