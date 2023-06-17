@@ -9,7 +9,6 @@ import { RootSiblingParent } from 'react-native-root-siblings';
 import firestore from '@react-native-firebase/firestore';
 import Purchases, { LOG_LEVEL } from 'react-native-purchases';
 import { StripeProvider } from '@stripe/stripe-react-native';
-import { EventProvider } from 'react-native-outside-press';
 
 import { configureStore } from '@/stores/Store';
 
@@ -94,13 +93,11 @@ const App = () => {
                   : process.env.ADMIN_STRIPE_PUBLBISHABLE_KEY!
               }
             >
-              <EventProvider style={{ flex: 1 }}>
-                <MenuProvider>
-                  <NavigationContainer>
-                    <RootNavigatorContainer />
-                  </NavigationContainer>
-                </MenuProvider>
-              </EventProvider>
+              <MenuProvider>
+                <NavigationContainer>
+                  <RootNavigatorContainer />
+                </NavigationContainer>
+              </MenuProvider>
             </StripeProvider>
           </RootSiblingParent>
         </ActionSheetProvider>
