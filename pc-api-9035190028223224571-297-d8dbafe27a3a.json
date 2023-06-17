@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "pc-api-9035190028223224571-297",
+  "private_key_id": "d8dbafe27a3a58fdcd017617b94dc2bf1cddbf02",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCugnbsqey5p94q\nW4ek2QKqWPKID9LG79v/4ymqGlb815yRac/2bz+gSDHh4L1Qn+LA//eHiBkP9tNk\nCdWCKIU0l7lLlQOOtyhPaJv0Ne9nHXuyozw0GDWPqHmh361N0X8PMIN++OsHef+y\nfHSwxAA4rzfn6wAdrAiqfLvghkZ8z73F3W6mOW/rtYUH1UQ1MFDVVpimPbndJNhc\nZfdTxshxqKUxM8aWAc1XgyCWCtsBuAIPxj2/2BL3mZrWlWkGc+Ppf8AYEMIPrRR+\nKx9aP2TgLBo5wyO81GBIIdfcpTTsURr8bDqE586yifzMTAI/VqOZMVgxnYcyb+Bl\nMJ74161DAgMBAAECggEARIrPxSL07PLnSwHKZFAsQNZQ5Go6opKheX8y5TIVSpgx\nUdgaq7OEbSMOHKcWFK3H9YBUK/KjzWZoHxnRt57MuxyA1hQAYrTD63SuFJx+nKSy\n6jY9NkTv/K3yoEbnnfIUEtY+P8frIHOln+hMOQWzBJClx7zAvebNPJFjhcuXsfuK\n5MdM9D0MSp2iOC9+mB0+zOnGAV+1ous77k/ydeaNRp2RCB6Io7UU5mkUdFRbvAAO\nIFx93YSIVcmnVdsSxuplGW/rsk96uArXSNb0UnCOtEFrYDtjpRP8HO93ysNS7/xQ\n85hK+TNlwg/5bYtd0r8fl3WMDb7BHT05N0Sc3DiTKQKBgQDzMoHveG2IiUO42yzc\nTxysztjnMm96O99+YbCKsgFqFpHJ4xfP0NQ38KQ6JfQGGH05YDy+VHWEsVM1JPXS\nnv2XevUaRlUd//hNNMN9VFpKpj9a1lfUT9Pb91MVVSi+WnR9KPMEL4T7AhM3bIbr\nGndG+7fCgvLziQ2fjpv2yq6FnwKBgQC3skZyBqRi3idmI2RIg/f74UAX4HM60fbJ\nJEBIJPfeYQc01cvWciNiOpCfZSGkOcIY7feRt/WRSOQEktvW3oPBGdP2bEo5qYNv\n3Ig2O5cj8dIZG5E5AS35fbbp+D51Khc+hZmWlqSVy60+/TRu+BwN2mXjV3VkIizV\nPGbO5hLN3QKBgQDKHGKR4rKc8v6eJUA+A11gXDM0yNyOaC3P+V3flhnI0eLtNla2\nteV4a/v/+0S2wClpwooY31YfJcNx+jp1hP5Zoq0J3gOk//KaL0x73tt/CHTEiDfL\n0V/PgdbBdtl6gPAoiByWkOtiM5JG0GG8B22zR0SrWWqRbIgu3zTMwBqUHwKBgCC1\nIG/rGNf1wEQiZxe2T7BMghH+R+YgPnW/+6Yc1vmEgzj4HEw5lG1ICjonUp8gHZw8\nusj6XUIaHWdnEremdQUr6R7GV0z/DsUbGjG12Ipw4zzPOMNSn3H93VS5e7122h6q\nwRccCYAWfOlrQivEB5K74UpiZyeGIj9xesi6FH0NAoGBAKa8zb6A+N7gdZVANgSo\nJcEIsR4rH9zNwkGJKaeutDZ4VoRwATZ90UPy2WpVJEaO5KKU5IF5j7oiEhgF8ESM\nCxa8X6SMxDpnMGf9iGixGrORw6OhSbZ5bw4ON3/vDInkQ5nkM7UKR1QbtaidjPVV\nUIvQpasTh0OEbVQTxEqurby2\n-----END PRIVATE KEY-----\n",
+  "client_email": "langjournal-app@pc-api-9035190028223224571-297.iam.gserviceaccount.com",
+  "client_id": "115808969210341730422",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/langjournal-app%40pc-api-9035190028223224571-297.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
