@@ -5,8 +5,7 @@ import * as Linking from 'expo-linking';
 import { LinkText, Space, SubmitButton, WhiteButton } from '../atoms';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { fontSizeM, mainColor } from '@/styles/Common';
-import { proWritingAidUrl, saplingUrl } from '@/constants/url';
-import { AiName } from '@/utils/grammarCheck';
+import { AiName, getWhatUrl } from '@/utils/grammarCheck';
 import { SaplingLogo, ProWritingAidLogo } from '@/images';
 
 const styles = StyleSheet.create({
@@ -69,10 +68,9 @@ const NoAi: React.FC<Props> = ({
   );
 
   const onPressWhat = useCallback(() => {
-    if (aiName === 'Sapling') {
-      Linking.openURL(saplingUrl);
-    } else if (aiName === 'ProWritingAid') {
-      Linking.openURL(proWritingAidUrl);
+    const url = getWhatUrl(aiName);
+    if (url) {
+      Linking.openURL(url);
     }
   }, [aiName]);
 

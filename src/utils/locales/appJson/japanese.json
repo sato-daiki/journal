@@ -1,3 +1,4 @@
 {
-  "NSUserTrackingUsageDescription": "関連性の高い広告を表示するためにIDをトラッキングいたします。"
+  "NSUserTrackingUsageDescription": "関連性の高い広告を表示するためにIDをトラッキングいたします。",
+  "NSCameraUsageDescription": "クレジットカード決済時にカードをカメラから読み込む場合、必要になります。"
 }

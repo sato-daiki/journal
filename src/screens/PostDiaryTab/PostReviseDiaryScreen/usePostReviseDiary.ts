@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { Keyboard } from 'react-native';
 import { User, Diary, LongCode, LanguageTool } from '@/types';
-import { checkBeforePost } from '@/utils/diary';
+import { checkBeforePost, getTitleTextPrettier } from '@/utils/diary';
 import { useCommon } from '../PostDiaryScreen/useCommont';
 import firestore, {
   FirebaseFirestoreTypes,
@@ -57,20 +57,16 @@ export const usePostReviseDiary = ({
   }, []);
 
   const getDiary = useCallback(
-    (languageTool?: LanguageTool) => {
-      const languageToolInfo = languageTool
-        ? { reviseLanguageTool: languageTool }
-        : undefined;
-
+    (newTitle: string, newText: string, languageTool?: LanguageTool) => {
       return {
-        reviseTitle: title,
-        reviseText: text,
-        ...languageToolInfo,
+        reviseTitle: newTitle,
+        reviseText: newText,
+        ...(languageTool ? { reviseLanguageTool: languageTool } : {}),
         reviseSapling: null,
         updatedAt: firestore.FieldValue.serverTimestamp(),
       };
     },
-    [title, text],
+    [],
   );
 
   const onPressCheck = useCallback(async (): Promise<void> => {
@@ -90,15 +86,20 @@ export const usePostReviseDiary = ({
     if (!item || !item.objectID) return;
 
     setIsLoadingPublish(true);
-
-    const languageTool = await getLanguageTool(
-      selectedItem.value as LongCode,
+    const { newTitle, newText } = getTitleTextPrettier(
       isTitleSkip,
       title,
       text,
     );
 
-    const diary = getDiary(languageTool);
+    const languageTool = await getLanguageTool(
+      selectedItem.value as LongCode,
+      isTitleSkip,
+      newTitle,
+      newText,
+    );
+
+    const diary = getDiary(newTitle, newText, languageTool);
     await firestore().doc(`diaries/${item.objectID}`).update(diary);
 
     // reduxを更新

@@ -171,6 +171,7 @@ const myDiary = {
 
   describeAi1: 'This correction was made by ',
   describeAi2: '',
+  perfect: 'There was no correction.',
 };
 
 const noAi = {

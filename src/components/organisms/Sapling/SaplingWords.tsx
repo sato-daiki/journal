@@ -71,14 +71,10 @@ const SaplingWords: React.FC<Props> = ({
           ? edits[index].sentence_start + edits[index].start - 1
           : text.length,
       );
-      const splitTexts = notEditText.split(' ');
-      for (let j = 0; j < splitTexts.length; j++) {
-        temmWords.push({
-          text: splitTexts[j],
-          checked: false,
-        });
-      }
-
+      temmWords.push({
+        text: notEditText,
+        checked: false,
+      });
       if (index < edits.length) {
         currentOffset = edits[index].sentence_start + edits[index].start;
       } else {

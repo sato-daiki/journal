@@ -173,7 +173,7 @@ const NoHuman: React.FC<Props> = ({
         .app()
         .functions('asia-northeast1')
         .httpsCallable('onPaymentSheet')({
-        // 50円以下だとエラーになる
+        isDebug: __DEV__,
         amount,
         currency: 'jpy',
         stripeCustomerId: user.stripeCustomerId || null,

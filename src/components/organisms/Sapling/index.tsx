@@ -7,6 +7,7 @@ import CommonMain from '../LanguageTool/CommonMain';
 
 export interface Props {
   isOriginal: boolean;
+  isPerfect: boolean;
   hideFooterButton: boolean;
   diary: Diary;
   title: string;
@@ -21,6 +22,7 @@ export interface Props {
 
 const Sapling: React.FC<Props> = ({
   isOriginal,
+  isPerfect,
   hideFooterButton,
   diary,
   title,
@@ -116,6 +118,7 @@ const Sapling: React.FC<Props> = ({
       onPressRevise={onPressRevise}
       titleAndText={
         <SaplingDiaryTitleAndText
+          isPerfect={isPerfect}
           title={title}
           text={text}
           longCode={diary.longCode}

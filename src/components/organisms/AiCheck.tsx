@@ -109,20 +109,20 @@ const AiCheck: React.FC<Props> = ({
   const hasSapling = useMemo(
     () =>
       !!sapling &&
-      (sapling.titleResult === 'corrected' ||
-        sapling.titleResult === 'perfect' ||
-        sapling.textError === 'corrected' ||
-        sapling.textError === 'perfect'),
+      (sapling.titleResult === 'perfect' ||
+        sapling.titleResult === 'corrected' ||
+        sapling.textResult === 'perfect' ||
+        sapling.textResult === 'corrected'),
     [sapling],
   );
 
   const hasProWritingAid = useMemo(
     () =>
       !!proWritingAid &&
-      (proWritingAid.titleResult === 'corrected' ||
-        proWritingAid.titleResult === 'perfect' ||
-        proWritingAid.textError === 'corrected' ||
-        proWritingAid.textError === 'perfect'),
+      (proWritingAid.titleResult === 'perfect' ||
+        proWritingAid.titleResult === 'corrected' ||
+        proWritingAid.textResult === 'perfect' ||
+        proWritingAid.textResult === 'corrected'),
     [proWritingAid],
   );
 
@@ -132,6 +132,10 @@ const AiCheck: React.FC<Props> = ({
         case 'ai1':
           return (
             <LanguageTool
+              isPerfect={
+                languageTool?.titleResult === 'perfect' &&
+                languageTool?.textResult === 'perfect'
+              }
               isOriginal={isOriginal}
               isPremium={isPremium}
               showSaplingCheck={
@@ -157,6 +161,10 @@ const AiCheck: React.FC<Props> = ({
         case 'ai2':
           return hasSapling ? (
             <Sapling
+              isPerfect={
+                sapling?.titleResult === 'perfect' &&
+                sapling?.textResult === 'perfect'
+              }
               isOriginal={isOriginal}
               hideFooterButton={hideFooterButton}
               diary={diary}
@@ -182,6 +190,10 @@ const AiCheck: React.FC<Props> = ({
         case 'ai3':
           return hasProWritingAid ? (
             <ProWritingAid
+              isPerfect={
+                proWritingAid?.titleResult === 'perfect' &&
+                proWritingAid?.textResult === 'perfect'
+              }
               isOriginal={isOriginal}
               hideFooterButton={hideFooterButton}
               diary={diary}
@@ -243,15 +255,21 @@ const AiCheck: React.FC<Props> = ({
       isOriginal,
       isPremium,
       languageTool?.textMatches,
+      languageTool?.textResult,
       languageTool?.titleMatches,
+      languageTool?.titleResult,
       onPressAdReward,
       onPressBecome,
       onPressCheck,
       onPressRevise,
+      proWritingAid?.textResult,
       proWritingAid?.textTags,
+      proWritingAid?.titleResult,
       proWritingAid?.titleTags,
       sapling?.textEdits,
+      sapling?.textResult,
       sapling?.titleEdits,
+      sapling?.titleResult,
       setUser,
       text,
       title,

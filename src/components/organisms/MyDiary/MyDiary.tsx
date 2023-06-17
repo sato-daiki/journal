@@ -92,6 +92,7 @@ const MyDiary: React.FC<Props> = ({
   });
   const [successSapling, setSuccessSapling] = useState(false);
   const [successProWritingAid, setSuccessProWritingAid] = useState(false);
+  const [earned, setEarned] = useState(false);
 
   const hasRevised = useMemo(
     () => !!diary.reviseTitle || !!diary.reviseText,
@@ -123,11 +124,12 @@ const MyDiary: React.FC<Props> = ({
         showSaplingCheck();
       },
     );
+
     const unsubscribeEarned = rewarded.addAdEventListener(
       RewardedAdEventType.EARNED_REWARD,
       (_reward) => {
-        // 獲得後
-        aiCheck();
+        // 広告見た後
+        setEarned(true);
       },
     );
 
@@ -184,7 +186,7 @@ const MyDiary: React.FC<Props> = ({
         logAnalytics('on_press_ad_reward_error');
         Toast.show(I18n.t('myDiary.adRewardError'), {
           duration: Toast.durations.SHORT,
-          position: Toast.positions.TOP,
+          position: Toast.positions.CENTER,
         });
       }
     }, 6000);
@@ -205,7 +207,7 @@ const MyDiary: React.FC<Props> = ({
       StatusBar.setStatusBarHidden(false, 'none');
       Toast.show(I18n.t('myDiary.adRewardError'), {
         duration: Toast.durations.SHORT,
-        position: Toast.positions.TOP,
+        position: Toast.positions.CENTER,
       });
     }
   }, []);
@@ -318,6 +320,14 @@ const MyDiary: React.FC<Props> = ({
       setSuccessProWritingAid(true);
     }
   }, [diary, editDiary, showError]);
+
+  useEffect(() => {
+    if (earned) {
+      // 直接呼ぶとdiaryが古くうまくいかないため
+      setEarned(false);
+      aiCheck();
+    }
+  }, [aiCheck, earned]);
 
   const onPressCheck = useCallback(
     (key: WhichDiaryKey, aiName: AiName) => {

@@ -1,3 +1,4 @@
 {
-  "NSUserTrackingUsageDescription": "This identifier will be used to deliver personalized ads to you."
+  "NSUserTrackingUsageDescription": "This identifier will be used to deliver personalized ads to you.",
+  "NSCameraUsageDescription": "It is necessary when reading the card from the camera at the time of credit card payment."
 }

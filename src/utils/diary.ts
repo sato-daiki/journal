@@ -5,13 +5,7 @@ import {
   ThemeSubcategory,
   User,
 } from '@/types';
-import {
-  subTextColor,
-  mainColor,
-  green,
-  softRed,
-  primaryColor,
-} from '@/styles/Common';
+import { subTextColor, green, softRed, primaryColor } from '@/styles/Common';
 import firestore, {
   FirebaseFirestoreTypes,
 } from '@react-native-firebase/firestore';
@@ -311,4 +305,19 @@ export const getLoadNextPage = async (
       alert({ err });
     }
   }
+};
+
+const getPrettier = (text: string): string => {
+  // eslint-disable-next-line no-irregular-whitespace
+  return text.replace(/[ 　]+/g, ' ');
+};
+
+export const getTitleTextPrettier = (
+  isTitleSkip: boolean,
+  title: string,
+  text: string,
+) => {
+  const newTitle = isTitleSkip ? title : getPrettier(title);
+  const newText = getPrettier(text);
+  return { newTitle, newText };
 };

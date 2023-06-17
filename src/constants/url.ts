@@ -13,6 +13,7 @@ export const PRIVACY_POLICY = {
   title: 'プライバシーポリシー',
 };
 
+export const languageToolUrl = 'https://languagetool.org/';
 export const saplingUrl = 'https://sapling.ai/';
 export const proWritingAidUrl = 'https://prowritingaid.com/';
 

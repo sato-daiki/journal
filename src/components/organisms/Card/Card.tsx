@@ -129,7 +129,7 @@ export const Card: React.FC<Props> = ({
     await Clipboard.setStringAsync(text);
     Toast.show(I18n.t('myDiary.copied'), {
       duration: Toast.durations.SHORT,
-      position: Toast.positions.TOP,
+      position: Toast.positions.CENTER,
     });
   }, []);
 

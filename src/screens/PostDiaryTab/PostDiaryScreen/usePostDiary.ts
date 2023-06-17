@@ -11,7 +11,12 @@ import {
   ThemeCategory,
   ThemeSubcategory,
 } from '@/types';
-import { checkBeforePost, getRunning, getThemeDiaries } from '@/utils/diary';
+import {
+  checkBeforePost,
+  getRunning,
+  getThemeDiaries,
+  getTitleTextPrettier,
+} from '@/utils/diary';
 import { logAnalytics, events } from '@/utils/Analytics';
 import { alert } from '@/utils/ErrorAlert';
 import { PostDiaryNavigationProp } from './interfaces';
@@ -69,26 +74,27 @@ export const usePostDiary = ({
   const getDiary = useCallback(
     (
       uid: string,
+      newTitle: string,
+      newText: string,
       diaryStatus: DiaryStatus,
       languageTool?: LanguageTool,
     ): Diary => {
-      const languageToolInfo = languageTool ? { languageTool } : undefined;
       return {
         uid: uid,
-        title,
-        text,
+        title: newTitle,
+        text: newText,
         themeCategory: themeCategory || null,
         themeSubcategory: themeSubcategory || null,
         diaryStatus,
         longCode: selectedItem.value as LongCode,
-        ...languageToolInfo,
+        ...(languageTool ? { languageTool } : {}),
         createdAt:
           firestore.FieldValue.serverTimestamp() as FirebaseFirestoreTypes.Timestamp,
         updatedAt:
           firestore.FieldValue.serverTimestamp() as FirebaseFirestoreTypes.Timestamp,
       };
     },
-    [title, text, themeCategory, themeSubcategory, selectedItem.value],
+    [themeCategory, themeSubcategory, selectedItem.value],
   );
 
   const onPressDraft = useCallback(async (): Promise<void> => {
@@ -98,7 +104,13 @@ export const usePostDiary = ({
 
     try {
       setIsLoadingDraft(true);
-      const diary = getDiary(user.uid, 'draft');
+      const isTitleSkip = !!themeCategory && !!themeSubcategory;
+      const { newTitle, newText } = getTitleTextPrettier(
+        isTitleSkip,
+        title,
+        text,
+      );
+      const diary = getDiary(user.uid, newTitle, newText, 'draft');
       const diaryRef = await firestore().collection('diaries').add(diary);
       // reduxに追加
       addDiary({
@@ -123,6 +135,10 @@ export const usePostDiary = ({
     isLoadingPublish,
     navigation,
     setIsLoadingDraft,
+    text,
+    themeCategory,
+    themeSubcategory,
+    title,
     user.uid,
   ]);
 
@@ -140,14 +156,26 @@ export const usePostDiary = ({
     }
 
     setIsLoadingPublish(true);
-    const languageTool = await getLanguageTool(
-      selectedItem.value as LongCode,
+    const { newTitle, newText } = getTitleTextPrettier(
       isTitleSkip,
       title,
       text,
     );
 
-    const diary = getDiary(user.uid, 'checked', languageTool);
+    const languageTool = await getLanguageTool(
+      selectedItem.value as LongCode,
+      isTitleSkip,
+      newTitle,
+      newText,
+    );
+
+    const diary = getDiary(
+      user.uid,
+      newTitle,
+      newText,
+      'checked',
+      languageTool,
+    );
     const { runningDays, runningWeeks } = getRunning(user);
 
     let diaryId = '';

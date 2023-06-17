@@ -38,7 +38,6 @@ const LanguageToolWords: React.FC<Props> = ({
     let currentOffset = 0;
     let index = 0;
     let finish = false;
-
     let temmWords: Word[] = [];
 
     while (!finish) {
@@ -65,14 +64,10 @@ const LanguageToolWords: React.FC<Props> = ({
         currentOffset,
         index < matches.length ? matches[index].offset - 1 : text.length,
       );
-      const splitTexts = notMatchText.split(' ');
-      for (let j = 0; j < splitTexts.length; j++) {
-        temmWords.push({
-          text: splitTexts[j],
-          checked: false,
-        });
-      }
-
+      temmWords.push({
+        text: notMatchText,
+        checked: false,
+      });
       if (index < matches.length) {
         currentOffset = matches[index].offset;
       } else {

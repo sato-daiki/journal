@@ -60,13 +60,10 @@ const ProWritingAidWords: React.FC<Props> = ({
         currentOffset,
         index < tags.length ? tags[index].startPos - 1 : text.length,
       );
-      const splitTexts = notTagText.split(' ');
-      for (let j = 0; j < splitTexts.length; j++) {
-        temmWords.push({
-          text: splitTexts[j],
-          checked: false,
-        });
-      }
+      temmWords.push({
+        text: notTagText,
+        checked: false,
+      });
       if (index < tags.length) {
         currentOffset = tags[index].startPos;
       } else {
