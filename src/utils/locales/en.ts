@@ -239,7 +239,7 @@ const myPage = {
   status: 'Membership status',
   premium: 'Premium member',
   becomeTitle: 'Become a premium member',
-  props1: 'Correct without watching video ads',
+  props1: 'Correct without watching video ads(* Up to 10 times a day)',
   props2: 'Hides ads',
   becomeLonger: 'Check longer texts',
   becomeButton: 'For more detail',
@@ -249,7 +249,7 @@ const myPage = {
 const becomePremium = {
   headerTitle: 'About Premium members',
   description: 'Premium members can use the following functions',
-  props1: 'Correct without watching video ads',
+  props1: 'Correct without watching video ads（* Up to 10 times a day)',
   props2: 'Hides ads',
   MONTHLY: 'Premium Monthly Subscription',
   ANNUAL: 'Premium Yearly Subscription',

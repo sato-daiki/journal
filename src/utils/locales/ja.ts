@@ -238,7 +238,7 @@ const myPage = {
   status: '会員ステータス',
   premium: 'プレミアム会員',
   becomeTitle: 'プレミアム会員になる',
-  props1: '動画広告の視聴なしで添削ができます',
+  props1: '動画広告の視聴なしで添削ができます（※1日最大10回まで）',
   props2: '広告が非表示になります',
   becomeButton: '詳しくみる',
   aboutCancel: 'キャンセルについて',
@@ -247,7 +247,7 @@ const myPage = {
 const becomePremium = {
   headerTitle: 'Premium会員について',
   description: 'Premium会員は下記機能がご利用いただけます',
-  props1: '動画広告の視聴なしで添削ができます',
+  props1: '動画広告の視聴なしで添削ができます（※1日最大10回まで）',
   props2: '広告が非表示になります',
   MONTHLY: 'プレミアム会員(月払い)',
   ANNUAL: 'プレミアム会員(年払い)',
