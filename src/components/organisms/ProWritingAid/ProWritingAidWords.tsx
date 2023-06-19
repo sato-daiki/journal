@@ -44,7 +44,7 @@ const ProWritingAidWords: React.FC<Props> = ({
     let currentOffset = 0;
     let index = 0;
     let finish = false;
-
+    let lastCharacter = '';
     let temmWords: Word[] = [];
 
     while (!finish) {
@@ -57,8 +57,10 @@ const ProWritingAidWords: React.FC<Props> = ({
           checkIndex: index,
           color,
           backgroundColor,
+          lastCharacter,
           ignore: false,
         });
+        lastCharacter = tagWard.slice(-1);
         currentOffset = tags[index].endPos + 2;
         index++;
       }
@@ -70,6 +72,7 @@ const ProWritingAidWords: React.FC<Props> = ({
         text: notTagText,
         checked: false,
       });
+      lastCharacter = notTagText.slice(-1);
       if (index < tags.length) {
         currentOffset = tags[index].startPos;
       } else {
