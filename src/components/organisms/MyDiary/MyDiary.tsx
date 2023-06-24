@@ -160,7 +160,7 @@ const MyDiary: React.FC<Props> = ({
   }, []);
 
   const _handleAppStateChange = (nextAppState: AppStateStatus) => {
-    console.log('[handleAppStateChange]', nextAppState);
+    // console.log('[handleAppStateChange]', nextAppState);
     if (
       appState.current.match(/inactive|background/) &&
       nextAppState === 'active'

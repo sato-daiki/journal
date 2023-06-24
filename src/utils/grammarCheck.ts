@@ -414,7 +414,6 @@ export const proWritingAidCheck = async (
         },
       },
     );
-    console.log(response);
     if (response.status === 200 && response.data?.Result?.Tags) {
       logAnalytics('pro_writing_aid_check_success');
       return {

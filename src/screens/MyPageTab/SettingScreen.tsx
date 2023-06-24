@@ -1,7 +1,9 @@
-import React, { useCallback, useMemo, useState } from 'react';
-import { StyleSheet, ScrollView, Text } from 'react-native';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { StyleSheet, ScrollView, Text, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
+import * as SecureStore from 'expo-secure-store';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   subTextColor,
   fontSizeS,
@@ -21,17 +23,22 @@ import {
   MyPageTabNavigationProp,
 } from '../../navigations/MyPageTabNavigator';
 
-import { User } from '../../types';
+import { LocalStatus, User } from '../../types';
 import auth from '@react-native-firebase/auth';
 import ModalConfirm from '@/components/organisms/ModalConfirm';
 import { HOME_PAGE, PRIVACY_POLICY, TERMS } from '@/constants/url';
+import OptionSwitch from '@/components/molecules/OptionSwitch';
+import { SecureStorageKey, StorageKey } from '@/constants/asyncStorage';
+import Toast from 'react-native-root-toast';
 
 export interface Props {
   user: User;
+  localStatus: LocalStatus;
 }
 
 interface DispatchProps {
   signOut: () => void;
+  setHasPasscode: (hasPasscode: boolean) => void;
 }
 
 type SettingNavigationProp = CompositeNavigationProp<
@@ -80,7 +87,13 @@ const styles = StyleSheet.create({
 /**
  * 設定画面ページ
  */
-const SettingScreen: React.FC<ScreenType> = ({ navigation, user, signOut }) => {
+const SettingScreen: React.FC<ScreenType> = ({
+  navigation,
+  user,
+  localStatus,
+  setHasPasscode,
+  signOut,
+}) => {
   const { currentUser } = auth();
   const [isModalError, setIsModalError] = useState(false);
 
@@ -103,6 +116,31 @@ const SettingScreen: React.FC<ScreenType> = ({ navigation, user, signOut }) => {
     }
   }, [currentUser, signOut]);
 
+  const onChangePasscodeLock = useCallback(
+    async (value: boolean) => {
+      if (value) {
+        navigation.navigate('PasscodeLockSetting');
+      } else {
+        // 解除する場合
+        try {
+          await SecureStore.deleteItemAsync(SecureStorageKey.passcode);
+          // SettingScreenの描写にはReduxのhasPasscodeを使う
+          // RootNatigatorの制御ではAsyncStorageのhasPasscodeを使う
+          // なので両方必要
+          await AsyncStorage.removeItem(StorageKey.hasPasscode);
+          await AsyncStorage.removeItem(StorageKey.isLocalAuthentication);
+          setHasPasscode(false);
+        } catch (e) {
+          Toast.show(I18n.t('passcodeLock.errorRemove'), {
+            duration: Toast.durations.SHORT,
+            position: Toast.positions.CENTER,
+          });
+        }
+      }
+    },
+    [navigation, setHasPasscode],
+  );
+
   const onPressReminder = useCallback(() => {
     if (user.reminder) {
       navigation.navigate('ReminderSelectTimeSetting');
@@ -124,6 +162,11 @@ const SettingScreen: React.FC<ScreenType> = ({ navigation, user, signOut }) => {
         onPressMain={(): void => setIsModalError(false)}
       />
       <Text style={styles.title}>{I18n.t('setting.title')}</Text>
+      <OptionSwitch
+        title={I18n.t('setting.passcodeLock')}
+        value={localStatus.hasPasscode}
+        onValueChange={onChangePasscodeLock}
+      />
       <OptionItem
         title={I18n.t('setting.reminder')}
         onPress={onPressReminder}

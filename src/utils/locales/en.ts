@@ -260,6 +260,19 @@ const becomePremium = {
     'To become a premium member, you need to register an email address and password. Please register from "My Page" and "Settings".',
 };
 
+const passcodeLock = {
+  headerTitle: 'Set Passcode Lock',
+  input: 'Enter Passcode',
+  reInput: 'Re-enter Passcode',
+  messageRePasscode: 'Your passcode dose not match.\nPlease try again.',
+  errorForceLock:
+    'The app was forced locked because you entered the wrong passcode consecutively. Please try again after {{hours}} hours.',
+  errorMultiple:
+    'If you make {{num}} more mistakes, the app will be forcibly locked.',
+  errorSet: 'Failed to register passcode lock. Please try again later.',
+  errorRemove: 'Failed to release the passcode lock. Please try again later.',
+};
+
 const onboarding = {
   reminderInitial: 'Set study time',
   reminderSelectTime: 'Set study time',
@@ -336,8 +349,9 @@ const selectLanguage = {
 const setting = {
   headerTitle: 'Settings',
   title: 'Basic',
-  reminder: 'Reminder',
+  passcodeLock: 'Passcode',
   notice: 'Notifications',
+  reminder: 'Reminder',
   editEmail: 'Edit Email Address',
   editPassword: 'Edit Password',
   registerEmailPassword: 'Register Email and Password',
@@ -697,6 +711,7 @@ const en = {
   viewMyDiary,
   themeCategory,
   myPage,
+  passcodeLock,
   onboarding,
   reminderInitial,
   reminderSelectTime,

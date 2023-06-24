@@ -80,7 +80,8 @@ const styles = StyleSheet.create({
     marginTop: 16,
     backgroundColor: mainColor,
     borderRadius: 8,
-    paddingHorizontal: 16,
+    paddingLeft: 16,
+    paddingRight: 24,
     paddingVertical: 16,
   },
   becomeTitle: {

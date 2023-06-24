@@ -96,7 +96,6 @@ const PushSettingScreen: React.FC<ScreenType> = ({
     setIsLoading(true);
     if (localStatus.uid) {
       const expoPushToken = await setPushotifications(localStatus.uid);
-      console.log('expoPushToken', expoPushToken);
       if (expoPushToken) {
         setUser({
           ...user,

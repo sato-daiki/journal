@@ -62,7 +62,7 @@ const App = () => {
   }, []);
 
   const _handleAppStateChange = (nextAppState: AppStateStatus) => {
-    console.log('[handleAppStateChange]', nextAppState);
+    // console.log('[handleAppStateChange]', nextAppState);
     if (
       appState.current.match(/inactive|background/) &&
       nextAppState === 'active'
@@ -73,13 +73,14 @@ const App = () => {
     appState.current = nextAppState;
   };
 
-  if (maintenance.status)
+  if (maintenance.status) {
     return (
       <MaintenanceScreen
         messageEn={maintenance.messageEn}
         messageJa={maintenance.messageJa}
       />
     );
+  }
 
   return (
     <Provider store={store}>

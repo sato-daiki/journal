@@ -258,6 +258,21 @@ const becomePremium = {
     'プレミアム会員になるには、メールアドレスとパスワードの登録が必要です。「マイページ」「設定」から登録してください。',
 };
 
+const passcodeLock = {
+  headerTitle: 'パスコード設定',
+  input: 'パスコードを入力',
+  reInput: 'パスコードを再入力',
+  messageRePasscode:
+    '入力されたパスコードは一致しません\nもう一度お試しください',
+  errorForceLock:
+    '連続でパスコードを間違えたため、強制ロックがかかりました。{{hours}}時間後、再度試してください。',
+  errorMultiple: 'あと{{num}}回間違えると強制ロックがかかります。',
+  errorSet:
+    'パスコードロックの登録に失敗しました。時間を置いて再度試してください。',
+  errorRemove:
+    'パスコードロックの解除に失敗しました。時間を置いて再度試してください。',
+};
+
 const onboarding = {
   reminderInitial: '勉強時間を設定',
   reminderSelectTime: '勉強する時間を設定',
@@ -335,6 +350,7 @@ const selectLanguage = {
 const setting = {
   headerTitle: '設定',
   title: '基本設定',
+  passcodeLock: 'パスワードロック',
   notice: '通知',
   reminder: 'リマインダー',
   editEmail: 'メールアドレスの変更',
@@ -689,6 +705,7 @@ const ja = {
   viewMyDiary,
   themeCategory,
   myPage,
+  passcodeLock,
   onboarding,
   reminderInitial,
   reminderSelectTime,

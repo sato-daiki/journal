@@ -152,6 +152,7 @@ const SignUpScreen: React.FC<ScreenType> = ({
         onboarding: false,
         expoPushToken: null,
         themeDiaries: null,
+        passcodeLock: false,
         runningDays: 0,
         runningWeeks: 0,
         lastDiaryPostedAt: null,
@@ -267,7 +268,7 @@ const SignUpScreen: React.FC<ScreenType> = ({
         <Text style={styles.label}>{I18n.t('signUp.password')}</Text>
         <CheckTextInput
           value={password}
-          onChangeText={(text: string): void => setPassword(text)}
+          onChangeText={setPassword}
           onBlur={onBlurPassword}
           maxLength={20}
           placeholder='Password'
