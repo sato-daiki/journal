@@ -1,13 +1,13 @@
 import React, { useCallback, useState } from 'react';
 
-import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack';
+import { StackNavigationProp } from '@react-navigation/stack';
 import {
   MyPageTabNavigationProp,
   MyPageTabStackParamList,
 } from '../../navigations/MyPageTabNavigator';
 import I18n from '../../utils/I18n';
-import PasscodeLock from '@/components/organisms/PasscodeLock';
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
+import PasscodeLock from '@/components/organisms/PasscodeLock';
 
 type PasscodeLockSettingNavigationProp = CompositeNavigationProp<
   StackNavigationProp<MyPageTabStackParamList, 'PasscodeLockSetting'>,
