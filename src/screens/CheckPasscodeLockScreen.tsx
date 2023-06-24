@@ -10,6 +10,7 @@ import PasscodeLock from '@/components/organisms/PasscodeLock';
 import { User } from '@/types';
 import firestore from '@react-native-firebase/firestore';
 import { checWithinkHourDiff } from '@/utils/time';
+
 export interface Props {
   user: User;
 }
