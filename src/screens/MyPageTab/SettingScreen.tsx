@@ -1,9 +1,11 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { StyleSheet, ScrollView, Text, View } from 'react-native';
+import React, { useCallback, useMemo, useState } from 'react';
+import { StyleSheet, ScrollView, Text } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
 import * as SecureStore from 'expo-secure-store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-root-toast';
+
 import {
   subTextColor,
   fontSizeS,
@@ -29,7 +31,6 @@ import ModalConfirm from '@/components/organisms/ModalConfirm';
 import { HOME_PAGE, PRIVACY_POLICY, TERMS } from '@/constants/url';
 import OptionSwitch from '@/components/molecules/OptionSwitch';
 import { SecureStorageKey, StorageKey } from '@/constants/asyncStorage';
-import Toast from 'react-native-root-toast';
 
 export interface Props {
   user: User;
