@@ -12,8 +12,8 @@ import MainNavigator from './MainNavigator';
 import OnboardingNavigator from './OnboardingNavigator';
 import LoadingScreen from '@/screens/LoadingScreen';
 import { checkPremium } from '@/utils/purchase';
-import CheckPasscodeLockScreenContainer from '@/containers/CheckPasscodeLockScreenContainer';
 import { StorageKey } from '@/constants/asyncStorage';
+import CheckPasscodeLockScreenContainer from '@/containers/CheckPassCodeLockScreenContainer';
 
 export type RootStackParamList = {
   Onboarding: undefined;
