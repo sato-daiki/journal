@@ -25,8 +25,8 @@ import {
   HomeBottomNavigationProp,
 } from './HomeBottomTabNavigator';
 import { WebViewNavParams, WebViewScreen } from '@/screens/WebViewScreen';
-import PasscodeLockSettingScreen from '@/screens/MyPageTab/PassCodeLockSetting';
-import RePasscodeLockSettingScreenContainer from '@/containers/RePassCodeLockSettingScreenContainer';
+import PasscodeLockSettingScreen from '@/screens/MyPageTab/PasscodeLockSetting';
+import RePasscodeLockSettingScreenContainer from '@/containers/RePasscodeLockSettingScreenContainer';
 
 export type MyPageTabNavigationProp = CompositeNavigationProp<
   StackNavigationProp<HomeBottomParamList, 'MyPageTab'>,

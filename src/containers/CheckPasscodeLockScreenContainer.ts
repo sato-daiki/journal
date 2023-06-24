@@ -5,7 +5,7 @@ import { setUser } from '@/stores/actions/user';
 import { State } from '@/types/state';
 import CheckPasscodeLockScreen, {
   Props,
-} from '@/screens/CheckPassCodeLockScreen';
+} from '@/screens/CheckPasscodeLockScreen';
 
 const mapStateToProps = (state: State): Props => ({
   user: state.rootReducer.user,
