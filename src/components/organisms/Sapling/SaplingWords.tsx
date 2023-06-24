@@ -39,7 +39,7 @@ const SaplingWords: React.FC<Props> = ({
     let currentOffset = 0;
     let index = 0;
     let finish = false;
-
+    let lastCharacter = '';
     let temmWords: Word[] = [];
 
     while (!finish) {
@@ -60,8 +60,10 @@ const SaplingWords: React.FC<Props> = ({
           checkIndex: index,
           color,
           backgroundColor,
+          lastCharacter,
           ignore: false,
         });
+        lastCharacter = editWard.slice(-1);
         currentOffset =
           currentOffset + edits[index].end - edits[index].start + 1;
         index++;
@@ -76,6 +78,7 @@ const SaplingWords: React.FC<Props> = ({
         text: notEditText,
         checked: false,
       });
+      lastCharacter = notEditText.slice(-1);
       if (index < edits.length) {
         currentOffset = edits[index].sentence_start + edits[index].start;
       } else {

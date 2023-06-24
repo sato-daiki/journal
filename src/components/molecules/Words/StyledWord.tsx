@@ -29,24 +29,27 @@ const StyledWord: React.FC<Props> = ({ word, isActive, onPressChecked }) => {
   return (
     <Text>
       {word.checked && !word.ignore ? (
-        <Text
-          style={[
-            styles.common,
-            styles.checked,
-            {
-              color: word.color,
-            },
-            isActive && {
-              backgroundColor: word.backgroundColor,
-            },
-          ]}
-          onPress={onPressTextChecked}
-        >
-          {word.text}
+        // 1文字の時など押しやすくするためにスペースの前後にonPressTextCheckedを置く
+        <Text onPress={onPressTextChecked}>
+          {word.lastCharacter === ' ' || word.lastCharacter === '\n' ? '' : ' '}
+          <Text
+            style={[
+              styles.common,
+              styles.checked,
+              {
+                color: word.color,
+              },
+              isActive && {
+                backgroundColor: word.backgroundColor,
+              },
+            ]}
+          >
+            {word.text}
+          </Text>{' '}
         </Text>
       ) : (
         <Text style={styles.common}>{word.text}</Text>
-      )}{' '}
+      )}
     </Text>
   );
 };

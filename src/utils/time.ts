@@ -1,6 +1,7 @@
 import moment, { DurationInputArg1, DurationInputArg2 } from 'moment';
 import 'moment/locale/ja';
 import I18n from '@/utils/I18n';
+import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
 
 export const getDay = (timestamp: Date, format = 'Y-M-D'): string => {
   if (!timestamp) {
@@ -86,15 +87,15 @@ export const addDay = (
   return moment(day).add(num, unit).toDate();
 };
 
-export const checkHourDiff = (date: any | null, hour: number): boolean => {
+export const checWithinkHourDiff = (
+  date: FirebaseFirestoreTypes.Timestamp | null,
+  hour: number,
+): boolean => {
   if (!date) return true;
   const dateTo = moment(new Date());
   const dateFrom = moment(date.toDate());
-  if (date) {
-    const diffTime = dateTo.diff(dateFrom, 'hours');
-    if (diffTime > hour) {
-      return true;
-    }
+  const diffTime = dateTo.diff(dateFrom, 'hours');
+  if (diffTime > hour) {
     return false;
   }
   return true;

@@ -44,22 +44,27 @@ const HumanWords: React.FC<Props> = ({
 
   const words: Word[] = useMemo(() => {
     let index = -1;
+    let lastCharacter = '';
     return humanCorrects.map((item) => {
+      let tempWord;
       if (item.correction) {
         index += 1;
-        return {
+        tempWord = {
           text: item.original,
           checked: true,
           checkIndex: index,
-          color: color,
-          backgroundColor: backgroundColor,
+          color,
+          backgroundColor,
+          lastCharacter,
         };
       } else {
-        return {
+        tempWord = {
           text: item.original,
           checked: false,
         };
       }
+      lastCharacter = item.original.slice(-1);
+      return tempWord;
     });
   }, [backgroundColor, color, humanCorrects]);
 

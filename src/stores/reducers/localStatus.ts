@@ -4,6 +4,9 @@ import { LocalStatus } from '../../types';
 
 const initialState: LocalStatus = {
   isLoading: true,
+  hasPasscode: false,
+  showCheckPasscode: false,
+  isLoadingPasscode: false,
   isPremium: false,
   onboarding: null,
   firstLogin: false,
@@ -17,6 +20,21 @@ const localStatus = (state = initialState, action: Actions): LocalStatus => {
       return {
         ...state,
         myDiaryListView: action.myDiaryListView,
+      };
+    case Types.SET_HAS_PASS_CODE:
+      return {
+        ...state,
+        hasPasscode: action.hasPasscode,
+      };
+    case Types.SET_SHOW_CHECK_PASS_CODE:
+      return {
+        ...state,
+        showCheckPasscode: action.showCheckPasscode,
+      };
+    case Types.SET_IS_LOADING_HAS_CODE:
+      return {
+        ...state,
+        isLoadingPasscode: action.isLoadingPasscode,
       };
     case Types.SET_IS_PREMIUM:
       return {

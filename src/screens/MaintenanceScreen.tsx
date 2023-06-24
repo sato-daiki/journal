@@ -12,7 +12,7 @@ type Props = {
   messageJa: string | null;
 };
 
-const Maintenance: React.FC<Props> = ({ messageEn, messageJa }) => {
+const MaintenanceScreen: React.FC<Props> = ({ messageEn, messageJa }) => {
   const message = useMemo(() => {
     if (!messageEn && !messageJa) {
       return I18n.t('maintenance.defaultMessage');
@@ -57,4 +57,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Maintenance;
+export default MaintenanceScreen;

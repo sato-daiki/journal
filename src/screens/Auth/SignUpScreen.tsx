@@ -152,6 +152,7 @@ const SignUpScreen: React.FC<ScreenType> = ({
         onboarding: false,
         expoPushToken: null,
         themeDiaries: null,
+        passcodeLock: false,
         runningDays: 0,
         runningWeeks: 0,
         lastDiaryPostedAt: null,
@@ -243,12 +244,10 @@ const SignUpScreen: React.FC<ScreenType> = ({
     <KeyboardAwareScrollView style={styles.container}>
       <View style={styles.main}>
         <LoadingModal visible={isLoading} />
-
         <Text style={styles.title}>{I18n.t('signUp.title')}</Text>
         <Text style={styles.subText}>{I18n.t('signUp.subText')}</Text>
         <Text style={styles.label}>{I18n.t('signUp.email')}</Text>
         <CheckTextInput
-          autoFocus
           value={email}
           onChangeText={(text: string): void => setEmail(text)}
           onBlur={onBlurEmail}
@@ -267,7 +266,7 @@ const SignUpScreen: React.FC<ScreenType> = ({
         <Text style={styles.label}>{I18n.t('signUp.password')}</Text>
         <CheckTextInput
           value={password}
-          onChangeText={(text: string): void => setPassword(text)}
+          onChangeText={setPassword}
           onBlur={onBlurPassword}
           maxLength={20}
           placeholder='Password'

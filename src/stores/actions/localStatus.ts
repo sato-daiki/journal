@@ -2,16 +2,6 @@ import { Action } from 'redux';
 import { MyDiaryListView } from '../../types/localStatus';
 import { Types } from '../types';
 
-export interface SetLocalStatusAction extends Action {
-  type: Types.SET_IS_PREMIUM;
-  isPremium: boolean;
-}
-
-export const setIsPremium = (isPremium: boolean): SetLocalStatusAction => ({
-  type: Types.SET_IS_PREMIUM,
-  isPremium,
-});
-
 export interface SetMyDiaryListViewAction extends Action {
   type: Types.SET_MY_DIARY_LIST_VIEW;
   myDiaryListView: MyDiaryListView;
@@ -22,6 +12,50 @@ export const setMyDiaryListView = (
 ): SetMyDiaryListViewAction => ({
   type: Types.SET_MY_DIARY_LIST_VIEW,
   myDiaryListView,
+});
+
+export interface SetHasPasscodeAction extends Action {
+  type: Types.SET_HAS_PASS_CODE;
+  hasPasscode: boolean;
+}
+
+export const setHasPasscode = (hasPasscode: boolean): SetHasPasscodeAction => ({
+  type: Types.SET_HAS_PASS_CODE,
+  hasPasscode,
+});
+
+export interface SetShowCheckPasscodeAction extends Action {
+  type: Types.SET_SHOW_CHECK_PASS_CODE;
+  showCheckPasscode: boolean;
+}
+
+export const setShowCheckPasscode = (
+  showCheckPasscode: boolean,
+): SetShowCheckPasscodeAction => ({
+  type: Types.SET_SHOW_CHECK_PASS_CODE,
+  showCheckPasscode,
+});
+
+export interface SetIsLoadingPasscodeAction extends Action {
+  type: Types.SET_IS_LOADING_HAS_CODE;
+  isLoadingPasscode: boolean;
+}
+
+export const setIsLoadingPasscode = (
+  isLoadingPasscode: boolean,
+): SetIsLoadingPasscodeAction => ({
+  type: Types.SET_IS_LOADING_HAS_CODE,
+  isLoadingPasscode,
+});
+
+export interface SetIsPremiumAction extends Action {
+  type: Types.SET_IS_PREMIUM;
+  isPremium: boolean;
+}
+
+export const setIsPremium = (isPremium: boolean): SetIsPremiumAction => ({
+  type: Types.SET_IS_PREMIUM,
+  isPremium,
 });
 
 export interface RestoreUidAction extends Action {
