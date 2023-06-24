@@ -1,22 +1,24 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { AppState, AppStateStatus } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { getUser } from '@/utils/user';
 import { User, LocalStatus } from '@/types';
 import Purchases from 'react-native-purchases';
+import auth from '@react-native-firebase/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import AuthNavigator from './AuthNavigator';
 import MainNavigator from './MainNavigator';
 import OnboardingNavigator from './OnboardingNavigator';
 import LoadingScreen from '@/screens/LoadingScreen';
-import auth from '@react-native-firebase/auth';
 import { checkPremium } from '@/utils/purchase';
+import CheckPasscodeLockScreenContainer from '@/containers/CheckPasscodeLockScreenContainer';
+import { StorageKey } from '@/constants/asyncStorage';
 
 export type RootStackParamList = {
-  Loading: undefined;
   Onboarding: undefined;
   Main: undefined;
   Auth: undefined;
-  Public: undefined;
 };
 
 export interface Props {
@@ -26,6 +28,8 @@ export interface Props {
 interface DispatchProps {
   setUser: (user: User) => void;
   setIsPremium: (isPremium: boolean) => void;
+  setShowCheckPasscode: (showCheckPasscode: boolean) => void;
+  setIsLoadingPasscode: (isLoadingPasscode: boolean) => void;
   restoreUid: (uid: string | null, onboarding?: boolean) => void;
 }
 
@@ -33,9 +37,52 @@ const RootNavigator: React.FC<Props & DispatchProps> = ({
   localStatus,
   setUser,
   setIsPremium,
+  setShowCheckPasscode,
+  setIsLoadingPasscode,
   restoreUid,
 }) => {
-  const [isLoading, setIsLoading] = useState(true);
+  const appState = useRef<AppStateStatus>(AppState.currentState);
+  const temporarilyMovedToBackground = useRef<boolean>(false);
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
+
+  const activeCheckHasPasscode = useCallback(async () => {
+    const hasPasscode = await AsyncStorage.getItem(StorageKey.hasPasscode);
+    if (hasPasscode) {
+      setShowCheckPasscode(true);
+    }
+    setIsLoadingPasscode(false);
+  }, [setIsLoadingPasscode, setShowCheckPasscode]);
+
+  const inactiveCheckHasPasscode = useCallback(async () => {
+    const hasPasscode = await AsyncStorage.getItem(StorageKey.hasPasscode);
+    if (hasPasscode) {
+      setIsLoadingPasscode(true);
+    }
+  }, [setIsLoadingPasscode]);
+
+  const _handleAppStateChange = (nextAppState: AppStateStatus) => {
+    console.log('RootNavigator -> nextAppState', nextAppState);
+    if (
+      appState.current.match(/inactive|background/) &&
+      nextAppState === 'active' &&
+      !temporarilyMovedToBackground.current
+    ) {
+      activeCheckHasPasscode();
+    } else if (
+      appState.current.match(/inactive|background/) &&
+      nextAppState === 'active' &&
+      temporarilyMovedToBackground.current
+    ) {
+      temporarilyMovedToBackground.current = false;
+    } else if (
+      appState.current === 'active' &&
+      nextAppState.match(/inactive|background/) &&
+      !temporarilyMovedToBackground.current
+    ) {
+      inactiveCheckHasPasscode();
+    }
+    appState.current = nextAppState;
+  };
 
   const initNavigation = useCallback(
     async (authUser): Promise<void> => {
@@ -51,26 +98,29 @@ const RootNavigator: React.FC<Props & DispatchProps> = ({
           restoreUid(authUser.uid, newUser.onboarding);
         }
       }
-      if (isLoading) setIsLoading(false);
+      setIsInitialLoading(false);
     },
-    [isLoading, restoreUid, setIsPremium, setUser],
+    [restoreUid, setIsPremium, setUser],
   );
 
   useEffect(() => {
+    const subscription = AppState.addEventListener(
+      'change',
+      _handleAppStateChange,
+    );
     const authSubscriber = auth().onAuthStateChanged(initNavigation);
-    return authSubscriber;
+
+    activeCheckHasPasscode();
+    return () => {
+      authSubscriber();
+      subscription.remove();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const Stack = createStackNavigator<RootStackParamList>();
 
   const renderScreen = useCallback(() => {
-    console.log(
-      `[renderScreen] isLoading:${localStatus.isLoading}, onboarding:${localStatus.onboarding}, uid:${localStatus.uid}`,
-    );
-    if (isLoading) {
-      return <Stack.Screen name='Loading' component={LoadingScreen} />;
-    }
     if (localStatus.uid !== null) {
       if (localStatus.onboarding === false) {
         return (
@@ -80,13 +130,19 @@ const RootNavigator: React.FC<Props & DispatchProps> = ({
       return <Stack.Screen name='Main' component={MainNavigator} />;
     }
     return <Stack.Screen name='Auth' component={AuthNavigator} />;
-  }, [
-    Stack,
-    isLoading,
-    localStatus.isLoading,
-    localStatus.onboarding,
-    localStatus.uid,
-  ]);
+  }, [localStatus.uid, localStatus.onboarding, Stack]);
+
+  if (isInitialLoading || localStatus.isLoadingPasscode) {
+    return <LoadingScreen />;
+  }
+
+  if (localStatus.showCheckPasscode) {
+    return (
+      <CheckPasscodeLockScreenContainer
+        temporarilyMovedToBackground={temporarilyMovedToBackground}
+      />
+    );
+  }
 
   return (
     <Stack.Navigator

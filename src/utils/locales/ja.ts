@@ -238,7 +238,7 @@ const myPage = {
   status: '会員ステータス',
   premium: 'プレミアム会員',
   becomeTitle: 'プレミアム会員になる',
-  props1: '動画広告の視聴なしで添削ができます',
+  props1: '動画広告の視聴なしで添削ができます（※1日最大10回まで）',
   props2: '広告が非表示になります',
   becomeButton: '詳しくみる',
   aboutCancel: 'キャンセルについて',
@@ -247,7 +247,7 @@ const myPage = {
 const becomePremium = {
   headerTitle: 'Premium会員について',
   description: 'Premium会員は下記機能がご利用いただけます',
-  props1: '動画広告の視聴なしで添削ができます',
+  props1: '動画広告の視聴なしで添削ができます（※1日最大10回まで）',
   props2: '広告が非表示になります',
   MONTHLY: 'プレミアム会員(月払い)',
   ANNUAL: 'プレミアム会員(年払い)',
@@ -256,6 +256,21 @@ const becomePremium = {
   error: '購入に失敗しました',
   noEmail:
     'プレミアム会員になるには、メールアドレスとパスワードの登録が必要です。「マイページ」「設定」から登録してください。',
+};
+
+const passcodeLock = {
+  headerTitle: 'パスコード設定',
+  input: 'パスコードを入力',
+  reInput: 'パスコードを再入力',
+  messageRePasscode:
+    '入力されたパスコードは一致しません\nもう一度お試しください',
+  errorForceLock:
+    '連続でパスコードを間違えたため、強制ロックがかかりました。{{hours}}時間後、再度試してください。',
+  errorMultiple: 'あと{{num}}回間違えると強制ロックがかかります。',
+  errorSet:
+    'パスコードロックの登録に失敗しました。時間を置いて再度試してください。',
+  errorRemove:
+    'パスコードロックの解除に失敗しました。時間を置いて再度試してください。',
 };
 
 const onboarding = {
@@ -335,6 +350,7 @@ const selectLanguage = {
 const setting = {
   headerTitle: '設定',
   title: '基本設定',
+  passcodeLock: 'パスワードロック',
   notice: '通知',
   reminder: 'リマインダー',
   editEmail: 'メールアドレスの変更',
@@ -689,6 +705,7 @@ const ja = {
   viewMyDiary,
   themeCategory,
   myPage,
+  passcodeLock,
   onboarding,
   reminderInitial,
   reminderSelectTime,

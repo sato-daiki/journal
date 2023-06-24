@@ -24,7 +24,6 @@ const Human: React.FC<Props> = ({
   onPressRevise,
 }) => {
   useEffect(() => {
-    console.log('Human');
     const f = async () => {
       if (diary.human?.status === 'unread') {
         // eslint-disable-next-line no-undef

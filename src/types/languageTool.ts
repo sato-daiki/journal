@@ -29,6 +29,7 @@ export interface Word {
   color?: string;
   backgroundColor?: string;
   ignore?: boolean;
+  lastCharacter?: string;
 }
 
 // 取得したまま

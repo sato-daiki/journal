@@ -16,12 +16,15 @@ import {
   DeleteDiaryAction,
 } from '../stores/actions/diaryList';
 import {
-  SetLocalStatusAction,
   SetMyDiaryListViewAction,
   RestoreUidAction,
   CompletedOnboardingAction,
   SignInAction,
   SignOutAction,
+  SetHasPasscodeAction,
+  SetShowCheckPasscodeAction,
+  SetIsLoadingPasscodeAction,
+  SetIsPremiumAction,
 } from '../stores/actions/localStatus';
 
 export interface State {
@@ -33,8 +36,11 @@ export interface State {
 }
 
 export type Actions =
-  | SetLocalStatusAction
   | SetMyDiaryListViewAction
+  | SetHasPasscodeAction
+  | SetShowCheckPasscodeAction
+  | SetIsLoadingPasscodeAction
+  | SetIsPremiumAction
   | RestoreUidAction
   | CompletedOnboardingAction
   | SignInAction

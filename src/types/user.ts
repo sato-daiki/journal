@@ -162,6 +162,11 @@ export interface Reminder {
   timeInfo: TimeInfo;
 }
 
+export interface PasscodeError {
+  count: number;
+  updatedAt: FirebaseFirestoreTypes.Timestamp | null;
+}
+
 export interface User {
   uid: string;
   learnLanguage: LongCode;
@@ -169,6 +174,8 @@ export interface User {
   onboarding?: boolean;
   expoPushToken: string | null;
   themeDiaries?: ThemeDiary[] | null;
+  passcodeLock?: boolean;
+  passcodeError?: PasscodeError;
   reminder?: Reminder;
   runningDays: number;
   runningWeeks: number;

@@ -44,6 +44,7 @@ const LanguageToolWords: React.FC<Props> = ({
     let currentOffset = 0;
     let index = 0;
     let finish = false;
+    let lastCharacter = '';
     let temmWords: Word[] = [];
 
     while (!finish) {
@@ -61,8 +62,10 @@ const LanguageToolWords: React.FC<Props> = ({
           checkIndex: index,
           color,
           backgroundColor,
+          lastCharacter,
           ignore: false,
         });
+        lastCharacter = matchWard.slice(-1);
         currentOffset = currentOffset + matches[index].length + 1;
         index++;
       }
@@ -74,6 +77,7 @@ const LanguageToolWords: React.FC<Props> = ({
         text: notMatchText,
         checked: false,
       });
+      lastCharacter = notMatchText.slice(-1);
       if (index < matches.length) {
         currentOffset = matches[index].offset;
       } else {

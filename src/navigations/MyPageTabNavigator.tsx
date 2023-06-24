@@ -25,6 +25,8 @@ import {
   HomeBottomNavigationProp,
 } from './HomeBottomTabNavigator';
 import { WebViewNavParams, WebViewScreen } from '@/screens/WebViewScreen';
+import PasscodeLockSettingScreen from '@/screens/MyPageTab/PasscodeLockSetting';
+import RePasscodeLockSettingScreenContainer from '@/containers/RePasscodeLockSettingScreenContainer';
 
 export type MyPageTabNavigationProp = CompositeNavigationProp<
   StackNavigationProp<HomeBottomParamList, 'MyPageTab'>,
@@ -40,6 +42,8 @@ export type MyPageTabStackParamList = {
   RegisterEmailPassword: undefined;
   DeleteAcount: undefined;
   ForegetPassword: undefined;
+  PasscodeLockSetting: { message?: string } | undefined;
+  RePasscodeLockSetting: { passcode: string };
   ReminderInitialSetting: undefined;
   ReminderSelectTimeSetting: undefined;
   ReminderSelectDay: {
@@ -96,6 +100,20 @@ const MyPageTabNavigator = () => {
         name='ForegetPassword'
         component={ForegetPasswordScreen}
         options={{ title: I18n.t('foregetPassword.headerTitle') }}
+      />
+      <MyPageTabStack.Screen
+        name='PasscodeLockSetting'
+        component={PasscodeLockSettingScreen}
+        options={{
+          title: I18n.t('passcodeLock.headerTitle'),
+        }}
+      />
+      <MyPageTabStack.Screen
+        name='RePasscodeLockSetting'
+        component={RePasscodeLockSettingScreenContainer}
+        options={{
+          title: I18n.t('passcodeLock.headerTitle'),
+        }}
       />
       <MyPageTabStack.Screen
         name='ReminderInitialSetting'

@@ -18,6 +18,7 @@ export const fontSizeSS = 11;
 export const fontSizeS = 13;
 export const fontSizeM = 14;
 export const fontSizeL = 18;
+export const fontSizeLL = 28;
 
 export const transparentBlack = 'rgba(62, 62, 62, 0.4)';
 export const hoverGray = 'rgba(179,218,255,0.1)';
