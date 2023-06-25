@@ -262,6 +262,9 @@ const passcodeLock = {
   headerTitle: 'パスコード設定',
   input: 'パスコードを入力',
   reInput: 'パスコードを再入力',
+  alertBiometric: '生体認証を利用しますか？',
+  alertBiometricOk: '利用する',
+  alertBiometricNo: '利用しない',
   messageRePasscode:
     '入力されたパスコードは一致しません\nもう一度お試しください',
   errorForceLock:

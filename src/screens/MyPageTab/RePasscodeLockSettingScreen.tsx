@@ -56,15 +56,15 @@ const RePasscodeLockSettingScreen: React.FC<ScreenType> = ({
         // 端末がface or fingerprint scanner に対応しているかどうか
         const compatible = await LocalAuthentication.hasHardwareAsync();
         if (compatible) {
-          Alert.alert('生体認証を利用しますか？', '', [
+          Alert.alert(I18n.t('passcodeLock.alertBiometric'), '', [
             {
-              text: '利用する',
+              text: I18n.t('passcodeLock.alertBiometricOk'),
               onPress: onPressOk,
               isPreferred: true,
             },
             {
-              text: '利用しない',
-              onPress: () => onEnded(),
+              text: I18n.t('passcodeLock.alertBiometricNo'),
+              onPress: onEnded,
               isPreferred: false,
             },
           ]);

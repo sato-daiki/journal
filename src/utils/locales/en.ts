@@ -264,6 +264,9 @@ const passcodeLock = {
   headerTitle: 'Set Passcode Lock',
   input: 'Enter Passcode',
   reInput: 'Re-enter Passcode',
+  alertBiometric: 'Do you want to use biometric authentication?',
+  alertBiometricOk: 'Yes',
+  alertBiometricNo: 'Not now',
   messageRePasscode: 'Your passcode dose not match.\nPlease try again.',
   errorForceLock:
     'The app was forced locked because you entered the wrong passcode consecutively. Please try again after {{hours}} hours.',
