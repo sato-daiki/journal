@@ -149,6 +149,7 @@ const EditEmailScreen: React.FC<ScreenType> = ({ navigation }) => {
         <Space size={16} />
         <Text style={styles.label}>{I18n.t('editEmail.labelPassword')}</Text>
         <CheckTextInput
+          isPassword
           value={password}
           onChangeText={(text: string): void => setPassword(text)}
           onBlur={onBlurPassword}
@@ -157,7 +158,6 @@ const EditEmailScreen: React.FC<ScreenType> = ({ navigation }) => {
           autoCapitalize='none'
           autoCorrect={false}
           underlineColorAndroid='transparent'
-          secureTextEntry
           returnKeyType='done'
           errorMessage={errorPassword}
         />

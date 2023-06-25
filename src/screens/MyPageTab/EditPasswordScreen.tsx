@@ -104,6 +104,7 @@ const EditPasswordScreen: React.FC<ScreenType> = ({ navigation }) => {
           {I18n.t('editPassword.currentPassword')}
         </Text>
         <CheckTextInput
+          isPassword
           value={currentPassword}
           onChangeText={(text: string): void => setCurrentPassword(text)}
           onBlur={onEndEditinCurrentPassword}
@@ -112,13 +113,13 @@ const EditPasswordScreen: React.FC<ScreenType> = ({ navigation }) => {
           autoCapitalize='none'
           autoCorrect={false}
           underlineColorAndroid='transparent'
-          secureTextEntry
           returnKeyType='done'
           errorMessage={errorCurrentPassword}
         />
         <Space size={16} />
         <Text style={styles.label}>{I18n.t('editPassword.newPassword')}</Text>
         <CheckTextInput
+          isPassword
           value={newPassword}
           onChangeText={(text: string): void => setNewPassword(text)}
           onBlur={onBlurNewPassword}
@@ -127,7 +128,6 @@ const EditPasswordScreen: React.FC<ScreenType> = ({ navigation }) => {
           autoCapitalize='none'
           autoCorrect={false}
           underlineColorAndroid='transparent'
-          secureTextEntry
           returnKeyType='done'
           errorMessage={errorNewPassword}
         />

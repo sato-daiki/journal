@@ -182,6 +182,7 @@ const RegisterEmailPasswordScreen: React.FC<ScreenType> = ({ navigation }) => {
           {I18n.t('registerEmailPassword.password')}
         </Text>
         <CheckTextInput
+          isPassword
           value={password}
           onChangeText={(text: string): void => setPassword(text)}
           onBlur={onBlurPassword}
@@ -190,9 +191,7 @@ const RegisterEmailPasswordScreen: React.FC<ScreenType> = ({ navigation }) => {
           autoCapitalize='none'
           autoCorrect={false}
           underlineColorAndroid='transparent'
-          secureTextEntry
           returnKeyType='done'
-          isCheckOk={isPasswordCheckOk}
           errorMessage={errorPassword}
         />
         <Space size={32} />

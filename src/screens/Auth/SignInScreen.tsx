@@ -140,6 +140,7 @@ const SignInScreen: React.FC<ScreenType> = ({ navigation }) => {
         <Space size={16} />
         <Text style={styles.label}>{I18n.t('signIn.password')}</Text>
         <CheckTextInput
+          isPassword
           value={password}
           onChangeText={onChangeTextPassword}
           onBlur={onBlurPassword}
@@ -148,7 +149,6 @@ const SignInScreen: React.FC<ScreenType> = ({ navigation }) => {
           autoCapitalize='none'
           autoCorrect={false}
           underlineColorAndroid='transparent'
-          secureTextEntry
           returnKeyType='done'
           errorMessage={errorPassword}
         />
