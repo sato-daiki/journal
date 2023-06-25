@@ -14,10 +14,10 @@ import {
 import I18n from '@/utils/I18n';
 import { passwordInputError } from '@/utils/common';
 import { primaryColor, fontSizeM } from '@/styles/Common';
-import { MyPageTabStackParamList } from '@/navigations/MyPageTabNavigator';
+import { SettingTabStackParamList } from '@/navigations/SettingTabNavigator';
 import auth from '@react-native-firebase/auth';
 
-type ScreenType = StackScreenProps<MyPageTabStackParamList, 'EditPassword'>;
+type ScreenType = StackScreenProps<SettingTabStackParamList, 'EditPassword'>;
 
 const styles = StyleSheet.create({
   container: {

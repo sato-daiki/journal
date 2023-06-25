@@ -7,10 +7,10 @@ import { SubmitButton } from '@/components/atoms';
 import I18n from '@/utils/I18n';
 
 import ReminderInitial from '@/components/organisms/ReminderInitial';
-import { MyPageTabStackParamList } from '@/navigations/MyPageTabNavigator';
+import { SettingTabStackParamList } from '@/navigations/SettingTabNavigator';
 
 type ScreenType = StackScreenProps<
-  MyPageTabStackParamList,
+  SettingTabStackParamList,
   'ReminderInitialSetting'
 >;
 

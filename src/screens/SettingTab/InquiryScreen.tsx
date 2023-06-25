@@ -16,9 +16,9 @@ import {
 } from '../../styles/Common';
 import { alert } from '../../utils/ErrorAlert';
 import {
-  MyPageTabNavigationProp,
-  MyPageTabStackParamList,
-} from '../../navigations/MyPageTabNavigator';
+  SettingTabNavigationProp,
+  SettingTabStackParamList,
+} from '../../navigations/SettingTabNavigator';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import ModalConfirm from '@/components/organisms/ModalConfirm';
@@ -29,8 +29,8 @@ export interface Props {
 }
 
 type InquiryNavigationProp = CompositeNavigationProp<
-  StackNavigationProp<MyPageTabStackParamList, 'Inquiry'>,
-  MyPageTabNavigationProp
+  StackNavigationProp<SettingTabStackParamList, 'Inquiry'>,
+  SettingTabNavigationProp
 >;
 
 type ScreenType = {

@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { StyleSheet, ScrollView, Text } from 'react-native';
+import { StyleSheet, ScrollView, Text, Linking } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
 import * as SecureStore from 'expo-secure-store';
@@ -15,22 +15,34 @@ import {
   borderLightColor,
 } from '../../styles/Common';
 import { OptionItem } from '../../components/molecules';
-import { Space, Hoverable } from '../../components/atoms';
+import {
+  Space,
+  Hoverable,
+  CountryNameWithFlag,
+  Icon,
+} from '../../components/atoms';
 import { logAnalytics, events } from '../../utils/Analytics';
 import I18n from '../../utils/I18n';
 import { alert } from '../../utils/ErrorAlert';
 import { getVersionText } from '../../utils/common';
 import {
-  MyPageTabStackParamList,
-  MyPageTabNavigationProp,
-} from '../../navigations/MyPageTabNavigator';
+  SettingTabStackParamList,
+  SettingTabNavigationProp,
+} from '../../navigations/SettingTabNavigator';
 
-import { LocalStatus, User } from '../../types';
+import { LocalStatus, LongCode, User } from '../../types';
 import auth from '@react-native-firebase/auth';
 import ModalConfirm from '@/components/organisms/ModalConfirm';
-import { HOME_PAGE, PRIVACY_POLICY, TERMS } from '@/constants/url';
+import {
+  HOME_PAGE,
+  PRIVACY_POLICY,
+  TERMS,
+  cancelEnUrl,
+  cancelJaUrl,
+} from '@/constants/url';
 import OptionSwitch from '@/components/molecules/OptionSwitch';
 import { SecureStorageKey, StorageKey } from '@/constants/asyncStorage';
+import { getLanguageToolCode } from '@/utils/grammarCheck';
 
 export interface Props {
   user: User;
@@ -43,8 +55,8 @@ interface DispatchProps {
 }
 
 type SettingNavigationProp = CompositeNavigationProp<
-  StackNavigationProp<MyPageTabStackParamList, 'Setting'>,
-  MyPageTabNavigationProp
+  StackNavigationProp<SettingTabStackParamList, 'Setting'>,
+  SettingTabNavigationProp
 >;
 
 type ScreenType = {
@@ -66,12 +78,18 @@ const styles = StyleSheet.create({
     paddingLeft: 16,
     paddingBottom: 8,
   },
+  premiumText: {
+    fontSize: fontSizeM,
+    paddingRight: 4,
+  },
   logoutButton: {
     alignItems: 'center',
     justifyContent: 'center',
+    borderTopWidth: 0.5,
     borderBottomWidth: 0.5,
     backgroundColor: '#fff',
     height: 48,
+    borderTopColor: borderLightColor,
     borderBottomColor: borderLightColor,
   },
   logout: {
@@ -150,6 +168,15 @@ const SettingScreen: React.FC<ScreenType> = ({
     }
   }, [navigation, user.reminder]);
 
+  const onPressCancel = useCallback(() => {
+    const languageCode = getLanguageToolCode(I18n.locale as LongCode);
+    if (languageCode === 'ja') {
+      Linking.openURL(cancelJaUrl);
+    } else {
+      Linking.openURL(cancelEnUrl);
+    }
+  }, []);
+
   return (
     <ScrollView
       style={styles.container}
@@ -162,20 +189,104 @@ const SettingScreen: React.FC<ScreenType> = ({
         mainButtonText={I18n.t('common.close')}
         onPressMain={(): void => setIsModalError(false)}
       />
-      <Text style={styles.title}>{I18n.t('setting.title')}</Text>
+      {localStatus.isPremium ? (
+        <OptionItem
+          isBorrderTop
+          title={I18n.t('setting.status')}
+          leftIcon={
+            <Icon
+              icon='community'
+              name='star-four-points-outline'
+              size={16}
+              color={primaryColor}
+            />
+          }
+          righComponent={
+            <Text style={styles.premiumText}>{I18n.t('setting.premium')}</Text>
+          }
+        />
+      ) : (
+        <OptionItem
+          isBorrderTop
+          title={I18n.t('setting.aboutPremium')}
+          leftIcon={
+            <Icon
+              icon='community'
+              name='star-four-points-outline'
+              size={16}
+              color={primaryColor}
+            />
+          }
+          onPress={(): void => {
+            navigation.navigate('ModalBecomePremium', {
+              screen: 'BecomePremium',
+            });
+          }}
+        />
+      )}
+      <Space size={16} />
+      <Text style={styles.title}>{I18n.t('setting.basic')}</Text>
+      <OptionItem
+        isBorrderTop
+        title={I18n.t('setting.learn')}
+        leftIcon={
+          <Icon
+            icon='community'
+            name='pencil-outline'
+            size={16}
+            color={primaryColor}
+          />
+        }
+        righComponent={
+          <CountryNameWithFlag
+            containerStyle={{ paddingRight: 4 }}
+            size={'large'}
+            longCode={user.learnLanguage}
+          />
+        }
+        onPress={(): void => {
+          navigation.navigate('ModalEditMyProfile', {
+            screen: 'EditMyProfile',
+          });
+        }}
+      />
       <OptionSwitch
         title={I18n.t('setting.passcodeLock')}
+        leftIcon={
+          <Icon
+            icon='community'
+            name='lock-outline'
+            size={16}
+            color={primaryColor}
+          />
+        }
         value={localStatus.hasPasscode}
         onValueChange={onChangePasscodeLock}
       />
       <OptionItem
         title={I18n.t('setting.reminder')}
+        leftIcon={
+          <Icon
+            icon='community'
+            name='bell-outline'
+            size={16}
+            color={primaryColor}
+          />
+        }
         onPress={onPressReminder}
       />
       {currentUser && currentUser.email ? (
         <>
           <OptionItem
             title={I18n.t('setting.editEmail')}
+            leftIcon={
+              <Icon
+                icon='community'
+                name='email-edit-outline'
+                size={16}
+                color={primaryColor}
+              />
+            }
             onPress={(): void => {
               navigation.navigate('EditEmail');
             }}
@@ -190,12 +301,23 @@ const SettingScreen: React.FC<ScreenType> = ({
       ) : (
         <OptionItem
           title={I18n.t('setting.registerEmailPassword')}
+          leftIcon={
+            <Icon
+              icon='community'
+              name='email-edit-outline'
+              size={16}
+              color={primaryColor}
+            />
+          }
           onPress={(): void => {
             navigation.navigate('RegisterEmailPassword');
           }}
         />
       )}
+      <Space size={16} />
+      <Text style={styles.title}>{I18n.t('setting.app')}</Text>
       <OptionItem
+        isBorrderTop
         title={I18n.t('setting.inquiry')}
         onPress={(): void => {
           navigation.navigate('Inquiry');
@@ -221,19 +343,23 @@ const SettingScreen: React.FC<ScreenType> = ({
       />
       <Space size={16} />
       <OptionItem
+        isBorrderTop
         title={I18n.t('setting.deleteAcount')}
         onPress={(): void => {
           navigation.navigate('DeleteAcount');
         }}
       />
-      {currentUser && currentUser.email && (
-        <>
-          <Space size={16} />
-          <Hoverable style={styles.logoutButton} onPress={onPressLogout}>
-            <Text style={styles.logout}>{I18n.t('setting.logout')}</Text>
-          </Hoverable>
-        </>
+      {localStatus.isPremium && (
+        <OptionItem title={I18n.t('setting.cancel')} onPress={onPressCancel} />
       )}
+      {/* {currentUser && currentUser.email && ( */}
+      <>
+        <Space size={16} />
+        <Hoverable style={styles.logoutButton} onPress={onPressLogout}>
+          <Text style={styles.logout}>{I18n.t('setting.logout')}</Text>
+        </Hoverable>
+      </>
+      {/* )} */}
       <Space size={16} />
       <Text style={styles.versionText}>{version}</Text>
     </ScrollView>

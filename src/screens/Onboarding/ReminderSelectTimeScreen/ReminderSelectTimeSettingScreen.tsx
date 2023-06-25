@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import ReminderSelectTime from '@/components/organisms/ReminderSelectTime/ReminderSelectTime';
 import { Reminder, User } from '@/types';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { MyPageTabStackParamList } from '@/navigations/MyPageTabNavigator';
+import { SettingTabStackParamList } from '@/navigations/SettingTabNavigator';
 import {
   DefaultInfo,
   initCuctomTimeInfos,
@@ -19,7 +19,7 @@ interface DispatchProps {
 }
 
 export type ReminderSelectTimeSettingNavigationProp = StackNavigationProp<
-  MyPageTabStackParamList,
+  SettingTabStackParamList,
   'ReminderSelectTimeSetting'
 >;
 
@@ -86,10 +86,10 @@ const ReminderSelectTimeSettingScreen: React.FC<ScreenType> = ({
   }, [navigation]);
 
   const gotoReminderSelectDay = useCallback(
-    param => {
+    (param) => {
       navigation.navigate('ReminderSelectDay', param);
     },
-    [navigation]
+    [navigation],
   );
 
   return (

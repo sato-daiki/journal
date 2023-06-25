@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import DeleteAcountScreen from '../screens/MyPageTab/DeleteAcountScreen';
+import DeleteAcountScreen from '../screens/SettingTab/DeleteAcountScreen';
 import { signOut } from '../stores/actions/localStatus';
 
 const mapDispatchToProps = {

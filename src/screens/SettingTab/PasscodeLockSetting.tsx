@@ -2,21 +2,21 @@ import React, { useCallback, useState } from 'react';
 
 import { StackNavigationProp } from '@react-navigation/stack';
 import {
-  MyPageTabNavigationProp,
-  MyPageTabStackParamList,
-} from '../../navigations/MyPageTabNavigator';
+  SettingTabNavigationProp,
+  SettingTabStackParamList,
+} from '../../navigations/SettingTabNavigator';
 import I18n from '../../utils/I18n';
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 import PasscodeLock from '@/components/organisms/PasscodeLock';
 
 type PasscodeLockSettingNavigationProp = CompositeNavigationProp<
-  StackNavigationProp<MyPageTabStackParamList, 'PasscodeLockSetting'>,
-  MyPageTabNavigationProp
+  StackNavigationProp<SettingTabStackParamList, 'PasscodeLockSetting'>,
+  SettingTabNavigationProp
 >;
 
 type ScreenType = {
   navigation: PasscodeLockSettingNavigationProp;
-  route: RouteProp<MyPageTabStackParamList, 'PasscodeLockSetting'>;
+  route: RouteProp<SettingTabStackParamList, 'PasscodeLockSetting'>;
 };
 
 const PasscodeLockSettingScreen: React.FC<ScreenType> = ({

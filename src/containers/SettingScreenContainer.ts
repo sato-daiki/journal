@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import SettingScreen, { Props } from '../screens/MyPageTab/SettingScreen';
+import SettingScreen, { Props } from '../screens/SettingTab/SettingScreen';
 import { setHasPasscode, signOut } from '@/stores/actions/localStatus';
 import { State } from '../types/state';
 
