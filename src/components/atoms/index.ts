@@ -16,7 +16,6 @@ export { default as Icon } from './Icon';
 export { default as LinkText } from './LinkText';
 export { default as LoadingModal } from './LoadingModal';
 // @ts-ignore
-export { default as Lottie } from './Lottie';
 export { default as Note } from './Note';
 export { default as Pill } from './Pill';
 export { default as RadioBox } from './RadioBox';
