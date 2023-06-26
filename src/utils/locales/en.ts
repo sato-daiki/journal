@@ -342,6 +342,7 @@ const setting = {
   premium: 'Premium membership',
   aboutPremium: 'About Premium Membership',
   basic: 'Basic',
+  display: 'Display',
   app: 'About the app',
   learn: 'Learning',
   passcodeLock: 'Passcode',
@@ -356,6 +357,13 @@ const setting = {
   inquiry: 'Contact',
   about: 'What is LangJournal',
   cancel: 'Cancellation of premium membership',
+};
+
+const display = {
+  headerTitle: 'Display',
+  device: 'Use device settings',
+  light: 'Light mode',
+  dark: 'Dark mode',
 };
 
 const signIn = {
@@ -717,6 +725,7 @@ const en = {
   selectTopicSubcategory,
   topicGuide,
   setting,
+  display,
   signIn,
   signUp,
   userProfile,

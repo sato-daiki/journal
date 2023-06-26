@@ -116,6 +116,8 @@ export interface ThemeDiary {
   createdAt: FirebaseFirestoreTypes.Timestamp;
 }
 
+export type DarkMode = 'device' | 'dark' | 'light';
+
 export interface RemindeDay {
   day: number; // Sunday - Saturday : 0 - 6
   timeStart: Date;
@@ -177,6 +179,7 @@ export interface User {
   passcodeLock?: boolean;
   passcodeError?: PasscodeError;
   reminder?: Reminder;
+  darkMode?: DarkMode;
   runningDays: number;
   runningWeeks: number;
   stripeCustomerId?: string;

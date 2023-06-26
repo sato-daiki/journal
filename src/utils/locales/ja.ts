@@ -344,6 +344,7 @@ const setting = {
   premium: 'プレミアム会員',
   aboutPremium: 'プレミアム会員について',
   basic: '基本設定',
+  display: '画面表示',
   app: 'アプリについて',
   learn: '勉強中の言語',
   passcodeLock: 'パスワードロック',
@@ -357,6 +358,13 @@ const setting = {
   inquiry: 'お問い合わせ',
   about: 'LangJournalとは',
   cancel: 'プレミアム会員のキャンセルについて',
+};
+
+const display = {
+  headerTitle: '画面設定',
+  device: '端末の設定を使う',
+  light: 'ライトモード',
+  dark: 'ダークモード',
 };
 
 const signIn = {
@@ -712,6 +720,7 @@ const ja = {
   selectTopicSubcategory,
   topicGuide,
   setting,
+  display,
   signIn,
   signUp,
   userProfile,
