@@ -84,9 +84,9 @@ const AiCheck: React.FC<Props> = ({
       baseRoutes.push({ key: 'ai3', title: I18n.t('myDiary.ai3') });
     }
 
-    // if (shortLongCode !== 'nl' && localeLongCode === 'ja') {
-    //   baseRoutes.push({ key: 'human', title: I18n.t('myDiary.human') });
-    // }
+    if (shortLongCode !== 'nl' && localeLongCode === 'ja') {
+      baseRoutes.push({ key: 'human', title: I18n.t('myDiary.human') });
+    }
     return baseRoutes;
   }, [diary.longCode]);
 

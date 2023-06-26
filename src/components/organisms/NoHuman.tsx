@@ -197,9 +197,6 @@ const NoHuman: React.FC<Props> = ({
         customerEphemeralKeySecret: ephemeralKey,
         paymentIntentClientSecret: paymentIntent,
         allowsDelayedPaymentMethods: true,
-        // defaultBillingDetails: {
-        //   name: 'Jane Doe',
-        // },
       });
       if (!error) {
         setInitialLoading(false);
@@ -236,8 +233,7 @@ const NoHuman: React.FC<Props> = ({
 
     try {
       if (error) {
-        console.error(error);
-        showError();
+        console.log(error);
       } else {
         const newHuman: Human = {
           status: 'yet',
