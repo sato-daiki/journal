@@ -234,8 +234,9 @@ const themeCategory = {
 
 const becomePremium = {
   headerTitle: 'About premium membership',
-  description: 'Premium members can use the following functions',
-  props1: 'Correct without watching video ads（* Up to 10 times a day)',
+  becomeTitle: 'Become a premium member',
+  props1: 'Correct without watching video ads',
+  props1description: '* Up to 10 times a day',
   props2: 'Hides ads',
   MONTHLY: 'Premium Monthly Subscription',
   ANNUAL: 'Premium Yearly Subscription',
