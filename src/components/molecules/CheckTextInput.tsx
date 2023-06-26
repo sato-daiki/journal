@@ -108,7 +108,7 @@ const CheckTextInput = (props: Props) => {
             <HoverableIcon
               size={24}
               icon='community'
-              name={showPassword ? 'eye' : 'eye-off'}
+              name={showPassword ? 'eye-off' : 'eye'}
               color={subTextColor}
               onPress={onPressPasswordIcon}
             />
