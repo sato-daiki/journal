@@ -8,10 +8,10 @@ import { HeaderText, LoadingModal } from '@/components/atoms';
 import { getDayName } from '@/utils/time';
 import { RouteProp } from '@react-navigation/native';
 import { OnboardingStackParamList } from '@/navigations/OnboardingNavigator';
-import { MyPageTabStackParamList } from '@/navigations/MyPageTabNavigator';
+import { SettingTabStackParamList } from '@/navigations/SettingTabNavigator';
 
 type NavigationProp = StackNavigationProp<
-  OnboardingStackParamList | MyPageTabStackParamList,
+  OnboardingStackParamList | SettingTabStackParamList,
   'ReminderSelectDay'
 >;
 

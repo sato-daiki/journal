@@ -57,6 +57,7 @@ const HumanDiaryTitleAndText: React.FC<Props> = ({
       textComponent={
         textArray && textArray.length > 0 ? (
           <HumanWords
+            textStyle={styles.text}
             humanCorrects={textArray}
             activeIndex={textActiveIndex}
             setActiveIndex={setTextActiveIndex}

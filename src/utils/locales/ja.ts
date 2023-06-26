@@ -47,7 +47,7 @@ const shortDay = {
 const mainTab = {
   myDiary: 'マイ日記',
   postDiary: '日記を書く',
-  myPage: 'マイページ',
+  setting: '設定',
 };
 
 // 共通のエラーメッセージ
@@ -231,19 +231,6 @@ const themeCategory = {
   eikenPre2: '英検準2級',
 };
 
-const myPage = {
-  headerTitle: 'マイページ',
-  editButton: '編集する',
-  learn: '勉強中の言語',
-  status: '会員ステータス',
-  premium: 'プレミアム会員',
-  becomeTitle: 'プレミアム会員になる',
-  props1: '動画広告の視聴なしで添削ができます（※1日最大10回まで）',
-  props2: '広告が非表示になります',
-  becomeButton: '詳しくみる',
-  aboutCancel: 'キャンセルについて',
-};
-
 const becomePremium = {
   headerTitle: 'Premium会員について',
   description: 'Premium会員は下記機能がご利用いただけます',
@@ -262,6 +249,9 @@ const passcodeLock = {
   headerTitle: 'パスコード設定',
   input: 'パスコードを入力',
   reInput: 'パスコードを再入力',
+  alertBiometric: '生体認証を利用しますか？',
+  alertBiometricOk: '利用する',
+  alertBiometricNo: '利用しない',
   messageRePasscode:
     '入力されたパスコードは一致しません\nもう一度お試しください',
   errorForceLock:
@@ -349,7 +339,12 @@ const selectLanguage = {
 
 const setting = {
   headerTitle: '設定',
-  title: '基本設定',
+  status: '会員ステータス',
+  premium: 'プレミアム会員',
+  aboutPremium: 'プレミアム会員について',
+  basic: '基本設定',
+  app: 'アプリについて',
+  learn: '勉強中の言語',
   passcodeLock: 'パスワードロック',
   notice: '通知',
   reminder: 'リマインダー',
@@ -360,6 +355,7 @@ const setting = {
   logout: 'ログアウト',
   inquiry: 'お問い合わせ',
   about: 'LangJournalとは',
+  cancel: 'プレミアム会員のキャンセルについて',
 };
 
 const signIn = {
@@ -440,11 +436,6 @@ const modalDiaryCancel = {
 const modalSendEmail = {
   title: 'メール送信',
   text: 'メールを送信しました。メールのリンクからパスワードを再設定してください',
-};
-
-const myDiaryListMenu = {
-  myPage: 'マイページ',
-  draftList: '下書き一覧',
 };
 
 const postDiaryComponent = {
@@ -704,7 +695,6 @@ const ja = {
   yetHuman,
   viewMyDiary,
   themeCategory,
-  myPage,
   passcodeLock,
   onboarding,
   reminderInitial,
@@ -730,7 +720,6 @@ const ja = {
   modalDeleteAcount,
   modalDiaryCancel,
   modalSendEmail,
-  myDiaryListMenu,
   postDiaryComponent,
   sns,
   myDiaryStatus,

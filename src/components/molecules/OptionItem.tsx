@@ -14,8 +14,9 @@ import {
 interface Props {
   isBorrderTop?: boolean;
   title: string;
+  leftIcon?: ReactNode;
   righComponent?: ReactNode;
-  onPress: () => void;
+  onPress?: () => void;
 }
 
 const styles = StyleSheet.create({
@@ -31,6 +32,13 @@ const styles = StyleSheet.create({
     borderBottomColor: borderLightColor,
     borderTopColor: borderLightColor,
   },
+  leftContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  leftIcon: {
+    width: 22,
+  },
   title: {
     color: primaryColor,
     fontSize: fontSizeM,
@@ -44,20 +52,26 @@ const styles = StyleSheet.create({
 const OptionItem = ({
   isBorrderTop = false,
   title,
+  leftIcon,
   righComponent,
   onPress,
 }: Props) => {
   const borderTopWidth = isBorrderTop ? 0.5 : undefined;
   return (
     <Hoverable style={[styles.container, { borderTopWidth }]} onPress={onPress}>
-      <Text style={styles.title}>{title}</Text>
+      <View style={styles.leftContainer}>
+        {leftIcon && <View style={styles.leftIcon}>{leftIcon}</View>}
+        <Text style={styles.title}>{title}</Text>
+      </View>
       <View style={styles.rightContainer}>
         {righComponent}
-        <MaterialCommunityIcons
-          size={28}
-          color={subTextColor}
-          name='chevron-right'
-        />
+        {onPress && (
+          <MaterialCommunityIcons
+            size={28}
+            color={subTextColor}
+            name='chevron-right'
+          />
+        )}
       </View>
     </Hoverable>
   );

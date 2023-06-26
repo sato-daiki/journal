@@ -56,9 +56,15 @@ const ModalDeleteAcount: React.FC<Props> = ({
           <Text style={styles.text}>{I18n.t('deleteAcount.confirmation')}</Text>
           <Space size={32} />
           <View style={styles.button}>
-            <SubmitButton title={I18n.t('deleteAcount.withdrawal')} onPress={onPressDelete1} />
+            <SubmitButton
+              title={I18n.t('deleteAcount.withdrawal')}
+              onPress={onPressDelete1}
+            />
             <Space size={16} />
-            <WhiteButton title={I18n.t('common.cancel')} onPress={onPressClose} />
+            <WhiteButton
+              title={I18n.t('common.cancel')}
+              onPress={onPressClose}
+            />
           </View>
         </View>
       </Modal>
@@ -72,6 +78,7 @@ const ModalDeleteAcount: React.FC<Props> = ({
         <Space size={24} />
         <Text style={styles.text}>{I18n.t('modalDeleteAcount.text')}</Text>
         <CheckTextInput
+          isPassword
           value={password}
           onChangeText={onChangeText}
           onBlur={onBlur}
@@ -80,7 +87,6 @@ const ModalDeleteAcount: React.FC<Props> = ({
           autoCapitalize='none'
           autoCorrect={false}
           underlineColorAndroid='transparent'
-          secureTextEntry
           returnKeyType='done'
           errorMessage={errorMessage}
         />

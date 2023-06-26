@@ -11,11 +11,10 @@ import ReminderInitialSettingScreen from '@/screens/Onboarding/ReminderInitialSe
 import I18n from '../utils/I18n';
 
 /* screens */
-import MyPageScreenContainer from '../containers/MyPageScreenContainer';
 import SettingScreenContainer from '../containers/SettingScreenContainer';
-import EditEmailScreen from '../screens/MyPageTab/EditEmailScreen';
-import EditPasswordScreen from '../screens/MyPageTab/EditPasswordScreen';
-import RegisterEmailPasswordScreen from '../screens/MyPageTab/RegisterEmailPasswordScreen';
+import EditEmailScreen from '../screens/SettingTab/EditEmailScreen';
+import EditPasswordScreen from '../screens/SettingTab/EditPasswordScreen';
+import RegisterEmailPasswordScreen from '../screens/SettingTab/RegisterEmailPasswordScreen';
 import DeleteAcountScreenContainer from '../containers/DeleteAcountScreenContainer';
 import ForegetPasswordScreen from '../screens/Auth/ForegetPasswordScreen';
 import InquiryScreenContainer from '../containers/InquiryScreenContainer';
@@ -25,16 +24,15 @@ import {
   HomeBottomNavigationProp,
 } from './HomeBottomTabNavigator';
 import { WebViewNavParams, WebViewScreen } from '@/screens/WebViewScreen';
-import PasscodeLockSettingScreen from '@/screens/MyPageTab/PasscodeLockSetting';
+import PasscodeLockSettingScreen from '@/screens/SettingTab/PasscodeLockSetting';
 import RePasscodeLockSettingScreenContainer from '@/containers/RePasscodeLockSettingScreenContainer';
 
-export type MyPageTabNavigationProp = CompositeNavigationProp<
-  StackNavigationProp<HomeBottomParamList, 'MyPageTab'>,
+export type SettingTabNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<HomeBottomParamList, 'SettingTab'>,
   HomeBottomNavigationProp
 >;
 
-export type MyPageTabStackParamList = {
-  MyPage: undefined;
+export type SettingTabStackParamList = {
   Setting: undefined;
   Inquiry: undefined;
   EditEmail: undefined;
@@ -53,92 +51,87 @@ export type MyPageTabStackParamList = {
   AboutWebView: WebViewNavParams;
 };
 
-const MyPageTabStack = createStackNavigator<MyPageTabStackParamList>();
+const SettingTabStack = createStackNavigator<SettingTabStackParamList>();
 
-const MyPageTabNavigator = () => {
+const SettingTabNavigator = () => {
   return (
-    <MyPageTabStack.Navigator
-      initialRouteName='MyPage'
+    <SettingTabStack.Navigator
+      initialRouteName='Setting'
       screenOptions={DefaultNavigationOptions}
     >
-      <MyPageTabStack.Screen
-        name='MyPage'
-        component={MyPageScreenContainer}
-        options={{ title: I18n.t('myPage.headerTitle') }}
-      />
-      <MyPageTabStack.Screen
+      <SettingTabStack.Screen
         name='Setting'
         component={SettingScreenContainer}
         options={{ title: I18n.t('setting.headerTitle') }}
       />
-      <MyPageTabStack.Screen
+      <SettingTabStack.Screen
         name='Inquiry'
         component={InquiryScreenContainer}
         options={{ title: I18n.t('inquiry.headerTitle') }}
       />
-      <MyPageTabStack.Screen
+      <SettingTabStack.Screen
         name='EditEmail'
         component={EditEmailScreen}
         options={{ title: I18n.t('editEmail.headerTitle') }}
       />
-      <MyPageTabStack.Screen
+      <SettingTabStack.Screen
         name='EditPassword'
         component={EditPasswordScreen}
         options={{ title: I18n.t('editPassword.headerTitle') }}
       />
-      <MyPageTabStack.Screen
+      <SettingTabStack.Screen
         name='RegisterEmailPassword'
         component={RegisterEmailPasswordScreen}
         options={{ title: I18n.t('registerEmailPassword.headerTitle') }}
       />
-      <MyPageTabStack.Screen
+      <SettingTabStack.Screen
         name='DeleteAcount'
         component={DeleteAcountScreenContainer}
         options={{ title: I18n.t('deleteAcount.headerTitle') }}
       />
-      <MyPageTabStack.Screen
+      <SettingTabStack.Screen
         name='ForegetPassword'
         component={ForegetPasswordScreen}
         options={{ title: I18n.t('foregetPassword.headerTitle') }}
       />
-      <MyPageTabStack.Screen
+      <SettingTabStack.Screen
         name='PasscodeLockSetting'
         component={PasscodeLockSettingScreen}
         options={{
           title: I18n.t('passcodeLock.headerTitle'),
         }}
       />
-      <MyPageTabStack.Screen
+      <SettingTabStack.Screen
         name='RePasscodeLockSetting'
         component={RePasscodeLockSettingScreenContainer}
         options={{
           title: I18n.t('passcodeLock.headerTitle'),
         }}
       />
-      <MyPageTabStack.Screen
+      <SettingTabStack.Screen
         name='ReminderInitialSetting'
         component={ReminderInitialSettingScreen}
         options={{
           title: I18n.t('onboarding.reminderInitial'),
         }}
       />
-      <MyPageTabStack.Screen
+      <SettingTabStack.Screen
         name='ReminderSelectTimeSetting'
         component={ReminderSelectTimeSettingScreenContainer}
         options={{
           title: I18n.t('onboarding.reminderSelectTime'),
         }}
       />
-      <MyPageTabStack.Screen
+      <SettingTabStack.Screen
         name='ReminderSelectDay'
         component={ReminderSelectDayScreen}
         options={{
           title: I18n.t('onboarding.reminderSelectDay'),
         }}
       />
-      <MyPageTabStack.Screen name='AboutWebView' component={WebViewScreen} />
-    </MyPageTabStack.Navigator>
+      <SettingTabStack.Screen name='AboutWebView' component={WebViewScreen} />
+    </SettingTabStack.Navigator>
   );
 };
 
-export default MyPageTabNavigator;
+export default SettingTabNavigator;

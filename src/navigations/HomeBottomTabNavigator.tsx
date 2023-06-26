@@ -8,9 +8,9 @@ import PostDiaryScreenContainer from '../containers/PostDiaryScreenContainer';
 import MyDiaryTabNavigator, {
   MyDiaryTabStackParamList,
 } from './MyDiaryTabNavigator';
-import MyPageTabNavigator, {
-  MyPageTabStackParamList,
-} from './MyPageTabNavigator';
+import SettingTabNavigator, {
+  SettingTabStackParamList,
+} from './SettingTabNavigator';
 import { MainStackParamList, MainNavigationProp } from './MainNavigator';
 import { mainColor, subTextColor } from '@/styles/Common';
 import { User } from '@/types';
@@ -30,7 +30,7 @@ export type HomeBottomParamList = {
     screen: keyof MyDiaryTabStackParamList;
   };
   PostDiaryTab: undefined;
-  MyPageTab: { screen: keyof MyPageTabStackParamList };
+  SettingTab: { screen: keyof SettingTabStackParamList };
 };
 
 const HomeBottomTabNavigator: React.FC<Props> = ({ user }) => {
@@ -85,12 +85,12 @@ const HomeBottomTabNavigator: React.FC<Props> = ({ user }) => {
         })}
       />
       <HomeBottom.Screen
-        name='MyPageTab'
-        component={MyPageTabNavigator}
+        name='SettingTab'
+        component={SettingTabNavigator}
         options={{
-          tabBarLabel: I18n.t('mainTab.myPage'),
+          tabBarLabel: I18n.t('mainTab.setting'),
           tabBarIcon: ({ color }: { color: string }) => (
-            <MaterialIcons name='person' size={25} color={color} />
+            <MaterialIcons name='settings' size={25} color={color} />
           ),
         }}
       />

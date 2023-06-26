@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as LocalAuthentication from 'expo-local-authentication';
 
 import { StackNavigationProp } from '@react-navigation/stack';
-import { MyPageTabStackParamList } from '../../navigations/MyPageTabNavigator';
+import { SettingTabStackParamList } from '../../navigations/SettingTabNavigator';
 import I18n from '../../utils/I18n';
 import { RouteProp } from '@react-navigation/native';
 import Toast from 'react-native-root-toast';
@@ -18,10 +18,10 @@ interface DispatchProps {
 
 type ScreenType = {
   navigation: StackNavigationProp<
-    MyPageTabStackParamList,
+    SettingTabStackParamList,
     'RePasscodeLockSetting'
   >;
-  route: RouteProp<MyPageTabStackParamList, 'RePasscodeLockSetting'>;
+  route: RouteProp<SettingTabStackParamList, 'RePasscodeLockSetting'>;
 } & DispatchProps;
 
 const RePasscodeLockSettingScreen: React.FC<ScreenType> = ({
@@ -56,15 +56,15 @@ const RePasscodeLockSettingScreen: React.FC<ScreenType> = ({
         // 端末がface or fingerprint scanner に対応しているかどうか
         const compatible = await LocalAuthentication.hasHardwareAsync();
         if (compatible) {
-          Alert.alert('生体認証を利用しますか？', '', [
+          Alert.alert(I18n.t('passcodeLock.alertBiometric'), '', [
             {
-              text: '利用する',
+              text: I18n.t('passcodeLock.alertBiometricOk'),
               onPress: onPressOk,
               isPreferred: true,
             },
             {
-              text: '利用しない',
-              onPress: () => onEnded(),
+              text: I18n.t('passcodeLock.alertBiometricNo'),
+              onPress: onEnded,
               isPreferred: false,
             },
           ]);

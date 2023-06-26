@@ -6,7 +6,7 @@ import { CompositeNavigationProp } from '@react-navigation/native';
 import { HeaderText } from '@/components/atoms';
 import { LongCode, User } from '@/types';
 import I18n from '@/utils/I18n';
-import { MyPageTabNavigationProp } from '@/navigations/MyPageTabNavigator';
+import { SettingTabNavigationProp } from '@/navigations/SettingTabNavigator';
 import {
   ModalEditMyProfileStackNavigationProp,
   ModalEditMyProfileStackParamList,
@@ -31,7 +31,7 @@ type NavigationProp = CompositeNavigationProp<
 >;
 
 type ScreenType = {
-  navigation: NavigationProp & MyPageTabNavigationProp;
+  navigation: NavigationProp & SettingTabNavigationProp;
 } & Props &
   DispatchProps;
 
@@ -84,7 +84,7 @@ const EditMyProfileScreen: React.FC<ScreenType> = ({
       learnLanguage: selectedItem.value as LongCode,
     });
     //@ts-ignore
-    navigation.navigate('MyPageTab');
+    navigation.navigate('SettingTab');
   }, [isLoading, navigation, selectedItem.value, setUser, user]);
 
   const onPressGoBack = useCallback(() => {

@@ -14,10 +14,10 @@ import {
 import I18n from '@/utils/I18n';
 import { passwordInputError } from '@/utils/common';
 import { primaryColor, fontSizeM } from '@/styles/Common';
-import { MyPageTabStackParamList } from '@/navigations/MyPageTabNavigator';
+import { SettingTabStackParamList } from '@/navigations/SettingTabNavigator';
 import auth from '@react-native-firebase/auth';
 
-type ScreenType = StackScreenProps<MyPageTabStackParamList, 'EditPassword'>;
+type ScreenType = StackScreenProps<SettingTabStackParamList, 'EditPassword'>;
 
 const styles = StyleSheet.create({
   container: {
@@ -104,6 +104,7 @@ const EditPasswordScreen: React.FC<ScreenType> = ({ navigation }) => {
           {I18n.t('editPassword.currentPassword')}
         </Text>
         <CheckTextInput
+          isPassword
           value={currentPassword}
           onChangeText={(text: string): void => setCurrentPassword(text)}
           onBlur={onEndEditinCurrentPassword}
@@ -112,13 +113,13 @@ const EditPasswordScreen: React.FC<ScreenType> = ({ navigation }) => {
           autoCapitalize='none'
           autoCorrect={false}
           underlineColorAndroid='transparent'
-          secureTextEntry
           returnKeyType='done'
           errorMessage={errorCurrentPassword}
         />
         <Space size={16} />
         <Text style={styles.label}>{I18n.t('editPassword.newPassword')}</Text>
         <CheckTextInput
+          isPassword
           value={newPassword}
           onChangeText={(text: string): void => setNewPassword(text)}
           onBlur={onBlurNewPassword}
@@ -127,7 +128,6 @@ const EditPasswordScreen: React.FC<ScreenType> = ({ navigation }) => {
           autoCapitalize='none'
           autoCorrect={false}
           underlineColorAndroid='transparent'
-          secureTextEntry
           returnKeyType='done'
           errorMessage={errorNewPassword}
         />

@@ -47,7 +47,7 @@ const shortDay = {
 const mainTab = {
   myDiary: 'My Entries',
   postDiary: 'Write',
-  myPage: 'My Page',
+  setting: 'Setting',
 };
 
 // 共通のエラーメッセージ
@@ -232,22 +232,8 @@ const themeCategory = {
   eikenPre2: 'Eiken Pre-2',
 };
 
-const myPage = {
-  headerTitle: 'My Page',
-  editButton: 'Edit',
-  learn: 'Learning',
-  status: 'Membership status',
-  premium: 'Premium member',
-  becomeTitle: 'Become a premium member',
-  props1: 'Correct without watching video ads(* Up to 10 times a day)',
-  props2: 'Hides ads',
-  becomeLonger: 'Check longer texts',
-  becomeButton: 'For more detail',
-  aboutCancel: 'About cancellation',
-};
-
 const becomePremium = {
-  headerTitle: 'About Premium members',
+  headerTitle: 'About premium membership',
   description: 'Premium members can use the following functions',
   props1: 'Correct without watching video ads（* Up to 10 times a day)',
   props2: 'Hides ads',
@@ -264,6 +250,9 @@ const passcodeLock = {
   headerTitle: 'Set Passcode Lock',
   input: 'Enter Passcode',
   reInput: 'Re-enter Passcode',
+  alertBiometric: 'Do you want to use biometric authentication?',
+  alertBiometricOk: 'Yes',
+  alertBiometricNo: 'Not now',
   messageRePasscode: 'Your passcode dose not match.\nPlease try again.',
   errorForceLock:
     'The app was forced locked because you entered the wrong passcode consecutively. Please try again after {{hours}} hours.',
@@ -348,7 +337,12 @@ const selectLanguage = {
 
 const setting = {
   headerTitle: 'Settings',
-  title: 'Basic',
+  status: 'Membership status',
+  premium: 'Premium membership',
+  aboutPremium: 'About Premium Membership',
+  basic: 'Basic',
+  app: 'About the app',
+  learn: 'Learning',
   passcodeLock: 'Passcode',
   notice: 'Notifications',
   reminder: 'Reminder',
@@ -360,6 +354,7 @@ const setting = {
   logout: 'Logout',
   inquiry: 'Contact',
   about: 'What is LangJournal',
+  cancel: 'Cancellation of premium membership',
 };
 
 const signIn = {
@@ -442,11 +437,6 @@ const modalDiaryCancel = {
 const modalSendEmail = {
   title: 'Mail Sent',
   text: 'The email has been sent. Please click the link in the email to change your password.',
-};
-
-const myDiaryListMenu = {
-  myPage: 'My Page',
-  draftList: 'List of Drafts',
 };
 
 const postDiaryComponent = {
@@ -710,7 +700,6 @@ const en = {
   yetHuman,
   viewMyDiary,
   themeCategory,
-  myPage,
   passcodeLock,
   onboarding,
   reminderInitial,
@@ -736,7 +725,6 @@ const en = {
   modalDeleteAcount,
   modalDiaryCancel,
   modalSendEmail,
-  myDiaryListMenu,
   postDiaryComponent,
   sns,
   myDiaryStatus,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Text, StyleSheet, View, Switch } from 'react-native';
 
 import {
@@ -11,6 +11,7 @@ import {
 interface Props {
   isBorrderTop?: boolean;
   title: string;
+  leftIcon?: ReactNode;
   value: boolean;
   onValueChange: (value: boolean) => void;
 }
@@ -32,6 +33,13 @@ const styles = StyleSheet.create({
     color: primaryColor,
     fontSize: fontSizeM,
   },
+  leftContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  leftIcon: {
+    width: 22,
+  },
   rightContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -41,6 +49,7 @@ const styles = StyleSheet.create({
 const OptionSwitch = ({
   isBorrderTop = false,
   title,
+  leftIcon,
   value,
   onValueChange,
 }: Props) => {
@@ -48,7 +57,10 @@ const OptionSwitch = ({
 
   return (
     <View style={[styles.container, { borderTopWidth }]}>
-      <Text style={styles.title}>{title}</Text>
+      <View style={styles.leftContainer}>
+        {leftIcon && <View style={styles.leftIcon}>{leftIcon}</View>}
+        <Text style={styles.title}>{title}</Text>
+      </View>
       <View style={styles.rightContainer}>
         <Switch
           trackColor={{ true: mainColor }}

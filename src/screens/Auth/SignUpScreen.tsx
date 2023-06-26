@@ -265,6 +265,7 @@ const SignUpScreen: React.FC<ScreenType> = ({
         <Space size={16} />
         <Text style={styles.label}>{I18n.t('signUp.password')}</Text>
         <CheckTextInput
+          isPassword
           value={password}
           onChangeText={setPassword}
           onBlur={onBlurPassword}
@@ -273,16 +274,14 @@ const SignUpScreen: React.FC<ScreenType> = ({
           autoCapitalize='none'
           autoCorrect={false}
           underlineColorAndroid='transparent'
-          secureTextEntry
           returnKeyType='done'
-          isCheckOk={isPasswordCheckOk}
           errorMessage={errorPassword}
         />
         <Space size={16} />
         <SubmitButton
           title={I18n.t('common.register')}
           onPress={onPressSubmit}
-          disable={!(isEmailCheckOk && isPasswordCheckOk)}
+          disable={!isEmailCheckOk || !isPasswordCheckOk}
         />
         <Space size={32} />
         <View style={styles.row}>

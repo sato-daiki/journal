@@ -19,16 +19,17 @@ import {
   tripExamples,
   tripExpressions,
 } from '@/utils/locales/topicGuide';
-import {
-  hobby,
-  selfIntroduction,
-  job,
-  study,
-  dream,
-  trip,
-  reborn,
-} from './config';
 import { Entry, Sentence, StyleSentence } from './interface';
+import {
+  Airplane,
+  Baseball,
+  GraduationSpeech,
+  Grind,
+  Office,
+  President,
+  Skull,
+} from '@/images';
+import { getLanguageToolCode } from '@/utils/grammarCheck';
 
 export interface GetParams {
   expressions: Sentence[];
@@ -304,7 +305,7 @@ export const getEntries = ({
       return null;
   }
 
-  return entries.concat({ key: 'end', params: null });
+  return entries ? entries.concat({ key: 'end', params: null }) : null;
 };
 
 export const getStyle = (styleType: 'bold' | 'p'): TextStyle | undefined => {
@@ -318,4 +319,271 @@ export const getStyle = (styleType: 'bold' | 'p'): TextStyle | undefined => {
     default:
       return undefined;
   }
+};
+
+const selfIntroduction = ({
+  expressions,
+  examples,
+  learnLanguage,
+}: GetParams): Entry[] | null => {
+  const words = getWords({
+    learnLanguage,
+    num: 10,
+    topicCategory: 'first',
+    topicSubcategory: 'selfIntroduction',
+  });
+
+  return [
+    {
+      key: 'introduction',
+      params: {
+        text: I18n.t('first.selfIntroduction.introduction', {
+          learnLanguage: I18n.t(
+            `language.${getLanguageToolCode(learnLanguage)}`,
+          ),
+        }),
+        source: President,
+      },
+    },
+    {
+      key: 'tip',
+      params: {
+        examples,
+        expressions,
+      },
+    },
+    {
+      key: 'word',
+      params: {
+        title: I18n.t('first.selfIntroduction.wordTitle'),
+        words,
+      },
+    },
+  ];
+};
+
+const hobby = ({
+  expressions,
+  examples,
+  learnLanguage,
+}: GetParams): Entry[] => {
+  const words = getWords({
+    learnLanguage,
+    num: 9,
+    topicCategory: 'first',
+    topicSubcategory: 'hobby',
+  });
+
+  return [
+    {
+      key: 'introduction',
+      params: {
+        text: I18n.t('first.hobby.introduction', {
+          learnLanguage: I18n.t(
+            `language.${getLanguageToolCode(learnLanguage)}`,
+          ),
+        }),
+        source: Baseball,
+      },
+    },
+    {
+      key: 'tip',
+      params: {
+        examples,
+        expressions,
+      },
+    },
+    {
+      key: 'word',
+      params: {
+        title: I18n.t('first.hobby.wordTitle'),
+        words,
+      },
+    },
+  ];
+};
+
+const job = ({ expressions, examples, learnLanguage }: GetParams): Entry[] => {
+  const words = getWords({
+    learnLanguage,
+    num: 18,
+    topicCategory: 'first',
+    topicSubcategory: 'job',
+  });
+
+  return [
+    {
+      key: 'introduction',
+      params: {
+        text: I18n.t('first.job.introduction'),
+        source: Office,
+      },
+    },
+    {
+      key: 'tip',
+      params: {
+        examples,
+        expressions,
+      },
+    },
+    {
+      key: 'word',
+      params: {
+        title: I18n.t('first.job.wordTitle'),
+        words,
+      },
+    },
+  ];
+};
+
+const study = ({
+  expressions,
+  examples,
+  learnLanguage,
+}: GetParams): Entry[] => {
+  const words = getWords({
+    learnLanguage,
+    num: 7,
+    topicCategory: 'first',
+    topicSubcategory: 'study',
+  });
+
+  return [
+    {
+      key: 'introduction',
+      params: {
+        text: I18n.t('first.study.introduction', {
+          learnLanguage: I18n.t(
+            `language.${getLanguageToolCode(learnLanguage)}`,
+          ),
+        }),
+        source: Grind,
+      },
+    },
+    {
+      key: 'tip',
+      params: {
+        examples,
+        expressions,
+      },
+    },
+    {
+      key: 'word',
+      params: {
+        title: I18n.t('first.study.wordTitle'),
+        words,
+      },
+    },
+  ];
+};
+
+const dream = ({
+  expressions,
+  examples,
+  learnLanguage,
+}: GetParams): Entry[] => {
+  const words = getWords({
+    learnLanguage,
+    num: 9,
+    topicCategory: 'first',
+    topicSubcategory: 'dream',
+  });
+
+  return [
+    {
+      key: 'introduction',
+      params: {
+        text: I18n.t('first.dream.introduction'),
+        source: GraduationSpeech,
+      },
+    },
+    {
+      key: 'tip',
+      params: {
+        examples,
+        expressions,
+      },
+    },
+    {
+      key: 'word',
+      params: {
+        title: I18n.t('first.dream.wordTitle'),
+        words,
+      },
+    },
+  ];
+};
+
+const trip = ({ expressions, examples, learnLanguage }: GetParams): Entry[] => {
+  const words = getWords({
+    learnLanguage,
+    num: 9,
+    topicCategory: 'first',
+    topicSubcategory: 'trip',
+  });
+
+  return [
+    {
+      key: 'introduction',
+      params: {
+        text: I18n.t('first.trip.introduction', {
+          learnLanguage: I18n.t(
+            `language.${getLanguageToolCode(learnLanguage)}`,
+          ),
+        }),
+        source: Airplane,
+      },
+    },
+    {
+      key: 'tip',
+      params: {
+        examples,
+        expressions,
+      },
+    },
+    {
+      key: 'word',
+      params: {
+        title: I18n.t('first.trip.wordTitle'),
+        words,
+      },
+    },
+  ];
+};
+
+const reborn = ({
+  expressions,
+  examples,
+  learnLanguage,
+}: GetParams): Entry[] => {
+  const words = getWords({
+    learnLanguage,
+    num: 4,
+    topicCategory: 'first',
+    topicSubcategory: 'reborn',
+  });
+
+  return [
+    {
+      key: 'introduction',
+      params: {
+        text: I18n.t('first.reborn.introduction'),
+        source: Skull,
+      },
+    },
+    {
+      key: 'tip',
+      params: {
+        examples,
+        expressions,
+      },
+    },
+    {
+      key: 'word',
+      params: {
+        title: I18n.t('first.reborn.wordTitle'),
+        words,
+      },
+    },
+  ];
 };

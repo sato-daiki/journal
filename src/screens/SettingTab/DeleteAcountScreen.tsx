@@ -15,9 +15,9 @@ import ModalDeleteAcount from '../../components/organisms/ModalDeleteAcount';
 import I18n from '../../utils/I18n';
 import { alert } from '../../utils/ErrorAlert';
 import {
-  MyPageTabNavigationProp,
-  MyPageTabStackParamList,
-} from '../../navigations/MyPageTabNavigator';
+  SettingTabNavigationProp,
+  SettingTabStackParamList,
+} from '../../navigations/SettingTabNavigator';
 import { Hoverable } from '../../components/atoms';
 import auth from '@react-native-firebase/auth';
 
@@ -26,8 +26,8 @@ interface DispatchProps {
 }
 
 type DeleteAcountNavigationProp = CompositeNavigationProp<
-  StackNavigationProp<MyPageTabStackParamList, 'DeleteAcount'>,
-  MyPageTabNavigationProp
+  StackNavigationProp<SettingTabStackParamList, 'DeleteAcount'>,
+  SettingTabNavigationProp
 >;
 
 type ScreenType = {

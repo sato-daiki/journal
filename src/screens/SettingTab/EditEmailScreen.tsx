@@ -10,26 +10,21 @@ import {
 } from '../../utils/common';
 import { CheckTextInput } from '../../components/molecules';
 import { Space, SubmitButton, LoadingModal } from '../../components/atoms';
-import {
-  primaryColor,
-  fontSizeM,
-  fontSizeL,
-  subTextColor,
-} from '../../styles/Common';
+import { primaryColor, fontSizeM, fontSizeL } from '../../styles/Common';
 import I18n from '../../utils/I18n';
 import {
-  MyPageTabStackParamList,
-  MyPageTabNavigationProp,
-} from '../../navigations/MyPageTabNavigator';
+  SettingTabStackParamList,
+  SettingTabNavigationProp,
+} from '../../navigations/SettingTabNavigator';
 import auth from '@react-native-firebase/auth';
 
-type RegisterEmailPasswordNavigationProp = CompositeNavigationProp<
-  StackNavigationProp<MyPageTabStackParamList, 'RegisterEmailPassword'>,
-  MyPageTabNavigationProp
+type EditEmailNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<SettingTabStackParamList, 'EditEmail'>,
+  SettingTabNavigationProp
 >;
 
 type ScreenType = {
-  navigation: RegisterEmailPasswordNavigationProp;
+  navigation: EditEmailNavigationProp;
 };
 
 const styles = StyleSheet.create({
@@ -47,13 +42,6 @@ const styles = StyleSheet.create({
     fontSize: fontSizeL,
     fontWeight: 'bold',
     paddingBottom: 16,
-    lineHeight: fontSizeL * 1.3,
-  },
-  subText: {
-    color: subTextColor,
-    fontSize: fontSizeM,
-    paddingBottom: 16,
-    lineHeight: fontSizeM * 1.3,
   },
   label: {
     color: primaryColor,
@@ -62,13 +50,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const RegisterEmailPasswordScreen: React.FC<ScreenType> = ({ navigation }) => {
+const EditEmailScreen: React.FC<ScreenType> = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isEmailLoading, setIsEmailLoading] = useState(false);
-
   const [isEmailCheckOk, setIsEmailCheckOk] = useState(false);
-  const [isPasswordCheckOk, setIsPasswordCheckOk] = useState(false);
-
   const [email, setEmail] = useState('');
   const [errorEmail, setErrorEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -84,15 +69,15 @@ const RegisterEmailPasswordScreen: React.FC<ScreenType> = ({ navigation }) => {
       clearErrorMessage();
       try {
         const { currentUser } = auth();
-        if (!currentUser) {
-          return;
-        }
+        if (!currentUser || !currentUser.email) return;
+        const credential = auth.EmailAuthProvider.credential(
+          currentUser.email,
+          password,
+        );
         setIsLoading(true);
+        await currentUser.reauthenticateWithCredential(credential);
         await currentUser.updateEmail(email);
-        await currentUser.updatePassword(password);
-
-        setIsLoading(false);
-        navigation.navigate('MyPage');
+        navigation.goBack();
       } catch (err: any) {
         emailInputError(
           err,
@@ -105,7 +90,7 @@ const RegisterEmailPasswordScreen: React.FC<ScreenType> = ({ navigation }) => {
       setIsLoading(false);
     };
     f();
-  }, [email, navigation, password]);
+  }, [password, email, navigation]);
 
   const onBlurEmail = useCallback(() => {
     const f = async (): Promise<void> => {
@@ -137,31 +122,15 @@ const RegisterEmailPasswordScreen: React.FC<ScreenType> = ({ navigation }) => {
   }, [email, setIsEmailCheckOk, setErrorEmail, setIsEmailLoading]);
 
   const onBlurPassword = useCallback(() => {
-    if (password.length === 0) {
-      setIsPasswordCheckOk(false);
-      setErrorPassword('');
-    } else if (password.length > 0 && password.length < 6) {
-      setIsPasswordCheckOk(false);
-      setErrorPassword(I18n.t('errorMessage.weakPassword'));
-    } else {
-      setIsPasswordCheckOk(true);
-      setErrorPassword('');
-    }
-  }, [password, setIsPasswordCheckOk, setErrorPassword]);
+    setErrorPassword('');
+  }, [setErrorPassword]);
 
   return (
     <KeyboardAwareScrollView style={styles.container}>
       <View style={styles.main}>
         <LoadingModal visible={isLoading} />
-        <Text style={styles.title}>
-          {I18n.t('registerEmailPassword.title')}
-        </Text>
-        <Text style={styles.subText}>
-          {I18n.t('registerEmailPassword.subText')}
-        </Text>
-        <Text style={styles.label}>
-          {I18n.t('registerEmailPassword.email')}
-        </Text>
+        <Text style={styles.title}>{I18n.t('editEmail.title')}</Text>
+        <Text style={styles.label}>{I18n.t('editEmail.labelEmail')}</Text>
         <CheckTextInput
           value={email}
           onChangeText={(text: string): void => setEmail(text)}
@@ -178,10 +147,9 @@ const RegisterEmailPasswordScreen: React.FC<ScreenType> = ({ navigation }) => {
           errorMessage={errorEmail}
         />
         <Space size={16} />
-        <Text style={styles.label}>
-          {I18n.t('registerEmailPassword.password')}
-        </Text>
+        <Text style={styles.label}>{I18n.t('editEmail.labelPassword')}</Text>
         <CheckTextInput
+          isPassword
           value={password}
           onChangeText={(text: string): void => setPassword(text)}
           onBlur={onBlurPassword}
@@ -190,9 +158,7 @@ const RegisterEmailPasswordScreen: React.FC<ScreenType> = ({ navigation }) => {
           autoCapitalize='none'
           autoCorrect={false}
           underlineColorAndroid='transparent'
-          secureTextEntry
           returnKeyType='done'
-          isCheckOk={isPasswordCheckOk}
           errorMessage={errorPassword}
         />
         <Space size={32} />
@@ -207,4 +173,4 @@ const RegisterEmailPasswordScreen: React.FC<ScreenType> = ({ navigation }) => {
   );
 };
 
-export default RegisterEmailPasswordScreen;
+export default EditEmailScreen;

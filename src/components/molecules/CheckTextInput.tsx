@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   View,
   Text,
@@ -8,7 +8,6 @@ import {
   ActivityIndicator,
   Platform,
 } from 'react-native';
-import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 import {
   softRed,
   fontSizeS,
@@ -17,17 +16,18 @@ import {
   borderLightColor,
   offWhite,
   green,
+  subTextColor,
 } from '../../styles/Common';
+import { HoverableIcon, Icon } from '../atoms';
 
 const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  rightIcon: {
+  iconRow: {
     position: 'absolute',
     right: 16,
-    paddingTop: 2,
   },
   errorBorder: {
     borderColor: softRed,
@@ -61,28 +61,23 @@ const styles = StyleSheet.create({
 type Props = {
   isLoading?: boolean;
   isCheckOk?: boolean;
+  isPassword?: boolean;
   errorMessage: string;
 } & TextInputProps;
 
 const CheckTextInput = (props: Props) => {
-  const { isCheckOk = false, isLoading = false, errorMessage } = props;
+  const {
+    isCheckOk = false,
+    isLoading = false,
+    isPassword = false,
+    errorMessage,
+  } = props;
 
-  const rightIcon = (): ReactNode => {
-    if (isLoading) {
-      return <ActivityIndicator style={styles.rightIcon} size='small' />;
-    }
-    if (isCheckOk) {
-      return (
-        <MaterialCommunityIcons
-          style={styles.rightIcon}
-          size={24}
-          name='check-circle-outline'
-          color={green}
-        />
-      );
-    }
-    return null;
-  };
+  const [showPassword, setShowPassword] = useState(false);
+
+  const onPressPasswordIcon = useCallback(() => {
+    setShowPassword(!showPassword);
+  }, [showPassword]);
 
   return (
     <>
@@ -91,14 +86,43 @@ const CheckTextInput = (props: Props) => {
           autoCapitalize='none'
           autoCorrect={false}
           underlineColorAndroid='transparent'
-          style={[styles.textInput, errorMessage.length > 0 ? styles.errorBorder : {}]}
+          style={[
+            styles.textInput,
+            errorMessage.length > 0 ? styles.errorBorder : {},
+          ]}
+          secureTextEntry={isPassword && !showPassword ? true : false}
           {...props}
         />
-        {rightIcon()}
+        <View style={styles.iconRow}>
+          {isLoading ? (
+            <ActivityIndicator size='small' />
+          ) : isCheckOk ? (
+            <Icon
+              size={24}
+              icon='material'
+              name='check-circle-outline'
+              color={green}
+            />
+          ) : null}
+          {isPassword && (
+            <HoverableIcon
+              size={24}
+              icon='community'
+              name={showPassword ? 'eye-off' : 'eye'}
+              color={subTextColor}
+              onPress={onPressPasswordIcon}
+            />
+          )}
+        </View>
       </View>
       {errorMessage.length > 0 ? (
         <View style={styles.errorContainer}>
-          <FontAwesome size={fontSizeM} name='exclamation-circle' color={softRed} />
+          <Icon
+            icon='fontAwesome'
+            size={fontSizeM}
+            name='exclamation-circle'
+            color={softRed}
+          />
           <Text style={styles.error}>{errorMessage}</Text>
         </View>
       ) : null}

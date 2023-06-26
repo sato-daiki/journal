@@ -16,16 +16,16 @@ import {
 import I18n from '@/utils/I18n';
 import { emailInputError, emailValidate } from '@/utils/common';
 import {
-  MyPageTabStackParamList,
-  MyPageTabNavigationProp,
-} from '@/navigations/MyPageTabNavigator';
+  SettingTabStackParamList,
+  SettingTabNavigationProp,
+} from '@/navigations/SettingTabNavigator';
 import auth from '@react-native-firebase/auth';
 import { getLanguageToolCode } from '@/utils/grammarCheck';
 import { LongCode } from '@/types';
 
 type NavigationProp = CompositeNavigationProp<
-  StackNavigationProp<MyPageTabStackParamList, 'ForegetPassword'>,
-  MyPageTabNavigationProp
+  StackNavigationProp<SettingTabStackParamList, 'ForegetPassword'>,
+  SettingTabNavigationProp
 >;
 
 type ScreenType = {

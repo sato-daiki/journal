@@ -3,13 +3,16 @@ import {
   MaterialIcons,
   MaterialCommunityIcons,
   Feather,
+  FontAwesome,
 } from '@expo/vector-icons';
 
 import { mainColor, primaryColor } from '../../styles/Common';
+import { StyleProp, TextStyle } from 'react-native';
 
-export type IconType = 'material' | 'community' | 'feather';
+export type IconType = 'material' | 'community' | 'feather' | 'fontAwesome';
 
 type Props = {
+  style?: StyleProp<TextStyle>;
   isHover?: boolean;
   icon: IconType;
   size: number;
@@ -20,6 +23,7 @@ type Props = {
 
 // defautlはopacityの設定のみ
 const Icon: React.FC<Props> = ({
+  style,
   isHover,
   icon,
   name,
@@ -30,6 +34,7 @@ const Icon: React.FC<Props> = ({
   if (icon === 'material') {
     return (
       <MaterialIcons
+        style={style}
         name={name}
         size={size}
         color={isHover ? hoverColor : color}
@@ -39,6 +44,7 @@ const Icon: React.FC<Props> = ({
   if (icon === 'community') {
     return (
       <MaterialCommunityIcons
+        style={style}
         name={name}
         size={size}
         color={isHover ? hoverColor : color}
@@ -47,7 +53,22 @@ const Icon: React.FC<Props> = ({
   }
   if (icon === 'feather') {
     return (
-      <Feather name={name} size={size} color={isHover ? hoverColor : color} />
+      <Feather
+        style={style}
+        name={name}
+        size={size}
+        color={isHover ? hoverColor : color}
+      />
+    );
+  }
+  if (icon === 'fontAwesome') {
+    return (
+      <FontAwesome
+        style={style}
+        name={name}
+        size={size}
+        color={isHover ? hoverColor : color}
+      />
     );
   }
   return null;
