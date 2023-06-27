@@ -234,8 +234,9 @@ const themeCategory = {
 
 const becomePremium = {
   headerTitle: 'About premium membership',
-  description: 'Premium members can use the following functions',
-  props1: 'Correct without watching video ads（* Up to 10 times a day)',
+  becomeTitle: 'Become a premium member',
+  props1: 'Correct without watching video ads',
+  props1description: '* Up to 10 times a day',
   props2: 'Hides ads',
   MONTHLY: 'Premium Monthly Subscription',
   ANNUAL: 'Premium Yearly Subscription',
@@ -341,6 +342,7 @@ const setting = {
   premium: 'Premium membership',
   aboutPremium: 'About Premium Membership',
   basic: 'Basic',
+  display: 'Display',
   app: 'About the app',
   learn: 'Learning',
   passcodeLock: 'Passcode',
@@ -355,6 +357,13 @@ const setting = {
   inquiry: 'Contact',
   about: 'What is LangJournal',
   cancel: 'Cancellation of premium membership',
+};
+
+const display = {
+  headerTitle: 'Display',
+  device: 'Use device settings',
+  light: 'Light mode',
+  dark: 'Dark mode',
 };
 
 const signIn = {
@@ -716,6 +725,7 @@ const en = {
   selectTopicSubcategory,
   topicGuide,
   setting,
+  display,
   signIn,
   signUp,
   userProfile,

@@ -13,7 +13,6 @@ import Purchases, {
 } from 'react-native-purchases';
 import auth from '@react-native-firebase/auth';
 import Toast from 'react-native-root-toast';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import I18n from '@/utils/I18n';
 import {
   ModalBecomePremiumStackNavigationProp,
@@ -26,13 +25,22 @@ import {
 
 import {
   HeaderText,
+  Icon,
   LinkText,
   LoadingModal,
   RadioBox,
   Space,
   SubmitButton,
 } from '@/components/atoms';
-import { fontSizeM, mainColor, softRed, subTextColor } from '@/styles/Common';
+import {
+  fontSizeL,
+  fontSizeLL,
+  fontSizeM,
+  mainColor,
+  primaryColor,
+  softRed,
+  subTextColor,
+} from '@/styles/Common';
 import { checkPremium } from '@/utils/purchase';
 
 interface DispatchProps {
@@ -53,22 +61,42 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     paddingHorizontal: 16,
-    paddingTop: 32,
+    paddingTop: 16,
   },
-  description: {
+  becomeContainer: {
+    marginTop: 16,
+    borderRadius: 8,
+    paddingLeft: 16,
+    paddingRight: 24,
+    paddingVertical: 16,
+    borderColor: mainColor,
+    borderWidth: 3,
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 24,
+  },
+  becomeTitle: {
+    marginHorizontal: 4,
+    fontSize: fontSizeLL,
+    fontWeight: 'bold',
+  },
+  becomeText: {
+    fontSize: fontSizeL,
+    fontWeight: 'bold',
+    marginLeft: 8,
+  },
+  becomeDescription: {
     fontSize: fontSizeM,
-    lineHeight: fontSizeM * 1.3,
-    marginBottom: 16,
+    fontWeight: 'bold',
+    marginLeft: 8,
   },
   labelContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 8,
-  },
-  becomeText: {
-    fontSize: fontSizeM,
-    fontWeight: 'bold',
-    marginLeft: 8,
   },
   linkTextContaienr: {
     paddingTop: 16,
@@ -77,14 +105,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   noEmail: {
-    paddingTop: 8,
+    paddingTop: 16,
     fontSize: fontSizeM,
     lineHeight: fontSizeM * 1.3,
     color: softRed,
-  },
-  slash: {
-    paddingHorizontal: 16,
-    color: subTextColor,
+    fontWeight: 'bold',
   },
   priceContainer: {
     flex: 1,
@@ -196,17 +221,45 @@ const BecomePremiumScreen: React.FC<ScreenType> = ({
   return (
     <View style={styles.container}>
       <LoadingModal visible={isLoading} />
-      <Text style={styles.description}>
-        {I18n.t('becomePremium.description')}
-      </Text>
-      <View style={styles.labelContainer}>
-        <MaterialCommunityIcons size={16} name='check' />
-        <Text style={styles.becomeText}>{I18n.t('becomePremium.props1')}</Text>
+      <View style={styles.becomeContainer}>
+        <View style={styles.row}>
+          <Icon
+            icon='community'
+            name='star-four-points-outline'
+            size={18}
+            color={primaryColor}
+          />
+          <Text style={styles.becomeTitle}>
+            {I18n.t('becomePremium.becomeTitle')}
+          </Text>
+          <Icon
+            icon='community'
+            name='star-four-points-outline'
+            size={18}
+            color={primaryColor}
+          />
+        </View>
+        <View style={styles.labelContainer}>
+          <Icon icon='community' name='check' size={24} color={primaryColor} />
+          <View>
+            <Text style={styles.becomeText}>
+              {I18n.t('becomePremium.props1')}
+            </Text>
+            <Space size={4} />
+            <Text style={styles.becomeDescription}>
+              {I18n.t('becomePremium.props1description')}
+            </Text>
+          </View>
+        </View>
+        <Space size={8} />
+        <View style={styles.labelContainer}>
+          <Icon icon='community' name='check' size={24} color={primaryColor} />
+          <Text style={styles.becomeText}>
+            {I18n.t('becomePremium.props2')}
+          </Text>
+        </View>
       </View>
-      <View style={styles.labelContainer}>
-        <MaterialCommunityIcons size={16} name='check' />
-        <Text style={styles.becomeText}>{I18n.t('becomePremium.props2')}</Text>
-      </View>
+
       <Space size={32} />
       {currentOffering &&
         currentOffering.availablePackages.map((item) => (

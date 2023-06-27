@@ -26,6 +26,7 @@ import {
 import { WebViewNavParams, WebViewScreen } from '@/screens/WebViewScreen';
 import PasscodeLockSettingScreen from '@/screens/SettingTab/PasscodeLockSetting';
 import RePasscodeLockSettingScreenContainer from '@/containers/RePasscodeLockSettingScreenContainer';
+import DisplayScreenContainer from '@/containers/DisplayScreenContainer';
 
 export type SettingTabNavigationProp = CompositeNavigationProp<
   StackNavigationProp<HomeBottomParamList, 'SettingTab'>,
@@ -34,6 +35,7 @@ export type SettingTabNavigationProp = CompositeNavigationProp<
 
 export type SettingTabStackParamList = {
   Setting: undefined;
+  Display: undefined;
   Inquiry: undefined;
   EditEmail: undefined;
   EditPassword: undefined;
@@ -59,6 +61,11 @@ const SettingTabNavigator = () => {
       initialRouteName='Setting'
       screenOptions={DefaultNavigationOptions}
     >
+      <SettingTabStack.Screen
+        name='Display'
+        component={DisplayScreenContainer}
+        options={{ title: I18n.t('display.headerTitle') }}
+      />
       <SettingTabStack.Screen
         name='Setting'
         component={SettingScreenContainer}
