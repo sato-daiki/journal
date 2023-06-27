@@ -314,7 +314,7 @@ const SettingScreen: React.FC<ScreenType> = ({
           }}
         />
       )}
-      <Space size={16} />
+      {/* <Space size={16} />
       <Text style={styles.title}>{I18n.t('setting.display')}</Text>
       <OptionItem
         isBorrderTop
@@ -322,7 +322,7 @@ const SettingScreen: React.FC<ScreenType> = ({
         onPress={(): void => {
           navigation.navigate('Display');
         }}
-      />
+      /> */}
       <Space size={16} />
       <Text style={styles.title}>{I18n.t('setting.app')}</Text>
       <OptionItem
