@@ -25,6 +25,8 @@ import {
   ModalPostReviseDiaryStackParamList,
   ModalViewMyDiaryStackParamList,
   ModalViewMyDiaryNavigator,
+  ModalImageListStackParamList,
+  ModalImageListNavigator,
   ModalEditMyProfileNavigator,
   ModalEditMyProfileStackParamList,
   ModalReviewStackParamList,
@@ -94,6 +96,13 @@ export type MainStackParamList = {
     screen: keyof ModalViewMyDiaryStackParamList;
     params: {
       objectID: string;
+    };
+  };
+  ModalImageList: {
+    screen: keyof ModalImageListStackParamList;
+    params: {
+      defaultIndex: number;
+      images: string[];
     };
   };
   ModalEditMyProfile: { screen: keyof ModalEditMyProfileStackParamList };
@@ -166,6 +175,10 @@ const MainNavigator = () => {
       <MainStack.Screen
         name='ModalViewMyDiary'
         component={ModalViewMyDiaryNavigator}
+      />
+      <MainStack.Screen
+        name='ModalImageList'
+        component={ModalImageListNavigator}
       />
       <MainStack.Screen
         name='ModalEditMyProfile'

@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { BackHandler, Alert, Keyboard } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
 import I18n from '@/utils/I18n';
-import { LongCode } from '@/types';
+import { ImageInfo, LongCode } from '@/types';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { getLanguageToolShortName } from '@/utils/grammarCheck';
 import { PickerItem } from '@/components/molecules/ModalPicker';
@@ -24,11 +25,13 @@ export const useCommon = ({
 
   const [title, setTitle] = useState(themeTitle || '');
   const [text, setText] = useState('');
+  const [images, setImages] = useState<ImageInfo[]>([]);
   const [selectedItem, setSelectedItem] = useState<PickerItem>({
     label: getLanguageToolShortName(learnLanguage),
     value: learnLanguage,
   });
   const [errorMessage, setErrorMessage] = useState('');
+  const [isImageLoading, setIsImageLoading] = useState(false);
 
   useEffect(() => {
     // keyboardでの戻るを制御する Androidのみ
@@ -93,21 +96,102 @@ export const useCommon = ({
   }, []);
 
   const onChangeTextTitle = useCallback(
-    (txt) => {
-      setTitle(txt);
+    (value) => {
+      setTitle(value);
     },
     [setTitle],
   );
 
   const onChangeTextText = useCallback(
-    (txt) => {
-      setText(txt);
+    (value) => {
+      setText(value);
     },
     [setText],
   );
 
+  const onChangeImages = useCallback((value) => {
+    setImages(value);
+  }, []);
+
+  const onPressChooseImage = useCallback(async () => {
+    // No permissions request is necessary for launching the image library
+
+    // すぐIsImageLoadingをtureにすると立ち上がり前にくるくるするため
+    setTimeout(() => {
+      setIsImageLoading(true);
+    }, 500);
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: false,
+      quality: 1,
+    });
+    if (!result.canceled) {
+      const newImageUrls = [
+        ...images,
+        {
+          imageUrl: result.assets[0].uri,
+          imagePath: null,
+        },
+      ];
+      setImages(newImageUrls);
+    }
+    setIsImageLoading(false);
+  }, [images]);
+
+  const onPressCamera = useCallback(async () => {
+    const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+    if (!permissionResult.granted) {
+      Alert.alert(
+        I18n.t('postDiary.errorPermissionTitle'),
+        I18n.t('postDiary.errorPermissionText'),
+      );
+      return;
+    }
+
+    setTimeout(() => {
+      setIsImageLoading(true);
+    }, 500);
+    let result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+    });
+
+    if (!result.canceled) {
+      const newImageUrls = [
+        ...images,
+        {
+          imageUrl: result.assets[0].uri,
+          imagePath: null,
+        },
+      ];
+      setImages(newImageUrls);
+    }
+    setIsImageLoading(false);
+  }, [images]);
+
+  const onPressImage = useCallback(
+    async (index: number) => {
+      navigation.navigate('ModalImageList', {
+        screen: 'ImageList',
+        params: {
+          defaultIndex: index,
+          images: images,
+        },
+      });
+    },
+    [images, navigation],
+  );
+
+  const onPressDeleteImage = useCallback(
+    async (paramImage: ImageInfo) => {
+      const newImages = images.filter((image) => image !== paramImage);
+      setImages(newImages);
+    },
+    [images],
+  );
+
   return {
     isModalCancel,
+    isImageLoading,
     isLoadingPublish,
     setIsLoadingPublish,
     isLoadingDraft,
@@ -116,6 +200,7 @@ export const useCommon = ({
     setIsModalError,
     title,
     text,
+    images,
     selectedItem,
     errorMessage,
     setErrorMessage,
@@ -126,5 +211,10 @@ export const useCommon = ({
     onPressItem,
     onChangeTextTitle,
     onChangeTextText,
+    onChangeImages,
+    onPressChooseImage,
+    onPressCamera,
+    onPressImage,
+    onPressDeleteImage,
   };
 };

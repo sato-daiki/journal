@@ -1,5 +1,5 @@
 import { Animated } from 'react-native';
-import { ThemeCategory, ThemeSubcategory } from '@/types';
+import { ImageInfo, ThemeCategory, ThemeSubcategory } from '@/types';
 import { PostDiaryNavigationProp } from '@/screens/PostDiaryTab/PostDiaryScreen/interfaces';
 import { PostDraftDiaryNavigationProp } from '@/screens/PostDiaryTab/PostDraftDiaryScreen/interfaces';
 import { PostReviseDiaryNavigationProp } from '@/screens/PostDiaryTab/PostReviseDiaryScreen/PostReviseDiaryScreen';
@@ -8,13 +8,19 @@ import { PickerItem } from '@/components/molecules/ModalPicker';
 export interface PostDiaryKeyboardProps {
   title: string;
   text: string;
+  images?: ImageInfo[] | null;
   themeCategory?: ThemeCategory;
   themeSubcategory?: ThemeSubcategory;
   isForce?: boolean;
   isTopic: boolean;
+  isImageLoading: boolean;
   fadeAnim?: Animated.Value;
   onChangeTextTitle: (txt: string) => void;
   onChangeTextText: (txt: string) => void;
+  onPressChooseImage: () => void;
+  onPressCamera: () => void;
+  onPressImage: (index: number) => void;
+  onPressDeleteImage: (image: ImageInfo) => void;
   onPressDraft?: () => void;
   onFocusText: () => void;
   onBlurText: () => void;
@@ -30,8 +36,10 @@ export interface PostDiaryProps {
   isLoading: boolean;
   isModalCancel: boolean;
   isModalError: boolean;
+  isImageLoading: boolean;
   title: string;
   text: string;
+  images?: ImageInfo[] | null;
   themeCategory?: ThemeCategory | null;
   themeSubcategory?: ThemeSubcategory | null;
   errorMessage: string;
@@ -39,6 +47,10 @@ export interface PostDiaryProps {
   onPressCloseModalCancel: () => void;
   onChangeTextTitle: (txt: string) => void;
   onChangeTextText: (txt: string) => void;
+  onPressChooseImage: () => void;
+  onPressCamera: () => void;
+  onPressImage: (index: number) => void;
+  onPressDeleteImage: (image: ImageInfo) => void;
   onPressDraft?: () => void;
   onPressMyDiary?: () => void;
   onPressNotSave: () => void;

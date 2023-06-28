@@ -73,6 +73,7 @@ const PostDiary: React.FC<PostDiaryProps> = ({
   isModalError,
   title,
   text,
+  images,
   themeCategory,
   themeSubcategory,
   errorMessage,
@@ -80,6 +81,11 @@ const PostDiary: React.FC<PostDiaryProps> = ({
   onPressCloseModalCancel,
   onChangeTextTitle,
   onChangeTextText,
+  isImageLoading,
+  onPressChooseImage,
+  onPressCamera,
+  onPressImage,
+  onPressDeleteImage,
   onPressDraft,
   onPressMyDiary,
   onPressNotSave,
@@ -188,14 +194,20 @@ const PostDiary: React.FC<PostDiaryProps> = ({
       <PostDiaryKeyboard
         title={title}
         text={text}
+        images={images}
         themeCategory={themeCategory}
         themeSubcategory={themeSubcategory}
         isForce={isForce}
         isTopic={isTopic}
+        isImageLoading={isImageLoading}
         fadeAnim={fadeAnim}
         onPressTopicGuide={onPressTopicGuide}
         onChangeTextTitle={onChangeTextTitle}
         onChangeTextText={onChangeTextText}
+        onPressChooseImage={onPressChooseImage}
+        onPressCamera={onPressCamera}
+        onPressImage={onPressImage}
+        onPressDeleteImage={onPressDeleteImage}
         onPressDraft={onPressDraft}
         onPressMyDiary={onPressMyDiary}
         onFocusText={onFocusText}

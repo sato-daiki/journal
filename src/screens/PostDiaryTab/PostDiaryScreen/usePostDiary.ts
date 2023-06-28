@@ -10,6 +10,7 @@ import {
   LanguageTool,
   ThemeCategory,
   ThemeSubcategory,
+  ImageInfo,
 } from '@/types';
 import {
   checkBeforePost,
@@ -20,11 +21,12 @@ import {
 import { logAnalytics, events } from '@/utils/Analytics';
 import { alert } from '@/utils/ErrorAlert';
 import { PostDiaryNavigationProp } from './interfaces';
-import { useCommon } from './useCommont';
+import { useCommon } from './useCommon';
 import firestore, {
   FirebaseFirestoreTypes,
 } from '@react-native-firebase/firestore';
 import { addAiCheckError, getLanguageTool } from '@/utils/grammarCheck';
+import { insertImages } from '@/utils/storage';
 
 interface UsePostDiary {
   navigation: PostDiaryNavigationProp;
@@ -47,6 +49,7 @@ export const usePostDiary = ({
 }: UsePostDiary) => {
   const {
     isModalCancel,
+    isImageLoading,
     isLoadingPublish,
     setIsLoadingPublish,
     isLoadingDraft,
@@ -55,6 +58,7 @@ export const usePostDiary = ({
     setIsModalError,
     title,
     text,
+    images,
     selectedItem,
     errorMessage,
     setErrorMessage,
@@ -65,6 +69,10 @@ export const usePostDiary = ({
     onPressItem,
     onChangeTextTitle,
     onChangeTextText,
+    onPressChooseImage,
+    onPressCamera,
+    onPressImage,
+    onPressDeleteImage,
   } = useCommon({
     navigation,
     themeTitle,
@@ -76,6 +84,7 @@ export const usePostDiary = ({
       uid: string,
       newTitle: string,
       newText: string,
+      newImages: ImageInfo[] | null,
       diaryStatus: DiaryStatus,
       languageTool?: LanguageTool,
     ): Diary => {
@@ -83,6 +92,7 @@ export const usePostDiary = ({
         uid: uid,
         title: newTitle,
         text: newText,
+        images: newImages,
         themeCategory: themeCategory || null,
         themeSubcategory: themeSubcategory || null,
         diaryStatus,
@@ -102,16 +112,21 @@ export const usePostDiary = ({
     if (isLoadingDraft || isLoadingPublish) return;
     logAnalytics('on_press_draft_post');
 
+    const isTitleSkip = !!themeCategory && !!themeSubcategory;
+    setIsLoadingDraft(true);
+
     try {
-      setIsLoadingDraft(true);
-      const isTitleSkip = !!themeCategory && !!themeSubcategory;
+      const diaryRef = firestore().collection('diaries').doc();
+      const diaryId = diaryRef.id;
       const { newTitle, newText } = getTitleTextPrettier(
         isTitleSkip,
         title,
         text,
       );
-      const diary = getDiary(user.uid, newTitle, newText, 'draft');
-      const diaryRef = await firestore().collection('diaries').add(diary);
+      const newImages = await insertImages(user.uid, diaryId, images);
+      const diary = getDiary(user.uid, newTitle, newText, newImages, 'draft');
+      await diaryRef.set(diary);
+
       // reduxに追加
       addDiary({
         objectID: diaryRef.id,
@@ -131,6 +146,7 @@ export const usePostDiary = ({
   }, [
     addDiary,
     getDiary,
+    images,
     isLoadingDraft,
     isLoadingPublish,
     navigation,
@@ -148,6 +164,7 @@ export const usePostDiary = ({
     logAnalytics('on_press_check_post');
 
     const isTitleSkip = !!themeCategory && !!themeSubcategory;
+
     const checked = checkBeforePost(isTitleSkip, title, text);
     if (!checked.result) {
       setErrorMessage(checked.errorMessage);
@@ -156,11 +173,15 @@ export const usePostDiary = ({
     }
 
     setIsLoadingPublish(true);
+    const diaryRef = firestore().collection('diaries').doc();
+    const diaryId = diaryRef.id;
+    let themeDiaries = user.themeDiaries || null;
     const { newTitle, newText } = getTitleTextPrettier(
       isTitleSkip,
       title,
       text,
     );
+    const newImages = await insertImages(user.uid, diaryId, images);
 
     const languageTool = await getLanguageTool(
       selectedItem.value as LongCode,
@@ -173,22 +194,17 @@ export const usePostDiary = ({
       user.uid,
       newTitle,
       newText,
+      newImages,
       'checked',
       languageTool,
     );
     const { runningDays, runningWeeks } = getRunning(user);
 
-    let diaryId = '';
-    let themeDiaries = user.themeDiaries || null;
-
     // 日記の更新の整合性をとるためtransactionを使う
     await firestore()
       .runTransaction(async (transaction) => {
         // diariesの更新
-        const refDiary = firestore().collection('diaries').doc();
-        diaryId = refDiary.id;
-        transaction.set(refDiary, diary);
-
+        transaction.set(diaryRef, diary);
         // Usersの更新
         if (themeCategory && themeSubcategory) {
           themeDiaries = getThemeDiaries(
@@ -270,6 +286,7 @@ export const usePostDiary = ({
   }, [
     addDiary,
     getDiary,
+    images,
     isLoadingDraft,
     isLoadingPublish,
     navigation,
@@ -290,14 +307,20 @@ export const usePostDiary = ({
     isLoadingPublish,
     isModalCancel,
     isModalError,
+    isImageLoading,
     title,
     text,
+    images,
     errorMessage,
     selectedItem,
     onPressCheck,
     onPressCloseModalCancel,
     onChangeTextTitle,
     onChangeTextText,
+    onPressChooseImage,
+    onPressCamera,
+    onPressImage,
+    onPressDeleteImage,
     onPressDraft,
     onPressNotSave,
     onPressClose,

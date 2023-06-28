@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { Keyboard } from 'react-native';
 import { User, Diary, LongCode, LanguageTool } from '@/types';
 import { checkBeforePost, getTitleTextPrettier } from '@/utils/diary';
-import { useCommon } from '../PostDiaryScreen/useCommont';
+import { useCommon } from '../PostDiaryScreen/useCommon';
 import firestore, {
   FirebaseFirestoreTypes,
 } from '@react-native-firebase/firestore';
@@ -27,6 +27,7 @@ export const usePostReviseDiary = ({
 
   const {
     isModalCancel,
+    isImageLoading,
     isLoadingPublish,
     setIsLoadingPublish,
     isModalError,
@@ -42,6 +43,10 @@ export const usePostReviseDiary = ({
     onPressCloseError,
     onChangeTextTitle,
     onChangeTextText,
+    onPressChooseImage,
+    onPressCamera,
+    onPressImage,
+    onPressDeleteImage,
   } = useCommon({
     navigation,
     learnLanguage: user.learnLanguage,
@@ -163,6 +168,7 @@ export const usePostReviseDiary = ({
     isLoadingPublish,
     isModalCancel,
     isModalError,
+    isImageLoading,
     title,
     text,
     errorMessage,
@@ -171,6 +177,10 @@ export const usePostReviseDiary = ({
     onPressCloseModalCancel,
     onChangeTextTitle,
     onChangeTextText,
+    onPressChooseImage,
+    onPressCamera,
+    onPressImage,
+    onPressDeleteImage,
     onPressNotSave,
     onPressClose,
     onPressCloseError,

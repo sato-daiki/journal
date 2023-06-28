@@ -54,6 +54,7 @@ const PostReviseDiaryScreen: React.FC<ScreenType> = ({
     isLoadingPublish,
     isModalCancel,
     isModalError,
+    isImageLoading,
     title,
     text,
     errorMessage,
@@ -61,6 +62,10 @@ const PostReviseDiaryScreen: React.FC<ScreenType> = ({
     onPressCloseModalCancel,
     onChangeTextTitle,
     onChangeTextText,
+    onPressChooseImage,
+    onPressCamera,
+    onPressImage,
+    onPressDeleteImage,
     onPressNotSave,
     onPressClose,
     onPressCloseError,
@@ -94,6 +99,7 @@ const PostReviseDiaryScreen: React.FC<ScreenType> = ({
       isLoading={isInitialLoading || isLoadingPublish}
       isModalCancel={isModalCancel}
       isModalError={isModalError}
+      isImageLoading={isImageLoading}
       title={title}
       text={text}
       themeCategory={item.themeCategory}
@@ -102,6 +108,10 @@ const PostReviseDiaryScreen: React.FC<ScreenType> = ({
       onPressCloseModalCancel={onPressCloseModalCancel}
       onChangeTextTitle={onChangeTextTitle}
       onChangeTextText={onChangeTextText}
+      onPressChooseImage={onPressChooseImage}
+      onPressCamera={onPressCamera}
+      onPressImage={onPressImage}
+      onPressDeleteImage={onPressDeleteImage}
       onPressNotSave={onPressNotSave}
       onPressCloseError={onPressCloseError}
       onPressMyDiary={onPressMyDiary}

@@ -6,8 +6,11 @@ import {
   KeyboardAvoidingView,
   Keyboard,
 } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { TextInputText, Hoverable, TextInputTitle } from '@/components/atoms';
+import {
+  TextInputText,
+  TextInputTitle,
+  HoverableIcon,
+} from '@/components/atoms';
 import { mainColor, offWhite } from '@/styles/Common';
 import { PostDiaryKeyboardProps } from './interface';
 import Footer from './Footer';
@@ -22,11 +25,13 @@ const styles = StyleSheet.create({
   textInput: {
     height: 400,
   },
-  icon: {
-    alignItems: 'flex-end',
+  keybordRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     paddingRight: 8,
-    paddingTop: 4,
-    paddingBottom: 4,
+    paddingLeft: 16,
+    paddingVertical: 4,
   },
   footer: {
     justifyContent: 'flex-end',
@@ -37,12 +42,16 @@ const styles = StyleSheet.create({
 
 const PostDiaryKeyboard: React.FC<PostDiaryKeyboardProps> = ({
   isTopic,
+  isImageLoading,
   title,
   text,
+  images,
   themeCategory,
   themeSubcategory,
   onChangeTextTitle,
   onChangeTextText,
+  onPressChooseImage,
+  onPressCamera,
   onPressDraft,
   onFocusText,
   onBlurText,
@@ -109,13 +118,22 @@ const PostDiaryKeyboard: React.FC<PostDiaryKeyboardProps> = ({
         )}
       </SafeAreaView>
       {isKeyboard ? (
-        <Hoverable style={styles.icon} onPress={Keyboard.dismiss}>
-          <MaterialCommunityIcons
+        <View style={styles.keybordRow}>
+          <HoverableIcon
+            icon='community'
+            onPress={onPressChooseImage}
+            size={24}
+            color={mainColor}
+            name='file-image-outline'
+          />
+          <HoverableIcon
+            icon='community'
+            onPress={Keyboard.dismiss}
             size={24}
             color={mainColor}
             name='keyboard-close'
           />
-        </Hoverable>
+        </View>
       ) : null}
     </View>
   );

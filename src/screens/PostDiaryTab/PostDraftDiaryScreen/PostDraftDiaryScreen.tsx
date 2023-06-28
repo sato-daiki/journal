@@ -57,14 +57,20 @@ const PostDraftDiaryScreen: React.FC<ScreenType> = ({
     isLoadingDraft,
     isModalCancel,
     isModalError,
+    isImageLoading,
     title,
     text,
+    images,
     errorMessage,
     selectedItem,
     onPressCheck,
     onPressCloseModalCancel,
     onChangeTextTitle,
     onChangeTextText,
+    onPressChooseImage,
+    onPressCamera,
+    onPressImage,
+    onPressDeleteImage,
     onPressDraft,
     onPressNotSave,
     onPressClose,
@@ -100,8 +106,10 @@ const PostDraftDiaryScreen: React.FC<ScreenType> = ({
       isLoading={isInitialLoading || isLoadingDraft || isLoadingPublish}
       isModalCancel={isModalCancel}
       isModalError={isModalError}
+      isImageLoading={isImageLoading}
       title={title}
       text={text}
+      images={images}
       themeCategory={item.themeCategory}
       themeSubcategory={item.themeSubcategory}
       errorMessage={errorMessage}
@@ -109,6 +117,10 @@ const PostDraftDiaryScreen: React.FC<ScreenType> = ({
       onPressCloseModalCancel={onPressCloseModalCancel}
       onChangeTextTitle={onChangeTextTitle}
       onChangeTextText={onChangeTextText}
+      onPressChooseImage={onPressChooseImage}
+      onPressCamera={onPressCamera}
+      onPressImage={onPressImage}
+      onPressDeleteImage={onPressDeleteImage}
       onPressDraft={onPressDraft}
       onPressNotSave={onPressNotSave}
       onPressCloseError={onPressCloseError}
