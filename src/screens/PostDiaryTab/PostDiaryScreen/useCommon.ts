@@ -114,58 +114,68 @@ export const useCommon = ({
   }, []);
 
   const onPressChooseImage = useCallback(async () => {
-    // No permissions request is necessary for launching the image library
+    try {
+      // すぐIsImageLoadingをtureにすると立ち上がり前にくるくるするため
+      setTimeout(() => {
+        setIsImageLoading(true);
+      }, 500);
+      // No permissions request is necessary for launching the image library
 
-    // すぐIsImageLoadingをtureにすると立ち上がり前にくるくるするため
-    setTimeout(() => {
-      setIsImageLoading(true);
-    }, 500);
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: false,
-      quality: 1,
-    });
-    if (!result.canceled) {
-      const newImageUrls = [
-        ...images,
-        {
-          imageUrl: result.assets[0].uri,
-          imagePath: null,
-        },
-      ];
-      setImages(newImageUrls);
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: false,
+        quality: 1,
+      });
+      if (!result.canceled) {
+        const newImageUrls = [
+          ...images,
+          {
+            imageUrl: result.assets[0].uri,
+            imagePath: null,
+          },
+        ];
+        setImages(newImageUrls);
+      }
+    } catch (err: any) {
+      Alert.alert(I18n.t('common.error'), err.message);
+    } finally {
+      setIsImageLoading(false);
     }
-    setIsImageLoading(false);
   }, [images]);
 
   const onPressCamera = useCallback(async () => {
-    const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
-    if (!permissionResult.granted) {
-      Alert.alert(
-        I18n.t('postDiary.errorPermissionTitle'),
-        I18n.t('postDiary.errorPermissionText'),
-      );
-      return;
-    }
+    try {
+      const permissionResult =
+        await ImagePicker.requestCameraPermissionsAsync();
+      if (!permissionResult.granted) {
+        Alert.alert(
+          I18n.t('postDiary.errorPermissionTitle'),
+          I18n.t('postDiary.errorPermissionText'),
+        );
+        return;
+      }
+      setTimeout(() => {
+        setIsImageLoading(true);
+      }, 500);
+      let result = await ImagePicker.launchCameraAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      });
 
-    setTimeout(() => {
-      setIsImageLoading(true);
-    }, 500);
-    let result = await ImagePicker.launchCameraAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-    });
-
-    if (!result.canceled) {
-      const newImageUrls = [
-        ...images,
-        {
-          imageUrl: result.assets[0].uri,
-          imagePath: null,
-        },
-      ];
-      setImages(newImageUrls);
+      if (!result.canceled) {
+        const newImageUrls = [
+          ...images,
+          {
+            imageUrl: result.assets[0].uri,
+            imagePath: null,
+          },
+        ];
+        setImages(newImageUrls);
+      }
+    } catch (err: any) {
+      Alert.alert(I18n.t('common.error'), err.message);
+    } finally {
+      setIsImageLoading(false);
     }
-    setIsImageLoading(false);
   }, [images]);
 
   const onPressImage = useCallback(

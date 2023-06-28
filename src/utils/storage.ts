@@ -41,15 +41,15 @@ export const insertImages = async (
 ) => {
   if (images.length === 0) return null;
   const newImages: ImageInfo[] = [];
-  images.forEach(async (image) => {
+  for (let i = 0; i < images.length; i++) {
     const uuid = await getUuid();
     const path = `images/${uid}/${diaryId}/${uuid}`;
-    const uploadUrl = await uploadImageAsync(path, image.imageUrl);
+    const uploadUrl = await uploadImageAsync(path, images[i].imageUrl);
     newImages.push({
       imageUrl: uploadUrl,
       imagePath: path,
     });
-  });
+  }
   return newImages;
 };
 
