@@ -125,8 +125,6 @@ export const usePostDraftDiary = ({
     setIsLoadingDraft(true);
 
     try {
-      const diaryRef = firestore().collection('diaries').doc();
-      const diaryId = diaryRef.id;
       const { newTitle, newText } = getTitleTextPrettier(
         isTitleSkip,
         title,
@@ -134,11 +132,14 @@ export const usePostDraftDiary = ({
       );
       const newImages = await updateImages(
         user.uid,
-        diaryId,
+        item.objectID,
         images,
         item.images,
       );
+
       const diary = getDiary('draft', newTitle, newText, newImages);
+
+      const diaryRef = firestore().doc(`diaries/${item.objectID}`);
       await diaryRef.update(diary);
 
       // reduxを更新
@@ -187,8 +188,6 @@ export const usePostDraftDiary = ({
     }
 
     setIsLoadingPublish(true);
-    const diaryRef = firestore().collection('diaries').doc();
-    const diaryId = diaryRef.id;
     const { newTitle, newText } = getTitleTextPrettier(
       isTitleSkip,
       title,
@@ -196,7 +195,7 @@ export const usePostDraftDiary = ({
     );
     const newImages = await updateImages(
       user.uid,
-      diaryId,
+      item.objectID,
       images,
       item.images,
     );
@@ -230,10 +229,11 @@ export const usePostDraftDiary = ({
     await firestore()
       .runTransaction(async (transaction) => {
         if (!item.objectID) return;
-        transaction.update(diaryRef, diary);
+        const diaryRef = firestore().doc(`diaries/${item.objectID}`);
+        await diaryRef.update(diary);
 
         // 初回の場合はdiaryPostedを更新する
-        const refUser = firestore().doc(`users/${user.uid}`);
+        const userRef = firestore().doc(`users/${user.uid}`);
         const updateUser = {
           themeDiaries,
           runningDays,
@@ -252,7 +252,7 @@ export const usePostDraftDiary = ({
         if (!user.diaryPosted) {
           updateUser.diaryPosted = true;
         }
-        transaction.update(refUser, updateUser);
+        transaction.update(userRef, updateUser);
       })
       .catch((err) => {
         setIsLoadingPublish(false);

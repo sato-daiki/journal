@@ -57,6 +57,7 @@ const PostReviseDiaryScreen: React.FC<ScreenType> = ({
     isImageLoading,
     title,
     text,
+    images,
     errorMessage,
     onPressCheck,
     onPressCloseModalCancel,
@@ -102,6 +103,7 @@ const PostReviseDiaryScreen: React.FC<ScreenType> = ({
       isImageLoading={isImageLoading}
       title={title}
       text={text}
+      images={images}
       themeCategory={item.themeCategory}
       themeSubcategory={item.themeSubcategory}
       errorMessage={errorMessage}

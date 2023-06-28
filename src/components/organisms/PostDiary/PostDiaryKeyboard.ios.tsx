@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   StyleSheet,
   SafeAreaView,
@@ -18,6 +18,7 @@ import { offWhite, mainColor } from '@/styles/Common';
 import { PostDiaryKeyboardProps } from './interface';
 import Footer, { FOOTER_HEIGHT } from './Footer';
 import ThumbnailList from './ThumbnailList';
+import { MAX_IMAGE_NUM } from '@/constants/common';
 
 const styles = StyleSheet.create({
   keybordRow: {
@@ -67,6 +68,12 @@ const PostDiaryKeyboard: React.FC<PostDiaryKeyboardProps> = ({
   onFocusText,
   onBlurText,
 }) => {
+  const isAddImage = useMemo(() => {
+    if (!images) return true;
+    if (images.length < MAX_IMAGE_NUM) return true;
+    return false;
+  }, [images]);
+
   return (
     <>
       <TextInputTitle
@@ -101,27 +108,28 @@ const PostDiaryKeyboard: React.FC<PostDiaryKeyboardProps> = ({
           <View style={styles.keybordRow}>
             <View style={styles.keybordLeftRow}>
               <HoverableIcon
-                style={styles.icon}
+                style={[styles.icon, !isAddImage && { opacity: 0.3 }]}
                 icon='community'
-                onPress={onPressChooseImage}
+                name='file-image-outline'
                 size={24}
                 color={mainColor}
-                name='file-image-outline'
+                onPress={isAddImage ? onPressChooseImage : undefined}
               />
               <HoverableIcon
+                style={!isAddImage && { opacity: 0.3 }}
                 icon='community'
-                onPress={onPressCamera}
+                name='camera-outline'
                 size={24}
                 color={mainColor}
-                name='camera-outline'
+                onPress={isAddImage ? onPressCamera : undefined}
               />
             </View>
             <HoverableIcon
               icon='community'
-              onPress={Keyboard.dismiss}
+              name='keyboard-close'
               size={24}
               color={mainColor}
-              name='keyboard-close'
+              onPress={Keyboard.dismiss}
             />
           </View>
         </Animated.View>

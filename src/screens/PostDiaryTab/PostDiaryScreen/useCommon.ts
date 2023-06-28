@@ -6,6 +6,7 @@ import { ImageInfo, LongCode } from '@/types';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { getLanguageToolShortName } from '@/utils/grammarCheck';
 import { PickerItem } from '@/components/molecules/ModalPicker';
+import { MAX_IMAGE_NUM } from '@/constants/common';
 
 interface UseCommon {
   navigation: StackNavigationProp<any>;
@@ -114,6 +115,7 @@ export const useCommon = ({
   }, []);
 
   const onPressChooseImage = useCallback(async () => {
+    if (images && images.length >= MAX_IMAGE_NUM) return;
     try {
       // すぐIsImageLoadingをtureにすると立ち上がり前にくるくるするため
       setTimeout(() => {
@@ -123,16 +125,18 @@ export const useCommon = ({
 
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsMultipleSelection: true,
         allowsEditing: false,
         quality: 1,
+        selectionLimit: MAX_IMAGE_NUM - images.length,
       });
       if (!result.canceled) {
         const newImageUrls = [
           ...images,
-          {
-            imageUrl: result.assets[0].uri,
+          ...result.assets.map((asset) => ({
+            imageUrl: asset.uri,
             imagePath: null,
-          },
+          })),
         ];
         setImages(newImageUrls);
       }
@@ -144,6 +148,7 @@ export const useCommon = ({
   }, [images]);
 
   const onPressCamera = useCallback(async () => {
+    if (images && images.length >= MAX_IMAGE_NUM) return;
     try {
       const permissionResult =
         await ImagePicker.requestCameraPermissionsAsync();

@@ -47,11 +47,6 @@ const ThumbnailList: React.FC<Props> = ({
 }) => {
   return (
     <View style={[styles.container, style]}>
-      {isImageLoading && (
-        <View style={styles.activityIndicator}>
-          <ActivityIndicator />
-        </View>
-      )}
       {images?.map((image, index) => (
         <ThumbnailListItem
           key={index}
@@ -62,6 +57,11 @@ const ThumbnailList: React.FC<Props> = ({
           onPressDeleteImage={onPressDeleteImage}
         />
       ))}
+      {isImageLoading && (
+        <View style={styles.activityIndicator}>
+          <ActivityIndicator />
+        </View>
+      )}
     </View>
   );
 };
