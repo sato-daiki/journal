@@ -48,7 +48,6 @@ export const usePostReviseDiary = ({
     onChangeImages,
     onPressChooseImage,
     onPressCamera,
-    onPressImage,
     onPressDeleteImage,
   } = useCommon({
     navigation,
@@ -199,7 +198,6 @@ export const usePostReviseDiary = ({
     onChangeTextText,
     onPressChooseImage,
     onPressCamera,
-    onPressImage,
     onPressDeleteImage,
     onPressNotSave,
     onPressClose,

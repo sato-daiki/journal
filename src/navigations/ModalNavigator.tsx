@@ -34,7 +34,6 @@ import SelectEikenScreenContainer from '@/containers/SelectEikenScreenContainer'
 import TopicGuideScreenContainer from '@/containers/TopicGuideScreenContainer';
 import ViewMyDiaryScreenContainer from '@/containers/ViewMyDiaryScreenContainer';
 import BecomePremiumScreenContainer from '@/containers/BecomePremiumScreenContainer';
-import ImageListScreen from '@/screens/Modal/ImageListScreen';
 
 export type ModalEditMyDiaryListStackParamList = {
   EditMyDiaryList: undefined;
@@ -77,12 +76,6 @@ export type ModalPostReviseDiaryStackParamList = {
 export type ModalViewMyDiaryStackParamList = {
   ViewMyDiary: {
     objectID: string;
-  };
-};
-export type ModalImageListStackParamList = {
-  ImageList: {
-    defaultIndex: number;
-    images: ImageInfo[];
   };
 };
 export type ModalEditMyProfileStackParamList = {
@@ -134,10 +127,6 @@ export type ModalViewMyDiaryStackNavigationProp = StackNavigationProp<
   MainStackParamList,
   'ModalViewMyDiary'
 >;
-export type ModalImageListStackNavigationProp = StackNavigationProp<
-  MainStackParamList,
-  'ModalImageList'
->;
 export type ModalEditMyProfileStackNavigationProp = StackNavigationProp<
   MainStackParamList,
   'ModalEditMyProfile'
@@ -169,8 +158,6 @@ const ModalPostReviseDiaryStack =
   createStackNavigator<ModalPostReviseDiaryStackParamList>();
 const ModalViewMyDiaryStack =
   createStackNavigator<ModalViewMyDiaryStackParamList>();
-const ModalImageListStack =
-  createStackNavigator<ModalImageListStackParamList>();
 const ModalEditMyProfileStack =
   createStackNavigator<ModalEditMyProfileStackParamList>();
 const ModalBecomePremiumStack =
@@ -285,23 +272,6 @@ export const ModalViewMyDiaryNavigator = () => {
         }}
       />
     </ModalViewMyDiaryStack.Navigator>
-  );
-};
-export const ModalImageListNavigator = () => {
-  return (
-    <ModalImageListStack.Navigator
-      initialRouteName='ImageList'
-      screenOptions={{ presentation: 'modal' }}
-    >
-      <ModalImageListStack.Screen
-        name='ImageList'
-        component={ImageListScreen}
-        options={{
-          ...DefaultNavigationOptions,
-          ...DefaultModalLayoutOptions,
-        }}
-      />
-    </ModalImageListStack.Navigator>
   );
 };
 export const ModalEditMyProfileNavigator = () => {

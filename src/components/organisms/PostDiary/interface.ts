@@ -49,12 +49,10 @@ export interface PostDiaryProps {
   onChangeTextText: (txt: string) => void;
   onPressChooseImage: () => void;
   onPressCamera: () => void;
-  onPressImage: (index: number) => void;
   onPressDeleteImage: (image: ImageInfo) => void;
   onPressDraft?: () => void;
   onPressMyDiary?: () => void;
   onPressNotSave: () => void;
-  onPressTutorial?: () => void;
   onPressCloseError: () => void;
   onPressItem?: (item: PickerItem) => void;
 }

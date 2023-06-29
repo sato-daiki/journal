@@ -69,7 +69,6 @@ const PostDraftDiaryScreen: React.FC<ScreenType> = ({
     onChangeTextText,
     onPressChooseImage,
     onPressCamera,
-    onPressImage,
     onPressDeleteImage,
     onPressDraft,
     onPressNotSave,
@@ -119,7 +118,6 @@ const PostDraftDiaryScreen: React.FC<ScreenType> = ({
       onChangeTextText={onChangeTextText}
       onPressChooseImage={onPressChooseImage}
       onPressCamera={onPressCamera}
-      onPressImage={onPressImage}
       onPressDeleteImage={onPressDeleteImage}
       onPressDraft={onPressDraft}
       onPressNotSave={onPressNotSave}

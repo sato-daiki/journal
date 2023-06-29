@@ -183,19 +183,6 @@ export const useCommon = ({
     }
   }, [images]);
 
-  const onPressImage = useCallback(
-    async (index: number) => {
-      navigation.navigate('ModalImageList', {
-        screen: 'ImageList',
-        params: {
-          defaultIndex: index,
-          images: images,
-        },
-      });
-    },
-    [images, navigation],
-  );
-
   const onPressDeleteImage = useCallback(
     async (paramImage: ImageInfo) => {
       const newImages = images.filter((image) => image !== paramImage);
@@ -229,7 +216,6 @@ export const useCommon = ({
     onChangeImages,
     onPressChooseImage,
     onPressCamera,
-    onPressImage,
     onPressDeleteImage,
   };
 };

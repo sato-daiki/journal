@@ -65,7 +65,6 @@ const PostReviseDiaryScreen: React.FC<ScreenType> = ({
     onChangeTextText,
     onPressChooseImage,
     onPressCamera,
-    onPressImage,
     onPressDeleteImage,
     onPressNotSave,
     onPressClose,
@@ -112,7 +111,6 @@ const PostReviseDiaryScreen: React.FC<ScreenType> = ({
       onChangeTextText={onChangeTextText}
       onPressChooseImage={onPressChooseImage}
       onPressCamera={onPressCamera}
-      onPressImage={onPressImage}
       onPressDeleteImage={onPressDeleteImage}
       onPressNotSave={onPressNotSave}
       onPressCloseError={onPressCloseError}

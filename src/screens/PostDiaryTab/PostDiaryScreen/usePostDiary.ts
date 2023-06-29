@@ -71,7 +71,6 @@ export const usePostDiary = ({
     onChangeTextText,
     onPressChooseImage,
     onPressCamera,
-    onPressImage,
     onPressDeleteImage,
   } = useCommon({
     navigation,
@@ -319,7 +318,6 @@ export const usePostDiary = ({
     onChangeTextText,
     onPressChooseImage,
     onPressCamera,
-    onPressImage,
     onPressDeleteImage,
     onPressDraft,
     onPressNotSave,

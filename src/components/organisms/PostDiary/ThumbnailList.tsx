@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import ThumbnailListItem, { THUMBNAIL_WIDTH } from './ThumbnailListItem';
 import { ImageInfo } from '@/types/diary';
-import { borderLightColor } from '@/styles/Common';
+import { subTextColor } from '@/styles/Common';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
@@ -31,9 +31,6 @@ const styles = StyleSheet.create({
     height: THUMBNAIL_WIDTH,
     alignItems: 'center',
     justifyContent: 'center',
-    borderColor: borderLightColor,
-    borderWidth: 1,
-    borderRadius: 8,
     marginRight: 4,
   },
 });
@@ -59,7 +56,7 @@ const ThumbnailList: React.FC<Props> = ({
       ))}
       {isImageLoading && (
         <View style={styles.activityIndicator}>
-          <ActivityIndicator />
+          <ActivityIndicator color={subTextColor} />
         </View>
       )}
     </View>
