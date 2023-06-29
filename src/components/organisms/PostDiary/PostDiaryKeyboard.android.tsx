@@ -6,14 +6,12 @@ import {
   KeyboardAvoidingView,
   Keyboard,
 } from 'react-native';
-import {
-  TextInputText,
-  TextInputTitle,
-  HoverableIcon,
-} from '@/components/atoms';
-import { mainColor, offWhite } from '@/styles/Common';
+import { TextInputText, TextInputTitle } from '@/components/atoms';
+import { offWhite } from '@/styles/Common';
 import { PostDiaryKeyboardProps } from './interface';
-import Footer from './Footer';
+import Footer, { FOOTER_HEIGHT } from './Footer';
+import ThumbnailList from './ThumbnailList';
+import KeyboardIcons from './KeyboardIcons';
 
 const styles = StyleSheet.create({
   container: {
@@ -25,14 +23,6 @@ const styles = StyleSheet.create({
   textInput: {
     height: 400,
   },
-  keybordRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingRight: 8,
-    paddingLeft: 16,
-    paddingVertical: 4,
-  },
   footer: {
     justifyContent: 'flex-end',
     width: '100%',
@@ -41,8 +31,8 @@ const styles = StyleSheet.create({
 });
 
 const PostDiaryKeyboard: React.FC<PostDiaryKeyboardProps> = ({
-  isTopic,
   isImageLoading,
+  isTopic,
   title,
   text,
   images,
@@ -52,6 +42,8 @@ const PostDiaryKeyboard: React.FC<PostDiaryKeyboardProps> = ({
   onChangeTextText,
   onPressChooseImage,
   onPressCamera,
+  onPressDeleteImage,
+  onPressImage,
   onPressDraft,
   onFocusText,
   onBlurText,
@@ -105,6 +97,15 @@ const PostDiaryKeyboard: React.FC<PostDiaryKeyboardProps> = ({
             onFocus={onFocusText}
             onBlur={onBlurText}
           />
+          {(isImageLoading || (images && images.length > 0)) && (
+            <ThumbnailList
+              isImageLoading={isImageLoading}
+              style={[{ marginBottom: isKeyboard ? 0 : FOOTER_HEIGHT }]}
+              images={images}
+              onPressImage={onPressImage}
+              onPressDeleteImage={onPressDeleteImage}
+            />
+          )}
         </View>
       </KeyboardAvoidingView>
       <SafeAreaView>
@@ -118,22 +119,11 @@ const PostDiaryKeyboard: React.FC<PostDiaryKeyboardProps> = ({
         )}
       </SafeAreaView>
       {isKeyboard ? (
-        <View style={styles.keybordRow}>
-          <HoverableIcon
-            icon='community'
-            onPress={onPressChooseImage}
-            size={24}
-            color={mainColor}
-            name='file-image-outline'
-          />
-          <HoverableIcon
-            icon='community'
-            onPress={Keyboard.dismiss}
-            size={24}
-            color={mainColor}
-            name='keyboard-close'
-          />
-        </View>
+        <KeyboardIcons
+          images={images}
+          onPressChooseImage={onPressChooseImage}
+          onPressCamera={onPressCamera}
+        />
       ) : null}
     </View>
   );

@@ -1,50 +1,15 @@
 import React, { useMemo } from 'react';
-import {
-  StyleSheet,
-  SafeAreaView,
-  Keyboard,
-  Animated,
-  View,
-} from 'react-native';
-
+import { SafeAreaView, Animated } from 'react-native';
 import {
   KeyboardSpacer,
   TextInputText,
   TextInputTitle,
-  HoverableIcon,
 } from '@/components/atoms';
-
-import { offWhite, mainColor } from '@/styles/Common';
 import { PostDiaryKeyboardProps } from './interface';
 import Footer, { FOOTER_HEIGHT } from './Footer';
 import ThumbnailList from './ThumbnailList';
 import { MAX_IMAGE_NUM } from '@/constants/common';
-
-const styles = StyleSheet.create({
-  keybordRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingRight: 8,
-    paddingLeft: 16,
-    paddingVertical: 4,
-  },
-  keybordLeftRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  icon: {
-    paddingRight: 16,
-  },
-  footer: {
-    position: 'absolute',
-    bottom: 0,
-    height: 80,
-    justifyContent: 'flex-end',
-    width: '100%',
-    backgroundColor: offWhite,
-  },
-});
+import KeyboardIcons from './KeyboardIcons';
 
 const PostDiaryKeyboard: React.FC<PostDiaryKeyboardProps> = ({
   isImageLoading,
@@ -68,12 +33,6 @@ const PostDiaryKeyboard: React.FC<PostDiaryKeyboardProps> = ({
   onFocusText,
   onBlurText,
 }) => {
-  const isAddImage = useMemo(() => {
-    if (!images) return true;
-    if (images.length < MAX_IMAGE_NUM) return true;
-    return false;
-  }, [images]);
-
   return (
     <>
       <TextInputTitle
@@ -105,33 +64,11 @@ const PostDiaryKeyboard: React.FC<PostDiaryKeyboardProps> = ({
             opacity: fadeAnim,
           }}
         >
-          <View style={styles.keybordRow}>
-            <View style={styles.keybordLeftRow}>
-              <HoverableIcon
-                style={[styles.icon, !isAddImage && { opacity: 0.3 }]}
-                icon='community'
-                name='file-image-outline'
-                size={24}
-                color={mainColor}
-                onPress={isAddImage ? onPressChooseImage : undefined}
-              />
-              <HoverableIcon
-                style={!isAddImage && { opacity: 0.3 }}
-                icon='community'
-                name='camera-outline'
-                size={24}
-                color={mainColor}
-                onPress={isAddImage ? onPressCamera : undefined}
-              />
-            </View>
-            <HoverableIcon
-              icon='community'
-              name='keyboard-close'
-              size={24}
-              color={mainColor}
-              onPress={Keyboard.dismiss}
-            />
-          </View>
+          <KeyboardIcons
+            images={images}
+            onPressChooseImage={onPressChooseImage}
+            onPressCamera={onPressCamera}
+          />
         </Animated.View>
       ) : null}
       <KeyboardSpacer />

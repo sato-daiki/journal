@@ -96,7 +96,7 @@ const PostDiary: React.FC<PostDiaryProps> = ({
   const [isForce, setIsForce] = useState(false);
   const [fadeAnim, setFadeAnim] = useState(new Animated.Value(0));
 
-  const [isModalImageList, setIsModalImageList] = useState(false);
+  const [isImageView, setIsImageView] = useState(false);
   const [imageIndex, setImageIndex] = useState<number>(0);
 
   useEffect(() => {
@@ -134,12 +134,12 @@ const PostDiary: React.FC<PostDiaryProps> = ({
   }, [isTopic, navigation, themeCategory, themeSubcategory]);
 
   const onPressImage = useCallback((index: number) => {
-    setIsModalImageList(true);
+    setIsImageView(true);
     setImageIndex(index);
   }, []);
 
-  const onPressCloseModalImageList = useCallback(() => {
-    setIsModalImageList(false);
+  const onCloseImageView = useCallback(() => {
+    setIsImageView(false);
     setImageIndex(0);
   }, []);
 
@@ -162,12 +162,12 @@ const PostDiary: React.FC<PostDiaryProps> = ({
       />
       {images && images.length > 0 && (
         <ImageView
-          images={images.map((i) => ({ uri: i.imageUrl }))}
+          visible={isImageView}
           imageIndex={imageIndex}
-          visible={isModalImageList}
-          onRequestClose={onPressCloseModalImageList}
+          images={images.map((i) => ({ uri: i.imageUrl }))}
+          onRequestClose={onCloseImageView}
           FooterComponent={({ imageIndex }) => (
-            <ImageViewFooter images={images} imageIndex={imageIndex} />
+            <ImageViewFooter total={images.length} imageIndex={imageIndex} />
           )}
         />
       )}

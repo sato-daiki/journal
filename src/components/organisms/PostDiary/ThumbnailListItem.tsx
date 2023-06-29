@@ -6,11 +6,9 @@ import {
   Text,
   StyleProp,
   ViewStyle,
-  ActivityIndicator,
 } from 'react-native';
 import { primaryColor } from '@/styles/Common';
 import { ImageInfo } from '@/types';
-import { Loading } from '@/images';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
