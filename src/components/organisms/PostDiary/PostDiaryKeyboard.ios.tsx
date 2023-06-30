@@ -1,38 +1,22 @@
-import React from 'react';
-import { StyleSheet, SafeAreaView, Keyboard, Animated } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-
+import React, { useMemo } from 'react';
+import { SafeAreaView, Animated } from 'react-native';
 import {
   KeyboardSpacer,
   TextInputText,
-  Hoverable,
   TextInputTitle,
 } from '@/components/atoms';
-
-import { offWhite, mainColor } from '@/styles/Common';
 import { PostDiaryKeyboardProps } from './interface';
-import Footer from './Footer';
-
-const styles = StyleSheet.create({
-  icon: {
-    alignItems: 'flex-end',
-    paddingRight: 8,
-    paddingTop: 4,
-  },
-  footer: {
-    position: 'absolute',
-    bottom: 0,
-    height: 80,
-    justifyContent: 'flex-end',
-    width: '100%',
-    backgroundColor: offWhite,
-  },
-});
+import Footer, { FOOTER_HEIGHT } from './Footer';
+import ThumbnailList from './ThumbnailList';
+import { MAX_IMAGE_NUM } from '@/constants/common';
+import KeyboardIcons from './KeyboardIcons';
 
 const PostDiaryKeyboard: React.FC<PostDiaryKeyboardProps> = ({
+  isImageLoading,
   isTopic,
   title,
   text,
+  images,
   isForce,
   themeCategory,
   themeSubcategory,
@@ -40,6 +24,10 @@ const PostDiaryKeyboard: React.FC<PostDiaryKeyboardProps> = ({
   onPressTopicGuide,
   onChangeTextTitle,
   onChangeTextText,
+  onPressChooseImage,
+  onPressCamera,
+  onPressImage,
+  onPressDeleteImage,
   onPressDraft,
   onPressMyDiary,
   onFocusText,
@@ -52,6 +40,7 @@ const PostDiaryKeyboard: React.FC<PostDiaryKeyboardProps> = ({
         value={title}
         onFocus={onFocusText}
         onChangeText={onChangeTextTitle}
+        onBlur={onBlurText}
       />
       <TextInputText
         value={text}
@@ -59,19 +48,27 @@ const PostDiaryKeyboard: React.FC<PostDiaryKeyboardProps> = ({
         onChangeText={onChangeTextText}
         onBlur={onBlurText}
       />
+
+      {(isImageLoading || (images && images.length > 0)) && (
+        <ThumbnailList
+          isImageLoading={isImageLoading}
+          style={[{ marginBottom: isForce ? 0 : FOOTER_HEIGHT }]}
+          images={images}
+          onPressImage={onPressImage}
+          onPressDeleteImage={onPressDeleteImage}
+        />
+      )}
       {isForce ? (
         <Animated.View
           style={{
             opacity: fadeAnim,
           }}
         >
-          <Hoverable style={styles.icon} onPress={Keyboard.dismiss}>
-            <MaterialCommunityIcons
-              size={24}
-              color={mainColor}
-              name='keyboard-close'
-            />
-          </Hoverable>
+          <KeyboardIcons
+            images={images}
+            onPressChooseImage={onPressChooseImage}
+            onPressCamera={onPressCamera}
+          />
         </Animated.View>
       ) : null}
       <KeyboardSpacer />

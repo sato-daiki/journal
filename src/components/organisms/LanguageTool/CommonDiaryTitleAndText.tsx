@@ -13,16 +13,16 @@ import { fontSizeS, subTextColor } from '@/styles/Common';
 import { AiName, getWhatUrl } from '@/utils/grammarCheck';
 
 interface Props {
-  isPerfect: boolean;
+  isPerfect?: boolean;
   title: string;
   text: string;
-  aiName: AiName;
+  aiName?: AiName;
   longCode: LongCode;
   themeCategory?: ThemeCategory | null;
   themeSubcategory?: ThemeSubcategory | null;
   titleComponent: ReactNode;
   textComponent: ReactNode;
-  onPressShare: () => void;
+  onPressShare?: () => void;
 }
 
 export const styles = StyleSheet.create({
@@ -88,6 +88,7 @@ const CommonDiaryTitleAndText: React.FC<Props> = ({
   }, [text]);
 
   const onPressWhat = useCallback(() => {
+    if (!aiName) return;
     const url = getWhatUrl(aiName);
     if (url) {
       Linking.openURL(url);
@@ -125,7 +126,7 @@ const CommonDiaryTitleAndText: React.FC<Props> = ({
           <Text style={styles.perfect}>※{I18n.t('myDiary.perfect')}</Text>
         </>
       )}
-      {aiName !== 'Human' && (
+      {!!aiName && (
         <>
           <Space size={16} />
           <View style={styles.row}>

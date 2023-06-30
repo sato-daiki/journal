@@ -7,7 +7,7 @@ import DiaryHeader from '@/components/molecules/DiaryHeader';
 import DiaryFooter from '@/components/molecules/DiaryFooter';
 
 export interface Props {
-  viewShotRef: React.MutableRefObject<ViewShot | null>;
+  viewShotRef?: React.MutableRefObject<ViewShot | null>;
   isPremium?: boolean;
   showSaplingCheck?: boolean;
   hideFooterButton: boolean;
@@ -19,8 +19,8 @@ export interface Props {
   onPressCheck?: () => void;
   onPressAdReward?: () => void;
   onPressBecome?: () => void;
-  cardTitle: ReactNode;
-  cardText: ReactNode;
+  cardTitle?: ReactNode;
+  cardText?: ReactNode;
   titleAndText: ReactNode;
 }
 

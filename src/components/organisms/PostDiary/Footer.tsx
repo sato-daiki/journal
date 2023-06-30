@@ -11,11 +11,13 @@ interface Props {
   onPressMyDiary?: () => void;
 }
 
+export const FOOTER_HEIGHT = 80;
+
 const styles = StyleSheet.create({
   footer: {
     position: 'absolute',
     bottom: 0,
-    height: 80,
+    height: FOOTER_HEIGHT,
     justifyContent: 'flex-end',
     width: '100%',
     backgroundColor: offWhite,

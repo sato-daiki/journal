@@ -1,14 +1,15 @@
 import { useState, useCallback, useEffect } from 'react';
 import { Keyboard } from 'react-native';
-import { User, Diary, LongCode, LanguageTool } from '@/types';
+import { User, Diary, LongCode, LanguageTool, ImageInfo } from '@/types';
 import { checkBeforePost, getTitleTextPrettier } from '@/utils/diary';
-import { useCommon } from '../PostDiaryScreen/useCommont';
+import { useCommon } from '../PostDiaryScreen/useCommon';
 import firestore, {
   FirebaseFirestoreTypes,
 } from '@react-native-firebase/firestore';
 import { PostReviseDiaryNavigationProp } from './PostReviseDiaryScreen';
 import { addAiCheckError, getLanguageTool } from '@/utils/grammarCheck';
 import { logAnalytics } from '@/utils/Analytics';
+import { updateImages } from '@/utils/storage';
 
 interface UsePostReviseDiary {
   user: User;
@@ -27,12 +28,14 @@ export const usePostReviseDiary = ({
 
   const {
     isModalCancel,
+    isImageLoading,
     isLoadingPublish,
     setIsLoadingPublish,
     isModalError,
     setIsModalError,
     title,
     text,
+    images,
     selectedItem,
     errorMessage,
     setErrorMessage,
@@ -42,6 +45,10 @@ export const usePostReviseDiary = ({
     onPressCloseError,
     onChangeTextTitle,
     onChangeTextText,
+    onChangeImages,
+    onPressChooseImage,
+    onPressCamera,
+    onPressDeleteImage,
   } = useCommon({
     navigation,
     learnLanguage: user.learnLanguage,
@@ -51,16 +58,25 @@ export const usePostReviseDiary = ({
     if (item) {
       onChangeTextTitle(item.reviseTitle || item.title);
       onChangeTextText(item.reviseText || item.text);
+      if (item.images) {
+        onChangeImages(item.images);
+      }
     }
     setIsInitialLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getDiary = useCallback(
-    (newTitle: string, newText: string, languageTool?: LanguageTool) => {
+    (
+      newTitle: string,
+      newText: string,
+      newImages: ImageInfo[] | null,
+      languageTool?: LanguageTool,
+    ) => {
       return {
         reviseTitle: newTitle,
         reviseText: newText,
+        images: newImages,
         ...(languageTool ? { reviseLanguageTool: languageTool } : {}),
         reviseSapling: null,
         updatedAt: firestore.FieldValue.serverTimestamp(),
@@ -91,6 +107,12 @@ export const usePostReviseDiary = ({
       title,
       text,
     );
+    const newImages = await updateImages(
+      user.uid,
+      item.objectID,
+      images,
+      item.images,
+    );
 
     const languageTool = await getLanguageTool(
       selectedItem.value as LongCode,
@@ -99,7 +121,7 @@ export const usePostReviseDiary = ({
       newText,
     );
 
-    const diary = getDiary(newTitle, newText, languageTool);
+    const diary = getDiary(newTitle, newText, newImages, languageTool);
     await firestore().doc(`diaries/${item.objectID}`).update(diary);
 
     // reduxを更新
@@ -135,6 +157,7 @@ export const usePostReviseDiary = ({
   }, [
     editDiary,
     getDiary,
+    images,
     isInitialLoading,
     isLoadingPublish,
     item,
@@ -163,14 +186,19 @@ export const usePostReviseDiary = ({
     isLoadingPublish,
     isModalCancel,
     isModalError,
+    isImageLoading,
     title,
     text,
+    images,
     errorMessage,
     selectedItem,
     onPressCheck,
     onPressCloseModalCancel,
     onChangeTextTitle,
     onChangeTextText,
+    onPressChooseImage,
+    onPressCamera,
+    onPressDeleteImage,
     onPressNotSave,
     onPressClose,
     onPressCloseError,

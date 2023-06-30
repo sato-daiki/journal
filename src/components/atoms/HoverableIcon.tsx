@@ -5,12 +5,14 @@ import {
   TouchableOpacity,
   View,
   TouchableOpacityProps,
+  TextStyle,
 } from 'react-native';
 import { mainColor, hoverMain, primaryColor } from '@/styles/Common';
 import Icon, { IconType } from './Icon';
 
 type Props = {
   style?: StyleProp<ViewStyle>;
+  iconStyle?: StyleProp<TextStyle>;
   hoverStyle?: StyleProp<ViewStyle>;
   icon: IconType;
   name: string;
@@ -26,6 +28,7 @@ type Props = {
 // defautlはopacityの設定のみ
 const HoverableIcon: React.FC<Props> = ({
   style,
+  iconStyle,
   icon,
   name,
   size,
@@ -66,6 +69,7 @@ const HoverableIcon: React.FC<Props> = ({
       {...props}
     >
       <Icon
+        style={iconStyle}
         isHover={isHover}
         icon={icon}
         name={name}
@@ -84,6 +88,7 @@ const HoverableIcon: React.FC<Props> = ({
       {...props}
     >
       <Icon
+        style={iconStyle}
         isHover={isHover}
         icon={icon}
         name={name}

@@ -146,6 +146,7 @@ const myDiary = {
   confirmMessage: '本当に削除してよろしいでしょうか？',
   original: '原文の添削結果',
   revised: '修正後の添削結果',
+  originalText: '原文',
   ai1: 'AI①の添削',
   ai2: 'AI②の添削',
   ai3: 'AI③の添削',
@@ -314,6 +315,9 @@ const postDiary = {
   headerTitle: '新規日記',
   placeholder: '{{maxLength}}字以内',
   correctError: '添削でエラーが発生しました。添削を終了します',
+  errorPermissionTitle: '権限がありません',
+  errorPermissionText:
+    'カメラの権限がないため起動できません。端末の設定画面より、LangJourunalにカメラの権限を与えてください。',
 };
 
 const postDraftDiary = {

@@ -20,6 +20,7 @@ import Human from './Human';
 import { AiName, getLanguageToolCode } from '@/utils/grammarCheck';
 import ProWritingAid from './ProWritingAid';
 import YetHuman from './YetHuman';
+import Original from './Original';
 
 interface Props {
   isOriginal: boolean;
@@ -47,7 +48,7 @@ interface Props {
 
 const initialLayout = { width: Dimensions.get('window').width };
 
-export type TabKey = 'ai1' | 'ai2' | 'ai3' | 'human';
+export type TabKey = 'originalText' | 'ai1' | 'ai2' | 'ai3' | 'human';
 
 const AiCheck: React.FC<Props> = ({
   isOriginal,
@@ -77,6 +78,7 @@ const AiCheck: React.FC<Props> = ({
     const shortLongCode = getLanguageToolCode(diary.longCode);
     const localeLongCode = getLanguageToolCode(I18n.locale as LongCode);
     const baseRoutes = [
+      { key: 'originalText', title: I18n.t('myDiary.originalText') },
       { key: 'ai1', title: I18n.t('myDiary.ai1') },
       { key: 'ai2', title: I18n.t('myDiary.ai2') },
     ];
@@ -129,6 +131,16 @@ const AiCheck: React.FC<Props> = ({
   const renderScene = useCallback(
     ({ route }) => {
       switch (route.key) {
+        case 'originalText':
+          return (
+            <Original
+              diary={diary}
+              title={title}
+              text={text}
+              goToRecord={goToRecord}
+              onPressRevise={onPressRevise}
+            />
+          );
         case 'ai1':
           return (
             <LanguageTool

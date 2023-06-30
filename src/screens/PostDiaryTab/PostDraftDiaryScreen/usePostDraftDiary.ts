@@ -1,7 +1,14 @@
 import { useState, useCallback, useEffect } from 'react';
 import { Keyboard } from 'react-native';
 import { logAnalytics, events } from '@/utils/Analytics';
-import { DiaryStatus, User, Diary, LongCode, LanguageTool } from '@/types';
+import {
+  DiaryStatus,
+  User,
+  Diary,
+  LongCode,
+  LanguageTool,
+  ImageInfo,
+} from '@/types';
 import {
   checkBeforePost,
   getRunning,
@@ -10,7 +17,7 @@ import {
 } from '@/utils/diary';
 import { alert } from '@/utils/ErrorAlert';
 import { PostDraftDiaryNavigationProp } from './interfaces';
-import { useCommon } from '../PostDiaryScreen/useCommont';
+import { useCommon } from '../PostDiaryScreen/useCommon';
 import firestore, {
   FirebaseFirestoreTypes,
 } from '@react-native-firebase/firestore';
@@ -19,6 +26,7 @@ import {
   getLanguageTool,
   getLanguageToolShortName,
 } from '@/utils/grammarCheck';
+import { updateImages } from '@/utils/storage';
 
 interface UsePostDraftDiary {
   user: User;
@@ -39,6 +47,7 @@ export const usePostDraftDiary = ({
 
   const {
     isModalCancel,
+    isImageLoading,
     isLoadingPublish,
     setIsLoadingPublish,
     isLoadingDraft,
@@ -47,6 +56,7 @@ export const usePostDraftDiary = ({
     setIsModalError,
     title,
     text,
+    images,
     selectedItem,
     errorMessage,
     setErrorMessage,
@@ -57,6 +67,10 @@ export const usePostDraftDiary = ({
     onPressItem,
     onChangeTextTitle,
     onChangeTextText,
+    onChangeImages,
+    onPressChooseImage,
+    onPressCamera,
+    onPressDeleteImage,
   } = useCommon({
     navigation,
     learnLanguage: user.learnLanguage,
@@ -65,6 +79,10 @@ export const usePostDraftDiary = ({
   useEffect(() => {
     onChangeTextTitle(item.title);
     onChangeTextText(item.text);
+    if (item.images) {
+      onChangeImages(item.images);
+    }
+
     onPressItem({
       label: getLanguageToolShortName(item.longCode),
       value: item.longCode,
@@ -79,11 +97,13 @@ export const usePostDraftDiary = ({
       diaryStatus: DiaryStatus,
       newTitle: string,
       newText: string,
+      newImages: ImageInfo[] | null,
       languageTool?: LanguageTool,
     ) => {
       return {
         title: newTitle,
         text: newText,
+        images: newImages,
         diaryStatus,
         longCode: selectedItem.value as LongCode,
         ...(languageTool ? { languageTool } : {}),
@@ -98,21 +118,28 @@ export const usePostDraftDiary = ({
     Keyboard.dismiss();
     if (isInitialLoading || isLoadingDraft || isLoadingPublish) return;
     logAnalytics('on_press_draft_draft');
+    if (!item.objectID) return;
+
+    const isTitleSkip = !!item.themeCategory && !!item.themeSubcategory;
+    setIsLoadingDraft(true);
 
     try {
-      if (!item.objectID) return;
-
-      setIsLoadingDraft(true);
-      const isTitleSkip = !!item.themeCategory && !!item.themeSubcategory;
       const { newTitle, newText } = getTitleTextPrettier(
         isTitleSkip,
         title,
         text,
       );
-      const diary = getDiary('draft', newTitle, newText);
-      const refDiary = firestore().doc(`diaries/${item.objectID}`);
-      await refDiary.update(diary);
-      logAnalytics(events.CREATED_DIARY);
+      const newImages = await updateImages(
+        user.uid,
+        item.objectID,
+        images,
+        item.images,
+      );
+
+      const diary = getDiary('draft', newTitle, newText, newImages);
+
+      const diaryRef = firestore().doc(`diaries/${item.objectID}`);
+      await diaryRef.update(diary);
 
       // reduxを更新
       editDiary(item.objectID, {
@@ -120,6 +147,7 @@ export const usePostDraftDiary = ({
         ...diary,
       });
       setIsLoadingDraft(false);
+      logAnalytics(events.CREATED_DIARY);
       navigation.navigate('Home', {
         screen: 'MyDiaryTab',
         params: { screen: 'MyDiaryList' },
@@ -131,6 +159,7 @@ export const usePostDraftDiary = ({
   }, [
     editDiary,
     getDiary,
+    images,
     isInitialLoading,
     isLoadingDraft,
     isLoadingPublish,
@@ -139,6 +168,7 @@ export const usePostDraftDiary = ({
     setIsLoadingDraft,
     text,
     title,
+    user.uid,
   ]);
 
   const onPressCheck = useCallback(async (): Promise<void> => {
@@ -162,6 +192,13 @@ export const usePostDraftDiary = ({
       title,
       text,
     );
+    const newImages = await updateImages(
+      user.uid,
+      item.objectID,
+      images,
+      item.images,
+    );
+
     const languageTool = await getLanguageTool(
       selectedItem.value as LongCode,
       isTitleSkip,
@@ -169,7 +206,13 @@ export const usePostDraftDiary = ({
       newText,
     );
 
-    const diary = getDiary('checked', newTitle, newText, languageTool);
+    const diary = getDiary(
+      'checked',
+      newTitle,
+      newText,
+      newImages,
+      languageTool,
+    );
     const { runningDays, runningWeeks } = getRunning(user);
 
     let { themeDiaries } = user;
@@ -186,10 +229,10 @@ export const usePostDraftDiary = ({
       .runTransaction(async (transaction) => {
         if (!item.objectID) return;
         const diaryRef = firestore().doc(`diaries/${item.objectID}`);
-        transaction.update(diaryRef, diary);
+        await diaryRef.update(diary);
 
         // 初回の場合はdiaryPostedを更新する
-        const refUser = firestore().doc(`users/${user.uid}`);
+        const userRef = firestore().doc(`users/${user.uid}`);
         const updateUser = {
           themeDiaries,
           runningDays,
@@ -208,7 +251,7 @@ export const usePostDraftDiary = ({
         if (!user.diaryPosted) {
           updateUser.diaryPosted = true;
         }
-        transaction.update(refUser, updateUser);
+        transaction.update(userRef, updateUser);
       })
       .catch((err) => {
         setIsLoadingPublish(false);
@@ -258,6 +301,7 @@ export const usePostDraftDiary = ({
   }, [
     editDiary,
     getDiary,
+    images,
     isInitialLoading,
     isLoadingDraft,
     isLoadingPublish,
@@ -279,14 +323,19 @@ export const usePostDraftDiary = ({
     isLoadingDraft,
     isModalCancel,
     isModalError,
+    isImageLoading,
     title,
     text,
+    images,
     errorMessage,
     selectedItem,
     onPressCheck,
     onPressCloseModalCancel,
     onChangeTextTitle,
     onChangeTextText,
+    onPressChooseImage,
+    onPressCamera,
+    onPressDeleteImage,
     onPressDraft,
     onPressNotSave,
     onPressClose,
