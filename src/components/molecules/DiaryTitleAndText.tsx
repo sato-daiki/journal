@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { ThemeCategory, ThemeSubcategory } from '@/types';
 import { Space } from '@/components/atoms';
 import CommonSmallPill from './CommonSmallPill';
-import { styles } from '../organisms/LanguageTool/LanguageToolDiaryTitleAndText';
+import { styles as commonStyle } from '../organisms/LanguageTool/LanguageToolDiaryTitleAndText';
 
 interface Props {
   title: string;
@@ -11,6 +11,16 @@ interface Props {
   themeCategory?: ThemeCategory | null;
   themeSubcategory?: ThemeSubcategory | null;
 }
+
+export const styles = StyleSheet.create({
+  titleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+    paddingTop: 8,
+    paddingBottom: 8,
+  },
+});
 
 const DiaryTitleAndText: React.FC<Props> = ({
   title,
@@ -20,14 +30,14 @@ const DiaryTitleAndText: React.FC<Props> = ({
 }) => {
   return (
     <>
-      <View>
+      <View style={styles.titleContainer}>
         {themeCategory && themeSubcategory && (
           <CommonSmallPill themeCategory={themeCategory} />
         )}
-        <Text style={styles.title}>{title}</Text>
+        <Text style={commonStyle.title}>{title}</Text>
       </View>
       <Space size={16} />
-      <Text style={styles.text}>{text}</Text>
+      <Text style={commonStyle.text}>{text}</Text>
       <Space size={16} />
     </>
   );
