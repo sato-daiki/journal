@@ -146,10 +146,10 @@ const myDiary = {
   confirmMessage: 'Are you sure you want to delete this journal entry?',
   original: 'Original Correction',
   revised: 'Revised Correction',
-  ai1: "AI1's correction",
-  ai2: "AI2's correction",
-  ai3: "AI3's correction",
-  human: "Human's correction",
+  ai1: '1st AI',
+  ai2: '2nd AI',
+  ai3: '3rd AI',
+  human: 'Human',
   closeAlert:
     'Any edits that have not been saved will be lost. Would you like to exit?',
   permissionAudio:
@@ -234,8 +234,9 @@ const themeCategory = {
 
 const becomePremium = {
   headerTitle: 'About premium membership',
-  description: 'Premium members can use the following functions',
-  props1: 'Correct without watching video ads（* Up to 10 times a day)',
+  becomeTitle: 'Become a premium member',
+  props1: 'Correct without watching video ads',
+  props1description: '* Up to 10 times a day',
   props2: 'Hides ads',
   MONTHLY: 'Premium Monthly Subscription',
   ANNUAL: 'Premium Yearly Subscription',
@@ -311,6 +312,9 @@ const postDiary = {
   headerTitle: 'New Journal Entry',
   placeholder: '{{maxLength}} characters or less',
   correctError: 'An error occurred during correcting.',
+  errorPermissionTitle: '',
+  errorPermissionText:
+    "You've refused to allow this app to access your photos!",
 };
 
 const postDraftDiary = {
@@ -341,6 +345,7 @@ const setting = {
   premium: 'Premium membership',
   aboutPremium: 'About Premium Membership',
   basic: 'Basic',
+  display: 'Display',
   app: 'About the app',
   learn: 'Learning',
   passcodeLock: 'Passcode',
@@ -349,12 +354,18 @@ const setting = {
   editEmail: 'Edit Email Address',
   editPassword: 'Edit Password',
   registerEmailPassword: 'Register Email and Password',
-  tutorial: 'Tutorial',
   deleteAcount: 'About Account Deletion',
   logout: 'Logout',
   inquiry: 'Contact',
   about: 'What is LangJournal',
   cancel: 'Cancellation of premium membership',
+};
+
+const display = {
+  headerTitle: 'Display',
+  device: 'Use device settings',
+  light: 'Light mode',
+  dark: 'Dark mode',
 };
 
 const signIn = {
@@ -716,6 +727,7 @@ const en = {
   selectTopicSubcategory,
   topicGuide,
   setting,
+  display,
   signIn,
   signUp,
   userProfile,

@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {
   fontSizeL,
-  fontSizeLL,
+  fontSizeLLL,
   fontSizeM,
   primaryColor,
 } from '@/styles/Common';
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   num: {
-    fontSize: fontSizeLL,
+    fontSize: fontSizeLLL,
     color: primaryColor,
   },
 });

@@ -12,6 +12,7 @@ import I18n from '@/utils/I18n';
 import {
   Diary,
   EikenCategory,
+  ImageInfo,
   ThemeCategory,
   ThemeSubcategory,
   TopicCategory,

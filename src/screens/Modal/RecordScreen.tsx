@@ -27,7 +27,7 @@ import {
   softRed,
   subTextColor,
 } from '@/styles/Common';
-import { uploadStorageAsync } from '@/utils/storage';
+import { deleteStorageAsync, uploadStorageAsync } from '@/utils/storage';
 import firestore from '@react-native-firebase/firestore';
 import ModalConfirm from '@/components/organisms/ModalConfirm';
 
@@ -470,12 +470,14 @@ export default class RecordScreen extends React.Component<ScreenType, State> {
     const voiceUrl = await uploadStorageAsync(path, info.uri);
     await firestore().doc(`diaries/${diary.objectID}`).update({
       voiceUrl,
+      voicePath: path,
       updatedAt: firestore.FieldValue.serverTimestamp(),
     });
 
     editDiary(diary.objectID, {
       ...diary,
       voiceUrl,
+      voicePath: path,
     });
     this.setState({
       isSaving: false,
@@ -503,11 +505,16 @@ export default class RecordScreen extends React.Component<ScreenType, State> {
 
     await firestore().doc(`diaries/${diary.objectID}`).update({
       voiceUrl: null,
+      voicePath: null,
       updatedAt: firestore.FieldValue.serverTimestamp(),
     });
+    if (diary.voicePath) {
+      await deleteStorageAsync(diary.voicePath);
+    }
     editDiary(diary.objectID, {
       ...diary,
       voiceUrl: null,
+      voicePath: null,
     });
 
     this.setState({

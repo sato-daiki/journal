@@ -224,7 +224,7 @@ const NoHuman: React.FC<Props> = ({
     );
     Toast.show(I18n.t('noHuman.error'), {
       duration: Toast.durations.LONG,
-      position: Toast.positions.TOP,
+      position: Toast.positions.CENTER,
     });
   }, [diary.objectID, diary.uid]);
 

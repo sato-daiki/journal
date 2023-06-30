@@ -146,10 +146,10 @@ const myDiary = {
   confirmMessage: '本当に削除してよろしいでしょうか？',
   original: '原文の添削結果',
   revised: '修正後の添削結果',
-  ai1: 'AI①の添削',
-  ai2: 'AI②の添削',
-  ai3: 'AI③の添削',
-  human: '翻訳者による添削',
+  ai1: '1st AI',
+  ai2: '2nd AI',
+  ai3: '3rd AI',
+  human: '人間',
   closeAlert: '保存されていない変更は失われます。閉じてよろしいですか？',
   permissionAudio:
     'マイクの権限がないため、起動できません。設定画面からマイクの設定をONにしてください',
@@ -233,8 +233,9 @@ const themeCategory = {
 
 const becomePremium = {
   headerTitle: 'Premium会員について',
-  description: 'Premium会員は下記機能がご利用いただけます',
-  props1: '動画広告の視聴なしで添削ができます（※1日最大10回まで）',
+  becomeTitle: 'プレミアム会員になる',
+  props1: '動画広告の視聴なしで添削ができます',
+  props1description: '※1日最大10回まで',
   props2: '広告が非表示になります',
   MONTHLY: 'プレミアム会員(月払い)',
   ANNUAL: 'プレミアム会員(年払い)',
@@ -313,6 +314,9 @@ const postDiary = {
   headerTitle: '新規日記',
   placeholder: '{{maxLength}}字以内',
   correctError: '添削でエラーが発生しました。添削を終了します',
+  errorPermissionTitle: '権限がありません',
+  errorPermissionText:
+    'カメラの権限がないため起動できません。端末の設定画面より、LangJourunalにカメラの権限を与えてください。',
 };
 
 const postDraftDiary = {
@@ -343,6 +347,7 @@ const setting = {
   premium: 'プレミアム会員',
   aboutPremium: 'プレミアム会員について',
   basic: '基本設定',
+  display: '画面表示',
   app: 'アプリについて',
   learn: '勉強中の言語',
   passcodeLock: 'パスワードロック',
@@ -356,6 +361,13 @@ const setting = {
   inquiry: 'お問い合わせ',
   about: 'LangJournalとは',
   cancel: 'プレミアム会員のキャンセルについて',
+};
+
+const display = {
+  headerTitle: '画面設定',
+  device: '端末の設定を使う',
+  light: 'ライトモード',
+  dark: 'ダークモード',
 };
 
 const signIn = {
@@ -711,6 +723,7 @@ const ja = {
   selectTopicSubcategory,
   topicGuide,
   setting,
+  display,
   signIn,
   signUp,
   userProfile,

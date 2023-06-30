@@ -7,6 +7,7 @@ import {
   Animated,
   Easing,
 } from 'react-native';
+import ImageView from 'react-native-image-viewing';
 import {
   primaryColor,
   borderLightColor,
@@ -25,6 +26,7 @@ import ModalConfirm from '../ModalConfirm';
 import LanguagePicker from '../LanguagePicker';
 import { MAX_TEXT, MAX_TITLE, getIsTopic } from '@/utils/diary';
 import { TopicCategory, TopicSubcategory } from '@/types';
+import ImageViewFooter from '../ImageViewFooter';
 
 const styles = StyleSheet.create({
   container: {
@@ -71,8 +73,10 @@ const PostDiary: React.FC<PostDiaryProps> = ({
   isLoading,
   isModalCancel,
   isModalError,
+  isImageLoading,
   title,
   text,
+  images,
   themeCategory,
   themeSubcategory,
   errorMessage,
@@ -80,6 +84,9 @@ const PostDiary: React.FC<PostDiaryProps> = ({
   onPressCloseModalCancel,
   onChangeTextTitle,
   onChangeTextText,
+  onPressChooseImage,
+  onPressCamera,
+  onPressDeleteImage,
   onPressDraft,
   onPressMyDiary,
   onPressNotSave,
@@ -88,6 +95,10 @@ const PostDiary: React.FC<PostDiaryProps> = ({
 }) => {
   const [isForce, setIsForce] = useState(false);
   const [fadeAnim, setFadeAnim] = useState(new Animated.Value(0));
+
+  const [isImageView, setIsImageView] = useState(false);
+  const [imageIndex, setImageIndex] = useState<number>(0);
+
   useEffect(() => {
     Animated.timing(fadeAnim, {
       toValue: 1,
@@ -122,6 +133,16 @@ const PostDiary: React.FC<PostDiaryProps> = ({
     }
   }, [isTopic, navigation, themeCategory, themeSubcategory]);
 
+  const onPressImage = useCallback((index: number) => {
+    setIsImageView(true);
+    setImageIndex(index);
+  }, []);
+
+  const onCloseImageView = useCallback(() => {
+    setIsImageView(false);
+    setImageIndex(0);
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <LoadingModal visible={isLoading} />
@@ -139,6 +160,17 @@ const PostDiary: React.FC<PostDiaryProps> = ({
         onPressNotSave={onPressNotSave}
         onPressClose={onPressCloseModalCancel}
       />
+      {images && images.length > 0 && (
+        <ImageView
+          visible={isImageView}
+          imageIndex={imageIndex}
+          images={images.map((i) => ({ uri: i.imageUrl }))}
+          onRequestClose={onCloseImageView}
+          FooterComponent={({ imageIndex }) => (
+            <ImageViewFooter total={images.length} imageIndex={imageIndex} />
+          )}
+        />
+      )}
       <View style={styles.header}>
         <View style={styles.left}>
           <View style={styles.title}>
@@ -188,14 +220,20 @@ const PostDiary: React.FC<PostDiaryProps> = ({
       <PostDiaryKeyboard
         title={title}
         text={text}
+        images={images}
         themeCategory={themeCategory}
         themeSubcategory={themeSubcategory}
         isForce={isForce}
         isTopic={isTopic}
+        isImageLoading={isImageLoading}
         fadeAnim={fadeAnim}
         onPressTopicGuide={onPressTopicGuide}
         onChangeTextTitle={onChangeTextTitle}
         onChangeTextText={onChangeTextText}
+        onPressChooseImage={onPressChooseImage}
+        onPressCamera={onPressCamera}
+        onPressImage={onPressImage}
+        onPressDeleteImage={onPressDeleteImage}
         onPressDraft={onPressDraft}
         onPressMyDiary={onPressMyDiary}
         onFocusText={onFocusText}

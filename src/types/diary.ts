@@ -7,6 +7,11 @@ import { ProWritingAid } from './proWritingAid';
 
 export type DiaryStatus = 'draft' | 'checked';
 
+export interface ImageInfo {
+  imageUrl: string;
+  imagePath: string | null;
+}
+
 export interface Diary {
   objectID?: string;
   uid: string;
@@ -18,6 +23,8 @@ export interface Diary {
   reviseText?: string | null;
   diaryStatus: DiaryStatus;
   voiceUrl?: string | null;
+  voicePath?: string | null;
+  images?: ImageInfo[] | null;
   publishedAt?: FirebaseFirestoreTypes.Timestamp;
   longCode: LongCode;
   languageTool?: LanguageTool;

@@ -1,5 +1,5 @@
 import React, { ReactNode, useCallback } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import {
   NavigationState,
   SceneRendererProps,
@@ -13,6 +13,8 @@ type Props = SceneRendererProps & {
     title: string;
   }>;
 };
+
+const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
@@ -44,6 +46,9 @@ const MyDiaryTabBar: React.FC<Props> = (props) => {
   return (
     <TabBar
       {...props}
+      tabStyle={{
+        width: Math.max(width / props.navigationState.routes.length, 100),
+      }}
       scrollEnabled
       style={styles.container}
       renderLabel={renderLabel}
