@@ -4,7 +4,6 @@ import * as ImageManipulator from 'expo-image-manipulator';
 
 export const uploadStorageAsync = async (path, uri): Promise<string> => {
   const reference = storage().ref(path);
-  // uploads file
   await reference.putFile(uri);
   const url = await storage().ref(path).getDownloadURL();
   return url;
@@ -13,7 +12,6 @@ export const uploadStorageAsync = async (path, uri): Promise<string> => {
 export const deleteStorageAsync = async (path): Promise<boolean> => {
   try {
     const reference = storage().ref(path);
-    // uploads file
     await reference.delete();
     return true;
   } catch {
@@ -104,9 +102,6 @@ export const updateImages = async (
   afterImages: ImageInfo[] | null,
   beforeImages: ImageInfo[] | null | undefined,
 ) => {
-  console.log('afterImages', afterImages);
-  console.log('beforeImages', beforeImages);
-
   if (beforeImages && beforeImages.length > 0) {
     await checkAndDeleteImages(afterImages, beforeImages);
   }
