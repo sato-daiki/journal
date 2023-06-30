@@ -6,7 +6,7 @@ import { Diary } from '../../../types';
 import { Space } from '../../atoms';
 import DiaryHeader from '@/components/molecules/DiaryHeader';
 import DiaryFooter from '@/components/molecules/DiaryFooter';
-import ImageItem from '../ImageItem';
+import ImageItem from './ImageItem';
 import ImageViewFooter from '../ImageViewFooter';
 
 export interface Props {
