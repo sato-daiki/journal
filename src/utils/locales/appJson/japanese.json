@@ -1,5 +1,6 @@
 {
   "NSUserTrackingUsageDescription": "関連性の高い広告を表示するためにIDをトラッキングいたします。",
-  "NSCameraUsageDescription": "クレジットカード決済時にカードをカメラから読み込む場合、必要になります。",
+  "NSCameraUsageDescription": "写真を撮影して日記に追加できます",
+  "NSPhotoLibraryUsageDescription": "画像を日記に簡単に追加できるようになります",
   "NSFaceIDUsageDescription": "Face IDで認証します。"
 }

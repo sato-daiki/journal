@@ -132,7 +132,15 @@ const AiCheck: React.FC<Props> = ({
     ({ route }) => {
       switch (route.key) {
         case 'originalText':
-          return <Original diary={diary} title={title} text={text} />;
+          return (
+            <Original
+              diary={diary}
+              title={title}
+              text={text}
+              goToRecord={goToRecord}
+              onPressRevise={onPressRevise}
+            />
+          );
         case 'ai1':
           return (
             <LanguageTool

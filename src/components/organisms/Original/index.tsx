@@ -13,6 +13,8 @@ export interface Props {
   diary: Diary;
   title: string;
   text: string;
+  goToRecord?: () => void;
+  onPressRevise?: () => void;
 }
 
 const IMAGE_WIDTH = Dimensions.get('window').width - 32;
@@ -23,7 +25,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const Original: React.FC<Props> = ({ diary, title, text }) => {
+const Original: React.FC<Props> = ({
+  diary,
+  title,
+  text,
+  goToRecord,
+  onPressRevise,
+}) => {
   const [isImageView, setIsImageView] = useState(false);
   const [imageIndex, setImageIndex] = useState<number>(0);
 
@@ -40,9 +48,11 @@ const Original: React.FC<Props> = ({ diary, title, text }) => {
   return (
     <>
       <CommonMain
-        hideFooterButton={true}
+        hideFooterButton={false}
         diary={diary}
         text={text}
+        goToRecord={goToRecord}
+        onPressRevise={onPressRevise}
         titleAndText={
           <View>
             <CommonDiaryTitleAndText

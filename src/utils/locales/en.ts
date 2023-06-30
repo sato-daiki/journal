@@ -146,6 +146,7 @@ const myDiary = {
   confirmMessage: 'Are you sure you want to delete this journal entry?',
   original: 'Original Correction',
   revised: 'Revised Correction',
+  originalText: 'Original',
   ai1: "AI1's correction",
   ai2: "AI2's correction",
   ai3: "AI3's correction",
@@ -312,6 +313,9 @@ const postDiary = {
   headerTitle: 'New Journal Entry',
   placeholder: '{{maxLength}} characters or less',
   correctError: 'An error occurred during correcting.',
+  errorPermissionTitle: '',
+  errorPermissionText:
+    "You've refused to allow this app to access your photos!",
 };
 
 const postDraftDiary = {
@@ -351,7 +355,6 @@ const setting = {
   editEmail: 'Edit Email Address',
   editPassword: 'Edit Password',
   registerEmailPassword: 'Register Email and Password',
-  tutorial: 'Tutorial',
   deleteAcount: 'About Account Deletion',
   logout: 'Logout',
   inquiry: 'Contact',

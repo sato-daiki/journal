@@ -24,7 +24,7 @@ export const deleteStorageAsync = async (path): Promise<boolean> => {
 export const uploadImageAsync = async (
   path: string,
   photoUrl: string,
-  width = 300,
+  width = 500,
 ): Promise<string> => {
   const ret = await ImageManipulator.manipulateAsync(photoUrl, [
     { resize: { width } },
