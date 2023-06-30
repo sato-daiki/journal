@@ -121,6 +121,7 @@ const LanguageTool: React.FC<Props> = ({
     <CommonMain
       viewShotRef={viewShotRef}
       isPremium={isPremium}
+      isFullImage
       showSaplingCheck={showSaplingCheck}
       hideFooterButton={hideFooterButton}
       diary={diary}

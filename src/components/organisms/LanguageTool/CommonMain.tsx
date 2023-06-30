@@ -8,10 +8,12 @@ import DiaryHeader from '@/components/molecules/DiaryHeader';
 import DiaryFooter from '@/components/molecules/DiaryFooter';
 import ImageItem from './ImageItem';
 import ImageViewFooter from '../ImageViewFooter';
+import LargeThumbnailList from './LargeThumbnailList';
 
 export interface Props {
   viewShotRef?: React.MutableRefObject<ViewShot | null>;
   isPremium?: boolean;
+  isFullImage?: boolean;
   showSaplingCheck?: boolean;
   hideFooterButton: boolean;
   diary: Diary;
@@ -51,6 +53,7 @@ const styles = StyleSheet.create({
 const CommonMain: React.FC<Props> = ({
   viewShotRef,
   isPremium,
+  isFullImage,
   showSaplingCheck,
   hideFooterButton,
   diary,
@@ -91,16 +94,27 @@ const CommonMain: React.FC<Props> = ({
               <DiaryHeader diary={diary} />
               {titleAndText}
               <Space size={16} />
-              {diary.images?.map((image, index) => (
-                <ImageItem
-                  key={index}
-                  index={index}
-                  style={styles.image}
-                  width={IMAGE_WIDTH}
-                  imageUrl={image.imageUrl}
-                  onPress={onPressImage}
-                />
-              ))}
+              {diary.images && diary.images.length > 0 && (
+                <>
+                  {isFullImage ? (
+                    diary.images?.map((image, index) => (
+                      <ImageItem
+                        key={index}
+                        index={index}
+                        style={styles.image}
+                        width={IMAGE_WIDTH}
+                        imageUrl={image.imageUrl}
+                        onPress={onPressImage}
+                      />
+                    ))
+                  ) : (
+                    <LargeThumbnailList
+                      images={diary.images}
+                      onPress={onPressImage}
+                    />
+                  )}
+                </>
+              )}
             </View>
             <DiaryFooter
               isPremium={isPremium}
