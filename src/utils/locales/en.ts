@@ -146,7 +146,6 @@ const myDiary = {
   confirmMessage: 'Are you sure you want to delete this journal entry?',
   original: 'Original Correction',
   revised: 'Revised Correction',
-  originalText: 'Original',
   ai1: "AI1's correction",
   ai2: "AI2's correction",
   ai3: "AI3's correction",

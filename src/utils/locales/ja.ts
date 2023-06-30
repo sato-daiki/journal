@@ -146,7 +146,6 @@ const myDiary = {
   confirmMessage: '本当に削除してよろしいでしょうか？',
   original: '原文の添削結果',
   revised: '修正後の添削結果',
-  originalText: '原文',
   ai1: 'AI①の添削',
   ai2: 'AI②の添削',
   ai3: 'AI③の添削',
