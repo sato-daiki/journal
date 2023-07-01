@@ -24,7 +24,7 @@ import MyDiaryHeaderTitle, {
   myDiaryItems,
 } from '../MyDiaryHeaderTitle';
 import { PickerItem } from '@/components/molecules/ModalPicker';
-import { ViewMyDiaryNavigationProp } from '@/screens/Modal/ViewMyDiaryScreen/ViewMyDiaryScreen';
+import { ViewMyDiaryNavigationProp } from '@/screens/Modal/ViewMyDiaryScreen';
 import { LoadingModal } from '@/components/atoms';
 import { LoadingWhite } from '@/images';
 import firestore from '@react-native-firebase/firestore';

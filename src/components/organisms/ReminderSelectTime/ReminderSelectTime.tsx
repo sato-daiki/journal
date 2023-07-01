@@ -1,10 +1,15 @@
 import React, { useLayoutEffect } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 
-import { HeaderButton, LoadingModal, RadioBox } from '@/components/atoms';
+import {
+  AppText,
+  HeaderButton,
+  LoadingModal,
+  RadioBox,
+  Space,
+} from '@/components/atoms';
 
 import I18n from '@/utils/I18n';
-import { fontSizeL, mainColor, primaryColor } from '@/styles/Common';
 import {
   CustomTimeInfo,
   FixDay,
@@ -20,6 +25,7 @@ import { ReminderSelectTimeOnboardingNavigationProp } from '@/screens/Onboarding
 import { ReminderSelectTimeSettingNavigationProp } from '@/screens/Onboarding/ReminderSelectTimeScreen/ReminderSelectTimeSettingScreen';
 import { useReminderSelectTime } from './useReminderSelectTime';
 import NotficationReminder from '../NotficationReminder';
+import { useAppTheme } from '@/styles/colors';
 
 export interface ReminderSelectTimeProps {
   navigation:
@@ -36,40 +42,6 @@ export interface ReminderSelectTimeProps {
   gotoReminderSelectDay: (param: object) => void;
   afterSave: () => void;
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  title: {
-    paddingTop: 32,
-    paddingHorizontal: 16,
-    color: primaryColor,
-    fontSize: fontSizeL,
-    fontWeight: 'bold',
-    marginBottom: 32,
-  },
-  radioContainer: {
-    paddingBottom: 16,
-  },
-  checkContainer: {
-    paddingTop: 16,
-    paddingBottom: 32,
-  },
-  radioBox: {
-    marginHorizontal: 8,
-    paddingBottom: 8,
-  },
-  label: {
-    fontWeight: 'bold',
-    fontSize: 16,
-    paddingHorizontal: 16,
-    paddingBottom: 8,
-  },
-  bold: {
-    fontWeight: 'bold',
-  },
-});
 
 const ReminderSelectTime: React.FC<ReminderSelectTimeProps> = ({
   navigation,
@@ -84,6 +56,7 @@ const ReminderSelectTime: React.FC<ReminderSelectTimeProps> = ({
   gotoReminderSelectDay,
   afterSave,
 }) => {
+  const theme = useAppTheme();
   const {
     isLoading,
     notificationStart,
@@ -121,73 +94,88 @@ const ReminderSelectTime: React.FC<ReminderSelectTimeProps> = ({
       headerRight: () => (
         <HeaderButton
           title={I18n.t('common.save')}
-          color={mainColor}
+          color={theme.colors.main}
           onPress={onPressDone}
         />
       ),
     });
-  }, [navigation, onPressDone]);
+  }, [navigation, onPressDone, theme.colors.main]);
 
   return (
     <ScrollView style={styles.container}>
       <NotficationReminder />
       <LoadingModal visible={isLoading} />
-      <Text style={styles.title}>{I18n.t('reminderSelectTime.title')}</Text>
-
-      <View style={styles.radioContainer}>
-        <View style={styles.radioBox}>
-          <RadioBox
-            textStyle={styles.bold}
-            checked={reminderType === 'fix'}
-            color={mainColor}
-            text={I18n.t('reminderSelectTime.fix')}
-            onPress={onPressFix}
-          />
-        </View>
-        <ReminderSelectTimeFix
-          disable={reminderType !== 'fix'}
-          fixDays={fixDays}
-          fixTimeInfo={fixTimeInfo}
-          handleTimeStart={handleFixTimeStart}
-          handleTimeEnd={handleFixTimeEnd}
-          onPressStudyDay={onPressFixStudyDay}
+      <Space size={32} />
+      <AppText size='l' bold style={styles.paddingHorizontal16}>
+        {I18n.t('reminderSelectTime.title')}
+      </AppText>
+      <Space size={32} />
+      <RadioBox
+        textStyle={styles.bold}
+        checked={reminderType === 'fix'}
+        color={theme.colors.main}
+        text={I18n.t('reminderSelectTime.fix')}
+        onPress={onPressFix}
+      />
+      <Space size={16} />
+      <ReminderSelectTimeFix
+        disable={reminderType !== 'fix'}
+        fixDays={fixDays}
+        fixTimeInfo={fixTimeInfo}
+        handleTimeStart={handleFixTimeStart}
+        handleTimeEnd={handleFixTimeEnd}
+        onPressStudyDay={onPressFixStudyDay}
+      />
+      <Space size={32} />
+      <View style={styles.paddingHorizontal8}>
+        <RadioBox
+          textStyle={styles.bold}
+          checked={reminderType === 'custom'}
+          color={theme.colors.main}
+          text={I18n.t('reminderSelectTime.custom')}
+          onPress={onPressCustom}
         />
       </View>
-      <View style={styles.radioContainer}>
-        <View style={styles.radioBox}>
-          <RadioBox
-            textStyle={styles.bold}
-            checked={reminderType === 'custom'}
-            color={mainColor}
-            text={I18n.t('reminderSelectTime.custom')}
-            onPress={onPressCustom}
-          />
-        </View>
-        <ReminderSelectTimeCustom
-          disable={reminderType !== 'custom'}
-          customTimeInfos={customTimeInfos}
-          handleTimeStart={handleCumtomTimeStart}
-          handleTimeEnd={handleCumtomTimeEnd}
-          onPressStudyDay={onPressCustomStudyDay}
-        />
-      </View>
-      <View style={styles.checkContainer}>
-        <Text style={styles.label}>
-          {I18n.t('reminderSelectTime.notificationLable')}
-        </Text>
-        <CheckItem
-          title={I18n.t('reminderSelectTime.notificationStart')}
-          checked={notificationStart}
-          onPress={onPressNotificationStart}
-        />
-        <CheckItem
-          title={I18n.t('reminderSelectTime.notificationEnd')}
-          checked={notificationEnd}
-          onPress={onPressNotificationEnd}
-        />
-      </View>
+      <Space size={8} />
+      <ReminderSelectTimeCustom
+        disable={reminderType !== 'custom'}
+        customTimeInfos={customTimeInfos}
+        handleTimeStart={handleCumtomTimeStart}
+        handleTimeEnd={handleCumtomTimeEnd}
+        onPressStudyDay={onPressCustomStudyDay}
+      />
+      <Space size={32} />
+      <AppText size='m' bold style={styles.paddingHorizontal16}>
+        {I18n.t('reminderSelectTime.notificationLable')}
+      </AppText>
+      <Space size={6} />
+      <CheckItem
+        title={I18n.t('reminderSelectTime.notificationStart')}
+        checked={notificationStart}
+        onPress={onPressNotificationStart}
+      />
+      <CheckItem
+        title={I18n.t('reminderSelectTime.notificationEnd')}
+        checked={notificationEnd}
+        onPress={onPressNotificationEnd}
+      />
+      <Space size={32} />
     </ScrollView>
   );
 };
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  paddingHorizontal16: {
+    paddingHorizontal: 16,
+  },
+  paddingHorizontal8: {
+    paddingHorizontal: 8,
+  },
+  bold: {
+    fontWeight: 'bold',
+  },
+});
 export default ReminderSelectTime;

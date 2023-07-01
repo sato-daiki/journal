@@ -4,7 +4,7 @@ import React, {
   useLayoutEffect,
   useState,
 } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
 import Purchases, {
@@ -20,24 +20,18 @@ import {
 } from '@/navigations/ModalNavigator';
 
 import {
+  AppText,
   HeaderText,
   Icon,
+  Layout,
   LinkText,
   LoadingModal,
   RadioBox,
   Space,
   SubmitButton,
 } from '@/components/atoms';
-import {
-  fontSizeL,
-  fontSizeLL,
-  fontSizeM,
-  mainColor,
-  primaryColor,
-  softRed,
-  subTextColor,
-} from '@/styles/Common';
 import { checkPremium } from '@/utils/purchase';
+import { useAppTheme } from '@/styles/colors';
 
 interface DispatchProps {
   setIsPremium: (isPremium: boolean) => void;
@@ -52,88 +46,17 @@ type ScreenType = {
   navigation: BecomePremiumNavigationProp;
 } & DispatchProps;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    paddingHorizontal: 16,
-    paddingTop: 16,
-  },
-  becomeContainer: {
-    marginTop: 16,
-    borderRadius: 8,
-    paddingLeft: 16,
-    paddingRight: 24,
-    paddingVertical: 16,
-    borderColor: mainColor,
-    borderWidth: 3,
-  },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 24,
-  },
-  becomeTitle: {
-    marginHorizontal: 4,
-    fontSize: fontSizeLL,
-    fontWeight: 'bold',
-  },
-  becomeText: {
-    fontSize: fontSizeL,
-    fontWeight: 'bold',
-    marginLeft: 8,
-  },
-  becomeDescription: {
-    fontSize: fontSizeM,
-    fontWeight: 'bold',
-    marginLeft: 8,
-  },
-  labelContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 8,
-  },
-  linkTextContaienr: {
-    paddingTop: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  noEmail: {
-    paddingTop: 16,
-    fontSize: fontSizeM,
-    lineHeight: fontSizeM * 1.3,
-    color: softRed,
-    fontWeight: 'bold',
-  },
-  priceContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingLeft: 8,
-  },
-  priceTitle: {
-    fontSize: fontSizeM,
-  },
-  priceString: {
-    fontSize: fontSizeM,
-    fontWeight: 'bold',
-  },
-});
-
 const BecomePremiumScreen: React.FC<ScreenType> = ({
   setIsPremium,
   navigation,
 }) => {
   const { currentUser } = auth();
-
   const [currentOffering, setCurrentOffering] =
     useState<PurchasesOffering | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-
   const [purchasesPackage, setPurchasesPackage] = useState<PurchasesPackage>();
+
+  const theme = useAppTheme();
 
   const onPressItem = useCallback((v) => {
     setPurchasesPackage(v);
@@ -212,44 +135,56 @@ const BecomePremiumScreen: React.FC<ScreenType> = ({
   }, [isLoading, navigation, setIsPremium]);
 
   return (
-    <View style={styles.container}>
+    <Layout innerStyle={styles.container}>
       <LoadingModal visible={isLoading} />
-      <View style={styles.becomeContainer}>
+      <View
+        style={[styles.becomeContainer, { borderColor: theme.colors.main }]}
+      >
         <View style={styles.row}>
           <Icon
             icon='community'
             name='star-four-points-outline'
             size={18}
-            color={primaryColor}
+            color={theme.colors.primary}
           />
-          <Text style={styles.becomeTitle}>
+          <AppText size='ll' bold style={styles.becomeTitle}>
             {I18n.t('becomePremium.becomeTitle')}
-          </Text>
+          </AppText>
           <Icon
             icon='community'
             name='star-four-points-outline'
             size={18}
-            color={primaryColor}
+            color={theme.colors.primary}
           />
         </View>
         <View style={styles.labelContainer}>
-          <Icon icon='community' name='check' size={24} color={primaryColor} />
+          <Icon
+            icon='community'
+            name='check'
+            size={24}
+            color={theme.colors.primary}
+          />
           <View>
-            <Text style={styles.becomeText}>
+            <AppText size='l' bold style={styles.becomeText}>
               {I18n.t('becomePremium.props1')}
-            </Text>
+            </AppText>
             <Space size={4} />
-            <Text style={styles.becomeDescription}>
+            <AppText size='m' bold style={styles.becomeText}>
               {I18n.t('becomePremium.props1description')}
-            </Text>
+            </AppText>
           </View>
         </View>
         <Space size={8} />
         <View style={styles.labelContainer}>
-          <Icon icon='community' name='check' size={24} color={primaryColor} />
-          <Text style={styles.becomeText}>
+          <Icon
+            icon='community'
+            name='check'
+            size={24}
+            color={theme.colors.primary}
+          />
+          <AppText size='m' bold style={styles.becomeText}>
             {I18n.t('becomePremium.props2')}
-          </Text>
+          </AppText>
         </View>
       </View>
 
@@ -259,15 +194,15 @@ const BecomePremiumScreen: React.FC<ScreenType> = ({
           <View key={item.identifier}>
             <RadioBox
               checked={item.identifier === purchasesPackage?.identifier}
-              color={mainColor}
+              color={theme.colors.main}
               textComponent={
                 <View style={styles.priceContainer}>
-                  <Text style={styles.priceTitle}>
+                  <AppText size='m'>
                     {I18n.t(`becomePremium.${item.packageType}`)}
-                  </Text>
-                  <Text style={styles.priceString}>
+                  </AppText>
+                  <AppText size='m' bold>
                     {item.product.priceString}
-                  </Text>
+                  </AppText>
                 </View>
               }
               onPress={() => {
@@ -285,15 +220,66 @@ const BecomePremiumScreen: React.FC<ScreenType> = ({
       />
       {currentUser && currentUser.email ? (
         <LinkText
+          size='m'
           containerStyle={styles.linkTextContaienr}
           onPress={onPressRestore}
           text={I18n.t('becomePremium.restore')}
         />
       ) : (
-        <Text style={styles.noEmail}>{I18n.t(`becomePremium.noEmail`)}</Text>
+        <>
+          <Space size={16} />
+          <AppText size='m' bold color={theme.colors.danger}>
+            {I18n.t(`becomePremium.noEmail`)}
+          </AppText>
+        </>
       )}
-    </View>
+    </Layout>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: 16,
+    paddingTop: 16,
+  },
+  becomeContainer: {
+    marginTop: 16,
+    borderRadius: 8,
+    paddingLeft: 16,
+    paddingRight: 24,
+    paddingVertical: 16,
+    borderWidth: 3,
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 24,
+  },
+  becomeTitle: {
+    marginHorizontal: 4,
+  },
+  becomeText: {
+    marginLeft: 8,
+  },
+  labelContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  linkTextContaienr: {
+    paddingTop: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  priceContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingLeft: 8,
+  },
+});
 
 export default BecomePremiumScreen;

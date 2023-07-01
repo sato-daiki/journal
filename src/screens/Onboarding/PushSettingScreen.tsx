@@ -1,15 +1,15 @@
 import React, { useCallback, useState } from 'react';
-import { View, StyleSheet, Text, Image, SafeAreaView } from 'react-native';
+import { View, StyleSheet, Image } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import { fontSizeL, fontSizeM, primaryColor } from '@/styles/Common';
 import {
+  AppText,
+  Layout,
   LinkText,
   LoadingModal,
   Space,
   SubmitButton,
 } from '@/components/atoms';
-
 import { Notification } from '@/images';
 import { setPushotifications } from '@/utils/Notification';
 import { LocalStatus, User } from '@/types';
@@ -38,50 +38,6 @@ type ScreenType = {
   navigation: NavigationProp;
 } & Props &
   DispatchProps;
-
-const styles = StyleSheet.create({
-  safeAreaView: {
-    backgroundColor: '#fff',
-    flex: 1,
-  },
-  container: {
-    flex: 1,
-    paddingHorizontal: 16,
-    paddingTop: 64,
-  },
-  main: {
-    flex: 1,
-  },
-  title: {
-    color: primaryColor,
-    fontSize: fontSizeL,
-    fontWeight: 'bold',
-    marginBottom: 16,
-    textAlign: 'center',
-  },
-  description: {
-    paddingTop: 32,
-    color: primaryColor,
-    fontSize: fontSizeM,
-    lineHeight: fontSizeM * 1.3,
-    textAlign: 'center',
-  },
-  linkContainer: {
-    height: 100,
-  },
-  linkText: {
-    textAlign: 'center',
-  },
-  img: {
-    alignSelf: 'center',
-    width: 120,
-    height: 207,
-  },
-  imgContainer: {
-    flex: 2,
-    paddingTop: 16,
-  },
-});
 
 const PushSettingScreen: React.FC<ScreenType> = ({
   navigation,
@@ -112,33 +68,56 @@ const PushSettingScreen: React.FC<ScreenType> = ({
   }, [navigation]);
 
   return (
-    <SafeAreaView style={styles.safeAreaView}>
-      <View style={styles.container}>
-        <LoadingModal visible={isLoading} />
-        <View style={styles.main}>
-          <Text style={styles.title}>{I18n.t('pushSetting.title')}</Text>
-          <Text style={styles.description}>
-            {I18n.t('pushSetting.description')}
-          </Text>
-        </View>
-        <View style={styles.imgContainer}>
-          <Image source={Notification} style={styles.img} />
-        </View>
-        <View style={styles.linkContainer}>
-          <SubmitButton
-            title={I18n.t('pushSetting.submit')}
-            onPress={onPressSubmit}
-          />
-          <Space size={16} />
-          <LinkText
-            textStyle={styles.linkText}
-            text={I18n.t('common.skip')}
-            onPress={onPressSkip}
-          />
-        </View>
+    <Layout innerStyle={styles.container}>
+      <LoadingModal visible={isLoading} />
+      <View style={styles.main}>
+        <AppText bold size='l' textAlign='center'>
+          {I18n.t('pushSetting.title')}
+        </AppText>
+        <Space size={48} />
+        <AppText size='m' textAlign='center'>
+          {I18n.t('pushSetting.description')}
+        </AppText>
       </View>
-    </SafeAreaView>
+      <View style={styles.imgContainer}>
+        <Image source={Notification} style={styles.img} />
+      </View>
+      <View style={styles.linkContainer}>
+        <SubmitButton
+          title={I18n.t('pushSetting.submit')}
+          onPress={onPressSubmit}
+        />
+        <Space size={16} />
+        <LinkText
+          size='m'
+          textAlign='center'
+          text={I18n.t('common.skip')}
+          onPress={onPressSkip}
+        />
+      </View>
+    </Layout>
   );
 };
 
+const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: 16,
+    paddingTop: 64,
+  },
+  main: {
+    flex: 1,
+  },
+  linkContainer: {
+    height: 100,
+  },
+  img: {
+    alignSelf: 'center',
+    width: 120,
+    height: 207,
+  },
+  imgContainer: {
+    flex: 2,
+    paddingTop: 16,
+  },
+});
 export default PushSettingScreen;

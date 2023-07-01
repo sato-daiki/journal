@@ -8,6 +8,7 @@ import {
 import I18n from '../../utils/I18n';
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 import PasscodeLock from '@/components/organisms/PasscodeLock';
+import { Layout } from '@/components/atoms';
 
 type PasscodeLockSettingNavigationProp = CompositeNavigationProp<
   StackNavigationProp<SettingTabStackParamList, 'PasscodeLockSetting'>,
@@ -37,13 +38,15 @@ const PasscodeLockSettingScreen: React.FC<ScreenType> = ({
   );
 
   return (
-    <PasscodeLock
-      title={I18n.t('passcodeLock.input')}
-      passcode={passcode}
-      message={route.params?.message}
-      setPasscode={setPasscode}
-      onCheck={onCheck}
-    />
+    <Layout>
+      <PasscodeLock
+        title={I18n.t('passcodeLock.input')}
+        passcode={passcode}
+        message={route.params?.message}
+        setPasscode={setPasscode}
+        onCheck={onCheck}
+      />
+    </Layout>
   );
 };
 

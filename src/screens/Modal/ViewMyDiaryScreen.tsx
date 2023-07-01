@@ -1,6 +1,4 @@
 import React, { useCallback, useLayoutEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
-
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
 import { Diary, LocalStatus, User } from '@/types';
@@ -9,7 +7,7 @@ import {
   ModalViewMyDiaryStackNavigationProp,
   ModalViewMyDiaryStackParamList,
 } from '@/navigations/ModalNavigator';
-import { HeaderText } from '@/components/atoms';
+import { HeaderText, Layout } from '@/components/atoms';
 import I18n from '@/utils/I18n';
 
 export interface Props {
@@ -32,13 +30,6 @@ type ScreenType = {
   navigation: ViewMyDiaryNavigationProp;
 } & Props &
   DispatchProps;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});
 
 const ViewMyDiaryScreen: React.FC<ScreenType> = ({
   navigation,
@@ -66,7 +57,7 @@ const ViewMyDiaryScreen: React.FC<ScreenType> = ({
   }
 
   return (
-    <View style={styles.container}>
+    <Layout>
       <MyDiary
         isView
         navigation={navigation}
@@ -76,7 +67,7 @@ const ViewMyDiaryScreen: React.FC<ScreenType> = ({
         editDiary={editDiary}
         setUser={setUser}
       />
-    </View>
+    </Layout>
   );
 };
 export default ViewMyDiaryScreen;

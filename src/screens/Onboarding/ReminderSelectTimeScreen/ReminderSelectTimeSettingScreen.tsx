@@ -9,6 +9,7 @@ import {
   initFixDays,
   initFixTimeInfo,
 } from './interface';
+import { Layout } from '@/components/atoms';
 
 export interface Props {
   user: User;
@@ -93,19 +94,21 @@ const ReminderSelectTimeSettingScreen: React.FC<ScreenType> = ({
   );
 
   return (
-    <ReminderSelectTime
-      navigation={navigation}
-      defaultReminderType={defaultReminderType}
-      defaultNotificationStart={defaultNotificationStart}
-      defaultNotificationEnd={defaultNotificationEnd}
-      defaultFixDays={defaultFixDays}
-      defaultFixTimeInfo={defaultFixTimeInfo}
-      defaultCuctomTimeInfos={defaultCuctomTimeInfos}
-      user={user}
-      setUser={setUser}
-      gotoReminderSelectDay={gotoReminderSelectDay}
-      afterSave={afterSave}
-    />
+    <Layout>
+      <ReminderSelectTime
+        navigation={navigation}
+        defaultReminderType={defaultReminderType}
+        defaultNotificationStart={defaultNotificationStart}
+        defaultNotificationEnd={defaultNotificationEnd}
+        defaultFixDays={defaultFixDays}
+        defaultFixTimeInfo={defaultFixTimeInfo}
+        defaultCuctomTimeInfos={defaultCuctomTimeInfos}
+        user={user}
+        setUser={setUser}
+        gotoReminderSelectDay={gotoReminderSelectDay}
+        afterSave={afterSave}
+      />
+    </Layout>
   );
 };
 

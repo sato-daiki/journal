@@ -9,6 +9,8 @@ type Props = {
   textStyle?: StyleProp<TextStyle>;
   text: string;
   size: TextSize;
+  textAlign?: TextStyle['textAlign'];
+  bold?: boolean;
   onPress: () => void;
 };
 
@@ -16,6 +18,8 @@ const LinkText: React.FC<Props> = ({
   containerStyle,
   textStyle,
   size = 'm',
+  textAlign,
+  bold,
   text,
   onPress,
 }) => {
@@ -24,6 +28,8 @@ const LinkText: React.FC<Props> = ({
     <Hoverable style={containerStyle} onPress={onPress}>
       <AppText
         size={size}
+        textAlign={textAlign}
+        bold={bold}
         style={[
           {
             color: theme.colors.linkBlue,

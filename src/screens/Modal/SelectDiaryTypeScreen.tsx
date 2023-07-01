@@ -2,6 +2,7 @@ import React, { useCallback, useLayoutEffect } from 'react';
 import { StyleSheet, View, Image } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
+import { useAppTheme } from '@/styles/colors';
 import { PaperAndPen, StudentHat } from '@/images';
 import {
   ModalSelectDiaryTypeStackNavigationProp,
@@ -9,7 +10,7 @@ import {
 } from '@/navigations/ModalNavigator';
 import I18n from '@/utils/I18n';
 import { SelecttionBox } from '@/components/molecules';
-import { HeaderText, HoverableIcon } from '@/components/atoms';
+import { HeaderText, HoverableIcon, Layout } from '@/components/atoms';
 
 type NavigationProp = CompositeNavigationProp<
   StackNavigationProp<ModalSelectDiaryTypeStackParamList, 'SelectDiaryType'>,
@@ -20,37 +21,9 @@ type ScreenType = {
   navigation: NavigationProp;
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    paddingTop: 32,
-    alignItems: 'center',
-  },
-  row: {
-    paddingHorizontal: 16,
-    flexDirection: 'row',
-    marginBottom: 16,
-  },
-  marginRight: {
-    marginRight: 8,
-  },
-  marginLeft: {
-    marginLeft: 8,
-  },
-  image: {
-    width: 40,
-    height: 40,
-    marginTop: 16,
-    marginBottom: 16,
-  },
-  icon: {
-    marginTop: 8,
-    marginBottom: 4,
-  },
-});
-
 const SelectDiaryTypeScreen: React.FC<ScreenType> = ({ navigation }) => {
+  const theme = useAppTheme();
+
   const onPressClose = useCallback(() => {
     navigation.goBack();
   }, [navigation]);
@@ -100,7 +73,7 @@ const SelectDiaryTypeScreen: React.FC<ScreenType> = ({ navigation }) => {
   }, [navigation]);
 
   return (
-    <View style={styles.container}>
+    <Layout innerStyle={styles.container}>
       <View style={styles.row}>
         <SelecttionBox
           containerStyle={styles.marginRight}
@@ -130,6 +103,7 @@ const SelectDiaryTypeScreen: React.FC<ScreenType> = ({ navigation }) => {
               name={'numeric-1-box'}
               size={36}
               style={styles.icon}
+              color={theme.colors.primary}
             />
           }
           onPress={onPressEiken1}
@@ -144,6 +118,7 @@ const SelectDiaryTypeScreen: React.FC<ScreenType> = ({ navigation }) => {
               name={'numeric-1-box-multiple-outline'}
               size={32}
               style={styles.icon}
+              color={theme.colors.primary}
             />
           }
           onPress={onPressEikenPre1}
@@ -161,6 +136,7 @@ const SelectDiaryTypeScreen: React.FC<ScreenType> = ({ navigation }) => {
               name={'numeric-2-box'}
               size={36}
               style={styles.icon}
+              color={theme.colors.primary}
             />
           }
           onPress={onPressEiken2}
@@ -175,13 +151,42 @@ const SelectDiaryTypeScreen: React.FC<ScreenType> = ({ navigation }) => {
               name={'numeric-2-box-multiple-outline'}
               size={32}
               style={styles.icon}
+              color={theme.colors.primary}
             />
           }
           onPress={onPressEikenPre2}
         />
       </View>
-    </View>
+    </Layout>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    paddingTop: 32,
+    alignItems: 'center',
+  },
+  row: {
+    paddingHorizontal: 16,
+    flexDirection: 'row',
+    marginBottom: 16,
+  },
+  marginRight: {
+    marginRight: 8,
+  },
+  marginLeft: {
+    marginLeft: 8,
+  },
+  image: {
+    width: 40,
+    height: 40,
+    marginTop: 16,
+    marginBottom: 16,
+  },
+  icon: {
+    marginTop: 8,
+    marginBottom: 4,
+  },
+});
 
 export default SelectDiaryTypeScreen;

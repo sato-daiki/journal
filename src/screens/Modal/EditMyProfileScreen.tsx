@@ -1,9 +1,9 @@
 import React, { useCallback, useState, useLayoutEffect } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
 
-import { HeaderText } from '@/components/atoms';
+import { AppText, HeaderText, Layout, Space } from '@/components/atoms';
 import { LongCode, User } from '@/types';
 import I18n from '@/utils/I18n';
 import { SettingTabNavigationProp } from '@/navigations/SettingTabNavigator';
@@ -12,7 +12,6 @@ import {
   ModalEditMyProfileStackParamList,
 } from '@/navigations/ModalNavigator';
 import firestore from '@react-native-firebase/firestore';
-import { fontSizeL, primaryColor } from '@/styles/Common';
 import { getLanguageToolName } from '@/utils/grammarCheck';
 import LanguagePicker from '@/components/organisms/LanguagePicker';
 import { PickerItem } from '@/components/molecules/ModalPicker';
@@ -34,20 +33,6 @@ type ScreenType = {
   navigation: NavigationProp & SettingTabNavigationProp;
 } & Props &
   DispatchProps;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: '#fff',
-  },
-  title: {
-    color: primaryColor,
-    fontSize: fontSizeL,
-    fontWeight: 'bold',
-    paddingBottom: 32,
-  },
-});
 
 /**
  * マイページ編集画面
@@ -103,11 +88,21 @@ const EditMyProfileScreen: React.FC<ScreenType> = ({
   }, [navigation, onPressGoBack, onPressSubmit]);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{I18n.t('selectLanguage.title')}</Text>
+    <Layout innerStyle={styles.container}>
+      <AppText size='l' bold>
+        {I18n.t('selectLanguage.title')}
+      </AppText>
+      <Space size={32} />
       <LanguagePicker selectedItem={selectedItem} onPressItem={onPressItem} />
-    </View>
+    </Layout>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: 16,
+    paddingTop: 32,
+  },
+});
 
 export default EditMyProfileScreen;

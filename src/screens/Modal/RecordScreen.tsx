@@ -9,6 +9,7 @@ import { logAnalytics } from '@/utils/Analytics';
 import {
   HeaderText,
   HoverableIcon,
+  Layout,
   LoadingModal,
   SmallButtonWhite,
 } from '@/components/atoms';
@@ -30,6 +31,7 @@ import {
 import { deleteStorageAsync, uploadStorageAsync } from '@/utils/storage';
 import firestore from '@react-native-firebase/firestore';
 import ModalConfirm from '@/components/organisms/ModalConfirm';
+import { useAppTheme } from '@/styles/colors';
 
 export type Props = {
   diary?: Diary;
@@ -49,61 +51,6 @@ type ScreenType = {
   navigation: NavigationProp;
 } & Props &
   DispatchProps;
-
-const styles = StyleSheet.create({
-  safeAreaView: {
-    flex: 1,
-    backgroundColor: offWhite,
-  },
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  scrollView: {
-    flex: 1,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    backgroundColor: '#fff',
-  },
-  playContaier: {
-    backgroundColor: offWhite,
-    paddingVertical: 16,
-    paddingHorizontal: 32,
-  },
-  playButtonContainer: {
-    marginTop: 16,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  recordButtonContainer: {
-    height: 70,
-    borderTopWidth: 1,
-    borderTopColor: borderLightColor,
-    backgroundColor: offWhite,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  timestampText: {
-    color: primaryColor,
-    fontSize: fontSizeS,
-    textAlign: 'center',
-    textAlignVertical: 'center',
-  },
-  recordingText: {
-    position: 'absolute',
-    right: 20,
-    paddingTop: 4,
-  },
-  saveButton: {
-    position: 'absolute',
-    right: 5,
-    width: 100,
-  },
-  notSaveText: {
-    fontSize: fontSizeS,
-    color: subTextColor,
-  },
-});
 
 type State = {
   isLoading: boolean;
@@ -575,7 +522,7 @@ export default class RecordScreen extends React.Component<ScreenType, State> {
     }
 
     return (
-      <SafeAreaView style={styles.safeAreaView}>
+      <Layout>
         <ModalConfirm
           visible={isModaleVoiceDelete}
           title={I18n.t('common.confirmation')}
@@ -586,59 +533,108 @@ export default class RecordScreen extends React.Component<ScreenType, State> {
             this.setState({ isModaleVoiceDelete: false });
           }}
         />
-        <View style={styles.container}>
-          <ScrollView style={styles.scrollView}>
-            <DiaryTitleAndText
-              title={diary.reviseTitle || diary.title}
-              text={diary.reviseText || diary.text}
-              themeCategory={diary.themeCategory}
-              themeSubcategory={diary.themeSubcategory}
+        <ScrollView style={styles.scrollView}>
+          <DiaryTitleAndText
+            title={diary.reviseTitle || diary.title}
+            text={diary.reviseText || diary.text}
+            themeCategory={diary.themeCategory}
+            themeSubcategory={diary.themeSubcategory}
+          />
+        </ScrollView>
+        {this.sound ? (
+          <View
+            style={[
+              styles.playContaier,
+              { backgroundColor: theme.colors.danger },
+            ]}
+          >
+            <Slider
+              minimumTrackTintColor={primaryColor}
+              value={this.getSeekSliderPosition()}
+              onValueChange={this.onSeekSliderValueChange}
+              onSlidingComplete={this.onSeekSliderSlidingComplete}
+              thumbTintColor={primaryColor}
+              disabled={!isPlaybackAllowed || isLoading}
             />
-          </ScrollView>
-          {this.sound ? (
-            <View style={styles.playContaier}>
-              <Slider
-                minimumTrackTintColor={primaryColor}
-                value={this.getSeekSliderPosition()}
-                onValueChange={this.onSeekSliderValueChange}
-                onSlidingComplete={this.onSeekSliderSlidingComplete}
-                thumbTintColor={primaryColor}
+            <Text style={styles.timestampText}>
+              {this.getPlaybackTimestamp()}
+            </Text>
+            <View style={styles.playButtonContainer}>
+              <HoverableIcon
                 disabled={!isPlaybackAllowed || isLoading}
+                icon='community'
+                name={isPlaying ? 'pause' : 'play'}
+                size={56}
+                color={primaryColor}
+                onPress={this.onPlayPausePressed}
               />
-              <Text style={styles.timestampText}>
-                {this.getPlaybackTimestamp()}
-              </Text>
-              <View style={styles.playButtonContainer}>
-                <HoverableIcon
-                  disabled={!isPlaybackAllowed || isLoading}
-                  icon='community'
-                  name={isPlaying ? 'pause' : 'play'}
-                  size={56}
-                  color={primaryColor}
-                  onPress={this.onPlayPausePressed}
-                />
-                {SaveButton()}
-              </View>
+              {SaveButton()}
             </View>
-          ) : null}
-
-          <View style={styles.recordButtonContainer}>
-            <HoverableIcon
-              disabled={isLoading}
-              icon='community'
-              name={isRecording ? 'stop' : 'record'}
-              size={64}
-              color={softRed}
-              onPress={this.onRecordPressed}
-            />
-            {isRecording ? (
-              <Text style={[styles.timestampText, styles.recordingText]}>
-                {this.getRecordingTimestamp()}
-              </Text>
-            ) : null}
           </View>
+        ) : null}
+
+        <View style={styles.recordButtonContainer}>
+          <HoverableIcon
+            disabled={isLoading}
+            icon='community'
+            name={isRecording ? 'stop' : 'record'}
+            size={64}
+            color={softRed}
+            onPress={this.onRecordPressed}
+          />
+          {isRecording ? (
+            <Text style={[styles.timestampText, styles.recordingText]}>
+              {this.getRecordingTimestamp()}
+            </Text>
+          ) : null}
         </View>
-      </SafeAreaView>
+      </Layout>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  scrollView: {
+    flex: 1,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+  },
+  playContaier: {
+    backgroundColor: offWhite,
+    paddingVertical: 16,
+    paddingHorizontal: 32,
+  },
+  playButtonContainer: {
+    marginTop: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  recordButtonContainer: {
+    height: 70,
+    borderTopWidth: 1,
+    borderTopColor: borderLightColor,
+    backgroundColor: offWhite,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  timestampText: {
+    color: primaryColor,
+    fontSize: fontSizeS,
+    textAlign: 'center',
+    textAlignVertical: 'center',
+  },
+  recordingText: {
+    position: 'absolute',
+    right: 20,
+    paddingTop: 4,
+  },
+  saveButton: {
+    position: 'absolute',
+    right: 5,
+    width: 100,
+  },
+  notSaveText: {
+    fontSize: fontSizeS,
+    color: subTextColor,
+  },
+});

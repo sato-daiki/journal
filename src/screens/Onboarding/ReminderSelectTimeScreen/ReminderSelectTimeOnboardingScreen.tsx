@@ -3,7 +3,7 @@ import ReminderSelectTime from '@/components/organisms/ReminderSelectTime/Remind
 import { OnboardingStackParamList } from '@/navigations/OnboardingNavigator';
 import { User } from '@/types';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { LoadingModal } from '@/components/atoms';
+import { Layout, LoadingModal } from '@/components/atoms';
 import { initCuctomTimeInfos, initFixDays, initFixTimeInfo } from './interface';
 import firestore from '@react-native-firebase/firestore';
 
@@ -52,7 +52,7 @@ const ReminderSelectTimeOnboardingScreen: React.FC<ScreenType> = ({
   );
 
   return (
-    <>
+    <Layout>
       <LoadingModal visible={isLoading} />
       <ReminderSelectTime
         navigation={navigation}
@@ -67,7 +67,7 @@ const ReminderSelectTimeOnboardingScreen: React.FC<ScreenType> = ({
         gotoReminderSelectDay={gotoReminderSelectDay}
         afterSave={afterSave}
       />
-    </>
+    </Layout>
   );
 };
 

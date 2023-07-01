@@ -6,10 +6,10 @@ import {
   TextStyle,
   StyleProp,
 } from 'react-native';
-import { fontSizeL, fontSizeM, fontSizeS } from '@/styles/Common';
+import { fontSizeL, fontSizeLL, fontSizeM, fontSizeS } from '@/styles/Common';
 import { useAppTheme } from '@/styles/colors';
 
-export type TextSize = 'l' | 'm' | 's';
+export type TextSize = 'll' | 'l' | 'm' | 's';
 type Props = {
   size: TextSize;
   bold?: boolean;
@@ -20,6 +20,10 @@ type Props = {
 } & TextProps;
 
 const styles = StyleSheet.create({
+  llText: {
+    fontSize: fontSizeLL,
+    lineHeight: fontSizeLL * 1.3,
+  },
   lText: {
     fontSize: fontSizeL,
     lineHeight: fontSizeL * 1.3,
@@ -51,7 +55,9 @@ const AppText = ({
   return (
     <Text
       style={[
-        size === 'l'
+        size === 'll'
+          ? styles.llText
+          : size === 'l'
           ? styles.lText
           : size === 'm'
           ? styles.mText

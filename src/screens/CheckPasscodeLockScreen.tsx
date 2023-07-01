@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as LocalAuthentication from 'expo-local-authentication';
 import { SecureStorageKey, StorageKey } from '@/constants/asyncStorage';
 import * as SecureStore from 'expo-secure-store';
-import { LoadingModal } from '@/components/atoms';
+import { Layout, LoadingModal } from '@/components/atoms';
 import PasscodeLock from '@/components/organisms/PasscodeLock';
 import { User } from '@/types';
 import firestore from '@react-native-firebase/firestore';
@@ -196,7 +196,7 @@ const CheckPasscodeLockScreen: React.FC<Props & DispatchProps & OwnProps> = ({
   );
 
   return (
-    <>
+    <Layout>
       <LoadingModal visible={isInitialLoading} />
       <PasscodeLock
         disabled={isForceLock}
@@ -206,7 +206,7 @@ const CheckPasscodeLockScreen: React.FC<Props & DispatchProps & OwnProps> = ({
         title={I18n.t('passcodeLock.input')}
         onCheck={onCheck}
       />
-    </>
+    </Layout>
   );
 };
 
