@@ -1,77 +1,19 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { PersistGate } from 'redux-persist/integration/react';
-import * as Notifications from 'expo-notifications';
 import { Provider } from 'react-redux';
-import { ActionSheetProvider } from '@expo/react-native-action-sheet';
-import { MenuProvider } from 'react-native-popup-menu';
-import { NavigationContainer } from '@react-navigation/native';
-import { RootSiblingParent } from 'react-native-root-siblings';
-import Purchases, { LOG_LEVEL } from 'react-native-purchases';
-import { StripeProvider } from '@stripe/stripe-react-native';
 
 import { configureStore } from '@/stores/Store';
 
-import RootNavigatorContainer from '@/containers/RootNavigatorContainer';
 import LoadingScreen from '@/screens/LoadingScreen';
-import { AppState, AppStateStatus, Platform } from 'react-native';
+import AppProviderContainer from './containers/AppProviderContainer';
 
 const { store, persistor } = configureStore();
 
 const App = () => {
-  const appState = useRef<AppStateStatus>(AppState.currentState);
-
-  const initPurchases = useCallback(() => {
-    Purchases.setLogLevel(LOG_LEVEL.VERBOSE);
-    if (Platform.OS === 'ios') {
-      Purchases.configure({ apiKey: process.env.IOS_PURCHASES! });
-    } else if (Platform.OS === 'android') {
-      Purchases.configure({ apiKey: process.env.ANDROID_PURCHASES! });
-    }
-  }, []);
-
-  useEffect(() => {
-    const subscription = AppState.addEventListener(
-      'change',
-      _handleAppStateChange,
-    );
-    initPurchases();
-    return () => {
-      subscription.remove();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const _handleAppStateChange = (nextAppState: AppStateStatus) => {
-    // console.log('[handleAppStateChange]', nextAppState);
-    if (
-      appState.current.match(/inactive|background/) &&
-      nextAppState === 'active'
-    ) {
-      Notifications.setBadgeCountAsync(0);
-    }
-    appState.current = nextAppState;
-  };
-
   return (
     <Provider store={store}>
       <PersistGate loading={<LoadingScreen />} persistor={persistor}>
-        <ActionSheetProvider>
-          <RootSiblingParent>
-            <StripeProvider
-              publishableKey={
-                __DEV__
-                  ? process.env.TEST_STRIPE_PUBLBISHABLE_KEY!
-                  : process.env.ADMIN_STRIPE_PUBLBISHABLE_KEY!
-              }
-            >
-              <MenuProvider>
-                <NavigationContainer>
-                  <RootNavigatorContainer />
-                </NavigationContainer>
-              </MenuProvider>
-            </StripeProvider>
-          </RootSiblingParent>
-        </ActionSheetProvider>
+        <AppProviderContainer />
       </PersistGate>
     </Provider>
   );

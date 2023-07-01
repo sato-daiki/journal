@@ -1,18 +1,13 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
-import { AppState, AppStateStatus, useColorScheme } from 'react-native';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { AppState, AppStateStatus, Platform } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { getUser } from '@/utils/user';
 import { User, LocalStatus } from '@/types';
-import Purchases from 'react-native-purchases';
+import Purchases, { LOG_LEVEL } from 'react-native-purchases';
 import auth from '@react-native-firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { PaperProvider } from 'react-native-paper';
+import firestore from '@react-native-firebase/firestore';
+import * as Notifications from 'expo-notifications';
 
 import AuthNavigator from './AuthNavigator';
 import MainNavigator from './MainNavigator';
@@ -21,7 +16,7 @@ import LoadingScreen from '@/screens/LoadingScreen';
 import { checkPremium } from '@/utils/purchase';
 import { StorageKey } from '@/constants/asyncStorage';
 import CheckPasscodeLockScreenContainer from '@/containers/CheckPasscodeLockScreenContainer';
-import { darkTheme, lightTheme } from '@/styles/colors';
+import MaintenanceScreen from '@/screens/MaintenanceScreen';
 
 export type RootStackParamList = {
   Onboarding: undefined;
@@ -32,6 +27,12 @@ export type RootStackParamList = {
 export interface Props {
   localStatus: LocalStatus;
 }
+
+type ConfigMaintenance = {
+  status: boolean;
+  messageEn: string | null;
+  messageJa: string | null;
+};
 
 interface DispatchProps {
   setUser: (user: User) => void;
@@ -52,21 +53,26 @@ const RootNavigator: React.FC<Props & DispatchProps> = ({
   const appState = useRef<AppStateStatus>(AppState.currentState);
   const temporarilyMovedToBackground = useRef<boolean>(false);
   const [isInitialLoading, setIsInitialLoading] = useState(true);
-  const scheme = useColorScheme();
+  const [maintenance, setMaintenance] = useState<ConfigMaintenance>({
+    status: false,
+    messageEn: null,
+    messageJa: null,
+  });
 
-  const theme = useMemo(() => {
-    if (!localStatus.darkMode || localStatus.darkMode === 'device') {
-      if (scheme === 'light') {
-        return lightTheme;
-      } else {
-        return darkTheme;
-      }
-    } else if (localStatus.darkMode === 'light') {
-      return lightTheme;
-    } else {
-      return darkTheme;
+  const initPurchases = useCallback(() => {
+    Purchases.setLogLevel(LOG_LEVEL.VERBOSE);
+    if (Platform.OS === 'ios') {
+      Purchases.configure({ apiKey: process.env.IOS_PURCHASES! });
+    } else if (Platform.OS === 'android') {
+      Purchases.configure({ apiKey: process.env.ANDROID_PURCHASES! });
     }
-  }, [localStatus.darkMode, scheme]);
+  }, []);
+
+  const getMaintenance = useCallback(async () => {
+    const doc = await firestore().doc('config/maintenance').get();
+    const data = doc.data() as ConfigMaintenance;
+    setMaintenance(data);
+  }, []);
 
   const activeCheckHasPasscode = useCallback(async () => {
     const hasPasscode = await AsyncStorage.getItem(StorageKey.hasPasscode);
@@ -83,6 +89,16 @@ const RootNavigator: React.FC<Props & DispatchProps> = ({
     }
   }, [setIsLoadingPasscode]);
 
+  const initFirstTimeOnlyFunctions = () => {
+    initPurchases();
+  };
+
+  const initActiveFunctions = () => {
+    getMaintenance();
+    activeCheckHasPasscode();
+    Notifications.setBadgeCountAsync(0);
+  };
+
   const _handleAppStateChange = (nextAppState: AppStateStatus) => {
     console.log('RootNavigator -> nextAppState', nextAppState);
     if (
@@ -90,7 +106,7 @@ const RootNavigator: React.FC<Props & DispatchProps> = ({
       nextAppState === 'active' &&
       !temporarilyMovedToBackground.current
     ) {
-      activeCheckHasPasscode();
+      initActiveFunctions();
     } else if (
       appState.current.match(/inactive|background/) &&
       nextAppState === 'active' &&
@@ -133,7 +149,8 @@ const RootNavigator: React.FC<Props & DispatchProps> = ({
     );
     const authSubscriber = auth().onAuthStateChanged(initNavigation);
 
-    activeCheckHasPasscode();
+    initFirstTimeOnlyFunctions();
+    initActiveFunctions();
     return () => {
       authSubscriber();
       subscription.remove();
@@ -143,7 +160,7 @@ const RootNavigator: React.FC<Props & DispatchProps> = ({
 
   const Stack = createStackNavigator<RootStackParamList>();
 
-  const renderScreen = useCallback(() => {
+  const renderMainScreen = useCallback(() => {
     if (localStatus.uid !== null) {
       if (localStatus.onboarding === false) {
         return (
@@ -154,6 +171,15 @@ const RootNavigator: React.FC<Props & DispatchProps> = ({
     }
     return <Stack.Screen name='Auth' component={AuthNavigator} />;
   }, [localStatus.uid, localStatus.onboarding, Stack]);
+
+  if (maintenance.status) {
+    return (
+      <MaintenanceScreen
+        messageEn={maintenance.messageEn}
+        messageJa={maintenance.messageJa}
+      />
+    );
+  }
 
   if (isInitialLoading || localStatus.isLoadingPasscode) {
     return <LoadingScreen />;
@@ -168,18 +194,16 @@ const RootNavigator: React.FC<Props & DispatchProps> = ({
   }
 
   return (
-    <PaperProvider theme={theme}>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-          cardStyle: {
-            backgroundColor: '#FFFFFF',
-          },
-        }}
-      >
-        {renderScreen()}
-      </Stack.Navigator>
-    </PaperProvider>
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        cardStyle: {
+          backgroundColor: '#FFFFFF',
+        },
+      }}
+    >
+      {renderMainScreen()}
+    </Stack.Navigator>
   );
 };
 
