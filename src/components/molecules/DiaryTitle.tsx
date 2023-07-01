@@ -3,7 +3,7 @@ import { View, StyleSheet, Text } from 'react-native';
 import I18n from '@/utils/I18n';
 import { ThemeCategory, ThemeSubcategory } from '@/types';
 import { fontSizeM, primaryColor, subTextColor } from '@/styles/Common';
-import SmallPill from './SmallPill';
+import SmallPill from '../atoms/SmallPill';
 
 interface Props {
   themeCategory?: ThemeCategory | null;

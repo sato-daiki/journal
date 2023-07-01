@@ -11,6 +11,8 @@ const initialState: LocalStatus = {
   onboarding: null,
   firstLogin: false,
   myDiaryListView: 'list',
+  darkMode: 'device',
+  themeColor: 'default',
   uid: null,
 };
 
@@ -40,6 +42,16 @@ const localStatus = (state = initialState, action: Actions): LocalStatus => {
       return {
         ...state,
         isPremium: action.isPremium,
+      };
+    case Types.SET_DARK_MODE:
+      return {
+        ...state,
+        darkMode: action.darkMode,
+      };
+    case Types.SET_THEME_COLOR:
+      return {
+        ...state,
+        themeColor: action.themeColor,
       };
     case Types.RESTORE_UID:
       return {

@@ -1,14 +1,15 @@
 import { connect } from 'react-redux';
 import DisplayScreen, { Props } from '../screens/SettingTab/DisplayScreen';
 import { State } from '../types/state';
-import { setUser } from '@/stores/actions/user';
+import { setDarkMode, setThemeColor } from '@/stores/actions/localStatus';
 
 const mapStateToProps = (state: State): Props => ({
-  user: state.rootReducer.user,
+  localStatus: state.rootReducer.localStatus,
 });
 
 const mapDispatchToProps = {
-  setUser,
+  setDarkMode,
+  setThemeColor,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DisplayScreen);

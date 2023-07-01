@@ -1,8 +1,8 @@
 import React, { useCallback, useMemo } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-import { DiaryTitle, Hoverable } from '@/components/atoms';
-import { MyDiaryStatus } from '@/components/molecules';
+import { Hoverable } from '@/components/atoms';
+import { MyDiaryStatus, DiaryTitle } from '@/components/molecules';
 
 import {
   fontSizeS,

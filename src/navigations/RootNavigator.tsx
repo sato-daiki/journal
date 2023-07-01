@@ -1,11 +1,18 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { AppState, AppStateStatus } from 'react-native';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import { AppState, AppStateStatus, useColorScheme } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { getUser } from '@/utils/user';
 import { User, LocalStatus } from '@/types';
 import Purchases from 'react-native-purchases';
 import auth from '@react-native-firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { PaperProvider } from 'react-native-paper';
 
 import AuthNavigator from './AuthNavigator';
 import MainNavigator from './MainNavigator';
@@ -14,6 +21,7 @@ import LoadingScreen from '@/screens/LoadingScreen';
 import { checkPremium } from '@/utils/purchase';
 import { StorageKey } from '@/constants/asyncStorage';
 import CheckPasscodeLockScreenContainer from '@/containers/CheckPasscodeLockScreenContainer';
+import { darkTheme, lightTheme } from '@/styles/colors';
 
 export type RootStackParamList = {
   Onboarding: undefined;
@@ -44,6 +52,21 @@ const RootNavigator: React.FC<Props & DispatchProps> = ({
   const appState = useRef<AppStateStatus>(AppState.currentState);
   const temporarilyMovedToBackground = useRef<boolean>(false);
   const [isInitialLoading, setIsInitialLoading] = useState(true);
+  const scheme = useColorScheme();
+
+  const theme = useMemo(() => {
+    if (!localStatus.darkMode || localStatus.darkMode === 'device') {
+      if (scheme === 'light') {
+        return lightTheme;
+      } else {
+        return darkTheme;
+      }
+    } else if (localStatus.darkMode === 'light') {
+      return lightTheme;
+    } else {
+      return darkTheme;
+    }
+  }, [localStatus.darkMode, scheme]);
 
   const activeCheckHasPasscode = useCallback(async () => {
     const hasPasscode = await AsyncStorage.getItem(StorageKey.hasPasscode);
@@ -145,16 +168,18 @@ const RootNavigator: React.FC<Props & DispatchProps> = ({
   }
 
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-        cardStyle: {
-          backgroundColor: '#FFFFFF',
-        },
-      }}
-    >
-      {renderScreen()}
-    </Stack.Navigator>
+    <PaperProvider theme={theme}>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+          cardStyle: {
+            backgroundColor: '#FFFFFF',
+          },
+        }}
+      >
+        {renderScreen()}
+      </Stack.Navigator>
+    </PaperProvider>
   );
 };
 

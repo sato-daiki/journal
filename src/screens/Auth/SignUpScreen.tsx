@@ -153,7 +153,6 @@ const SignUpScreen: React.FC<ScreenType> = ({
         expoPushToken: null,
         themeDiaries: null,
         passcodeLock: false,
-        darkMode: 'device' as DarkMode,
         runningDays: 0,
         runningWeeks: 0,
         lastDiaryPostedAt: null,

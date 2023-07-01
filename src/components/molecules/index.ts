@@ -3,6 +3,7 @@ export { default as CheckItem } from './CheckItem';
 export { default as CheckItemDay } from './CheckItemDay';
 export { default as CheckListItem } from './CheckItem';
 export { default as CheckTextInput } from './CheckTextInput';
+export { default as DiaryTitle } from './DiaryTitle';
 export { default as DiaryTitleAndText } from './DiaryTitleAndText';
 export { default as EmptyDiary } from './EmptyDiary';
 export { default as KeyboardHideButton } from './KeyboardHideButton';

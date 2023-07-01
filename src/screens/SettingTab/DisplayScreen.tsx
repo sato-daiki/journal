@@ -2,7 +2,6 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { StyleSheet, ScrollView } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
-import firestore from '@react-native-firebase/firestore';
 
 import { offWhite } from '../../styles/Common';
 import I18n from '../../utils/I18n';
@@ -11,15 +10,16 @@ import {
   SettingTabNavigationProp,
 } from '../../navigations/SettingTabNavigator';
 
-import { DarkMode, User } from '../../types';
+import { DarkMode, LocalStatus, ThemeColor, User } from '../../types';
 import OptionCheck from '@/components/molecules/OptionCheck';
 
 export interface Props {
-  user: User;
+  localStatus: LocalStatus;
 }
 
 interface DispatchProps {
-  setUser: (user: User) => void;
+  setDarkMode: (darkMode: DarkMode) => void;
+  setThemeColor: (themeColor: ThemeColor) => void;
 }
 
 type SettingNavigationProp = CompositeNavigationProp<
@@ -47,9 +47,11 @@ type CheckOption = {
   title: string;
 };
 
-const DisplayScreen: React.FC<ScreenType> = ({ navigation, user, setUser }) => {
+const DisplayScreen: React.FC<ScreenType> = ({ localStatus, setDarkMode }) => {
   // ローカルで持った方が処理が早くなるため
-  const [darkMode, setDarkMode] = useState<DarkMode>(user.darkMode || 'device');
+  const [tempDarkMode, setTempDarkMode] = useState<DarkMode>(
+    localStatus.darkMode || 'device',
+  );
 
   const options = useMemo<CheckOption[]>(
     () => [
@@ -71,17 +73,10 @@ const DisplayScreen: React.FC<ScreenType> = ({ navigation, user, setUser }) => {
 
   const onPressItem = useCallback(
     async (value: DarkMode) => {
+      setTempDarkMode(value);
       setDarkMode(value);
-      await firestore().doc(`users/${user.uid}`).update({
-        darkMode: value,
-        updatedAt: firestore.FieldValue.serverTimestamp(),
-      });
-      setUser({
-        ...user,
-        darkMode: value,
-      });
     },
-    [setUser, user],
+    [setDarkMode],
   );
 
   return (
@@ -94,7 +89,7 @@ const DisplayScreen: React.FC<ScreenType> = ({ navigation, user, setUser }) => {
           key={index}
           isBorrderTop={index === 0}
           title={option.title}
-          value={option.value === darkMode}
+          value={option.value === tempDarkMode}
           onPress={() => onPressItem(option.value)}
         />
       ))}
