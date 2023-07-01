@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { useTheme } from 'react-native-paper';
 
 import { CheckTextInput } from '@/components/molecules';
 import {
@@ -33,6 +32,7 @@ import firestore, {
   FirebaseFirestoreTypes,
 } from '@react-native-firebase/firestore';
 import { PRIVACY_POLICY, TERMS } from '@/constants/url';
+import { useAppTheme } from '@/styles/colors';
 
 export interface Props {
   user: User;
@@ -72,7 +72,7 @@ const SignUpScreen: React.FC<ScreenType> = ({
   const [password, setPassword] = useState('');
   const [errorPassword, setErrorPassword] = useState('');
 
-  const theme = useTheme();
+  const theme = useAppTheme();
 
   useEffect((): void => {
     logAnalytics(events.OPENED_SIGN_UP);
@@ -294,8 +294,8 @@ const styles = StyleSheet.create({
   },
   main: {
     flex: 1,
-    paddingHorizontal: 16,
     paddingTop: 32,
+    paddingHorizontal: 16,
   },
   row: {
     flexDirection: 'row',

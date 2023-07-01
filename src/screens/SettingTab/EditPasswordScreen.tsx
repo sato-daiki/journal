@@ -9,6 +9,8 @@ import {
   SubmitButton,
   LoadingModal,
   LinkText,
+  Layout,
+  AppText,
 } from '@/components/atoms';
 
 import I18n from '@/utils/I18n';
@@ -18,34 +20,6 @@ import { SettingTabStackParamList } from '@/navigations/SettingTabNavigator';
 import auth from '@react-native-firebase/auth';
 
 type ScreenType = StackScreenProps<SettingTabStackParamList, 'EditPassword'>;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  main: {
-    flex: 1,
-    paddingHorizontal: 16,
-    paddingTop: 32,
-  },
-  footer: {
-    alignItems: 'center',
-  },
-  label: {
-    color: primaryColor,
-    fontSize: fontSizeM,
-    paddingBottom: 6,
-  },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  forgetText: {
-    color: primaryColor,
-    fontSize: fontSizeM,
-  },
-});
 
 const EditPasswordScreen: React.FC<ScreenType> = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -97,66 +71,85 @@ const EditPasswordScreen: React.FC<ScreenType> = ({ navigation }) => {
   }, [navigation]);
 
   return (
-    <KeyboardAwareScrollView style={styles.container}>
-      <View style={styles.main}>
-        <LoadingModal visible={isLoading} />
-        <Text style={styles.label}>
-          {I18n.t('editPassword.currentPassword')}
-        </Text>
-        <CheckTextInput
-          isPassword
-          value={currentPassword}
-          onChangeText={(text: string): void => setCurrentPassword(text)}
-          onBlur={onEndEditinCurrentPassword}
-          maxLength={20}
-          placeholder='Password'
-          autoCapitalize='none'
-          autoCorrect={false}
-          underlineColorAndroid='transparent'
-          returnKeyType='done'
-          errorMessage={errorCurrentPassword}
-        />
-        <Space size={16} />
-        <Text style={styles.label}>{I18n.t('editPassword.newPassword')}</Text>
-        <CheckTextInput
-          isPassword
-          value={newPassword}
-          onChangeText={(text: string): void => setNewPassword(text)}
-          onBlur={onBlurNewPassword}
-          maxLength={20}
-          placeholder='Password'
-          autoCapitalize='none'
-          autoCorrect={false}
-          underlineColorAndroid='transparent'
-          returnKeyType='done'
-          errorMessage={errorNewPassword}
-        />
-        <Space size={32} />
-        <View style={styles.footer}>
-          <SubmitButton
-            title={I18n.t('common.register')}
-            onPress={onPressSubmit}
-            disable={
-              errorCurrentPassword !== '' ||
-              errorNewPassword !== '' ||
-              currentPassword === '' ||
-              newPassword === ''
-            }
+    <Layout>
+      <KeyboardAwareScrollView style={styles.container}>
+        <View style={styles.main}>
+          <LoadingModal visible={isLoading} />
+          <AppText size='m'>{I18n.t('editPassword.currentPassword')}</AppText>
+          <Space size={6} />
+          <CheckTextInput
+            isPassword
+            value={currentPassword}
+            onChangeText={setCurrentPassword}
+            onBlur={onEndEditinCurrentPassword}
+            maxLength={20}
+            placeholder='Password'
+            autoCapitalize='none'
+            autoCorrect={false}
+            underlineColorAndroid='transparent'
+            returnKeyType='done'
+            errorMessage={errorCurrentPassword}
           />
           <Space size={16} />
-          <View style={styles.row}>
-            <Text style={styles.forgetText}>
-              {I18n.t('editPassword.forgetText')}
-            </Text>
-            <LinkText
-              onPress={onPressForegetPassword}
-              text={I18n.t('editPassword.link')}
+          <AppText size='m'>{I18n.t('editPassword.newPassword')}</AppText>
+          <Space size={6} />
+          <CheckTextInput
+            isPassword
+            value={newPassword}
+            onChangeText={setNewPassword}
+            onBlur={onBlurNewPassword}
+            maxLength={20}
+            placeholder='Password'
+            autoCapitalize='none'
+            autoCorrect={false}
+            underlineColorAndroid='transparent'
+            returnKeyType='done'
+            errorMessage={errorNewPassword}
+          />
+          <Space size={32} />
+          <View style={styles.footer}>
+            <SubmitButton
+              title={I18n.t('common.register')}
+              onPress={onPressSubmit}
+              disable={
+                errorCurrentPassword !== '' ||
+                errorNewPassword !== '' ||
+                currentPassword === '' ||
+                newPassword === ''
+              }
             />
+            <Space size={16} />
+            <View style={styles.row}>
+              <AppText size='m'>{I18n.t('editPassword.forgetText')}</AppText>
+              <LinkText
+                size='m'
+                text={I18n.t('editPassword.link')}
+                onPress={onPressForegetPassword}
+              />
+            </View>
           </View>
         </View>
-      </View>
-    </KeyboardAwareScrollView>
+      </KeyboardAwareScrollView>
+    </Layout>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  main: {
+    flex: 1,
+    paddingHorizontal: 16,
+    paddingTop: 32,
+  },
+  footer: {
+    alignItems: 'center',
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+});
 
 export default EditPasswordScreen;

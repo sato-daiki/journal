@@ -2,7 +2,6 @@ import React, { useState, useCallback } from 'react';
 import { StyleSheet } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
-import { useTheme } from 'react-native-paper';
 
 import ModalSendEmail from '@/components/organisms/ModalSendEmail';
 import { CheckTextInput } from '@/components/molecules';
@@ -22,6 +21,7 @@ import {
 import auth from '@react-native-firebase/auth';
 import { getLanguageToolCode } from '@/utils/grammarCheck';
 import { LongCode } from '@/types';
+import { useAppTheme } from '@/styles/colors';
 
 type NavigationProp = CompositeNavigationProp<
   StackNavigationProp<SettingTabStackParamList, 'ForegetPassword'>,
@@ -38,7 +38,7 @@ const ForegetPasswordScreen: React.FC<ScreenType> = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [errorEmail, setErrorEmail] = useState('');
 
-  const theme = useTheme();
+  const theme = useAppTheme();
 
   const clearErrorMessage = useCallback((): void => {
     setErrorEmail('');

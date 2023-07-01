@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
 import I18n from '@/utils/I18n';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as LocalAuthentication from 'expo-local-authentication';
@@ -23,15 +22,6 @@ interface DispatchProps {
   setUser: (user: User) => void;
   setShowCheckPasscode: (showCheckPasscode: boolean) => void;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    paddingHorizontal: 16,
-    paddingTop: 32,
-  },
-});
 
 const ERROR_MAX_NUM = 10;
 const WAIT_HOUR = 24;
@@ -206,7 +196,7 @@ const CheckPasscodeLockScreen: React.FC<Props & DispatchProps & OwnProps> = ({
   );
 
   return (
-    <View style={styles.container}>
+    <>
       <LoadingModal visible={isInitialLoading} />
       <PasscodeLock
         disabled={isForceLock}
@@ -216,7 +206,8 @@ const CheckPasscodeLockScreen: React.FC<Props & DispatchProps & OwnProps> = ({
         title={I18n.t('passcodeLock.input')}
         onCheck={onCheck}
       />
-    </View>
+    </>
   );
 };
+
 export default CheckPasscodeLockScreen;

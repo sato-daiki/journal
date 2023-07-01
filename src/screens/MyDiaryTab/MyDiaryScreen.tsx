@@ -1,5 +1,4 @@
 import React, { useCallback, useState, useLayoutEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
 import {
   connectActionSheet,
   useActionSheet,
@@ -18,7 +17,6 @@ import I18n from '@/utils/I18n';
 import firestore from '@react-native-firebase/firestore';
 import ModalConfirm from '@/components/organisms/ModalConfirm';
 import MyDiary from '@/components/organisms/MyDiary/MyDiary';
-import { transparentBlack } from '@/styles/Common';
 import { logAnalytics } from '@/utils/Analytics';
 
 export interface Props {
@@ -43,20 +41,6 @@ type ScreenType = {
   route: RouteProp<MyDiaryTabStackParamList, 'MyDiary'>;
 } & Props &
   DispatchProps;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  adContainerStyle: {
-    backgroundColor: transparentBlack,
-  },
-  adTextStyle: {
-    fontWeight: 'bold',
-    color: '#fff',
-  },
-});
 
 const MyDiaryScreen: React.FC<ScreenType> = ({
   navigation,
@@ -187,7 +171,7 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
   }
 
   return (
-    <View style={styles.container}>
+    <Layout>
       <LoadingModal visible={isLoading} />
       <ModalConfirm
         visible={isModalDelete}
@@ -227,7 +211,8 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
         onPressRevise={onPressRevise}
         setUser={setUser}
       />
-    </View>
+    </Layout>
   );
 };
+
 export default connectActionSheet(MyDiaryScreen);

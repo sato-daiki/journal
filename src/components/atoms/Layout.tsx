@@ -7,11 +7,13 @@ import {
   ViewProps,
   View,
 } from 'react-native';
-import { useTheme } from 'react-native-paper';
+import BottomBanner from '../molecules/BottomBanner';
+import { useAppTheme } from '@/styles/colors';
 
 type Props = {
   style?: StyleProp<ViewStyle>;
   innerStyle?: StyleProp<ViewStyle>;
+  showBottomAd?: boolean;
   children: React.ReactNode;
 } & ViewProps;
 
@@ -24,8 +26,14 @@ const styles = StyleSheet.create({
   },
 });
 
-const Layout = ({ style, innerStyle, children, ...props }: Props) => {
-  const theme = useTheme();
+const Layout = ({
+  style,
+  innerStyle,
+  showBottomAd,
+  children,
+  ...props
+}: Props) => {
+  const theme = useAppTheme();
   return (
     <SafeAreaView
       style={[
@@ -38,6 +46,7 @@ const Layout = ({ style, innerStyle, children, ...props }: Props) => {
       {...props}
     >
       <View style={[styles.innerStyle, innerStyle]}>{children}</View>
+      {showBottomAd && <BottomBanner />}
     </SafeAreaView>
   );
 };

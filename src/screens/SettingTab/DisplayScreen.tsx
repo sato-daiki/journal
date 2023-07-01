@@ -1,17 +1,17 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { StyleSheet, ScrollView } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
 
-import { offWhite } from '../../styles/Common';
 import I18n from '../../utils/I18n';
 import {
   SettingTabStackParamList,
   SettingTabNavigationProp,
 } from '../../navigations/SettingTabNavigator';
 
-import { DarkMode, LocalStatus, ThemeColor, User } from '../../types';
+import { DarkMode, LocalStatus, ThemeColor } from '../../types';
 import OptionCheck from '@/components/molecules/OptionCheck';
+import { Layout } from '@/components/atoms';
 
 export interface Props {
   localStatus: LocalStatus;
@@ -31,16 +31,6 @@ type ScreenType = {
   navigation: SettingNavigationProp;
 } & DispatchProps &
   Props;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: offWhite,
-  },
-  contentContainerStyle: {
-    paddingTop: 32,
-  },
-});
 
 type CheckOption = {
   value: DarkMode;
@@ -80,10 +70,7 @@ const DisplayScreen: React.FC<ScreenType> = ({ localStatus, setDarkMode }) => {
   );
 
   return (
-    <ScrollView
-      style={styles.container}
-      contentContainerStyle={styles.contentContainerStyle}
-    >
+    <Layout innerStyle={styles.container}>
       {options.map((option, index) => (
         <OptionCheck
           key={index}
@@ -93,8 +80,14 @@ const DisplayScreen: React.FC<ScreenType> = ({ localStatus, setDarkMode }) => {
           onPress={() => onPressItem(option.value)}
         />
       ))}
-    </ScrollView>
+    </Layout>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    paddingTop: 32,
+  },
+});
 
 export default DisplayScreen;

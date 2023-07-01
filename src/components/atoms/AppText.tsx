@@ -6,8 +6,8 @@ import {
   TextStyle,
   StyleProp,
 } from 'react-native';
-import { useTheme } from 'react-native-paper';
 import { fontSizeL, fontSizeM, fontSizeS } from '@/styles/Common';
+import { useAppTheme } from '@/styles/colors';
 
 export type TextSize = 'l' | 'm' | 's';
 type Props = {
@@ -46,7 +46,7 @@ const AppText = ({
   children,
   ...props
 }: Props) => {
-  const theme = useTheme();
+  const theme = useAppTheme();
 
   return (
     <Text

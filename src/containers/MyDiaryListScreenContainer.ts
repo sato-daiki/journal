@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import MyDiaryListScreen, {
   Props,
-} from '@/screens/MyDiaryTab/MyDiaryListScreen/MyDiaryListScreen';
+} from '@/screens/MyDiaryTab/MyDiaryListScreen';
 import { setMyDiaryListView } from '@/stores/actions/localStatus';
 import { setUser } from '@/stores/actions/user';
 import { State } from '@/types/state';

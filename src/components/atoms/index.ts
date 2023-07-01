@@ -32,5 +32,3 @@ export { default as WhiteButton } from './WhiteButton';
 
 export { default as AppText } from './AppText';
 export { default as Layout } from './Layout';
-
-export * from './_Layout';

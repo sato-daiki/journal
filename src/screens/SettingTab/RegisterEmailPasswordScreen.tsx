@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
@@ -9,19 +9,20 @@ import {
   emaillExistCheck,
 } from '../../utils/common';
 import { CheckTextInput } from '../../components/molecules';
-import { Space, SubmitButton, LoadingModal } from '../../components/atoms';
 import {
-  primaryColor,
-  fontSizeM,
-  fontSizeL,
-  subTextColor,
-} from '../../styles/Common';
+  Space,
+  SubmitButton,
+  LoadingModal,
+  Layout,
+  AppText,
+} from '@/components/atoms';
 import I18n from '../../utils/I18n';
 import {
   SettingTabStackParamList,
   SettingTabNavigationProp,
 } from '../../navigations/SettingTabNavigator';
 import auth from '@react-native-firebase/auth';
+import { useAppTheme } from '@/styles/colors';
 
 type RegisterEmailPasswordNavigationProp = CompositeNavigationProp<
   StackNavigationProp<SettingTabStackParamList, 'RegisterEmailPassword'>,
@@ -32,47 +33,18 @@ type ScreenType = {
   navigation: RegisterEmailPasswordNavigationProp;
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  main: {
-    flex: 1,
-    paddingHorizontal: 16,
-    paddingTop: 32,
-  },
-  title: {
-    color: primaryColor,
-    fontSize: fontSizeL,
-    fontWeight: 'bold',
-    paddingBottom: 16,
-    lineHeight: fontSizeL * 1.3,
-  },
-  subText: {
-    color: subTextColor,
-    fontSize: fontSizeM,
-    paddingBottom: 16,
-    lineHeight: fontSizeM * 1.3,
-  },
-  label: {
-    color: primaryColor,
-    fontSize: fontSizeM,
-    paddingBottom: 6,
-  },
-});
-
 const RegisterEmailPasswordScreen: React.FC<ScreenType> = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isEmailLoading, setIsEmailLoading] = useState(false);
 
   const [isEmailCheckOk, setIsEmailCheckOk] = useState(false);
-  const [isPasswordCheckOk, setIsPasswordCheckOk] = useState(false);
 
   const [email, setEmail] = useState('');
   const [errorEmail, setErrorEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorPassword, setErrorPassword] = useState('');
+
+  const theme = useAppTheme();
 
   const clearErrorMessage = (): void => {
     setErrorEmail('');
@@ -138,72 +110,82 @@ const RegisterEmailPasswordScreen: React.FC<ScreenType> = ({ navigation }) => {
 
   const onBlurPassword = useCallback(() => {
     if (password.length === 0) {
-      setIsPasswordCheckOk(false);
       setErrorPassword('');
     } else if (password.length > 0 && password.length < 6) {
-      setIsPasswordCheckOk(false);
       setErrorPassword(I18n.t('errorMessage.weakPassword'));
     } else {
-      setIsPasswordCheckOk(true);
       setErrorPassword('');
     }
-  }, [password, setIsPasswordCheckOk, setErrorPassword]);
+  }, [password, setErrorPassword]);
 
   return (
-    <KeyboardAwareScrollView style={styles.container}>
-      <View style={styles.main}>
-        <LoadingModal visible={isLoading} />
-        <Text style={styles.title}>
-          {I18n.t('registerEmailPassword.title')}
-        </Text>
-        <Text style={styles.subText}>
-          {I18n.t('registerEmailPassword.subText')}
-        </Text>
-        <Text style={styles.label}>
-          {I18n.t('registerEmailPassword.email')}
-        </Text>
-        <CheckTextInput
-          value={email}
-          onChangeText={(text: string): void => setEmail(text)}
-          onBlur={onBlurEmail}
-          maxLength={50}
-          placeholder='Email'
-          keyboardType='email-address'
-          autoCapitalize='none'
-          autoCorrect={false}
-          underlineColorAndroid='transparent'
-          returnKeyType='done'
-          isLoading={isEmailLoading}
-          isCheckOk={isEmailCheckOk}
-          errorMessage={errorEmail}
-        />
-        <Space size={16} />
-        <Text style={styles.label}>
-          {I18n.t('registerEmailPassword.password')}
-        </Text>
-        <CheckTextInput
-          isPassword
-          value={password}
-          onChangeText={(text: string): void => setPassword(text)}
-          onBlur={onBlurPassword}
-          maxLength={20}
-          placeholder='Password'
-          autoCapitalize='none'
-          autoCorrect={false}
-          underlineColorAndroid='transparent'
-          returnKeyType='done'
-          errorMessage={errorPassword}
-        />
-        <Space size={32} />
-        <SubmitButton
-          title={I18n.t('common.register')}
-          onPress={onPressSubmit}
-          disable={!isEmailCheckOk}
-        />
-        <Space size={16} />
-      </View>
-    </KeyboardAwareScrollView>
+    <Layout>
+      <KeyboardAwareScrollView style={styles.container}>
+        <View style={styles.main}>
+          <LoadingModal visible={isLoading} />
+          <AppText bold size='l'>
+            {I18n.t('registerEmailPassword.title')}
+          </AppText>
+          <Space size={16} />
+          <AppText size='m' color={theme.colors.secondary}>
+            {I18n.t('registerEmailPassword.subText')}
+          </AppText>
+          <Space size={16} />
+          <AppText size='m'>{I18n.t('registerEmailPassword.email')}</AppText>
+          <Space size={6} />
+          <CheckTextInput
+            value={email}
+            onChangeText={setEmail}
+            onBlur={onBlurEmail}
+            maxLength={50}
+            placeholder='Email'
+            keyboardType='email-address'
+            autoCapitalize='none'
+            autoCorrect={false}
+            underlineColorAndroid='transparent'
+            returnKeyType='done'
+            isLoading={isEmailLoading}
+            isCheckOk={isEmailCheckOk}
+            errorMessage={errorEmail}
+          />
+          <Space size={16} />
+          <AppText size='m'>{I18n.t('registerEmailPassword.password')}</AppText>
+          <Space size={6} />
+          <CheckTextInput
+            isPassword
+            value={password}
+            onChangeText={setPassword}
+            onBlur={onBlurPassword}
+            maxLength={20}
+            placeholder='Password'
+            autoCapitalize='none'
+            autoCorrect={false}
+            underlineColorAndroid='transparent'
+            returnKeyType='done'
+            errorMessage={errorPassword}
+          />
+          <Space size={32} />
+          <SubmitButton
+            title={I18n.t('common.register')}
+            onPress={onPressSubmit}
+            disable={!isEmailCheckOk}
+          />
+          <Space size={16} />
+        </View>
+      </KeyboardAwareScrollView>
+    </Layout>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  main: {
+    flex: 1,
+    paddingHorizontal: 16,
+    paddingTop: 32,
+  },
+});
 
 export default RegisterEmailPasswordScreen;

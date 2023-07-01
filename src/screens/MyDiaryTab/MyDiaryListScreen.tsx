@@ -5,7 +5,6 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { View, StyleSheet } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
@@ -13,7 +12,7 @@ import MyDiaryListFlatList from '@/components/organisms/MyDiaryList/MyDiaryListF
 import {
   HeaderIcon,
   HeaderText,
-  Layout2,
+  Layout,
   LoadingModal,
 } from '@/components/atoms';
 import { LocalStatus, MyDiaryListView } from '@/types/localStatus';
@@ -58,13 +57,6 @@ type ScreenType = {
   navigation: MyDiaryListNavigationProp;
 } & Props &
   DispatchProps;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});
 
 const HIT_PER_PAGE = 20;
 
@@ -238,36 +230,34 @@ const MyDiaryListScreen: React.FC<ScreenType> = ({
   }, [headerLeft, headerRight, navigation]);
 
   return (
-    <Layout2 disableScroll showBottomAd>
-      <View style={styles.container}>
-        <LoadingModal visible={isLoading} />
-        {!localStatus.myDiaryListView ||
-        localStatus.myDiaryListView === 'list' ? (
-          <MyDiaryListFlatList
-            // emptyの時のレイアウトのため
-            elRefs={elRefs}
-            isEmpty={!isLoading && !refreshing && diaries.length < 1}
-            refreshing={refreshing}
-            diaryTotalNum={diaryTotalNum}
-            diaries={diaries}
-            loadNextPage={loadNextPage}
-            onRefresh={onRefresh}
-            handlePressItem={handlePressItem}
-            handlePressDelete={handlePressDelete}
-          />
-        ) : (
-          <MyDiaryListCalendar
-            elRefs={elRefs}
-            refreshing={refreshing}
-            diaries={diaries}
-            loadNextPage={loadNextPage}
-            onRefresh={onRefresh}
-            handlePressItem={handlePressItem}
-            handlePressDelete={handlePressDelete}
-          />
-        )}
-      </View>
-    </Layout2>
+    <Layout showBottomAd>
+      <LoadingModal visible={isLoading} />
+      {!localStatus.myDiaryListView ||
+      localStatus.myDiaryListView === 'list' ? (
+        <MyDiaryListFlatList
+          // emptyの時のレイアウトのため
+          elRefs={elRefs}
+          isEmpty={!isLoading && !refreshing && diaries.length < 1}
+          refreshing={refreshing}
+          diaryTotalNum={diaryTotalNum}
+          diaries={diaries}
+          loadNextPage={loadNextPage}
+          onRefresh={onRefresh}
+          handlePressItem={handlePressItem}
+          handlePressDelete={handlePressDelete}
+        />
+      ) : (
+        <MyDiaryListCalendar
+          elRefs={elRefs}
+          refreshing={refreshing}
+          diaries={diaries}
+          loadNextPage={loadNextPage}
+          onRefresh={onRefresh}
+          handlePressItem={handlePressItem}
+          handlePressDelete={handlePressDelete}
+        />
+      )}
+    </Layout>
   );
 };
 
