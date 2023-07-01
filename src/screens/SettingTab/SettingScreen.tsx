@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { StyleSheet, ScrollView, Text, Linking } from 'react-native';
+import { StyleSheet, ScrollView, Linking } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
 import * as SecureStore from 'expo-secure-store';
@@ -7,14 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-root-toast';
 import { useAppTheme } from '@/styles/colors';
 
-import {
-  subTextColor,
-  fontSizeS,
-  offWhite,
-  primaryColor,
-  fontSizeM,
-  borderLightColor,
-} from '../../styles/Common';
+import { primaryColor, borderLightColor } from '../../styles/Common';
 import { OptionItem } from '../../components/molecules';
 import {
   Space,
@@ -350,14 +343,14 @@ const SettingScreen: React.FC<ScreenType> = ({
             onPress={onPressCancel}
           />
         )}
-        {/* {currentUser && currentUser.email && ( */}
-        <>
-          <Space size={16} />
-          <Hoverable style={styles.logoutButton} onPress={onPressLogout}>
-            <AppText size='m'>{I18n.t('setting.logout')}</AppText>
-          </Hoverable>
-        </>
-        {/* )} */}
+        {currentUser && currentUser.email && (
+          <>
+            <Space size={16} />
+            <Hoverable style={styles.logoutButton} onPress={onPressLogout}>
+              <AppText size='m'>{I18n.t('setting.logout')}</AppText>
+            </Hoverable>
+          </>
+        )}
         <Space size={16} />
         <AppText size='s' textAlign='center' color={theme.colors.secondary}>
           {version}
