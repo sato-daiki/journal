@@ -1,8 +1,4 @@
 import React from 'react';
-import {
-  DefaultAuthLayoutOptions,
-  DefaultNavigationOptions,
-} from '@/constants/NavigationOptions';
 import ReminderInitialOnboardingScreenContainer from '@/containers/ReminderInitialOnboardingScreenContainer';
 import ReminderSelectTimeOnboardingScreenContainer from '@/containers/ReminderSelectTimeOnboardingScreenContainer';
 import PushSettingScreenContainer from '@/containers/PushSettingScreenContainer';
@@ -14,6 +10,8 @@ import {
 import I18n from '@/utils/I18n';
 import { CustomTimeInfo, FixDay } from '@/types';
 import { RootStackParamList } from './RootNavigator';
+import { useAppTheme } from '@/styles/colors';
+import { getDefaultScreenOptions } from '@/styles/navigationOptions';
 
 export type OnboardingNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -33,12 +31,12 @@ export type OnboardingStackParamList = {
 const Stack = createStackNavigator<OnboardingStackParamList>();
 
 export const OnboardingNavigator = () => {
+  const theme = useAppTheme();
+  const DefaultScreenOptions = getDefaultScreenOptions(theme);
   return (
     <Stack.Navigator
       initialRouteName='PushSetting'
-      screenOptions={{
-        ...DefaultNavigationOptions,
-      }}
+      screenOptions={DefaultScreenOptions}
     >
       <Stack.Screen
         name='PushSetting'
@@ -60,7 +58,6 @@ export const OnboardingNavigator = () => {
         name='ReminderSelectTimeOnboarding'
         component={ReminderSelectTimeOnboardingScreenContainer}
         options={{
-          ...DefaultAuthLayoutOptions,
           title: I18n.t('onboarding.reminderSelectTime'),
         }}
       />
@@ -68,7 +65,6 @@ export const OnboardingNavigator = () => {
         name='ReminderSelectDay'
         component={ReminderSelectDayScreen}
         options={{
-          ...DefaultAuthLayoutOptions,
           title: I18n.t('onboarding.reminderSelectDay'),
         }}
       />

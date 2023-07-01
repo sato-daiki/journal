@@ -12,9 +12,9 @@ import SettingTabNavigator, {
   SettingTabStackParamList,
 } from './SettingTabNavigator';
 import { MainStackParamList, MainNavigationProp } from './MainNavigator';
-import { mainColor, subTextColor } from '@/styles/Common';
 import { User } from '@/types';
 import { getLanguageToolCode } from '@/utils/grammarCheck';
+import { useAppTheme } from '@/styles/colors';
 
 export interface Props {
   user: User;
@@ -34,12 +34,14 @@ export type HomeBottomParamList = {
 };
 
 const HomeBottomTabNavigator: React.FC<Props> = ({ user }) => {
+  const theme = useAppTheme();
   const HomeBottom = createBottomTabNavigator<HomeBottomParamList>();
   return (
     <HomeBottom.Navigator
       screenOptions={{
-        tabBarActiveTintColor: mainColor,
-        tabBarInactiveTintColor: subTextColor,
+        tabBarStyle: { backgroundColor: theme.colors.background },
+        tabBarActiveTintColor: theme.colors.main,
+        tabBarInactiveTintColor: theme.colors.secondary,
         tabBarHideOnKeyboard: true,
         headerShown: false,
       }}

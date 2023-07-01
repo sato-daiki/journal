@@ -10,8 +10,8 @@ const DefaultHeaderBack: React.FC<Props> = ({ onPress }) => {
   if (Platform.OS === 'ios') {
     return (
       <HeaderIcon
-        icon="feather"
-        name="chevron-left"
+        icon='feather'
+        name='chevron-left'
         size={25}
         onPress={onPress}
       />
@@ -19,7 +19,7 @@ const DefaultHeaderBack: React.FC<Props> = ({ onPress }) => {
   }
 
   return (
-    <HeaderIcon icon="material" name="arrow-back" size={25} onPress={onPress} />
+    <HeaderIcon icon='material' name='arrow-back' size={25} onPress={onPress} />
   );
 };
 

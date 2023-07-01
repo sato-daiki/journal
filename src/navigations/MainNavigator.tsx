@@ -38,7 +38,6 @@ import {
   ModalBecomePremiumeNavigator,
 } from './ModalNavigator';
 import { MyDiaryTabStackParamList } from './MyDiaryTabNavigator';
-import { maxMain } from '../styles/Common';
 import { RootStackParamList } from './RootNavigator';
 
 export type MainNavigationProp = StackNavigationProp<
@@ -121,13 +120,6 @@ const MainNavigator = () => {
       screenOptions={{
         headerShown: false,
         presentation: 'modal',
-        cardStyle: {
-          backgroundColor: '#FFFFFF',
-          marginHorizontal: 'auto',
-          flex: 1,
-          width: '100%',
-          maxWidth: maxMain,
-        },
       }}
     >
       <MainStack.Screen

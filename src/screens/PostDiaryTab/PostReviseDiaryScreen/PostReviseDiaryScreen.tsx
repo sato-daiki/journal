@@ -4,10 +4,6 @@ import { HeaderText } from '@/components/atoms';
 import { PostDiary } from '@/components/organisms/PostDiary';
 
 import I18n from '@/utils/I18n';
-import {
-  DefaultModalLayoutOptions,
-  DefaultNavigationOptions,
-} from '@/constants/NavigationOptions';
 
 import {
   ModalPostReviseDiaryStackNavigationProp,
@@ -79,9 +75,6 @@ const PostReviseDiaryScreen: React.FC<ScreenType> = ({
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      ...DefaultNavigationOptions,
-      ...DefaultModalLayoutOptions,
-      title: I18n.t('postReviseDiary.headerTitle'),
       headerLeft: () => (
         <HeaderText text={I18n.t('common.close')} onPress={onPressClose} />
       ),

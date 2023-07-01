@@ -4,10 +4,6 @@ import { PostDiary } from '@/components/organisms/PostDiary';
 import { HeaderText } from '@/components/atoms';
 
 import I18n from '@/utils/I18n';
-import {
-  DefaultModalLayoutOptions,
-  DefaultNavigationOptions,
-} from '@/constants/NavigationOptions';
 import { usePostDiary } from './usePostDiary';
 import { ScreenType } from './interfaces';
 
@@ -60,9 +56,6 @@ const PostDiaryScreen: React.FC<ScreenType> = ({
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      ...DefaultNavigationOptions,
-      ...DefaultModalLayoutOptions,
-      title: I18n.t('postDiary.headerTitle'),
       headerLeft: () => (
         <HeaderText text={I18n.t('common.close')} onPress={onPressClose} />
       ),

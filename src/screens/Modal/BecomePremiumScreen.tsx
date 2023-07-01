@@ -18,10 +18,6 @@ import {
   ModalBecomePremiumStackNavigationProp,
   ModalBecomePremiumStackParamList,
 } from '@/navigations/ModalNavigator';
-import {
-  DefaultModalLayoutOptions,
-  DefaultNavigationOptions,
-} from '@/constants/NavigationOptions';
 
 import {
   HeaderText,
@@ -165,9 +161,6 @@ const BecomePremiumScreen: React.FC<ScreenType> = ({
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      ...DefaultNavigationOptions,
-      ...DefaultModalLayoutOptions,
-      title: I18n.t('becomePremium.headerTitle'),
       headerLeft: () => (
         <HeaderText text={I18n.t('common.close')} onPress={onPressClose} />
       ),

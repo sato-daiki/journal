@@ -1,4 +1,5 @@
-import { MD3LightTheme, PaperProvider, useTheme } from 'react-native-paper';
+import { useTheme } from 'react-native-paper';
+
 const white = '#fff';
 const offWhite = '#f6f6f6';
 const black = '#2a2a2a';
@@ -7,12 +8,14 @@ const main = '#2D9CDB';
 const linkBlue = '#2469BB';
 const secondary = '#7F7F7F';
 const red = 'rgba(218,83,83,1)';
+const borderLight = '#CCCCCC';
 
 const commonColor = {
   main,
   linkBlue,
   secondary,
   danger: red,
+  borderLight,
 };
 
 export const lightTheme = {
