@@ -1,48 +1,38 @@
 import React from 'react';
-import {
-  StyleProp,
-  Text,
-  TextStyle,
-  ViewStyle,
-  StyleSheet,
-} from 'react-native';
-
-import { fontSizeM, linkBlue } from '@/styles/Common';
+import { StyleProp, TextStyle, ViewStyle } from 'react-native';
 import Hoverable from './Hoverable';
-
-const styles = StyleSheet.create({
-  linkText: {
-    fontSize: fontSizeM,
-    color: linkBlue,
-  },
-  hoverText: {
-    borderBottomColor: linkBlue,
-    borderBottomWidth: 1,
-  },
-});
+import AppText from './AppText';
+import { useAppTheme } from '@/styles/colors';
 
 type Props = {
   containerStyle?: StyleProp<ViewStyle>;
-  hoverStyle?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
-  onPress: () => void;
   text: string;
+  onPress: () => void;
 };
 
 const LinkText: React.FC<Props> = ({
-  onPress,
-  text,
   containerStyle,
-  hoverStyle,
   textStyle,
-}) => (
-  <Hoverable
-    style={containerStyle}
-    onPress={onPress}
-    hoverStyle={[styles.hoverText, hoverStyle]}
-  >
-    <Text style={[styles.linkText, textStyle]}>{text}</Text>
-  </Hoverable>
-);
+  text,
+  onPress,
+}) => {
+  const theme = useAppTheme();
+  return (
+    <Hoverable style={containerStyle} onPress={onPress}>
+      <AppText
+        size='m'
+        style={[
+          {
+            color: theme.colors.linkBlue,
+          },
+          textStyle,
+        ]}
+      >
+        {text}
+      </AppText>
+    </Hoverable>
+  );
+};
 
 export default React.memo(LinkText);

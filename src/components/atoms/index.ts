@@ -29,4 +29,8 @@ export { default as TextInputText } from './TextInputText';
 export { default as TextInputTitle } from './TextInputTitle';
 export { default as TimeBox } from './TimeBox';
 export { default as WhiteButton } from './WhiteButton';
-export * from './Layout';
+
+export { default as AppText } from './AppText';
+export { default as Layout } from './Layout';
+
+export * from './_Layout';

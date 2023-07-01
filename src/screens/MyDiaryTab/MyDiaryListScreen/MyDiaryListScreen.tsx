@@ -13,7 +13,7 @@ import MyDiaryListFlatList from '@/components/organisms/MyDiaryList/MyDiaryListF
 import {
   HeaderIcon,
   HeaderText,
-  Layout,
+  Layout2,
   LoadingModal,
 } from '@/components/atoms';
 import { LocalStatus, MyDiaryListView } from '@/types/localStatus';
@@ -238,7 +238,7 @@ const MyDiaryListScreen: React.FC<ScreenType> = ({
   }, [headerLeft, headerRight, navigation]);
 
   return (
-    <Layout disableScroll showBottomAd>
+    <Layout2 disableScroll showBottomAd>
       <View style={styles.container}>
         <LoadingModal visible={isLoading} />
         {!localStatus.myDiaryListView ||
@@ -267,7 +267,7 @@ const MyDiaryListScreen: React.FC<ScreenType> = ({
           />
         )}
       </View>
-    </Layout>
+    </Layout2>
   );
 };
 

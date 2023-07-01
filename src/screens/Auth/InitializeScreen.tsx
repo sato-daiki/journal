@@ -1,11 +1,9 @@
 import React, { useEffect, useCallback } from 'react';
-import { SafeAreaView, View, Text, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 
-import { LinkText, SubmitButton } from '@/components/atoms';
-
+import { AppText, Layout, LinkText, SubmitButton } from '@/components/atoms';
 import { AuthStackParamList } from '@/navigations/AuthNavigator';
-import { fontSizeM, primaryColor } from '@/styles/Common';
 import { Logo } from '@/images';
 import { logAnalytics, events } from '@/utils/Analytics';
 import I18n from '@/utils/I18n';
@@ -13,10 +11,6 @@ import I18n from '@/utils/I18n';
 type ScreenType = StackScreenProps<AuthStackParamList, 'Initialize'>;
 
 const styles = StyleSheet.create({
-  safeAreaView: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
   imgContainer: {
     flex: 1,
     alignItems: 'center',
@@ -26,11 +20,7 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
   },
-  contaner: {
-    flex: 1,
-  },
   footer: {
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'flex-end',
     paddingHorizontal: 16,
@@ -41,10 +31,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingTop: 16,
     alignItems: 'center',
-  },
-  text: {
-    color: primaryColor,
-    fontSize: fontSizeM,
   },
 });
 
@@ -65,26 +51,21 @@ const InitializeScreen: React.FC<ScreenType> = ({ navigation }) => {
   }, [navigation]);
 
   return (
-    <SafeAreaView style={styles.safeAreaView}>
-      <View style={styles.contaner}>
-        <View style={styles.imgContainer}>
-          <Image style={styles.img} source={Logo} />
-        </View>
-        <View style={styles.footer}>
-          <SubmitButton
-            title={I18n.t('initialize.start')}
-            onPress={onPressSignUp}
-          />
-          <View style={styles.row}>
-            <Text style={styles.text}>{I18n.t('initialize.acount')}</Text>
-            <LinkText
-              onPress={onPressSignIn}
-              text={I18n.t('initialize.link')}
-            />
-          </View>
+    <Layout>
+      <View style={styles.imgContainer}>
+        <Image style={styles.img} source={Logo} />
+      </View>
+      <View style={styles.footer}>
+        <SubmitButton
+          title={I18n.t('initialize.start')}
+          onPress={onPressSignUp}
+        />
+        <View style={styles.row}>
+          <AppText size='m'>{I18n.t('initialize.acount')}</AppText>
+          <LinkText onPress={onPressSignIn} text={I18n.t('initialize.link')} />
         </View>
       </View>
-    </SafeAreaView>
+    </Layout>
   );
 };
 

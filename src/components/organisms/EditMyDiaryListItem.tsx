@@ -8,11 +8,10 @@ import {
   subTextColor,
   green,
 } from '@/styles/Common';
-import { MyDiaryStatus } from '@/components/molecules';
+import { DiaryTitle, MyDiaryStatus } from '@/components/molecules';
 import { getDay } from '@/utils/time';
 import { Diary } from '@/types';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { DiaryTitle } from '../atoms';
 
 interface Props {
   item: Diary;

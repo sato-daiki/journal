@@ -73,6 +73,7 @@
     "react-native-modal": "^13.0.1",
     "react-native-modal-datetime-picker": "^15.0.0",
     "react-native-pager-view": "^6.2.0",
+    "react-native-paper": "^5.9.0",
     "react-native-popup-menu": "^0.16.1",
     "react-native-purchases": "^5.14.0",
     "react-native-reanimated": "~2.14.4",
