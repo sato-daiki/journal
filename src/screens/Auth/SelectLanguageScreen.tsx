@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { View, Text, StyleSheet, Platform } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { LongCode, User } from '@/types';
 import {
   AuthNavigationProp,
@@ -8,9 +8,7 @@ import {
 import { CompositeNavigationProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import { Space, SubmitButton } from '@/components/atoms';
-
-import { primaryColor, fontSizeL } from '@/styles/Common';
+import { AppText, Layout, Space, SubmitButton } from '@/components/atoms';
 import I18n from '@/utils/I18n';
 import LanguagePicker from '@/components/organisms/LanguagePicker';
 import { getLanguageToolName } from '@/utils/grammarCheck';
@@ -60,28 +58,23 @@ const SelectLanguageScreen: React.FC<ScreenType> = ({
   }, [navigation, selectedItem.value, setUser, user]);
 
   return (
-    <View style={styles.contaner}>
-      <Text style={styles.title}>{I18n.t('selectLanguage.title')}</Text>
+    <Layout innerStyle={styles.contaner}>
+      <AppText size='l' bold>
+        {I18n.t('selectLanguage.title')}
+      </AppText>
+      <Space size={16} />
       <LanguagePicker selectedItem={selectedItem} onPressItem={onPressItem} />
       <Space size={32} />
       <SubmitButton title={I18n.t('common.next')} onPress={onPressNext} />
-    </View>
+    </Layout>
   );
 };
 
 const styles = StyleSheet.create({
   contaner: {
     flex: 1,
-    backgroundColor: '#fff',
     paddingHorizontal: 16,
     paddingTop: 32,
-    alignItems: Platform.OS === 'web' ? 'center' : 'flex-start',
-  },
-  title: {
-    color: primaryColor,
-    fontSize: fontSizeL,
-    fontWeight: 'bold',
-    paddingBottom: 16,
   },
 });
 

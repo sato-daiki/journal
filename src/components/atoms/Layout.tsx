@@ -5,11 +5,13 @@ import {
   StyleProp,
   ViewStyle,
   ViewProps,
+  View,
 } from 'react-native';
 import { useTheme } from 'react-native-paper';
 
 type Props = {
   style?: StyleProp<ViewStyle>;
+  innerStyle?: StyleProp<ViewStyle>;
   children: React.ReactNode;
 } & ViewProps;
 
@@ -17,9 +19,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  innerStyle: {
+    flex: 1,
+  },
 });
 
-const Layout = ({ style, children, ...props }: Props) => {
+const Layout = ({ style, innerStyle, children, ...props }: Props) => {
   const theme = useTheme();
   return (
     <SafeAreaView
@@ -32,7 +37,7 @@ const Layout = ({ style, children, ...props }: Props) => {
       ]}
       {...props}
     >
-      {children}
+      <View style={[styles.innerStyle, innerStyle]}>{children}</View>
     </SafeAreaView>
   );
 };

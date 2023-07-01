@@ -9,10 +9,12 @@ import {
 import { useTheme } from 'react-native-paper';
 import { fontSizeL, fontSizeM, fontSizeS } from '@/styles/Common';
 
-type TextSize = 'l' | 'm' | 's';
+export type TextSize = 'l' | 'm' | 's';
 type Props = {
   size: TextSize;
   bold?: boolean;
+  color?: string;
+  textAlign?: TextStyle['textAlign'];
   style?: StyleProp<TextStyle>;
   children: React.ReactNode;
 } & TextProps;
@@ -35,7 +37,15 @@ const styles = StyleSheet.create({
   },
 });
 
-const AppText = ({ style, size, bold, children, ...props }: Props) => {
+const AppText = ({
+  style,
+  size,
+  bold,
+  color,
+  textAlign,
+  children,
+  ...props
+}: Props) => {
   const theme = useTheme();
 
   return (
@@ -50,7 +60,10 @@ const AppText = ({ style, size, bold, children, ...props }: Props) => {
           : null,
         bold && styles.bold,
         {
-          color: theme.colors.primary,
+          color: color ? color : theme.colors.primary,
+        },
+        textAlign && {
+          textAlign: textAlign,
         },
         style,
       ]}

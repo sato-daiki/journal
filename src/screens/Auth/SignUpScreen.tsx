@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, StyleSheet, Platform } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { useTheme } from 'react-native-paper';
 
 import { CheckTextInput } from '@/components/molecules';
 import {
@@ -10,20 +11,15 @@ import {
   LoadingModal,
   WhiteButton,
   LinkText,
+  Layout,
+  AppText,
 } from '@/components/atoms';
 
 import {
   AuthNavigationProp,
   AuthStackParamList,
 } from '@/navigations/AuthNavigator';
-import { DarkMode, User } from '@/types';
-import {
-  primaryColor,
-  fontSizeM,
-  subTextColor,
-  fontSizeL,
-  fontSizeS,
-} from '@/styles/Common';
+import { User } from '@/types';
 import { logAnalytics, events } from '@/utils/Analytics';
 import {
   emailInputError,
@@ -56,65 +52,6 @@ type ScreenType = {
 } & Props &
   DispatchProps;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  main: {
-    flex: 1,
-    paddingHorizontal: 16,
-    paddingTop: 32,
-  },
-  title: {
-    color: primaryColor,
-    fontSize: fontSizeL,
-    fontWeight: 'bold',
-    paddingBottom: 16,
-    lineHeight: fontSizeL * 1.3,
-    textAlign: Platform.OS === 'web' ? 'center' : 'left',
-  },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexWrap: 'wrap',
-  },
-  line: {
-    borderBottomColor: subTextColor,
-    borderBottomWidth: 1,
-    flex: 1,
-  },
-  or: {
-    color: subTextColor,
-    textAlign: 'center',
-    fontSize: fontSizeM,
-    paddingHorizontal: 16,
-  },
-  agree: {
-    color: subTextColor,
-    fontSize: fontSizeS,
-    lineHeight: fontSizeS * 1.3,
-  },
-  linkText: {
-    fontSize: fontSizeS,
-    lineHeight: fontSizeM * 1.3,
-  },
-  subText: {
-    color: subTextColor,
-    fontSize: fontSizeM,
-    paddingBottom: 16,
-    lineHeight: fontSizeM * 1.3,
-    textAlign: Platform.OS === 'web' ? 'center' : 'left',
-  },
-  label: {
-    color: primaryColor,
-    fontSize: fontSizeM,
-    paddingBottom: 6,
-    textAlign: Platform.OS === 'web' ? 'center' : 'left',
-  },
-});
-
 /**
  * 概要：アカウント登録画面
  */
@@ -134,6 +71,8 @@ const SignUpScreen: React.FC<ScreenType> = ({
   const [errorEmail, setErrorEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorPassword, setErrorPassword] = useState('');
+
+  const theme = useTheme();
 
   useEffect((): void => {
     logAnalytics(events.OPENED_SIGN_UP);
@@ -241,79 +180,136 @@ const SignUpScreen: React.FC<ScreenType> = ({
   }, [password, setIsPasswordCheckOk, setErrorPassword]);
 
   return (
-    <KeyboardAwareScrollView style={styles.container}>
-      <View style={styles.main}>
-        <LoadingModal visible={isLoading} />
-        <Text style={styles.title}>{I18n.t('signUp.title')}</Text>
-        <Text style={styles.subText}>{I18n.t('signUp.subText')}</Text>
-        <Text style={styles.label}>{I18n.t('signUp.email')}</Text>
-        <CheckTextInput
-          value={email}
-          onChangeText={(text: string): void => setEmail(text)}
-          onBlur={onBlurEmail}
-          maxLength={50}
-          placeholder='Email'
-          keyboardType='email-address'
-          autoCapitalize='none'
-          autoCorrect={false}
-          underlineColorAndroid='transparent'
-          returnKeyType='done'
-          isLoading={isEmailLoading}
-          isCheckOk={isEmailCheckOk}
-          errorMessage={errorEmail}
-        />
-        <Space size={16} />
-        <Text style={styles.label}>{I18n.t('signUp.password')}</Text>
-        <CheckTextInput
-          isPassword
-          value={password}
-          onChangeText={setPassword}
-          onBlur={onBlurPassword}
-          maxLength={20}
-          placeholder='Password'
-          autoCapitalize='none'
-          autoCorrect={false}
-          underlineColorAndroid='transparent'
-          returnKeyType='done'
-          errorMessage={errorPassword}
-        />
-        <Space size={16} />
-        <SubmitButton
-          title={I18n.t('common.register')}
-          onPress={onPressSubmit}
-          disable={!isEmailCheckOk || !isPasswordCheckOk}
-        />
-        <Space size={32} />
-        <View style={styles.row}>
-          <View style={styles.line} />
-          <Text style={styles.or}>or</Text>
-          <View style={styles.line} />
-        </View>
-        <Space size={32} />
-        <WhiteButton title={I18n.t('signUp.without')} onPress={onPressSkip} />
-        <Space size={16} />
-        <View style={styles.row}>
-          <Text style={styles.agree}>{I18n.t('signUp.agree1')}</Text>
-          <LinkText
-            textStyle={styles.linkText}
-            onPress={(): void => {
-              navigation.navigate('AuthWebView', TERMS);
-            }}
-            text={I18n.t('signUp.terms')}
+    <Layout>
+      <KeyboardAwareScrollView style={styles.container}>
+        <View style={styles.main}>
+          <LoadingModal visible={isLoading} />
+          <AppText size='l' bold>
+            {I18n.t('signUp.title')}
+          </AppText>
+          <Space size={16} />
+          <AppText size='m' color={theme.colors.secondary}>
+            {I18n.t('signUp.subText')}
+          </AppText>
+          <Space size={16} />
+          <AppText size='m'>{I18n.t('signUp.email')}</AppText>
+          <Space size={6} />
+          <CheckTextInput
+            value={email}
+            onChangeText={setEmail}
+            onBlur={onBlurEmail}
+            maxLength={50}
+            placeholder='Email'
+            keyboardType='email-address'
+            autoCapitalize='none'
+            autoCorrect={false}
+            underlineColorAndroid='transparent'
+            returnKeyType='done'
+            isLoading={isEmailLoading}
+            isCheckOk={isEmailCheckOk}
+            errorMessage={errorEmail}
           />
-          <Text style={styles.agree}>{I18n.t('signUp.agree2')}</Text>
-          <LinkText
-            textStyle={styles.linkText}
-            onPress={(): void => {
-              navigation.navigate('AuthWebView', PRIVACY_POLICY);
-            }}
-            text={I18n.t('signUp.privacy')}
+          <Space size={16} />
+          <AppText size='m'>{I18n.t('signUp.password')}</AppText>
+          <Space size={6} />
+          <CheckTextInput
+            isPassword
+            value={password}
+            onChangeText={setPassword}
+            onBlur={onBlurPassword}
+            maxLength={20}
+            placeholder='Password'
+            autoCapitalize='none'
+            autoCorrect={false}
+            underlineColorAndroid='transparent'
+            returnKeyType='done'
+            errorMessage={errorPassword}
           />
-          <Text style={styles.agree}>{I18n.t('signUp.agree3')}</Text>
+          <Space size={16} />
+          <SubmitButton
+            title={I18n.t('common.register')}
+            onPress={onPressSubmit}
+            disable={!isEmailCheckOk || !isPasswordCheckOk}
+          />
+          <Space size={32} />
+          <View style={styles.row}>
+            <View
+              style={[
+                styles.line,
+                { borderBottomColor: theme.colors.secondary },
+              ]}
+            />
+            <AppText
+              size='m'
+              color={theme.colors.secondary}
+              style={styles.or}
+              textAlign='center'
+            >
+              or
+            </AppText>
+            <View
+              style={[
+                styles.line,
+                { borderBottomColor: theme.colors.secondary },
+              ]}
+            />
+          </View>
+          <Space size={32} />
+          <WhiteButton title={I18n.t('signUp.without')} onPress={onPressSkip} />
+          <Space size={16} />
+          <View style={styles.row}>
+            <AppText size='s' color={theme.colors.secondary}>
+              {I18n.t('signUp.agree1')}
+            </AppText>
+            <LinkText
+              size='s'
+              text={I18n.t('signUp.terms')}
+              onPress={(): void => {
+                navigation.navigate('AuthWebView', TERMS);
+              }}
+            />
+            <AppText size='m' color={theme.colors.secondary}>
+              {I18n.t('signUp.agree2')}
+            </AppText>
+            <LinkText
+              size='s'
+              text={I18n.t('signUp.privacy')}
+              onPress={(): void => {
+                navigation.navigate('AuthWebView', PRIVACY_POLICY);
+              }}
+            />
+            <AppText size='m' color={theme.colors.secondary}>
+              {I18n.t('signUp.agree3')}
+            </AppText>
+          </View>
         </View>
-      </View>
-    </KeyboardAwareScrollView>
+      </KeyboardAwareScrollView>
+    </Layout>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  main: {
+    flex: 1,
+    paddingHorizontal: 16,
+    paddingTop: 32,
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+  },
+  line: {
+    borderBottomWidth: 1,
+    flex: 1,
+  },
+  or: {
+    paddingHorizontal: 16,
+  },
+});
 
 export default SignUpScreen;

@@ -10,30 +10,6 @@ import I18n from '@/utils/I18n';
 
 type ScreenType = StackScreenProps<AuthStackParamList, 'Initialize'>;
 
-const styles = StyleSheet.create({
-  imgContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  img: {
-    width: 200,
-    height: 200,
-  },
-  footer: {
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    paddingHorizontal: 16,
-    paddingBottom: 32,
-    width: '100%',
-  },
-  row: {
-    flexDirection: 'row',
-    paddingTop: 16,
-    alignItems: 'center',
-  },
-});
-
 /**
  * 概要：ログインしていないユーザの立ち上げ画面
  */
@@ -62,11 +38,39 @@ const InitializeScreen: React.FC<ScreenType> = ({ navigation }) => {
         />
         <View style={styles.row}>
           <AppText size='m'>{I18n.t('initialize.acount')}</AppText>
-          <LinkText onPress={onPressSignIn} text={I18n.t('initialize.link')} />
+          <LinkText
+            size='s'
+            onPress={onPressSignIn}
+            text={I18n.t('initialize.link')}
+          />
         </View>
       </View>
     </Layout>
   );
 };
+
+const styles = StyleSheet.create({
+  imgContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  img: {
+    width: 200,
+    height: 200,
+  },
+  footer: {
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    paddingHorizontal: 16,
+    paddingBottom: 32,
+    width: '100%',
+  },
+  row: {
+    flexDirection: 'row',
+    paddingTop: 16,
+    alignItems: 'center',
+  },
+});
 
 export default InitializeScreen;

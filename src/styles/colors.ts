@@ -3,10 +3,12 @@ const white = '#fff';
 const black = '#2a2a2a';
 const main = '#2D9CDB';
 const linkBlue = '#2469BB';
+const secondary = '#7F7F7F';
 
 const commonColor = {
-  main: main,
-  linkBlue: linkBlue,
+  main,
+  linkBlue,
+  secondary,
 };
 
 export const lightTheme = {

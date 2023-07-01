@@ -1,19 +1,21 @@
 import React from 'react';
 import { StyleProp, TextStyle, ViewStyle } from 'react-native';
 import Hoverable from './Hoverable';
-import AppText from './AppText';
+import AppText, { TextSize } from './AppText';
 import { useAppTheme } from '@/styles/colors';
 
 type Props = {
   containerStyle?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
   text: string;
+  size: TextSize;
   onPress: () => void;
 };
 
 const LinkText: React.FC<Props> = ({
   containerStyle,
   textStyle,
+  size = 'm',
   text,
   onPress,
 }) => {
@@ -21,7 +23,7 @@ const LinkText: React.FC<Props> = ({
   return (
     <Hoverable style={containerStyle} onPress={onPress}>
       <AppText
-        size='m'
+        size={size}
         style={[
           {
             color: theme.colors.linkBlue,
