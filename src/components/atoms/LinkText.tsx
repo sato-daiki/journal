@@ -1,6 +1,10 @@
 import React from 'react';
-import { StyleProp, TextStyle, ViewStyle } from 'react-native';
-import Hoverable from './Hoverable';
+import {
+  StyleProp,
+  TextStyle,
+  TouchableOpacity,
+  ViewStyle,
+} from 'react-native';
 import AppText, { TextSize } from './AppText';
 import { useAppTheme } from '@/styles/colors';
 
@@ -25,7 +29,7 @@ const LinkText: React.FC<Props> = ({
 }) => {
   const theme = useAppTheme();
   return (
-    <Hoverable style={containerStyle} onPress={onPress}>
+    <TouchableOpacity style={containerStyle} onPress={onPress}>
       <AppText
         size={size}
         textAlign={textAlign}
@@ -39,7 +43,7 @@ const LinkText: React.FC<Props> = ({
       >
         {text}
       </AppText>
-    </Hoverable>
+    </TouchableOpacity>
   );
 };
 

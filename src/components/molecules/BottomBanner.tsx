@@ -1,17 +1,8 @@
-import { LocalStatus, User } from '@/types';
-import { State } from '@/types/state';
-import * as React from 'react';
-import { useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { StyleSheet, View, Platform } from 'react-native';
+import { State } from '@/types/state';
 import { BannerAd, BannerAdSize } from 'react-native-google-mobile-ads';
 import { useSelector } from 'react-redux';
-
-const styles = StyleSheet.create({
-  adMobBanner: {
-    backgroundColor: '#fff',
-    alignItems: 'center',
-  },
-});
 
 const unitId =
   Platform.OS === 'ios'
@@ -48,5 +39,11 @@ const BottomBanner: React.FC = () => {
 
   return <View>{renderAds()}</View>;
 };
+
+const styles = StyleSheet.create({
+  adMobBanner: {
+    alignItems: 'center',
+  },
+});
 
 export default BottomBanner;

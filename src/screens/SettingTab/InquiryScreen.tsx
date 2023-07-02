@@ -3,13 +3,8 @@ import { StyleSheet, View, TextInput } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
-import {
-  Space,
-  SubmitButton,
-  LoadingModal,
-  Layout,
-  AppText,
-} from '@/components/atoms';
+import { Layout } from '@/components/templates';
+import { Space, SubmitButton, LoadingModal, AppText } from '@/components/atoms';
 import { User } from '../../types';
 import I18n from '../../utils/I18n';
 import { emailValidate } from '../../utils/common';
@@ -26,8 +21,8 @@ import {
 } from '../../navigations/SettingTabNavigator';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import ModalConfirm from '@/components/organisms/ModalConfirm';
-import EmailTextInput from '@/components/organisms/EmailTextInput';
+import ModalConfirm from '@/components/features/Modal/ModalConfirm';
+import EmailTextInput from '@/components/molecules/EmailTextInput';
 
 export interface Props {
   user: User;
@@ -153,7 +148,7 @@ const InquiryScreen: React.FC<ScreenType> = ({ navigation, user }) => {
               {I18n.t('inquiry.title')}
             </AppText>
             <Space size={8} />
-            <AppText size='m' textAlign='center' style={styles.thanksText}>
+            <AppText size='m' textAlign='center'>
               {I18n.t('inquiry.thanks')}
             </AppText>
             <Space size={32} />

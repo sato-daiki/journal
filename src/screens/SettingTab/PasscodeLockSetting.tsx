@@ -7,8 +7,8 @@ import {
 } from '../../navigations/SettingTabNavigator';
 import I18n from '../../utils/I18n';
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
-import PasscodeLock from '@/components/organisms/PasscodeLock';
-import { Layout } from '@/components/atoms';
+import PasscodeLock from '@/components/features/PasscodeLock';
+import { Layout } from '@/components/templates';
 
 type PasscodeLockSettingNavigationProp = CompositeNavigationProp<
   StackNavigationProp<SettingTabStackParamList, 'PasscodeLockSetting'>,

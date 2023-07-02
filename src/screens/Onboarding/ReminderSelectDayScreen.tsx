@@ -3,17 +3,13 @@ import { StyleSheet } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import I18n from '@/utils/I18n';
 import { CheckItemDay } from '@/components/molecules';
-import {
-  AppText,
-  HeaderText,
-  Layout,
-  LoadingModal,
-  Space,
-} from '@/components/atoms';
+import { Layout } from '@/components/templates';
+import { AppText, LoadingModal, Space } from '@/components';
 import { getDayName } from '@/utils/time';
 import { RouteProp } from '@react-navigation/native';
 import { OnboardingStackParamList } from '@/navigations/OnboardingNavigator';
 import { SettingTabStackParamList } from '@/navigations/SettingTabNavigator';
+import HeaderText from '@/components/features/Header/HeaderText';
 
 type NavigationProp = StackNavigationProp<
   OnboardingStackParamList | SettingTabStackParamList,

@@ -1,4 +1,4 @@
-import { StyleText } from '@/components/organisms/TopicGuide';
+import { StyleText } from '@/components/features/TopicGuid';
 import {
   enSelfIntroductionExpressions,
   enHobbyExpressions,

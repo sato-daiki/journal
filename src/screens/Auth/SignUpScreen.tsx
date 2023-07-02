@@ -3,6 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { StackNavigationProp } from '@react-navigation/stack';
 
+import { Layout } from '@/components/templates';
 import { CheckTextInput } from '@/components/molecules';
 import {
   Space,
@@ -10,7 +11,6 @@ import {
   LoadingModal,
   WhiteButton,
   LinkText,
-  Layout,
   AppText,
 } from '@/components/atoms';
 

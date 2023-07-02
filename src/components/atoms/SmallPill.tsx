@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
 import { fontSizeS } from '@/styles/Common';
+import AppText from './AppText';
 
 interface Props {
   containerStyle?: StyleProp<ViewStyle>;
@@ -8,20 +9,6 @@ interface Props {
   backgroundColor: string;
   color: string;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 4,
-    paddingVertical: 1,
-    borderRadius: 4,
-  },
-  text: {
-    fontSize: fontSizeS,
-    color: '#fff',
-  },
-});
 
 const SmallPill: React.FC<Props> = ({
   containerStyle,
@@ -31,9 +18,21 @@ const SmallPill: React.FC<Props> = ({
 }) => {
   return (
     <View style={[styles.container, containerStyle, { backgroundColor }]}>
-      <Text style={[styles.text, { color }]}>{text}</Text>
+      <AppText size='s' color={color}>
+        {text}
+      </AppText>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 4,
+    paddingVertical: 1,
+    borderRadius: 4,
+  },
+});
 
 export default React.memo(SmallPill);

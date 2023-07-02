@@ -8,9 +8,10 @@ import {
 import { CompositeNavigationProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import { AppText, Layout, Space, SubmitButton } from '@/components/atoms';
+import { Layout } from '@/components/templates';
+import { AppText, Space, SubmitButton } from '@/components/atoms';
 import I18n from '@/utils/I18n';
-import LanguagePicker from '@/components/organisms/LanguagePicker';
+import LanguagePicker from '@/components/molecules/LanguageModalPicker/LanguagePicker';
 import { getLanguageToolName } from '@/utils/grammarCheck';
 import { PickerItem } from '@/components/molecules/ModalPicker';
 

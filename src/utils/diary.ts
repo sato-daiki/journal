@@ -10,7 +10,7 @@ import firestore, {
   FirebaseFirestoreTypes,
 } from '@react-native-firebase/firestore';
 
-import { MarkedDates } from '@/components/organisms/MyDiaryList';
+import { MarkedDates } from '@/components/features/MyDiaryList';
 import I18n from './I18n';
 import { getDateToStrDay, getLastMonday, getThisMonday } from './common';
 import { getDay } from './time';

@@ -9,6 +9,8 @@ const linkBlue = '#2469BB';
 const secondary = '#7F7F7F';
 const red = 'rgba(218,83,83,1)';
 const borderLight = '#CCCCCC';
+const transparentBlack = 'rgba(62, 62, 62, 0.4)';
+const green = '#27AE60';
 
 const commonColor = {
   main,
@@ -16,6 +18,10 @@ const commonColor = {
   secondary,
   danger: red,
   borderLight,
+  black,
+  white,
+  transparentBlack,
+  green,
 };
 
 export const lightTheme = {

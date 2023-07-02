@@ -5,7 +5,8 @@ import { MaintenanceJson } from '@/images';
 import I18n from '@/utils/I18n';
 import { getLanguageToolCode } from '@/utils/grammarCheck';
 import { LongCode } from '@/types';
-import { AppText, Layout } from '@/components/atoms';
+import { AppText } from '@/components/atoms';
+import { Layout } from '@/components/templates';
 
 type Props = {
   messageEn: string | null;

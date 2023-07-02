@@ -6,8 +6,9 @@ import {
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 import { Audio } from 'expo-av';
-import { LoadingModal, HeaderIcon, Layout } from '@/components/atoms';
 
+import { Layout } from '@/components/templates';
+import { LoadingModal, Icon } from '@/components/atoms';
 import { Diary, LocalStatus, User } from '@/types';
 import {
   MyDiaryTabNavigationProp,
@@ -15,9 +16,10 @@ import {
 } from '@/navigations/MyDiaryTabNavigator';
 import I18n from '@/utils/I18n';
 import firestore from '@react-native-firebase/firestore';
-import ModalConfirm from '@/components/organisms/ModalConfirm';
-import MyDiary from '@/components/organisms/MyDiary/MyDiary';
+import ModalConfirm from '@/components/features/Modal/ModalConfirm';
 import { logAnalytics } from '@/utils/Analytics';
+import HeaderIcon from '@/components/features/Header/HeaderIcon';
+import MyDiaryMain from '@/components/features/MyDiary/MyDiaryMain';
 
 export interface Props {
   diary?: Diary;
@@ -117,11 +119,14 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
 
   const headerRight = useCallback(() => {
     return (
-      <HeaderIcon
-        icon='community'
-        name='dots-horizontal'
-        onPress={onPressMore}
-      />
+      <HeaderIcon>
+        <Icon
+          size={28}
+          icon='community'
+          name='dots-horizontal'
+          onPress={onPressMore}
+        />
+      </HeaderIcon>
     );
   }, [onPressMore]);
 
@@ -198,7 +203,7 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
         onPressMain={onPressCloseModalAlertAudio}
         onPressClose={onPressCloseModalAlertAudio}
       />
-      <MyDiary
+      <MyDiaryMain
         isView={false}
         isPremium={localStatus.isPremium}
         caller={route.params.caller}

@@ -1,7 +1,8 @@
 import React, { useCallback } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { borderLightColor, fontSizeM } from '@/styles/Common';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { PickerItem } from '.';
+import { AppText } from '@/components/atoms';
+import { useAppTheme } from '@/styles/colors';
 
 type Props = {
   item: PickerItem;
@@ -9,14 +10,23 @@ type Props = {
 };
 
 const PItem: React.FC<Props> = ({ item, onPressItem }) => {
+  const theme = useAppTheme();
+
   const onPress = useCallback(() => {
     onPressItem(item);
   }, [item, onPressItem]);
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        { borderBottomColor: theme.colors.borderLight },
+      ]}
+    >
       <TouchableOpacity onPress={onPress}>
-        <Text style={styles.label}>{item.label}</Text>
+        <AppText size='m' bold style={styles.label}>
+          {item.label}
+        </AppText>
       </TouchableOpacity>
     </View>
   );
@@ -24,12 +34,9 @@ const PItem: React.FC<Props> = ({ item, onPressItem }) => {
 
 const styles = StyleSheet.create({
   container: {
-    borderBottomColor: borderLightColor,
     borderBottomWidth: 1,
   },
   label: {
-    fontSize: fontSizeM,
-    fontWeight: 'bold',
     paddingVertical: 12,
   },
 });

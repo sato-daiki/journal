@@ -3,15 +3,8 @@ import { StyleSheet } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
 
-import ModalSendEmail from '@/components/organisms/ModalSendEmail';
 import { CheckTextInput } from '@/components/molecules';
-import {
-  Space,
-  SubmitButton,
-  LoadingModal,
-  Layout,
-  AppText,
-} from '@/components/atoms';
+import { Space, SubmitButton, LoadingModal, AppText } from '@/components/atoms';
 import I18n from '@/utils/I18n';
 import { emailInputError, emailValidate } from '@/utils/common';
 import {
@@ -22,6 +15,8 @@ import auth from '@react-native-firebase/auth';
 import { getLanguageToolCode } from '@/utils/grammarCheck';
 import { LongCode } from '@/types';
 import { useAppTheme } from '@/styles/colors';
+import { Layout } from '@/components/templates';
+import ModalSendEmail from '@/components/features/Modal/ModalSendEmail';
 
 type NavigationProp = CompositeNavigationProp<
   StackNavigationProp<SettingTabStackParamList, 'ForegetPassword'>,

@@ -4,11 +4,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as LocalAuthentication from 'expo-local-authentication';
 import { SecureStorageKey, StorageKey } from '@/constants/asyncStorage';
 import * as SecureStore from 'expo-secure-store';
-import { Layout, LoadingModal } from '@/components/atoms';
-import PasscodeLock from '@/components/organisms/PasscodeLock';
+import { LoadingModal } from '@/components/atoms';
+import PasscodeLock from '@/components/features/PasscodeLock';
 import { User } from '@/types';
 import firestore from '@react-native-firebase/firestore';
 import { checWithinkHourDiff } from '@/utils/time';
+import { Layout } from '@/components/templates';
 
 export interface Props {
   user: User;

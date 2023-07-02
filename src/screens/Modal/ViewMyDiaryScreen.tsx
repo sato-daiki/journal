@@ -2,13 +2,15 @@ import React, { useCallback, useLayoutEffect } from 'react';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
 import { Diary, LocalStatus, User } from '@/types';
-import MyDiary from '@/components/organisms/MyDiary/MyDiary';
 import {
   ModalViewMyDiaryStackNavigationProp,
   ModalViewMyDiaryStackParamList,
 } from '@/navigations/ModalNavigator';
-import { HeaderText, Layout } from '@/components/atoms';
+
+import { Layout } from '@/components/templates';
 import I18n from '@/utils/I18n';
+import MyDiaryMain from '@/components/features/MyDiary/MyDiaryMain';
+import HeaderText from '@/components/features/Header/HeaderText';
 
 export interface Props {
   diary?: Diary;
@@ -58,7 +60,7 @@ const ViewMyDiaryScreen: React.FC<ScreenType> = ({
 
   return (
     <Layout>
-      <MyDiary
+      <MyDiaryMain
         isView
         navigation={navigation}
         diary={diary}

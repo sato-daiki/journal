@@ -2,9 +2,9 @@ import React, { useCallback, useState } from 'react';
 import { View, StyleSheet, Image } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
+import { Layout } from '@/components/templates';
 import {
   AppText,
-  Layout,
   LinkText,
   LoadingModal,
   Space,

@@ -1,43 +1,49 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
   MaterialIcons,
   MaterialCommunityIcons,
   Feather,
   FontAwesome,
 } from '@expo/vector-icons';
-
-import { mainColor, primaryColor } from '../../styles/Common';
 import { StyleProp, TextStyle } from 'react-native';
+import { useAppTheme } from '@/styles/colors';
 
 export type IconType = 'material' | 'community' | 'feather' | 'fontAwesome';
 
 type Props = {
   style?: StyleProp<TextStyle>;
-  isHover?: boolean;
+  disabled?: boolean;
   icon: IconType;
   size: number;
   name: any;
   color?: string;
-  hoverColor?: string;
+  onPress?: () => void;
 };
 
-// defautlはopacityの設定のみ
 const Icon: React.FC<Props> = ({
   style,
-  isHover,
   icon,
   name,
   size,
-  color = primaryColor,
-  hoverColor = mainColor,
+  color: propsColor,
+  disabled,
+  onPress: propsPress,
 }) => {
+  const theme = useAppTheme();
+  const onPress = useCallback(() => {
+    if (!disabled) {
+      propsPress;
+    }
+  }, [disabled, propsPress]);
+
   if (icon === 'material') {
     return (
       <MaterialIcons
         style={style}
         name={name}
         size={size}
-        color={isHover ? hoverColor : color}
+        color={propsColor || theme.colors.primary}
+        onPress={onPress}
       />
     );
   }
@@ -47,7 +53,8 @@ const Icon: React.FC<Props> = ({
         style={style}
         name={name}
         size={size}
-        color={isHover ? hoverColor : color}
+        color={propsColor || theme.colors.primary}
+        onPress={onPress}
       />
     );
   }
@@ -57,7 +64,8 @@ const Icon: React.FC<Props> = ({
         style={style}
         name={name}
         size={size}
-        color={isHover ? hoverColor : color}
+        color={propsColor || theme.colors.primary}
+        onPress={onPress}
       />
     );
   }
@@ -67,7 +75,8 @@ const Icon: React.FC<Props> = ({
         style={style}
         name={name}
         size={size}
-        color={isHover ? hoverColor : color}
+        color={propsColor || theme.colors.primary}
+        onPress={onPress}
       />
     );
   }

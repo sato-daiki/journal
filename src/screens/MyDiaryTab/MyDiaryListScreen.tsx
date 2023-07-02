@@ -8,13 +8,10 @@ import React, {
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
-import MyDiaryListFlatList from '@/components/organisms/MyDiaryList/MyDiaryListFlatList';
-import {
-  HeaderIcon,
-  HeaderText,
-  Layout,
-  LoadingModal,
-} from '@/components/atoms';
+import MyDiaryListFlatList from '@/components/features/MyDiaryList/MyDiaryListFlatList';
+
+import { Layout } from '@/components/templates';
+import { Icon, LoadingModal } from '@/components/atoms';
 import { LocalStatus, MyDiaryListView } from '@/types/localStatus';
 import I18n from '@/utils/I18n';
 import {
@@ -22,13 +19,15 @@ import {
   MyDiaryTabNavigationProp,
 } from '@/navigations/MyDiaryTabNavigator';
 import { commonAlert } from '@/utils/locales/alert';
-import MyDiaryListCalendar from '@/components/organisms/MyDiaryList/MyDiaryListCalendar';
+import MyDiaryListCalendar from '@/components/features/MyDiaryList/MyDiaryListCalendar';
 import { User, Diary } from '@/types';
 import { FetchInfoState } from '@/stores/reducers/diaryList';
 import { useFirstScreen } from './useFirstScreen';
 import firestore from '@react-native-firebase/firestore';
 import { getDiaries, getDiaryNum, getLoadNextPage } from '@/utils/diary';
 import { logAnalytics } from '@/utils/Analytics';
+import HeaderIcon from '@/components/features/Header/HeaderIcon';
+import HeaderText from '@/components/features/Header/HeaderText';
 
 export interface Props {
   user: User;
@@ -209,15 +208,19 @@ const MyDiaryListScreen: React.FC<ScreenType> = ({
 
   const headerRight = useCallback(
     () => (
-      <HeaderIcon
-        icon='community'
-        name={
-          !localStatus.myDiaryListView || localStatus.myDiaryListView === 'list'
-            ? 'calendar'
-            : 'format-list-bulleted'
-        }
-        onPress={onPressRight}
-      />
+      <HeaderIcon>
+        <Icon
+          icon='community'
+          size={28}
+          name={
+            !localStatus.myDiaryListView ||
+            localStatus.myDiaryListView === 'list'
+              ? 'calendar'
+              : 'format-list-bulleted'
+          }
+          onPress={onPressRight}
+        />
+      </HeaderIcon>
     ),
     [localStatus.myDiaryListView, onPressRight],
   );

@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import {
   View,
-  Text,
   TextInput,
   StyleSheet,
   TextInputProps,
@@ -10,53 +9,14 @@ import {
 } from 'react-native';
 import {
   softRed,
-  fontSizeS,
   fontSizeM,
   primaryColor,
   borderLightColor,
   offWhite,
   green,
-  subTextColor,
 } from '../../styles/Common';
-import { HoverableIcon, Icon } from '../atoms';
-
-const styles = StyleSheet.create({
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  iconRow: {
-    position: 'absolute',
-    right: 16,
-  },
-  errorBorder: {
-    borderColor: softRed,
-    borderBottomWidth: 2,
-    borderWidth: 2,
-  },
-  errorContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 6,
-    paddingRight: 8,
-  },
-  textInput: {
-    width: '100%',
-    fontSize: fontSizeM,
-    color: primaryColor,
-    paddingLeft: 16,
-    paddingRight: 46,
-    paddingVertical: Platform.OS === 'ios' ? 14 : 8,
-    backgroundColor: offWhite,
-    borderRadius: 6,
-    borderColor: borderLightColor,
-  },
-  error: {
-    color: softRed,
-    fontSize: fontSizeS,
-    marginLeft: 6,
-  },
-});
+import { AppText, Icon } from '../atoms';
+import { useAppTheme } from '@/styles/colors';
 
 type Props = {
   isLoading?: boolean;
@@ -66,6 +26,7 @@ type Props = {
 } & TextInputProps;
 
 const CheckTextInput = (props: Props) => {
+  const theme = useAppTheme();
   const {
     isCheckOk = false,
     isLoading = false,
@@ -105,11 +66,11 @@ const CheckTextInput = (props: Props) => {
             />
           ) : null}
           {isPassword && (
-            <HoverableIcon
+            <Icon
               size={24}
               icon='community'
               name={showPassword ? 'eye' : 'eye-off'}
-              color={subTextColor}
+              color={theme.colors.secondary}
               onPress={onPressPasswordIcon}
             />
           )}
@@ -119,15 +80,53 @@ const CheckTextInput = (props: Props) => {
         <View style={styles.errorContainer}>
           <Icon
             icon='fontAwesome'
-            size={fontSizeM}
+            size={14}
             name='exclamation-circle'
-            color={softRed}
+            color={theme.colors.danger}
           />
-          <Text style={styles.error}>{errorMessage}</Text>
+          <AppText size='s' color={theme.colors.danger} style={styles.error}>
+            {errorMessage}
+          </AppText>
         </View>
       ) : null}
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  iconRow: {
+    position: 'absolute',
+    right: 16,
+  },
+  errorBorder: {
+    borderColor: softRed,
+    borderBottomWidth: 2,
+    borderWidth: 2,
+  },
+  errorContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 6,
+    paddingRight: 8,
+  },
+  textInput: {
+    width: '100%',
+    fontSize: fontSizeM,
+    color: primaryColor,
+    paddingLeft: 16,
+    paddingRight: 46,
+    paddingVertical: Platform.OS === 'ios' ? 14 : 8,
+    backgroundColor: offWhite,
+    borderRadius: 6,
+    borderColor: borderLightColor,
+  },
+  error: {
+    marginLeft: 6,
+  },
+});
 
 export default CheckTextInput;

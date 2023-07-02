@@ -3,7 +3,6 @@ import { StyleSheet } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
 import { logAnalytics, events } from '../../utils/Analytics';
-import ModalDeleteAcount from '../../components/organisms/ModalDeleteAcount';
 import I18n from '../../utils/I18n';
 import { alert } from '../../utils/ErrorAlert';
 import {
@@ -11,8 +10,10 @@ import {
   SettingTabStackParamList,
 } from '../../navigations/SettingTabNavigator';
 import auth from '@react-native-firebase/auth';
-import { AppText, Layout, Space, WhiteButton } from '@/components/atoms';
+import { Layout } from '@/components/templates';
+import { AppText, Space, WhiteButton } from '@/components/atoms';
 import { useAppTheme } from '@/styles/colors';
+import ModalDeleteAcount from '@/components/features/Modal/ModalDeleteAcount';
 
 interface DispatchProps {
   signOut: () => void;

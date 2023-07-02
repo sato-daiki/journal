@@ -1,25 +1,25 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, SafeAreaView } from 'react-native';
-import Slider from '@react-native-community/slider';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import { Audio, AVPlaybackStatus } from 'expo-av';
 import * as FileSystem from 'expo-file-system';
 import { CompositeNavigationProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+
 import { logAnalytics } from '@/utils/Analytics';
+import { Layout } from '@/components/templates';
 import {
-  HeaderText,
-  HoverableIcon,
-  Layout,
+  AppSlider,
+  AppText,
   LoadingModal,
   SmallButtonWhite,
-} from '@/components/atoms';
+  Space,
+} from '@/components';
 import { Diary, User } from '@/types';
 import I18n from '@/utils/I18n';
 import {
   ModalRecordStackParamList,
   ModaRecordStackNavigationProp,
 } from '@/navigations/ModalNavigator';
-import { DiaryTitleAndText } from '@/components/molecules';
 import {
   borderLightColor,
   fontSizeS,
@@ -30,8 +30,11 @@ import {
 } from '@/styles/Common';
 import { deleteStorageAsync, uploadStorageAsync } from '@/utils/storage';
 import firestore from '@react-native-firebase/firestore';
-import ModalConfirm from '@/components/organisms/ModalConfirm';
+import ModalConfirm from '@/components/features/Modal/ModalConfirm';
 import { useAppTheme } from '@/styles/colors';
+import HeaderText from '@/components/features/Header/HeaderText';
+import DiaryTitle from '@/components/features/MyDiary/DiaryTitle';
+import DiaryText from '@/components/features/MyDiary/DiaryText';
 
 export type Props = {
   diary?: Diary;
@@ -503,7 +506,9 @@ export default class RecordScreen extends React.Component<ScreenType, State> {
 
       if (soundDuration && soundDuration / 1000 >= 120) {
         return (
-          <Text style={styles.notSaveText}>{I18n.t('record.notSave')}</Text>
+          <AppText style={styles.notSaveText}>
+            {I18n.t('record.notSave')}
+          </AppText>
         );
       }
       return (
@@ -534,33 +539,32 @@ export default class RecordScreen extends React.Component<ScreenType, State> {
           }}
         />
         <ScrollView style={styles.scrollView}>
-          <DiaryTitleAndText
+          <DiaryTitle
             title={diary.reviseTitle || diary.title}
-            text={diary.reviseText || diary.text}
             themeCategory={diary.themeCategory}
             themeSubcategory={diary.themeSubcategory}
           />
+          <Space size={16} />
+          <DiaryText text={diary.reviseText || diary.text} />
         </ScrollView>
         {this.sound ? (
           <View
             style={[
               styles.playContaier,
-              { backgroundColor: theme.colors.danger },
+              // { backgroundColor: theme.colors.danger },
             ]}
           >
-            <Slider
-              minimumTrackTintColor={primaryColor}
+            <AppSlider
               value={this.getSeekSliderPosition()}
               onValueChange={this.onSeekSliderValueChange}
               onSlidingComplete={this.onSeekSliderSlidingComplete}
-              thumbTintColor={primaryColor}
               disabled={!isPlaybackAllowed || isLoading}
             />
-            <Text style={styles.timestampText}>
+            <AppText style={styles.timestampText}>
               {this.getPlaybackTimestamp()}
-            </Text>
+            </AppText>
             <View style={styles.playButtonContainer}>
-              <HoverableIcon
+              <Icon
                 disabled={!isPlaybackAllowed || isLoading}
                 icon='community'
                 name={isPlaying ? 'pause' : 'play'}
@@ -574,7 +578,7 @@ export default class RecordScreen extends React.Component<ScreenType, State> {
         ) : null}
 
         <View style={styles.recordButtonContainer}>
-          <HoverableIcon
+          <Icon
             disabled={isLoading}
             icon='community'
             name={isRecording ? 'stop' : 'record'}
@@ -583,9 +587,9 @@ export default class RecordScreen extends React.Component<ScreenType, State> {
             onPress={this.onRecordPressed}
           />
           {isRecording ? (
-            <Text style={[styles.timestampText, styles.recordingText]}>
+            <AppText style={[styles.timestampText, styles.recordingText]}>
               {this.getRecordingTimestamp()}
-            </Text>
+            </AppText>
           ) : null}
         </View>
       </Layout>

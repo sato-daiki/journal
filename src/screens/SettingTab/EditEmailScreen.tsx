@@ -15,13 +15,8 @@ import {
   SettingTabNavigationProp,
 } from '../../navigations/SettingTabNavigator';
 import auth from '@react-native-firebase/auth';
-import {
-  AppText,
-  Layout,
-  LoadingModal,
-  Space,
-  SubmitButton,
-} from '@/components/atoms';
+import { AppText, LoadingModal, Space, SubmitButton } from '@/components/atoms';
+import { Layout } from '@/components/templates';
 
 type EditEmailNavigationProp = CompositeNavigationProp<
   StackNavigationProp<SettingTabStackParamList, 'EditEmail'>,

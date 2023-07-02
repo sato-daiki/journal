@@ -6,10 +6,17 @@ import {
   TextStyle,
   StyleProp,
 } from 'react-native';
-import { fontSizeL, fontSizeLL, fontSizeM, fontSizeS } from '@/styles/Common';
+import {
+  fontSizeL,
+  fontSizeLL,
+  fontSizeLLL,
+  fontSizeM,
+  fontSizeS,
+  fontSizeSS,
+} from '@/styles/Common';
 import { useAppTheme } from '@/styles/colors';
 
-export type TextSize = 'll' | 'l' | 'm' | 's';
+export type TextSize = 'lll' | 'll' | 'l' | 'm' | 's' | 'ss';
 type Props = {
   size: TextSize;
   bold?: boolean;
@@ -20,6 +27,10 @@ type Props = {
 } & TextProps;
 
 const styles = StyleSheet.create({
+  lllText: {
+    fontSize: fontSizeLLL,
+    lineHeight: fontSizeLLL * 1.3,
+  },
   llText: {
     fontSize: fontSizeLL,
     lineHeight: fontSizeLL * 1.3,
@@ -35,6 +46,10 @@ const styles = StyleSheet.create({
   sText: {
     fontSize: fontSizeS,
     lineHeight: fontSizeS * 1.3,
+  },
+  ssText: {
+    fontSize: fontSizeSS,
+    lineHeight: fontSizeSS * 1.3,
   },
   bold: {
     fontWeight: 'bold',
@@ -55,14 +70,16 @@ const AppText = ({
   return (
     <Text
       style={[
-        size === 'll'
-          ? styles.llText
-          : size === 'l'
-          ? styles.lText
+        size === 's'
+          ? styles.sText
           : size === 'm'
           ? styles.mText
-          : size === 's'
-          ? styles.sText
+          : size === 'l'
+          ? styles.lText
+          : size === 'll'
+          ? styles.llText
+          : size === 'lll'
+          ? styles.lllText
           : null,
         bold && styles.bold,
         {

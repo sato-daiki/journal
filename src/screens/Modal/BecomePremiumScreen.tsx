@@ -19,19 +19,19 @@ import {
   ModalBecomePremiumStackParamList,
 } from '@/navigations/ModalNavigator';
 
+import { Layout } from '@/components/templates';
 import {
   AppText,
-  HeaderText,
   Icon,
-  Layout,
   LinkText,
   LoadingModal,
   RadioBox,
   Space,
   SubmitButton,
-} from '@/components/atoms';
+} from '@/components';
 import { checkPremium } from '@/utils/purchase';
 import { useAppTheme } from '@/styles/colors';
+import HeaderText from '@/components/features/Header/HeaderText';
 
 interface DispatchProps {
   setIsPremium: (isPremium: boolean) => void;
@@ -50,13 +50,12 @@ const BecomePremiumScreen: React.FC<ScreenType> = ({
   setIsPremium,
   navigation,
 }) => {
+  const theme = useAppTheme();
   const { currentUser } = auth();
   const [currentOffering, setCurrentOffering] =
     useState<PurchasesOffering | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [purchasesPackage, setPurchasesPackage] = useState<PurchasesPackage>();
-
-  const theme = useAppTheme();
 
   const onPressItem = useCallback((v) => {
     setPurchasesPackage(v);
@@ -141,29 +140,14 @@ const BecomePremiumScreen: React.FC<ScreenType> = ({
         style={[styles.becomeContainer, { borderColor: theme.colors.main }]}
       >
         <View style={styles.row}>
-          <Icon
-            icon='community'
-            name='star-four-points-outline'
-            size={18}
-            color={theme.colors.primary}
-          />
+          <Icon icon='community' name='star-four-points-outline' size={18} />
           <AppText size='ll' bold style={styles.becomeTitle}>
             {I18n.t('becomePremium.becomeTitle')}
           </AppText>
-          <Icon
-            icon='community'
-            name='star-four-points-outline'
-            size={18}
-            color={theme.colors.primary}
-          />
+          <Icon icon='community' name='star-four-points-outline' size={18} />
         </View>
         <View style={styles.labelContainer}>
-          <Icon
-            icon='community'
-            name='check'
-            size={24}
-            color={theme.colors.primary}
-          />
+          <Icon icon='community' name='check' size={24} />
           <View>
             <AppText size='l' bold style={styles.becomeText}>
               {I18n.t('becomePremium.props1')}
@@ -176,12 +160,7 @@ const BecomePremiumScreen: React.FC<ScreenType> = ({
         </View>
         <Space size={8} />
         <View style={styles.labelContainer}>
-          <Icon
-            icon='community'
-            name='check'
-            size={24}
-            color={theme.colors.primary}
-          />
+          <Icon icon='community' name='check' size={24} />
           <AppText size='m' bold style={styles.becomeText}>
             {I18n.t('becomePremium.props2')}
           </AppText>
@@ -194,7 +173,6 @@ const BecomePremiumScreen: React.FC<ScreenType> = ({
           <View key={item.identifier}>
             <RadioBox
               checked={item.identifier === purchasesPackage?.identifier}
-              color={theme.colors.main}
               textComponent={
                 <View style={styles.priceContainer}>
                   <AppText size='m'>

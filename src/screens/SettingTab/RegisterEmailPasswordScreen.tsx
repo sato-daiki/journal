@@ -9,13 +9,8 @@ import {
   emaillExistCheck,
 } from '../../utils/common';
 import { CheckTextInput } from '../../components/molecules';
-import {
-  Space,
-  SubmitButton,
-  LoadingModal,
-  Layout,
-  AppText,
-} from '@/components/atoms';
+import { Layout } from '@/components/templates';
+import { Space, SubmitButton, LoadingModal, AppText } from '@/components/atoms';
 import I18n from '../../utils/I18n';
 import {
   SettingTabStackParamList,

@@ -9,8 +9,10 @@ import {
   ModalSelectDiaryTypeStackParamList,
 } from '@/navigations/ModalNavigator';
 import I18n from '@/utils/I18n';
-import { SelecttionBox } from '@/components/molecules';
-import { HeaderText, HoverableIcon, Layout } from '@/components/atoms';
+import { Layout } from '@/components/templates';
+import HeaderText from '@/components/features/Header/HeaderText';
+import SelecttionBox from '@/components/features/SelectDiaryType/SelecttionBox';
+import { Icon } from '@/components';
 
 type NavigationProp = CompositeNavigationProp<
   StackNavigationProp<ModalSelectDiaryTypeStackParamList, 'SelectDiaryType'>,
@@ -98,12 +100,11 @@ const SelectDiaryTypeScreen: React.FC<ScreenType> = ({ navigation }) => {
           title={I18n.t('themeCategory.eiken1')}
           text={I18n.t('selectDiaryType.textEiken1')}
           image={
-            <HoverableIcon
+            <Icon
               icon={'community'}
               name={'numeric-1-box'}
               size={36}
               style={styles.icon}
-              color={theme.colors.primary}
             />
           }
           onPress={onPressEiken1}
@@ -113,12 +114,11 @@ const SelectDiaryTypeScreen: React.FC<ScreenType> = ({ navigation }) => {
           title={I18n.t('themeCategory.eikenPre1')}
           text={I18n.t('selectDiaryType.textEikenPre1')}
           image={
-            <HoverableIcon
+            <Icon
               icon={'community'}
               name={'numeric-1-box-multiple-outline'}
               size={32}
               style={styles.icon}
-              color={theme.colors.primary}
             />
           }
           onPress={onPressEikenPre1}
@@ -131,12 +131,11 @@ const SelectDiaryTypeScreen: React.FC<ScreenType> = ({ navigation }) => {
           title={I18n.t('themeCategory.eiken2')}
           text={I18n.t('selectDiaryType.textEiken2')}
           image={
-            <HoverableIcon
+            <Icon
               icon={'community'}
               name={'numeric-2-box'}
               size={36}
               style={styles.icon}
-              color={theme.colors.primary}
             />
           }
           onPress={onPressEiken2}
@@ -146,12 +145,11 @@ const SelectDiaryTypeScreen: React.FC<ScreenType> = ({ navigation }) => {
           title={I18n.t('themeCategory.eikenPre2')}
           text={I18n.t('selectDiaryType.textEikenPre2')}
           image={
-            <HoverableIcon
+            <Icon
               icon={'community'}
               name={'numeric-2-box-multiple-outline'}
               size={32}
               style={styles.icon}
-              color={theme.colors.primary}
             />
           }
           onPress={onPressEikenPre2}

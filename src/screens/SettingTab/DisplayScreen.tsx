@@ -10,8 +10,8 @@ import {
 } from '../../navigations/SettingTabNavigator';
 
 import { DarkMode, LocalStatus, ThemeColor } from '../../types';
-import OptionCheck from '@/components/molecules/OptionCheck';
-import { Layout } from '@/components/atoms';
+import { Layout } from '@/components/templates';
+import OptionItem from '@/components/molecules/OptionItem';
 
 export interface Props {
   localStatus: LocalStatus;
@@ -72,11 +72,12 @@ const DisplayScreen: React.FC<ScreenType> = ({ localStatus, setDarkMode }) => {
   return (
     <Layout innerStyle={styles.container}>
       {options.map((option, index) => (
-        <OptionCheck
+        <OptionItem
+          type='check'
           key={index}
           isBorrderTop={index === 0}
           title={option.title}
-          value={option.value === tempDarkMode}
+          checkValue={option.value === tempDarkMode}
           onPress={() => onPressItem(option.value)}
         />
       ))}

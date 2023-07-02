@@ -1,23 +1,50 @@
 import React, { ReactNode } from 'react';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import {
   View,
   StyleSheet,
-  Text,
   TouchableWithoutFeedback,
   StyleProp,
   TextStyle,
 } from 'react-native';
-import { mainColor, fontSizeM, primaryColor } from '../../styles/Common';
+import Icon from './Icon';
+import { useAppTheme } from '@/styles/colors';
+import AppText from './AppText';
 
 interface Props {
   textStyle?: StyleProp<TextStyle>;
   checked: boolean;
-  color: string;
   text?: string;
   textComponent?: ReactNode;
   onPress: () => void;
 }
+
+const RadioBox: React.FC<Props> = ({
+  textStyle,
+  checked,
+  text,
+  textComponent,
+  onPress,
+}: Props) => {
+  const theme = useAppTheme();
+  return (
+    <TouchableWithoutFeedback onPress={onPress}>
+      <View style={styles.container}>
+        <Icon
+          icon='community'
+          size={24}
+          color={theme.colors.main}
+          name={checked ? 'radiobox-marked' : 'radiobox-blank'}
+        />
+        {text && (
+          <AppText size='m' style={[styles.radioBoxText, textStyle]}>
+            {text}
+          </AppText>
+        )}
+        {textComponent && textComponent}
+      </View>
+    </TouchableWithoutFeedback>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -25,33 +52,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   radioBoxText: {
-    fontSize: fontSizeM,
-    color: primaryColor,
     paddingLeft: 4,
   },
 });
-
-const RadioBox: React.FC<Props> = ({
-  textStyle,
-  checked,
-  color = mainColor,
-  text,
-  textComponent,
-  onPress,
-}: Props) => {
-  return (
-    <TouchableWithoutFeedback onPress={onPress}>
-      <View style={styles.container}>
-        <MaterialCommunityIcons
-          size={24}
-          color={color}
-          name={checked ? 'radiobox-marked' : 'radiobox-blank'}
-        />
-        {text && <Text style={[styles.radioBoxText, textStyle]}>{text}</Text>}
-        {textComponent && textComponent}
-      </View>
-    </TouchableWithoutFeedback>
-  );
-};
 
 export default React.memo(RadioBox);

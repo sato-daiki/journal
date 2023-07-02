@@ -1,15 +1,15 @@
 import React, { ReactNode } from 'react';
 import {
-  Text,
   StyleSheet,
   ActivityIndicator,
   StyleProp,
   ViewStyle,
   TextStyle,
   View,
+  TouchableOpacity,
 } from 'react-native';
-import { mainColor, fontSizeM, maxPartL } from '../../styles/Common';
-import Hoverable from './Hoverable';
+import { useAppTheme } from '@/styles/colors';
+import AppText from './AppText';
 
 interface Props {
   containerStyle?: StyleProp<ViewStyle>;
@@ -21,28 +21,6 @@ interface Props {
   onPress?: () => void;
 }
 
-const styles = StyleSheet.create({
-  contaner: {
-    borderRadius: 22,
-    backgroundColor: mainColor,
-    width: '100%',
-    maxWidth: maxPartL,
-    height: 44,
-    alignItems: 'center',
-    justifyContent: 'center',
-    alignSelf: 'center',
-    flexDirection: 'row',
-  },
-  icon: {
-    marginRight: 6,
-  },
-  title: {
-    color: '#fff',
-    fontSize: fontSizeM,
-    fontWeight: 'bold',
-  },
-});
-
 const SubmitButton: React.FC<Props> = ({
   icon,
   isLoading = false,
@@ -52,22 +30,45 @@ const SubmitButton: React.FC<Props> = ({
   containerStyle,
   textStyle,
 }: Props) => {
+  const theme = useAppTheme();
+
   return (
-    <Hoverable
-      style={[styles.contaner, containerStyle]}
+    <TouchableOpacity
+      style={[
+        styles.contaner,
+        { backgroundColor: theme.colors.main },
+        containerStyle,
+      ]}
       activeOpacity={isLoading || disable ? 1 : 0.2}
       onPress={isLoading || disable ? undefined : onPress}
     >
       {isLoading ? (
-        <ActivityIndicator size='small' color='#fff' />
+        <ActivityIndicator size='small' color={theme.colors.white} />
       ) : (
         <>
           {icon && <View style={styles.icon}>{icon}</View>}
-          <Text style={[styles.title, textStyle]}>{title}</Text>
+          <AppText size='m' bold color={theme.colors.white} style={textStyle}>
+            {title}
+          </AppText>
         </>
       )}
-    </Hoverable>
+    </TouchableOpacity>
   );
 };
+
+const styles = StyleSheet.create({
+  contaner: {
+    borderRadius: 22,
+    width: '100%',
+    height: 44,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    flexDirection: 'row',
+  },
+  icon: {
+    marginRight: 6,
+  },
+});
 
 export default React.memo(SubmitButton);

@@ -2,12 +2,9 @@ import React, { useLayoutEffect, useCallback, useRef, useState } from 'react';
 import { View, StyleSheet, FlatList, ListRenderItem } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
-import {
-  HeaderText,
-  Layout,
-  LoadingModal,
-  SmallButtonSubmit,
-} from '@/components/atoms';
+
+import { Layout } from '@/components/templates';
+import { LoadingModal, SmallButtonSubmit } from '@/components';
 import { useAppTheme } from '@/styles/colors';
 import I18n from '@/utils/I18n';
 import { User, Diary } from '@/types';
@@ -16,12 +13,13 @@ import {
   ModalEditMyDiaryListStackParamList,
 } from '@/navigations/ModalNavigator';
 import { FetchInfoState } from '@/stores/reducers/diaryList';
-import EditMyDiaryListItem from '@/components/organisms/EditMyDiaryListItem';
+import EditMyDiaryListItem from '@/components/features/EditMyDiaryList/EditMyDiaryListItem';
 import { fontSizeS } from '@/styles/Common';
-import ModalConfirm from '@/components/organisms/ModalConfirm';
+import ModalConfirm from '@/components/features/Modal/ModalConfirm';
 import firestore from '@react-native-firebase/firestore';
 import { getLoadNextPage } from '@/utils/diary';
 import { logAnalytics } from '@/utils/Analytics';
+import HeaderText from '@/components/features/Header/HeaderText';
 
 export interface Props {
   user: User;
@@ -141,8 +139,10 @@ const EditMyDiaryListScreen: React.FC<ScreenType> = ({
       <View style={styles.buttonContainer}>
         <SmallButtonSubmit
           titleStyle={[
-            checkedIdsLength === 0 && styles.disableTitileText,
-            { color: theme.colors.borderLight },
+            checkedIdsLength === 0 && {
+              ...styles.disableTitileText,
+              color: theme.colors.secondary,
+            },
           ]}
           disable={checkedIdsLength === 0}
           title={`${I18n.t('common.delete')}${

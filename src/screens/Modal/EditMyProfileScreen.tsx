@@ -3,7 +3,8 @@ import { StyleSheet } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
 
-import { AppText, HeaderText, Layout, Space } from '@/components/atoms';
+import { Layout } from '@/components/templates';
+import { AppText, Space } from '@/components';
 import { LongCode, User } from '@/types';
 import I18n from '@/utils/I18n';
 import { SettingTabNavigationProp } from '@/navigations/SettingTabNavigator';
@@ -13,8 +14,9 @@ import {
 } from '@/navigations/ModalNavigator';
 import firestore from '@react-native-firebase/firestore';
 import { getLanguageToolName } from '@/utils/grammarCheck';
-import LanguagePicker from '@/components/organisms/LanguagePicker';
+import LanguagePicker from '@/components/molecules/LanguageModalPicker/LanguagePicker';
 import { PickerItem } from '@/components/molecules/ModalPicker';
+import HeaderText from '@/components/features/Header/HeaderText';
 
 export interface Props {
   user: User;

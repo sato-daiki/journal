@@ -10,8 +10,8 @@ import I18n from '../../utils/I18n';
 import { RouteProp } from '@react-navigation/native';
 import Toast from 'react-native-root-toast';
 import { SecureStorageKey, StorageKey } from '@/constants/asyncStorage';
-import PasscodeLock from '@/components/organisms/PasscodeLock';
-import { Layout } from '@/components/atoms';
+import PasscodeLock from '@/components/features/PasscodeLock';
+import { Layout } from '@/components/templates';
 
 interface DispatchProps {
   setHasPasscode: (hasPasscode: boolean) => void;

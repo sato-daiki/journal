@@ -1,8 +1,8 @@
 import React, { useEffect, useCallback } from 'react';
 import { View, StyleSheet, Image } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
-
-import { AppText, Layout, LinkText, SubmitButton } from '@/components/atoms';
+import { Layout } from '@/components/templates';
+import { AppText, LinkText, SubmitButton } from '@/components/atoms';
 import { AuthStackParamList } from '@/navigations/AuthNavigator';
 import { Logo } from '@/images';
 import { logAnalytics, events } from '@/utils/Analytics';

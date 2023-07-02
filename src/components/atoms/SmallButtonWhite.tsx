@@ -1,14 +1,14 @@
 import React, { ReactNode } from 'react';
 import {
-  Text,
   StyleSheet,
   ActivityIndicator,
   StyleProp,
   ViewStyle,
   View,
+  TouchableOpacity,
 } from 'react-native';
-import { mainColor, fontSizeM } from '../../styles/Common';
-import Hoverable from './Hoverable';
+import AppText from './AppText';
+import { useAppTheme } from '@/styles/colors';
 
 interface Props {
   containerStyle?: StyleProp<ViewStyle>;
@@ -19,6 +19,40 @@ interface Props {
   title: string;
   onPress: () => void;
 }
+
+const SmallButtonWhite: React.FC<Props> = ({
+  containerStyle,
+  icon,
+  isLoading = false,
+  disable = false,
+  color,
+  title,
+  onPress,
+}: Props) => {
+  const theme = useAppTheme();
+  return (
+    <TouchableOpacity
+      style={[
+        styles.contaner,
+        containerStyle,
+        { borderColor: color || theme.colors.main },
+      ]}
+      activeOpacity={isLoading || disable ? 1 : 0.2}
+      onPress={isLoading || disable ? undefined : onPress}
+    >
+      {isLoading ? (
+        <ActivityIndicator size='small' />
+      ) : (
+        <>
+          {icon && <View style={styles.icon}>{icon}</View>}
+          <AppText bold size='m' style={{ color: color || theme.colors.main }}>
+            {title}
+          </AppText>
+        </>
+      )}
+    </TouchableOpacity>
+  );
+};
 
 const styles = StyleSheet.create({
   contaner: {
@@ -33,37 +67,6 @@ const styles = StyleSheet.create({
   icon: {
     marginRight: 4,
   },
-  title: {
-    fontSize: fontSizeM,
-    fontWeight: 'bold',
-  },
 });
-
-const SmallButtonWhite: React.FC<Props> = ({
-  containerStyle,
-  icon,
-  isLoading = false,
-  disable = false,
-  color = mainColor,
-  title,
-  onPress,
-}: Props) => {
-  return (
-    <Hoverable
-      style={[styles.contaner, containerStyle, { borderColor: color }]}
-      activeOpacity={isLoading || disable ? 1 : 0.2}
-      onPress={isLoading || disable ? undefined : onPress}
-    >
-      {isLoading ? (
-        <ActivityIndicator size='small' />
-      ) : (
-        <>
-          {icon && <View style={styles.icon}>{icon}</View>}
-          <Text style={[styles.title, { color }]}>{title}</Text>
-        </>
-      )}
-    </Hoverable>
-  );
-};
 
 export default React.memo(SmallButtonWhite);

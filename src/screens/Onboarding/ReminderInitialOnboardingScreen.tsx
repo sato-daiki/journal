@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import { View, StyleSheet } from 'react-native';
-import ReminderInitial from '@/components/organisms/ReminderInitial';
-import { Layout, LinkText, Space, SubmitButton } from '@/components/atoms';
-
+import ReminderInitial from '@/components/features/ReminderSelectTime/ReminderInitial';
+import { LinkText, Space, SubmitButton } from '@/components/atoms';
+import { Layout } from '@/components/templates';
 import I18n from '@/utils/I18n';
 import { User } from '@/types';
 import { StackNavigationProp } from '@react-navigation/stack';

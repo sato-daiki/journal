@@ -1,11 +1,12 @@
 import React, { useLayoutEffect } from 'react';
 
-import { PostDiary } from '@/components/organisms/PostDiary';
-import { HeaderText } from '@/components/atoms';
+import { PostDiary } from '@/components/features/PostDiary';
 
 import I18n from '@/utils/I18n';
 import { usePostDiary } from './usePostDiary';
 import { ScreenType } from './interfaces';
+import { Layout } from '@/components';
+import HeaderText from '@/components/features/Header/HeaderText';
 
 /**
  * 概要：日記投稿画面
@@ -68,30 +69,32 @@ const PostDiaryScreen: React.FC<ScreenType> = ({
   }, [navigation, onPressClose, onPressCheck]);
 
   return (
-    <PostDiary
-      navigation={navigation}
-      isLoading={isLoadingDraft || isLoadingPublish}
-      isModalCancel={isModalCancel}
-      isModalError={isModalError}
-      isImageLoading={isImageLoading}
-      title={title}
-      text={text}
-      images={images}
-      themeCategory={route?.params?.themeCategory}
-      themeSubcategory={route?.params?.themeSubcategory}
-      errorMessage={errorMessage}
-      selectedItem={selectedItem}
-      onPressCloseModalCancel={onPressCloseModalCancel}
-      onChangeTextTitle={onChangeTextTitle}
-      onChangeTextText={onChangeTextText}
-      onPressChooseImage={onPressChooseImage}
-      onPressCamera={onPressCamera}
-      onPressDeleteImage={onPressDeleteImage}
-      onPressDraft={onPressDraft}
-      onPressNotSave={onPressNotSave}
-      onPressCloseError={onPressCloseError}
-      onPressItem={onPressItem}
-    />
+    <Layout>
+      <PostDiary
+        navigation={navigation}
+        isLoading={isLoadingDraft || isLoadingPublish}
+        isModalCancel={isModalCancel}
+        isModalError={isModalError}
+        isImageLoading={isImageLoading}
+        title={title}
+        text={text}
+        images={images}
+        themeCategory={route?.params?.themeCategory}
+        themeSubcategory={route?.params?.themeSubcategory}
+        errorMessage={errorMessage}
+        selectedItem={selectedItem}
+        onPressCloseModalCancel={onPressCloseModalCancel}
+        onChangeTextTitle={onChangeTextTitle}
+        onChangeTextText={onChangeTextText}
+        onPressChooseImage={onPressChooseImage}
+        onPressCamera={onPressCamera}
+        onPressDeleteImage={onPressDeleteImage}
+        onPressDraft={onPressDraft}
+        onPressNotSave={onPressNotSave}
+        onPressCloseError={onPressCloseError}
+        onPressItem={onPressItem}
+      />
+    </Layout>
   );
 };
 

@@ -1,9 +1,7 @@
 import React, { useState, useCallback } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { StackScreenProps } from '@react-navigation/stack';
-
-import { CheckTextInput } from '@/components/molecules';
 import {
   Space,
   SubmitButton,
@@ -11,11 +9,10 @@ import {
   LinkText,
   Layout,
   AppText,
-} from '@/components/atoms';
-
+  CheckTextInput,
+} from '@/components';
 import I18n from '@/utils/I18n';
 import { passwordInputError } from '@/utils/common';
-import { primaryColor, fontSizeM } from '@/styles/Common';
 import { SettingTabStackParamList } from '@/navigations/SettingTabNavigator';
 import auth from '@react-native-firebase/auth';
 

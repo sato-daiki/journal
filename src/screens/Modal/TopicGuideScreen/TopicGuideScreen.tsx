@@ -8,9 +8,8 @@ import {
   getEntries,
   Entry,
   TopicGuideEnd,
-} from '@/components/organisms/TopicGuide';
+} from '@/components/features/TopicGuid';
 
-import TopicGuideWord from '@/components/organisms/TopicGuide/TopicGuideWord';
 import { mainColor, primaryColor } from '@/styles/Common';
 
 import {
@@ -20,7 +19,8 @@ import {
 import { User } from '@/types';
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Layout } from '@/components/atoms';
+import { Layout } from '@/components/templates';
+import TopicGuideWord from '@/components/features/TopicGuid/TopicGuideWord';
 
 export interface Props {
   user: User;

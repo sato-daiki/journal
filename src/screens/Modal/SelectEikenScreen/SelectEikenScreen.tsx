@@ -7,9 +7,9 @@ import {
   ModalSelectDiaryTypeStackNavigationProp,
 } from '@/navigations/ModalNavigator';
 import { User } from '@/types';
-import SelectEikenListItem from '@/components/molecules/SelectEikenListItem';
+import SelectEikenListItem from '@/components/features/SelectEiken/SelectEikenListItem';
 import { EikentTitle, geEikentTitles } from './config/title';
-import { Layout } from '@/components/atoms';
+import { Layout } from '@/components/templates';
 
 export interface Props {
   user: User;

@@ -1,5 +1,10 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { StyleSheet, ScrollView, Linking } from 'react-native';
+import {
+  StyleSheet,
+  ScrollView,
+  Linking,
+  TouchableOpacity,
+} from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
 import * as SecureStore from 'expo-secure-store';
@@ -8,15 +13,9 @@ import Toast from 'react-native-root-toast';
 import { useAppTheme } from '@/styles/colors';
 
 import { primaryColor, borderLightColor } from '../../styles/Common';
-import { OptionItem } from '../../components/molecules';
-import {
-  Space,
-  Hoverable,
-  CountryNameWithFlag,
-  Icon,
-  Layout,
-  AppText,
-} from '@/components/atoms';
+import { CountryNameWithFlag, OptionItem } from '../../components/molecules';
+import { Layout } from '@/components/templates';
+import { Space, Icon, AppText } from '@/components/atoms';
 import { logAnalytics, events } from '../../utils/Analytics';
 import I18n from '../../utils/I18n';
 import { alert } from '../../utils/ErrorAlert';
@@ -28,7 +27,7 @@ import {
 
 import { LocalStatus, LongCode, User } from '../../types';
 import auth from '@react-native-firebase/auth';
-import ModalConfirm from '@/components/organisms/ModalConfirm';
+import ModalConfirm from '@/components/features/Modal/ModalConfirm';
 import {
   HOME_PAGE,
   PRIVACY_POLICY,
@@ -36,7 +35,6 @@ import {
   cancelEnUrl,
   cancelJaUrl,
 } from '@/constants/url';
-import OptionSwitch from '@/components/molecules/OptionSwitch';
 import { SecureStorageKey, StorageKey } from '@/constants/asyncStorage';
 import { getLanguageToolCode } from '@/utils/grammarCheck';
 
@@ -150,6 +148,7 @@ const SettingScreen: React.FC<ScreenType> = ({
         />
         {localStatus.isPremium ? (
           <OptionItem
+            type='nothing'
             isBorrderTop
             title={I18n.t('setting.status')}
             leftIcon={
@@ -168,6 +167,7 @@ const SettingScreen: React.FC<ScreenType> = ({
           />
         ) : (
           <OptionItem
+            type='right'
             isBorrderTop
             title={I18n.t('setting.aboutPremium')}
             leftIcon={
@@ -192,6 +192,7 @@ const SettingScreen: React.FC<ScreenType> = ({
         <Space size={8} />
 
         <OptionItem
+          type='right'
           isBorrderTop
           title={I18n.t('setting.learn')}
           leftIcon={
@@ -215,7 +216,8 @@ const SettingScreen: React.FC<ScreenType> = ({
             });
           }}
         />
-        <OptionSwitch
+        <OptionItem
+          type='switch'
           title={I18n.t('setting.passcodeLock')}
           leftIcon={
             <Icon
@@ -225,10 +227,11 @@ const SettingScreen: React.FC<ScreenType> = ({
               color={primaryColor}
             />
           }
-          value={localStatus.hasPasscode}
+          switchValue={localStatus.hasPasscode}
           onValueChange={onChangePasscodeLock}
         />
         <OptionItem
+          type='right'
           title={I18n.t('setting.reminder')}
           leftIcon={
             <Icon
@@ -243,6 +246,7 @@ const SettingScreen: React.FC<ScreenType> = ({
         {currentUser && currentUser.email ? (
           <>
             <OptionItem
+              type='right'
               title={I18n.t('setting.editEmail')}
               leftIcon={
                 <Icon
@@ -257,6 +261,7 @@ const SettingScreen: React.FC<ScreenType> = ({
               }}
             />
             <OptionItem
+              type='right'
               title={I18n.t('setting.editPassword')}
               leftIcon={
                 <Icon
@@ -273,6 +278,7 @@ const SettingScreen: React.FC<ScreenType> = ({
           </>
         ) : (
           <OptionItem
+            type='right'
             title={I18n.t('setting.registerEmailPassword')}
             leftIcon={
               <Icon
@@ -293,6 +299,7 @@ const SettingScreen: React.FC<ScreenType> = ({
         </AppText>
         <Space size={8} />
         <OptionItem
+          type='right'
           isBorrderTop
           title={I18n.t('setting.display')}
           onPress={(): void => {
@@ -305,6 +312,7 @@ const SettingScreen: React.FC<ScreenType> = ({
         </AppText>
         <Space size={8} />
         <OptionItem
+          type='right'
           isBorrderTop
           title={I18n.t('setting.inquiry')}
           onPress={(): void => {
@@ -312,18 +320,21 @@ const SettingScreen: React.FC<ScreenType> = ({
           }}
         />
         <OptionItem
+          type='right'
           title={I18n.t('setting.about')}
           onPress={(): void => {
             navigation.navigate('AboutWebView', HOME_PAGE);
           }}
         />
         <OptionItem
+          type='right'
           title={I18n.t('signUp.terms')}
           onPress={(): void => {
             navigation.navigate('AboutWebView', TERMS);
           }}
         />
         <OptionItem
+          type='right'
           title={I18n.t('signUp.privacy')}
           onPress={(): void => {
             navigation.navigate('AboutWebView', PRIVACY_POLICY);
@@ -331,6 +342,7 @@ const SettingScreen: React.FC<ScreenType> = ({
         />
         <Space size={16} />
         <OptionItem
+          type='right'
           isBorrderTop
           title={I18n.t('setting.deleteAcount')}
           onPress={(): void => {
@@ -339,6 +351,7 @@ const SettingScreen: React.FC<ScreenType> = ({
         />
         {localStatus.isPremium && (
           <OptionItem
+            type='right'
             title={I18n.t('setting.cancel')}
             onPress={onPressCancel}
           />
@@ -346,9 +359,12 @@ const SettingScreen: React.FC<ScreenType> = ({
         {currentUser && currentUser.email && (
           <>
             <Space size={16} />
-            <Hoverable style={styles.logoutButton} onPress={onPressLogout}>
+            <TouchableOpacity
+              style={styles.logoutButton}
+              onPress={onPressLogout}
+            >
               <AppText size='m'>{I18n.t('setting.logout')}</AppText>
-            </Hoverable>
+            </TouchableOpacity>
           </>
         )}
         <Space size={16} />

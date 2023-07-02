@@ -1,8 +1,8 @@
 import React from 'react';
 import { fontSizeL } from './Common';
-import { DefaultHeaderBack } from '../components/atoms';
 import { AppTheme } from '@/styles/colors';
 import { Platform } from 'react-native';
+import DefaultHeaderBack from '@/components/features/Header/DefaultHeaderBack';
 
 export const getDefaultScreenOptions = (theme: AppTheme) => {
   return {

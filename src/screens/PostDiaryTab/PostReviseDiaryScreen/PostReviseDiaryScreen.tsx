@@ -1,7 +1,7 @@
 import React, { useLayoutEffect } from 'react';
 
-import { HeaderText } from '@/components/atoms';
-import { PostDiary } from '@/components/organisms/PostDiary';
+import { Layout } from '@/components';
+import { PostDiary } from '@/components/features/PostDiary';
 
 import I18n from '@/utils/I18n';
 
@@ -13,6 +13,7 @@ import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Diary, User } from '@/types';
 import { usePostReviseDiary } from './usePostReviseDiary';
+import HeaderText from '@/components/features/Header/HeaderText';
 
 export interface Props {
   user: User;
@@ -87,28 +88,30 @@ const PostReviseDiaryScreen: React.FC<ScreenType> = ({
   }, [text, title, navigation, onPressClose, onPressCheck]);
 
   return (
-    <PostDiary
-      navigation={navigation}
-      isLoading={isInitialLoading || isLoadingPublish}
-      isModalCancel={isModalCancel}
-      isModalError={isModalError}
-      isImageLoading={isImageLoading}
-      title={title}
-      text={text}
-      images={images}
-      themeCategory={item.themeCategory}
-      themeSubcategory={item.themeSubcategory}
-      errorMessage={errorMessage}
-      onPressCloseModalCancel={onPressCloseModalCancel}
-      onChangeTextTitle={onChangeTextTitle}
-      onChangeTextText={onChangeTextText}
-      onPressChooseImage={onPressChooseImage}
-      onPressCamera={onPressCamera}
-      onPressDeleteImage={onPressDeleteImage}
-      onPressNotSave={onPressNotSave}
-      onPressCloseError={onPressCloseError}
-      onPressMyDiary={onPressMyDiary}
-    />
+    <Layout>
+      <PostDiary
+        navigation={navigation}
+        isLoading={isInitialLoading || isLoadingPublish}
+        isModalCancel={isModalCancel}
+        isModalError={isModalError}
+        isImageLoading={isImageLoading}
+        title={title}
+        text={text}
+        images={images}
+        themeCategory={item.themeCategory}
+        themeSubcategory={item.themeSubcategory}
+        errorMessage={errorMessage}
+        onPressCloseModalCancel={onPressCloseModalCancel}
+        onChangeTextTitle={onChangeTextTitle}
+        onChangeTextText={onChangeTextText}
+        onPressChooseImage={onPressChooseImage}
+        onPressCamera={onPressCamera}
+        onPressDeleteImage={onPressDeleteImage}
+        onPressNotSave={onPressNotSave}
+        onPressCloseError={onPressCloseError}
+        onPressMyDiary={onPressMyDiary}
+      />
+    </Layout>
   );
 };
 

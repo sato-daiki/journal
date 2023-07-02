@@ -3,8 +3,6 @@ import { FlatList, ListRenderItem } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
 
-import { SelectTopicSubcategoryListItem } from '@/components/molecules';
-
 import {
   ModalSelectDiaryTypeStackNavigationProp,
   ModalSelectDiaryTypeStackParamList,
@@ -12,7 +10,8 @@ import {
 import { User } from '@/types';
 import { TopicSubcategoryInfo } from './interface';
 import { first } from './config/first';
-import { Layout } from '@/components/atoms';
+import { Layout } from '@/components/templates';
+import SelectTopicSubcategoryListItem from '@/components/features/SelectTopicSubcategory/SelectTopicSubcategoryListItem';
 
 export interface Props {
   user: User;

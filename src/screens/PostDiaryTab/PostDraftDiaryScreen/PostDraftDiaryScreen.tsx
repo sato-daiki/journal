@@ -1,7 +1,6 @@
 import React, { useLayoutEffect } from 'react';
 
-import { HeaderText } from '@/components/atoms';
-import { PostDiary } from '@/components/organisms/PostDiary';
+import { PostDiary } from '@/components/features/PostDiary';
 
 import I18n from '@/utils/I18n';
 import { usePostDraftDiary } from './usePostDraftDiary';
@@ -13,6 +12,8 @@ import {
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Diary, User } from '@/types';
+import { Layout } from '@/components';
+import HeaderText from '@/components/features/Header/HeaderText';
 
 export interface Props {
   user: User;
@@ -93,30 +94,32 @@ const PostDraftDiaryScreen: React.FC<ScreenType> = ({
   }, [text, title, navigation, onPressClose, onPressDraft, onPressCheck]);
 
   return (
-    <PostDiary
-      navigation={navigation}
-      isLoading={isInitialLoading || isLoadingDraft || isLoadingPublish}
-      isModalCancel={isModalCancel}
-      isModalError={isModalError}
-      isImageLoading={isImageLoading}
-      title={title}
-      text={text}
-      images={images}
-      themeCategory={item.themeCategory}
-      themeSubcategory={item.themeSubcategory}
-      errorMessage={errorMessage}
-      selectedItem={selectedItem}
-      onPressCloseModalCancel={onPressCloseModalCancel}
-      onChangeTextTitle={onChangeTextTitle}
-      onChangeTextText={onChangeTextText}
-      onPressChooseImage={onPressChooseImage}
-      onPressCamera={onPressCamera}
-      onPressDeleteImage={onPressDeleteImage}
-      onPressDraft={onPressDraft}
-      onPressNotSave={onPressNotSave}
-      onPressCloseError={onPressCloseError}
-      onPressItem={onPressItem}
-    />
+    <Layout>
+      <PostDiary
+        navigation={navigation}
+        isLoading={isInitialLoading || isLoadingDraft || isLoadingPublish}
+        isModalCancel={isModalCancel}
+        isModalError={isModalError}
+        isImageLoading={isImageLoading}
+        title={title}
+        text={text}
+        images={images}
+        themeCategory={item.themeCategory}
+        themeSubcategory={item.themeSubcategory}
+        errorMessage={errorMessage}
+        selectedItem={selectedItem}
+        onPressCloseModalCancel={onPressCloseModalCancel}
+        onChangeTextTitle={onChangeTextTitle}
+        onChangeTextText={onChangeTextText}
+        onPressChooseImage={onPressChooseImage}
+        onPressCamera={onPressCamera}
+        onPressDeleteImage={onPressDeleteImage}
+        onPressDraft={onPressDraft}
+        onPressNotSave={onPressNotSave}
+        onPressCloseError={onPressCloseError}
+        onPressItem={onPressItem}
+      />
+    </Layout>
   );
 };
 
