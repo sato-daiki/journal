@@ -32,7 +32,7 @@ const Icon: React.FC<Props> = ({
   const theme = useAppTheme();
   const onPress = useCallback(() => {
     if (!disabled) {
-      propsPress;
+      propsPress?.();
     }
   }, [disabled, propsPress]);
 
