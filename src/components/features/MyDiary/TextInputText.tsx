@@ -1,14 +1,8 @@
 import React from 'react';
-import {
-  StyleSheet,
-  TextInput,
-  StyleProp,
-  TextStyle,
-  TextInputProps,
-} from 'react-native';
-import { fontSizeM, primaryColor, borderLightColor } from '@/styles/Common';
+import { StyleSheet, StyleProp, TextStyle, TextInputProps } from 'react-native';
 import I18n from '@/utils/I18n';
 import { MAX_TEXT } from '@/utils/diary';
+import { AppTextInput } from '@/components/atoms';
 
 type Props = {
   style?: StyleProp<TextStyle>;
@@ -27,7 +21,7 @@ const TextInputText: React.FC<Props> = ({
   ...props
 }: Props) => {
   return (
-    <TextInput
+    <AppTextInput
       style={[styles.textInput, style]}
       value={value}
       placeholder={I18n.t('postDiary.placeholder', { maxLength: MAX_TEXT })}
@@ -35,7 +29,6 @@ const TextInputText: React.FC<Props> = ({
       multiline
       keyboardType='default'
       spellCheck
-      underlineColorAndroid='transparent'
       onFocus={onFocus}
       onChangeText={onChangeText}
       onBlur={onBlur}
@@ -46,17 +39,9 @@ const TextInputText: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
   textInput: {
-    paddingTop: 12,
-    paddingBottom: 12,
-    paddingHorizontal: 16,
-    color: primaryColor,
-    fontSize: fontSizeM,
-    lineHeight: fontSizeM * 1.3,
-    textAlignVertical: 'top',
     flex: 1,
-    borderColor: borderLightColor,
+    borderRadius: 0,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    backgroundColor: '#fff',
   },
 });
 

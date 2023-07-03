@@ -1,19 +1,19 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import { StyleSheet, View, TextInput } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
 import { Layout } from '@/components/templates';
-import { Space, SubmitButton, LoadingModal, AppText } from '@/components/atoms';
+import {
+  Space,
+  SubmitButton,
+  LoadingModal,
+  AppText,
+  AppTextInput,
+} from '@/components/atoms';
 import { User } from '../../types';
 import I18n from '../../utils/I18n';
 import { emailValidate } from '../../utils/common';
-import {
-  primaryColor,
-  fontSizeM,
-  borderLightColor,
-  offWhite,
-} from '../../styles/Common';
 import { alert } from '../../utils/ErrorAlert';
 import {
   SettingTabNavigationProp,
@@ -22,7 +22,6 @@ import {
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import ModalConfirm from '@/components/features/Modal/ModalConfirm';
-import EmailTextInput from '@/components/molecules/EmailTextInput';
 
 export interface Props {
   user: User;
@@ -121,22 +120,34 @@ const InquiryScreen: React.FC<ScreenType> = ({ navigation, user }) => {
           <View style={styles.main}>
             <AppText size='m'>{I18n.t('inquiry.email')}</AppText>
             <Space size={6} />
-            <EmailTextInput value={email} onChangeText={setEmail} />
+            <AppTextInput
+              isOff
+              value={email}
+              onChangeText={setEmail}
+              maxLength={50}
+              placeholder='Enter your email address'
+              keyboardType='email-address'
+              autoCapitalize='none'
+              autoCorrect={false}
+              underlineColorAndroid='transparent'
+              returnKeyType='done'
+            />
+            <Space size={16} />
             <AppText size='m'>{I18n.t('inquiry.message')}</AppText>
             <Space size={6} />
-            <TextInput
-              style={[styles.textInput, styles.message]}
+            <AppTextInput
+              isOff
+              style={styles.message}
               multiline
               value={message}
-              onChangeText={(text: string): void => setMessage(text)}
+              onChangeText={setMessage}
               maxLength={500}
               placeholder='Enter your message'
               spellCheck
               autoCorrect
-              underlineColorAndroid='transparent'
               returnKeyType='done'
             />
-            <Space size={32} />
+            <Space size={48} />
             <SubmitButton
               title={I18n.t('common.sending')}
               onPress={onPressSend}
@@ -173,21 +184,8 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
   },
-  textInput: {
-    width: '100%',
-    fontSize: fontSizeM,
-    color: primaryColor,
-    paddingHorizontal: 16,
-    paddingTop: 12,
-    paddingBottom: 12,
-    backgroundColor: offWhite,
-    borderRadius: 6,
-    borderColor: borderLightColor,
-    marginBottom: 16,
-  },
   message: {
     height: 300,
-    textAlignVertical: 'top',
   },
   successContainer: {
     paddingTop: 32,

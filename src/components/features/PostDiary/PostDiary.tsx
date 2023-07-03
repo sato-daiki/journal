@@ -161,11 +161,11 @@ const PostDiary: React.FC<PostDiaryProps> = ({
           !!selectedItem &&
           !!onPressItem && (
             <View style={styles.right}>
-              <LanguagePicker
+              {/* <LanguagePicker
                 size={'small'}
                 selectedItem={selectedItem}
                 onPressItem={onPressItem}
-              />
+              /> */}
             </View>
           )}
       </View>

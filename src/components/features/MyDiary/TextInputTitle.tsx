@@ -1,14 +1,8 @@
 import React from 'react';
-import {
-  StyleSheet,
-  TextInput,
-  StyleProp,
-  TextStyle,
-  TextInputProps,
-} from 'react-native';
-import { fontSizeM, primaryColor, borderLightColor } from '@/styles/Common';
+import { StyleSheet, StyleProp, TextStyle, TextInputProps } from 'react-native';
 import I18n from '@/utils/I18n';
 import { MAX_TITLE } from '@/utils/diary';
+import { AppTextInput } from '@/components/atoms';
 
 type Props = {
   editable: boolean;
@@ -25,13 +19,12 @@ const TextInputTitle: React.FC<Props> = ({
   onFocus,
   onChangeText,
   onBlur,
-  style,
   ...props
 }: Props) => {
   return (
-    <TextInput
+    <AppTextInput
       editable={editable}
-      style={[styles.titleInput, style]}
+      style={styles.titleInput}
       value={value}
       placeholder={I18n.t('postDiary.placeholder', { maxLength: MAX_TITLE })}
       autoCorrect={false}
@@ -40,7 +33,6 @@ const TextInputTitle: React.FC<Props> = ({
       keyboardType='default'
       spellCheck
       returnKeyType='done'
-      underlineColorAndroid='transparent'
       onFocus={onFocus}
       onChangeText={onChangeText}
       onBlur={onBlur}
@@ -51,14 +43,8 @@ const TextInputTitle: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
   titleInput: {
-    fontSize: fontSizeM,
-    color: primaryColor,
-    paddingHorizontal: 16,
-    paddingTop: 12,
-    paddingBottom: 12,
-    borderColor: borderLightColor,
+    borderRadius: 0,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    backgroundColor: '#fff',
   },
 });
 

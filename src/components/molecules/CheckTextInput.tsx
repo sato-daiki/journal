@@ -1,21 +1,12 @@
 import React, { useState, useCallback } from 'react';
 import {
   View,
-  TextInput,
   StyleSheet,
   TextInputProps,
   ActivityIndicator,
   Platform,
 } from 'react-native';
-import {
-  softRed,
-  fontSizeM,
-  primaryColor,
-  borderLightColor,
-  offWhite,
-  green,
-} from '../../styles/Common';
-import { AppText, Icon } from '../atoms';
+import { AppText, Icon, AppTextInput } from '../atoms';
 import { useAppTheme } from '@/styles/colors';
 
 type Props = {
@@ -43,13 +34,16 @@ const CheckTextInput = (props: Props) => {
   return (
     <>
       <View style={styles.row}>
-        <TextInput
+        <AppTextInput
+          isOff
           autoCapitalize='none'
           autoCorrect={false}
           underlineColorAndroid='transparent'
           style={[
             styles.textInput,
-            errorMessage.length > 0 ? styles.errorBorder : {},
+            errorMessage.length > 0
+              ? [styles.errorBorder, { borderColor: theme.colors.danger }]
+              : {},
           ]}
           secureTextEntry={isPassword && !showPassword ? true : false}
           {...props}
@@ -62,7 +56,7 @@ const CheckTextInput = (props: Props) => {
               size={24}
               icon='material'
               name='check-circle-outline'
-              color={green}
+              color={theme.colors.green}
             />
           ) : null}
           {isPassword && (
@@ -103,7 +97,6 @@ const styles = StyleSheet.create({
     right: 16,
   },
   errorBorder: {
-    borderColor: softRed,
     borderBottomWidth: 2,
     borderWidth: 2,
   },
@@ -114,15 +107,8 @@ const styles = StyleSheet.create({
     paddingRight: 8,
   },
   textInput: {
-    width: '100%',
-    fontSize: fontSizeM,
-    color: primaryColor,
-    paddingLeft: 16,
     paddingRight: 46,
     paddingVertical: Platform.OS === 'ios' ? 14 : 8,
-    backgroundColor: offWhite,
-    borderRadius: 6,
-    borderColor: borderLightColor,
   },
   error: {
     marginLeft: 6,

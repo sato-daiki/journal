@@ -1,6 +1,7 @@
 export { default as AppSlider } from './AppSlider';
 export { default as AppSwitch } from './AppSwitch';
 export { default as AppText } from './AppText';
+export { default as AppTextInput } from './AppTextInput';
 export { default as Checkbox } from './Checkbox';
 export { default as Icon } from './Icon';
 export { default as KeyboardSpacer } from './KeyboardSpacer';

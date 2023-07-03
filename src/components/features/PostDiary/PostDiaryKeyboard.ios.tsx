@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, Animated } from 'react-native';
+import { SafeAreaView, Animated, View } from 'react-native';
 import { KeyboardSpacer } from '@/components/atoms';
 import { PostDiaryKeyboardProps } from './interface';
 import Footer, { FOOTER_HEIGHT } from './Footer';
