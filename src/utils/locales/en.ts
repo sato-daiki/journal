@@ -10,17 +10,12 @@ const common = {
   sending: 'Send',
   next: 'Next',
   check: 'Correct',
-  draft: 'Save',
   skip: 'Skip',
   save: 'Save',
-  add: 'Add',
   delete: 'Delete',
-  translation: 'Translation',
-  speech: 'Speak',
   slow: 'Slow',
   back: 'Back',
   begin: 'Begin',
-  time: 'Please select a time',
 };
 
 const day = {
@@ -43,16 +38,13 @@ const shortDay = {
   saturday: 'S',
 };
 
-// タブ
 const mainTab = {
   myDiary: 'My Entries',
   postDiary: 'Write',
   setting: 'Setting',
 };
 
-// 共通のエラーメッセージ
 const errorMessage = {
-  other: 'There is an error.',
   wrongPassword: 'This password is incorrect.',
   invalidEmail: 'Please enter a valid email address',
   weakPassword: 'Please enter a password with at least 6 digits',
@@ -62,26 +54,12 @@ const errorMessage = {
     'You have made too many failed attempts. Please try again later.',
   network: 'There has been a network error.',
   defaultError: 'There is an error. {{message}}',
-  emptyUserName: 'Please enter a username.',
-  invalidUserName:
-    'Only alphanumeric characters, _ (the underbar), and . (period) can be used.',
-  initialUserName: 'The first character must be an alphanumeric character.',
-  userNameAlreadyInUse: 'This username has already been taken.',
-  notFound: 'This page cannot be opened. There is an error.',
   cantLogout:
     'Because you have not registered an email address, you cannot logout.',
-  invalidRaiting: 'Please rate between 1~5.',
-  correctionAlready:
-    'Someone else has started correcting this entry. Please search for another entry.',
-  deleteTargetPage: 'This page cannot be opened.',
-  deleteTargetUser: 'This page cannot be opened. The user may have deleted it.',
   emptyTitile: 'There is no title.',
   emptyText: 'There is no text.',
   emptyEmail: 'There is no email address.',
   emptyMessage: 'There is no message.',
-  lackPointsTitle: 'You do not have enough points.',
-  lackPointsText:
-    '{{usePoint}} points are needed to publish an entry with {{textLength}} characters. You can earn more points by correcting entries.',
   exceedingTitleCharacter:
     'Exceeding maximum character count. Please enter a title within {{textLength}} characters',
   exceedingTextCharacter:

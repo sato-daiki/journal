@@ -27,7 +27,7 @@ export const lightTheme = {
     ...commonColor,
     background: white,
     backgroundOff: offWhite,
-    backgroundTrans: transparentBlack,
+    backgroundTrans: transparentWhite,
     primary: black,
   },
 };
@@ -37,7 +37,7 @@ export const darkTheme = {
     ...commonColor,
     background: black,
     backgroundOff: offBlack,
-    backgroundTrans: transparentWhite,
+    backgroundTrans: transparentBlack,
     primary: white,
   },
 };

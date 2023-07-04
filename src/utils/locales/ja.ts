@@ -10,17 +10,12 @@ const common = {
   sending: '送信',
   next: '次へ',
   check: '添削',
-  draft: '下書き保存',
   skip: 'スキップ',
   save: '保存',
-  add: '追加',
   delete: '削除',
-  translation: '翻訳',
-  speech: '読む',
   slow: '遅く',
   back: '戻る',
   begin: 'はじめる',
-  time: '時刻を選択して下さい',
 };
 
 const day = {
@@ -43,16 +38,13 @@ const shortDay = {
   saturday: '土',
 };
 
-// タブ
 const mainTab = {
   myDiary: 'マイ日記',
   postDiary: '日記を書く',
   setting: '設定',
 };
 
-// 共通のエラーメッセージ
 const errorMessage = {
-  other: 'エラーが発生しました',
   wrongPassword: 'パスワードが違います',
   invalidEmail: 'メールアドレスの形式が正しくありません',
   weakPassword: 'パスワードは6桁以上で入力してください',
@@ -62,28 +54,11 @@ const errorMessage = {
     'エラーの数が一定数を超えました。時間をおいてから再度お試しください',
   network: '通信エラーが発生しました。時間をおいて再度お試し下さい。',
   defaultError: 'エラーが発生しました。{{message}}',
-  emptyUserName: 'ユーザーネームを入力してください',
-  invalidUserName:
-    'ユーザーネームは半角英数字と_（アンダーバー）と.（ピリオド）以外使えません',
-  initialUserName: '先頭の文字は半角英数字以外使えません',
-  userNameAlreadyInUse:
-    'すでにこのユーザーネームを使用しているユーザーがいます',
-  notFound: 'ページが開けません。エラーが発生しました',
   cantLogout: 'メールアドレスが登録されていないため、ログアウトできません。',
-  invalidRaiting: '星は1〜5で入力してください',
-  correctionAlready:
-    'この日記は他の人が添削を始めました。他の日記を再度検索ください。',
-  deleteTargetUser:
-    'このページは開けません。対象のユーザは削除された可能性があります。',
-  deleteTargetPage:
-    'このページは開けません。対象のページは削除された可能性があります。',
   emptyTitile: 'Titleが入力されていません',
   emptyText: '本文が入力されていません',
   emptyEmail: 'メールアドレスが入力されていません',
   emptyMessage: 'メッセージが入力されていません',
-  lackPointsTitle: 'ポイント不足',
-  lackPointsText:
-    '文字数{{textLength}}の日記を投稿するには{{usePoint}}ポイントが必要です。ポイントは日記を添削することで溜めることができます',
   exceedingTitleCharacter:
     '文字数オーバーです。Titleは{{textLength}}文字以下で投稿してください',
   exceedingTextCharacter:
