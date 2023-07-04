@@ -14,7 +14,6 @@ interface Props {
   containerStyle?: StyleProp<ViewStyle>;
   title: string;
   text: string;
-  recommendText?: string;
   image?: ReactNode;
   onPress?: () => void;
 }
@@ -23,7 +22,6 @@ const SelecttionBox: React.FC<Props> = ({
   containerStyle,
   title,
   text,
-  recommendText,
   image,
   onPress,
 }) => {
@@ -36,14 +34,6 @@ const SelecttionBox: React.FC<Props> = ({
         containerStyle,
       ]}
     >
-      {recommendText ? (
-        <Pill
-          containerStyle={styles.pill}
-          text={recommendText}
-          color={white}
-          backgroundColor={softRed}
-        />
-      ) : null}
       <TouchableOpacity style={styles.main} onPress={onPress}>
         <AppText bold size='m'>
           {title}

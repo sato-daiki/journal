@@ -3,6 +3,7 @@ import { View, StyleSheet, Image } from 'react-native';
 import I18n from '@/utils/I18n';
 import * as Linking from 'expo-linking';
 import {
+  AppImage,
   AppText,
   LinkText,
   Space,

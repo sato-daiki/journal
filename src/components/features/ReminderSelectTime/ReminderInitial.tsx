@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import I18n from '@/utils/I18n';
 import { Time } from '@/images';
-import { AppText, Space } from '@/components/atoms';
+import { AppText, Space, AppImage } from '@/components/atoms';
 
 const ReminderInitial: React.FC = () => {
   return (
@@ -17,7 +17,7 @@ const ReminderInitial: React.FC = () => {
         </AppText>
       </View>
       <View style={styles.imgContainer}>
-        <Image source={Time} style={styles.img} />
+        <AppImage source={Time} style={styles.img} />
       </View>
     </>
   );

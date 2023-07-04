@@ -1,11 +1,11 @@
 import React, { useCallback } from 'react';
-import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { getDay } from '@/utils/time';
 import { TopicSubcategoryInfo } from '@/screens/Modal/SelectTopicSubcategoryScreen/interface';
 import { ThemeDiary } from '@/types';
 import DiaryStatusLabel from '../MyDiary/MyDiaryStatusLabel/DiaryStatusLabel';
 import { borderLight, useAppTheme } from '@/styles/colors';
-import { AppText, Space } from '@/components/atoms';
+import { AppImage, AppText, Space } from '@/components/atoms';
 import I18n from '@/utils/I18n';
 
 interface Props {
@@ -27,7 +27,7 @@ const SelectTopicSubcategoryListItem: React.FC<Props> = ({
 
   return (
     <TouchableOpacity style={styles.container} onPress={onPressItem}>
-      <Image style={styles.image} source={item.source} />
+      <AppImage style={styles.image} source={item.source} />
       <View style={styles.textContainer}>
         <View style={styles.column}>
           <AppText size='m'>{item.learnTitle}</AppText>

@@ -156,7 +156,6 @@ const myDiary = {
   voiceTitle: '音読トレーニング',
   myVoice: '自分の音声を聞く',
   record: '録音する',
-  recommend: '効率的な勉強方法とは？',
   start: '最初から',
   revise: '添削結果を元に修正する',
   check: 'AI②でも添削する',
@@ -488,7 +487,6 @@ const maintenance = {
 
 const selectDiaryType = {
   headerTitle: '型の選択',
-  recommend: 'おススメ',
   titleFree: '自由作文',
   titleTheme: 'テーマ作文',
   textFree:

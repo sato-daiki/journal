@@ -157,7 +157,6 @@ const myDiary = {
   voiceTitle: 'Read Out Loud',
   myVoice: 'Listen to Your Recorded Voice',
   record: 'Voice Recording',
-  recommend: 'What is an efficient study method?',
   start: 'Initially',
   revise: 'Revise based on the correction',
   check: 'Correct with AI2',
@@ -488,7 +487,6 @@ const maintenance = {
 
 const selectDiaryType = {
   headerTitle: 'Type Selection',
-  recommend: 'Recommend',
   titleFree: 'Topic of your choice',
   titleTheme: 'Choose from topics',
   textFree:

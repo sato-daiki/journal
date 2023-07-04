@@ -1,8 +1,8 @@
 import React from 'react';
-import { StyleSheet, View, Image } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Swipe } from '@/images';
 import I18n from '@/utils/I18n';
-import AppText from '../../atoms/AppText';
+import { AppImage, AppText } from '@/components/atoms';
 
 type SwipeGuidType = 'end' | 'start';
 
@@ -15,7 +15,7 @@ const SwipeGuid: React.FC<Props> = ({ type }) => {
     <View
       style={[styles.container, type === 'start' ? styles.right : styles.left]}
     >
-      <Image source={Swipe} style={styles.icon} />
+      <AppImage source={Swipe} style={styles.icon} />
       <AppText size='m' textAlign='center'>
         {type === 'start'
           ? I18n.t('topicGuide.swipeStart')

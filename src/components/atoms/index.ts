@@ -1,4 +1,5 @@
 export { default as AppSlider } from './AppSlider';
+export { default as AppImage } from './AppImage';
 export { default as AppSwitch } from './AppSwitch';
 export { default as AppText } from './AppText';
 export { default as AppTextInput } from './AppTextInput';

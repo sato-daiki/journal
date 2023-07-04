@@ -1,9 +1,10 @@
 import React, { useCallback, useState } from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { Layout } from '@/components/templates';
 import {
+  AppImage,
   AppText,
   LinkText,
   LoadingModal,
@@ -80,7 +81,7 @@ const PushSettingScreen: React.FC<ScreenType> = ({
         </AppText>
       </View>
       <View style={styles.imgContainer}>
-        <Image source={Notification} style={styles.img} />
+        <AppImage source={Notification} style={styles.img} />
       </View>
       <View style={styles.linkContainer}>
         <SubmitButton

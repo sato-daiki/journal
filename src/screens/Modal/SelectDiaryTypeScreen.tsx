@@ -12,7 +12,7 @@ import I18n from '@/utils/I18n';
 import { Layout } from '@/components/templates';
 import HeaderText from '@/components/features/Header/HeaderText';
 import SelecttionBox from '@/components/features/SelectDiaryType/SelecttionBox';
-import { Icon } from '@/components';
+import { AppImage, Icon } from '@/components';
 
 type NavigationProp = CompositeNavigationProp<
   StackNavigationProp<ModalSelectDiaryTypeStackParamList, 'SelectDiaryType'>,
@@ -81,15 +81,14 @@ const SelectDiaryTypeScreen: React.FC<ScreenType> = ({ navigation }) => {
           containerStyle={styles.marginRight}
           title={I18n.t('selectDiaryType.titleFree')}
           text={I18n.t('selectDiaryType.textFree')}
-          image={<Image source={PaperAndPen} style={styles.image} />}
+          image={<AppImage source={PaperAndPen} style={styles.image} />}
           onPress={onPressFree}
         />
         <SelecttionBox
-          // recommendText={I18n.t('selectDiaryType.recommend')}
           containerStyle={styles.marginLeft}
           title={I18n.t('selectDiaryType.titleTheme')}
           text={I18n.t('selectDiaryType.textTheme')}
-          image={<Image source={StudentHat} style={styles.image} />}
+          image={<AppImage source={StudentHat} style={styles.image} />}
           onPress={onPressTheme}
         />
       </View>
