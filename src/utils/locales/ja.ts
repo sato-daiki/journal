@@ -73,16 +73,6 @@ const deleteAcount = {
   confirmation: '本当に退会してもよろしいですか？',
 };
 
-const draftDiary = {
-  headerTitle: '下書き',
-  diaryList: {
-    one: '下書き一覧{{count}}件',
-    other: '下書き一覧{{count}}件',
-    zero: '下書き一覧',
-  },
-  empty: '下書き一覧はありません',
-};
-
 const editEmail = {
   headerTitle: 'メールアドレス変更',
   title: '新しいメールアドレスを入力してください',
@@ -165,15 +155,12 @@ const noHuman = {
     '支払いの読み込み処理で失敗しました。再度このページをロードしてください。',
   noEmail:
     '翻訳依頼をする場合は、メールアドレスとパスワードの登録が必要です。「マイページ」「設定」から登録してください。',
-  labelText: '修正依頼する文章',
   labelAmount: '料金',
   labelAmountPerLength: '1文字あたりの料金',
   unitYen: '円',
   labelLength: '文字数',
   unitLength: '文字',
   labelSum: '合計',
-  describe:
-    '※最低料金は{minimumPrice}円のため、{minimumLength}文字以下でも上記の料金になります。',
   error:
     '支払いプロセスでエラーが発生しました。再度時間を置いてから試してください。',
 };
@@ -325,7 +312,6 @@ const setting = {
   app: 'アプリについて',
   learn: '勉強中の言語',
   passcodeLock: 'パスワードロック',
-  notice: '通知',
   reminder: 'リマインダー',
   editEmail: 'メールアドレスの変更',
   editPassword: 'パスワードの変更',
@@ -368,20 +354,6 @@ const signUp = {
   agree3: 'に同意する必要があります',
 };
 
-const userProfile = {
-  headerTitle: 'プロフィール',
-  moreRead: '{{count}}件のレビューを全部見る',
-  blocked: 'ブロック',
-  unBlocked: 'ブロックを解除する',
-  report: '報告する',
-  diaryList: {
-    one: '日記一覧{{count}}件',
-    other: '日記一覧{{count}}件',
-    zero: '日記一覧',
-  },
-  topReview: 'トップレビュー',
-};
-
 const record = {
   headerTitle: '録音',
   confirmMessage: '削除してよろしいでしょうか？',
@@ -391,10 +363,6 @@ const record = {
 };
 
 //  molecules
-const emptyDiary = {
-  empty: '日記がまだ投稿されていません。',
-};
-
 const inquiry = {
   headerTitle: 'お問い合わせ',
   email: 'メールアドレス',
@@ -432,11 +400,6 @@ const postDiaryComponent = {
   correct: '以前の添削結果を見る',
 };
 
-const sns = {
-  app: 'アプリをSNSでシェア',
-  diary: '日記をSNSでシェア',
-};
-
 const myDiaryStatus = {
   draft: '下書き',
   checked: '添削完了',
@@ -444,15 +407,6 @@ const myDiaryStatus = {
   yet: '添削待ち',
   unread: '未読',
   done: '完了',
-};
-
-const language = {
-  en: '英語',
-  de: 'ドイツ語	',
-  es: 'スペイン語',
-  fr: 'フランス語	',
-  pt: 'ポルトガル語	',
-  nl: 'オランダ語	',
 };
 
 const maintenance = {
@@ -667,7 +621,6 @@ const ja = {
   errorMessage,
   mainTab,
   deleteAcount,
-  draftDiary,
   editEmail,
   editMyProfile,
   editPassword,
@@ -699,17 +652,13 @@ const ja = {
   display,
   signIn,
   signUp,
-  userProfile,
   record,
-  emptyDiary,
   emptyMyDiaryList,
   modalDeleteAcount,
   modalDiaryCancel,
   modalSendEmail,
   postDiaryComponent,
-  sns,
   myDiaryStatus,
-  language,
   inquiry,
   first,
   maintenance,

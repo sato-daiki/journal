@@ -74,16 +74,6 @@ const deleteAcount = {
   confirmation: 'Are you sure you want to delete this account?',
 };
 
-const draftDiary = {
-  headerTitle: 'Drafts',
-  diaryList: {
-    one: 'List of Drafts: {{count}} entry',
-    other: 'List of Drafts: {{count}} entries',
-    zero: 'List of Drafts',
-  },
-  empty: 'You do not have any drafts.',
-};
-
 const editEmail = {
   headerTitle: 'Edit Email Address',
   title: 'Please enter a new email address.',
@@ -169,15 +159,12 @@ const noHuman = {
     '支払いの読み込み処理で失敗しました。再度このページをロードしてください。',
   noEmail:
     '翻訳依頼をする場合は、メールアドレスとパスワードの登録が必要です。「マイページ」「設定」から登録してください。',
-  labelText: '修正依頼する文章',
   labelAmount: '料金',
   labelAmountPerLength: '1文字あたりの料金',
   unitYen: '円',
   labelLength: '文字数',
   unitLength: '文字',
   labelSum: '合計',
-  describe:
-    '※最低料金は{minimumPrice}円のため、{minimumLength}文字以下でも上記の料金になります。',
   error:
     '支払いプロセスでエラーが発生しました。再度時間を置いてから試してください。',
 };
@@ -326,7 +313,6 @@ const setting = {
   app: 'About the app',
   learn: 'Learning',
   passcodeLock: 'Passcode',
-  notice: 'Notifications',
   reminder: 'Reminder',
   editEmail: 'Edit Email Address',
   editPassword: 'Edit Password',
@@ -369,20 +355,6 @@ const signUp = {
   agree3: 'to start using the service',
 };
 
-const userProfile = {
-  headerTitle: 'User',
-  moreRead: 'View All {{count}} Reviews',
-  blocked: 'Block',
-  unBlocked: 'Unblock',
-  report: 'Report',
-  diaryList: {
-    one: '{{count}} Journal Entry',
-    other: '{{count}} Journal Entries',
-    zero: 'Journal Entries',
-  },
-  topReview: 'Top Reviews',
-};
-
 const record = {
   headerTitle: 'Recording',
   confirmMessage: 'Are you sure you want to delete the recording?',
@@ -392,10 +364,6 @@ const record = {
 };
 
 //  molecules
-const emptyDiary = {
-  empty: 'You haven’t posted any journal entries.',
-};
-
 const inquiry = {
   headerTitle: 'Inquiry',
   email: 'Email Address',
@@ -435,11 +403,6 @@ const postDiaryComponent = {
   correct: 'View previous corrections',
 };
 
-const sns = {
-  app: 'Share the app on SNS',
-  diary: 'Share your entry on SNS',
-};
-
 const myDiaryStatus = {
   draft: 'Draft',
   checked: 'Corrected',
@@ -447,15 +410,6 @@ const myDiaryStatus = {
   yet: 'Waiting for Corrections',
   unread: 'Unread',
   done: 'Finished',
-};
-
-const language = {
-  en: 'English',
-  de: 'German	',
-  es: 'Spanish',
-  fr: 'French	',
-  pt: 'Portugues	',
-  nl: 'Dutch	',
 };
 
 const maintenance = {
@@ -674,7 +628,6 @@ const en = {
   errorMessage,
   mainTab,
   deleteAcount,
-  draftDiary,
   editEmail,
   editMyProfile,
   editPassword,
@@ -706,17 +659,13 @@ const en = {
   display,
   signIn,
   signUp,
-  userProfile,
   record,
-  emptyDiary,
   emptyMyDiaryList,
   modalDeleteAcount,
   modalDiaryCancel,
   modalSendEmail,
   postDiaryComponent,
-  sns,
   myDiaryStatus,
-  language,
   inquiry,
   first,
   maintenance,
