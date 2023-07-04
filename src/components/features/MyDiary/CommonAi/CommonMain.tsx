@@ -8,6 +8,7 @@ import DiaryHeader from '@/components/features/MyDiary/DiaryHeader';
 import DiaryFooter from '@/components/features/MyDiary/DiaryFooter';
 import ImageItem from './ImageItem';
 import LargeThumbnailList from './LargeThumbnailList';
+import { useAppTheme } from '@/styles/colors';
 
 export interface Props {
   viewShotRef?: React.MutableRefObject<ViewShot | null>;
@@ -47,6 +48,7 @@ const CommonMain: React.FC<Props> = ({
   cardTitle,
   cardText,
 }) => {
+  const theme = useAppTheme();
   const [isImageView, setIsImageView] = useState(false);
   const [imageIndex, setImageIndex] = useState<number>(0);
 
@@ -65,7 +67,10 @@ const CommonMain: React.FC<Props> = ({
       <View style={styles.container}>
         <ScrollView style={styles.scrollView}>
           <ViewShot
-            style={styles.viewShot}
+            style={{
+              paddingTop: 12,
+              backgroundColor: theme.colors.background,
+            }}
             ref={viewShotRef}
             options={{ format: 'jpg', quality: 0.9 }}
           >
@@ -136,9 +141,6 @@ const CommonMain: React.FC<Props> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  viewShot: {
-    paddingTop: 12,
   },
   mainContainer: {
     paddingHorizontal: 16,

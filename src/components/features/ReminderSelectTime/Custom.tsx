@@ -106,6 +106,7 @@ const Custom: React.FC<Props> = ({
     >
       <OptionItem
         type='right'
+        backgroundColor={theme.colors.background}
         title={I18n.t('reminderSelectTime.studyDay')}
         onPress={onPressStudyDay}
         righComponent={righComponent}

@@ -66,7 +66,6 @@ const AppText = ({
   ...props
 }: Props) => {
   const theme = useAppTheme();
-
   return (
     <Text
       style={[

@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { FlatList, ListRenderItem } from 'react-native';
 import PItem from './PItem';
-import { Modal } from '@/components';
+import Modal from '@/components/templates/Modal';
 
 export type PickerItem = {
   value: string;

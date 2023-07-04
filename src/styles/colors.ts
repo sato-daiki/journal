@@ -10,6 +10,7 @@ export const black = '#2a2a2a';
 export const white = '#fff';
 export const linkBlue = '#2469BB';
 export const borderLight = '#CCCCCC';
+export const transparentWhite = 'rgba(255,255,255,0.4)';
 export const transparentBlack = 'rgba(62, 62, 62, 0.4)';
 
 const offWhite = '#f6f6f6';
@@ -26,6 +27,7 @@ export const lightTheme = {
     ...commonColor,
     background: white,
     backgroundOff: offWhite,
+    backgroundTrans: transparentBlack,
     primary: black,
   },
 };
@@ -35,6 +37,7 @@ export const darkTheme = {
     ...commonColor,
     background: black,
     backgroundOff: offBlack,
+    backgroundTrans: transparentWhite,
     primary: white,
   },
 };

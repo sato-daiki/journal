@@ -77,7 +77,6 @@ const MyDiaryListScreen: React.FC<ScreenType> = ({
   navigation,
 }) => {
   const elRefs = useRef<Swipeable[]>([]);
-
   const [isLoading, setIsLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
 

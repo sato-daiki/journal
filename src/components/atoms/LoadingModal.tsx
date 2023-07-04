@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { Loading } from '../../images';
 import AppText from './AppText';
+import { useAppTheme } from '@/styles/colors';
 
 const { height } = Dimensions.get('window');
 const size = 40;
@@ -32,12 +33,13 @@ const LoadingModal: React.FC<Props> = ({
   text,
   containerStyle,
   textStyle,
-}: Props) =>
-  visible ? (
+}: Props) => {
+  const theme = useAppTheme();
+  return visible ? (
     <View
       style={[
         styles.overlay,
-        { height },
+        { height, backgroundColor: theme.colors.backgroundTrans },
         transparent && styles.transparent,
         containerStyle,
       ]}
@@ -50,12 +52,12 @@ const LoadingModal: React.FC<Props> = ({
       ) : null}
     </View>
   ) : null;
+};
 
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(255,255,255,0.4)',
     height,
     zIndex: 10,
     alignItems: 'center',

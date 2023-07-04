@@ -1,11 +1,12 @@
 import React, { ReactNode } from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { borderLight, useAppTheme } from '@/styles/colors';
-import { AppText, Icon, AppSwitch } from '@/components';
+import { AppSwitch, AppText, Icon } from '../atoms';
 
 interface Props {
   type: 'right' | 'check' | 'switch' | 'nothing';
   isBorrderTop?: boolean;
+  backgroundColor?: string;
   title: string;
   checkValue?: boolean;
   switchValue?: boolean;
@@ -18,6 +19,7 @@ interface Props {
 const OptionItem: React.FC<Props> = ({
   type,
   isBorrderTop = false,
+  backgroundColor,
   title,
   checkValue,
   switchValue,
@@ -34,6 +36,7 @@ const OptionItem: React.FC<Props> = ({
         styles.container,
         {
           borderTopWidth,
+          backgroundColor: backgroundColor || theme.colors.backgroundOff,
         },
       ]}
       onPress={onPress}

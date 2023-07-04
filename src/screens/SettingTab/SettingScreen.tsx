@@ -133,7 +133,7 @@ const SettingScreen: React.FC<ScreenType> = ({
   }, []);
 
   return (
-    <Layout style={{ backgroundColor: theme.colors.backgroundOff }}>
+    <Layout style={{ backgroundColor: theme.colors.background }}>
       <ScrollView
         style={styles.container}
         contentContainerStyle={styles.contentContainerStyle}
@@ -182,12 +182,11 @@ const SettingScreen: React.FC<ScreenType> = ({
             }}
           />
         )}
-        <Space size={16} />
+        <Space size={24} />
         <AppText size='s' style={styles.title} color={theme.colors.secondary}>
           {I18n.t('setting.basic')}
         </AppText>
         <Space size={8} />
-
         <OptionItem
           type='right'
           isBorrderTop
@@ -258,7 +257,7 @@ const SettingScreen: React.FC<ScreenType> = ({
             }}
           />
         )}
-        <Space size={16} />
+        <Space size={24} />
         <AppText size='s' style={styles.title} color={theme.colors.secondary}>
           {I18n.t('setting.display')}
         </AppText>
@@ -271,7 +270,7 @@ const SettingScreen: React.FC<ScreenType> = ({
             navigation.navigate('Display');
           }}
         />
-        <Space size={16} />
+        <Space size={24} />
         <AppText size='s' style={styles.title} color={theme.colors.secondary}>
           {I18n.t('setting.app')}
         </AppText>
@@ -305,7 +304,7 @@ const SettingScreen: React.FC<ScreenType> = ({
             navigation.navigate('AboutWebView', PRIVACY_POLICY);
           }}
         />
-        <Space size={16} />
+        <Space size={32} />
         <OptionItem
           type='right'
           isBorrderTop
@@ -323,9 +322,12 @@ const SettingScreen: React.FC<ScreenType> = ({
         )}
         {currentUser && currentUser.email && (
           <>
-            <Space size={16} />
+            <Space size={32} />
             <TouchableOpacity
-              style={styles.logoutButton}
+              style={[
+                styles.logoutButton,
+                { backgroundColor: theme.colors.backgroundOff },
+              ]}
               onPress={onPressLogout}
             >
               <AppText size='m'>{I18n.t('setting.logout')}</AppText>
