@@ -137,7 +137,6 @@ const RegisterEmailPasswordScreen: React.FC<ScreenType> = ({ navigation }) => {
             keyboardType='email-address'
             autoCapitalize='none'
             autoCorrect={false}
-            underlineColorAndroid='transparent'
             returnKeyType='done'
             isLoading={isEmailLoading}
             isCheckOk={isEmailCheckOk}
@@ -155,7 +154,6 @@ const RegisterEmailPasswordScreen: React.FC<ScreenType> = ({ navigation }) => {
             placeholder='Password'
             autoCapitalize='none'
             autoCorrect={false}
-            underlineColorAndroid='transparent'
             returnKeyType='done'
             errorMessage={errorPassword}
           />

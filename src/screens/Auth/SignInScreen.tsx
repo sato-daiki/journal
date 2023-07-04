@@ -109,7 +109,6 @@ const SignInScreen: React.FC<ScreenType> = ({ navigation }) => {
             keyboardType='email-address'
             autoCapitalize='none'
             autoCorrect={false}
-            underlineColorAndroid='transparent'
             returnKeyType='done'
             errorMessage={errorEmail}
           />
@@ -125,7 +124,6 @@ const SignInScreen: React.FC<ScreenType> = ({ navigation }) => {
             placeholder='Password'
             autoCapitalize='none'
             autoCorrect={false}
-            underlineColorAndroid='transparent'
             returnKeyType='done'
             errorMessage={errorPassword}
           />

@@ -6,7 +6,7 @@ import {
   ViewStyle,
 } from 'react-native';
 import AppText, { TextSize } from './AppText';
-import { useAppTheme } from '@/styles/colors';
+import { linkBlue } from '@/styles/colors';
 
 type Props = {
   containerStyle?: StyleProp<ViewStyle>;
@@ -27,7 +27,6 @@ const LinkText: React.FC<Props> = ({
   text,
   onPress,
 }) => {
-  const theme = useAppTheme();
   return (
     <TouchableOpacity style={containerStyle} onPress={onPress}>
       <AppText
@@ -36,7 +35,7 @@ const LinkText: React.FC<Props> = ({
         bold={bold}
         style={[
           {
-            color: theme.colors.linkBlue,
+            color: linkBlue,
           },
           textStyle,
         ]}

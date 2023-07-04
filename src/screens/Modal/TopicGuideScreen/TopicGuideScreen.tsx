@@ -10,8 +10,6 @@ import {
   TopicGuideEnd,
 } from '@/components/features/TopicGuid';
 
-import { mainColor, primaryColor } from '@/styles/Common';
-
 import {
   ModalTopicGuideStackNavigationProp,
   ModalTopicGuideStackParamList,
@@ -21,6 +19,7 @@ import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Layout } from '@/components/templates';
 import TopicGuideWord from '@/components/features/TopicGuid/TopicGuideWord';
+import { useAppTheme } from '@/styles/colors';
 
 export interface Props {
   user: User;
@@ -48,6 +47,7 @@ const TopicGuideScreen: React.FC<ScreenType> = ({
   route,
   user,
 }) => {
+  const theme = useAppTheme();
   const { themeTitle, topicCategory, topicSubcategory, caller } = route.params;
 
   const entries = useMemo(() => {
@@ -122,8 +122,8 @@ const TopicGuideScreen: React.FC<ScreenType> = ({
       <Pagination
         activeDotIndex={activeSlide}
         dotsLength={entries.length}
-        dotColor={mainColor}
-        inactiveDotColor={primaryColor}
+        dotColor={theme.colors.main}
+        inactiveDotColor={theme.colors.primary}
       />
     </Layout>
   );

@@ -5,25 +5,13 @@ import * as Localization from 'expo-localization';
 import { Diary } from '@/types';
 import { Calendar } from '@/components/molecules';
 import { getDay } from '@/utils/time';
-import { getMarkedDates, MY_STATUS } from '@/utils/diary';
+import { getMarkedDates } from '@/utils/diary';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import I18n from '@/utils/I18n';
 import MyDiaryListItem from './MyDiaryListItem';
 import { AppText, Icon } from '@/components/atoms';
-import { useAppTheme } from '@/styles/colors';
-import { fontSizeM } from '@/styles/Common';
-
-export interface Dot {
-  id: string;
-  color?: string;
-}
-
-export interface MarkedDates {
-  [date: string]: {
-    dots?: Dot[];
-    selected: boolean;
-  };
-}
+import { myStatusColor, useAppTheme } from '@/styles/colors';
+import { fontSizeM } from '@/styles/fonts';
 
 interface Props {
   elRefs: React.MutableRefObject<Swipeable[]>;
@@ -36,15 +24,9 @@ interface Props {
 }
 
 const custumTheme = {
-  textDayFontWeight: '400',
-  textDayHeaderFontWeight: '400',
+  textDayFontWeight: '400' as '400',
+  textDayHeaderFontWeight: '400' as '400',
 };
-
-const status = [
-  { id: 1, color: MY_STATUS.draft.color, text: MY_STATUS.draft.text },
-  { id: 2, color: MY_STATUS.checked.color, text: MY_STATUS.checked.text },
-  { id: 3, color: MY_STATUS.revised.color, text: MY_STATUS.revised.text },
-];
 
 const code = Localization.locale.split('-')[0];
 
@@ -57,6 +39,26 @@ const MyDiaryListCalendar: React.FC<Props> = ({
   handlePressDelete,
 }) => {
   const theme = useAppTheme();
+  const status = useMemo(
+    () => [
+      {
+        id: 1,
+        color: myStatusColor.draft,
+        text: I18n.t('myDiaryStatus.draft'),
+      },
+      {
+        id: 2,
+        color: theme.colors.primary,
+        text: I18n.t('myDiaryStatus.checked'),
+      },
+      {
+        id: 3,
+        color: myStatusColor.revised,
+        text: I18n.t('myDiaryStatus.revised'),
+      },
+    ],
+    [theme.colors.primary],
+  );
 
   const [selectedDay, setSelectedDay] = useState<string | null>(
     getDay(new Date(), 'YYYY-MM-DD'),
@@ -64,7 +66,7 @@ const MyDiaryListCalendar: React.FC<Props> = ({
   const [targetDayDiaries, setTargetDayDiaries] = useState<Diary[]>([]);
 
   const markedDates = useMemo(() => {
-    const newMarkedDates = getMarkedDates(diaries);
+    const newMarkedDates = getMarkedDates(diaries, theme.colors.primary);
     if (selectedDay) {
       return {
         ...newMarkedDates,
@@ -77,7 +79,7 @@ const MyDiaryListCalendar: React.FC<Props> = ({
     return {
       ...newMarkedDates,
     };
-  }, [diaries, selectedDay]);
+  }, [diaries, selectedDay, theme.colors.primary]);
 
   useEffect(() => {
     const newDiaries = diaries.filter(
@@ -150,21 +152,20 @@ const MyDiaryListCalendar: React.FC<Props> = ({
                 <AppText size='s'>{s.text}</AppText>
               </View>
             )),
-          [],
+          [status],
         )}
       </View>
       <Calendar
-        //@ts-ignore
         markedDates={markedDates}
         markingType='multi-dot'
         onDayPress={onDayPress}
         renderArrow={renderArrow}
         renderHeader={renderHeader}
-        //@ts-ignore
         theme={{
           todayTextColor: theme.colors.main,
           selectedDayBackgroundColor: theme.colors.main,
           dayTextColor: theme.colors.primary,
+          calendarBackground: theme.colors.background,
           textDayFontSize: fontSizeM,
           ...custumTheme,
         }}

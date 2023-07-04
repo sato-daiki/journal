@@ -1,10 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import * as Notifications from 'expo-notifications';
 import I18n from '@/utils/I18n';
-import { mainColor } from '@/styles/Common';
 import { Note } from '@/components/atoms';
+import { useAppTheme, white } from '@/styles/colors';
 
 const NotficationReminder = () => {
+  const theme = useAppTheme();
+
   const [visible, setVisible] = useState(true);
   const [isPermission, setIsPermission] = useState(true);
 
@@ -29,8 +31,8 @@ const NotficationReminder = () => {
   return (
     <Note
       text={I18n.t('reminderSelectTime.notficationAlert')}
-      backgroundColor={mainColor}
-      color='#fff'
+      backgroundColor={theme.colors.main}
+      color={white}
       visible={!isPermission && visible}
       onPressClose={onPressClose}
     />

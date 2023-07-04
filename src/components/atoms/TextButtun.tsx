@@ -32,7 +32,6 @@ const TextButtun: React.FC<Props> = ({
       style={[
         styles.contaner,
         {
-          backgroundColor: theme.colors.white,
           borderBottomColor: theme.colors.secondary,
           borderTopColor: theme.colors.secondary,
           borderTopWidth,

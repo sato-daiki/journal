@@ -8,7 +8,7 @@ import {
   ViewStyle,
 } from 'react-native';
 import { AppText, Pill } from '@/components/atoms';
-import { useAppTheme } from '@/styles/colors';
+import { softRed, useAppTheme, white } from '@/styles/colors';
 
 interface Props {
   containerStyle?: StyleProp<ViewStyle>;
@@ -40,8 +40,8 @@ const SelecttionBox: React.FC<Props> = ({
         <Pill
           containerStyle={styles.pill}
           text={recommendText}
-          color='#fff'
-          backgroundColor='red'
+          color={white}
+          backgroundColor={softRed}
         />
       ) : null}
       <TouchableOpacity style={styles.main} onPress={onPress}>

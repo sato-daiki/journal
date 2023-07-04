@@ -10,8 +10,8 @@ import { PostDiaryProps } from './interface';
 import { MAX_TEXT, MAX_TITLE, getIsTopic } from '@/utils/diary';
 import { TopicCategory, TopicSubcategory } from '@/types';
 import ImageViewFooter from '../../molecules/ImageViewFooter';
-import LanguagePicker from '@/components/molecules/LanguageModalPicker/LanguagePicker';
-import { useAppTheme } from '@/styles/colors';
+import LanguageModalPicker from '@/components/molecules/LanguageModalPicker';
+import { borderLight, softRed, useAppTheme } from '@/styles/colors';
 import ModalConfirm from '../Modal/ModalConfirm';
 import ModalDiaryCancel from '../Modal/ModalDiaryCancel';
 
@@ -124,7 +124,7 @@ const PostDiary: React.FC<PostDiaryProps> = ({
           )}
         />
       )}
-      <View style={[styles.header, { borderColor: theme.colors.borderLight }]}>
+      <View style={styles.header}>
         <View style={styles.left}>
           <View style={styles.title}>
             <AppText size='ss' style={styles.headerLabel}>
@@ -134,7 +134,7 @@ const PostDiary: React.FC<PostDiaryProps> = ({
               size='ss'
               color={
                 !themeCategory && !themeSubcategory && title.length > MAX_TITLE
-                  ? theme.colors.danger
+                  ? softRed
                   : theme.colors.primary
               }
               style={[styles.headerValue]}
@@ -147,11 +147,7 @@ const PostDiary: React.FC<PostDiaryProps> = ({
           </AppText>
           <AppText
             size='ss'
-            color={
-              text.length > MAX_TEXT
-                ? theme.colors.danger
-                : theme.colors.primary
-            }
+            color={text.length > MAX_TEXT ? softRed : theme.colors.primary}
             style={[styles.headerValue]}
           >
             {text.length}
@@ -161,11 +157,11 @@ const PostDiary: React.FC<PostDiaryProps> = ({
           !!selectedItem &&
           !!onPressItem && (
             <View style={styles.right}>
-              {/* <LanguagePicker
+              <LanguageModalPicker
                 size={'small'}
                 selectedItem={selectedItem}
                 onPressItem={onPressItem}
-              /> */}
+              />
             </View>
           )}
       </View>
@@ -201,12 +197,12 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: 'row',
-    // backgroundColor: offWhite,
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingVertical: 12,
     paddingHorizontal: 16,
     borderBottomWidth: StyleSheet.hairlineWidth,
+    borderColor: borderLight,
   },
   left: {
     flexDirection: 'row',

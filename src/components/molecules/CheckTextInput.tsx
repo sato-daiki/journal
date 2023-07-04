@@ -7,7 +7,7 @@ import {
   Platform,
 } from 'react-native';
 import { AppText, Icon, AppTextInput } from '../atoms';
-import { useAppTheme } from '@/styles/colors';
+import { green, softRed, useAppTheme } from '@/styles/colors';
 
 type Props = {
   isLoading?: boolean;
@@ -38,12 +38,9 @@ const CheckTextInput = (props: Props) => {
           isOff
           autoCapitalize='none'
           autoCorrect={false}
-          underlineColorAndroid='transparent'
           style={[
             styles.textInput,
-            errorMessage.length > 0
-              ? [styles.errorBorder, { borderColor: theme.colors.danger }]
-              : {},
+            errorMessage.length > 0 ? styles.errorBorder : {},
           ]}
           secureTextEntry={isPassword && !showPassword ? true : false}
           {...props}
@@ -56,7 +53,7 @@ const CheckTextInput = (props: Props) => {
               size={24}
               icon='material'
               name='check-circle-outline'
-              color={theme.colors.green}
+              color={green}
             />
           ) : null}
           {isPassword && (
@@ -76,9 +73,9 @@ const CheckTextInput = (props: Props) => {
             icon='fontAwesome'
             size={14}
             name='exclamation-circle'
-            color={theme.colors.danger}
+            color={softRed}
           />
-          <AppText size='s' color={theme.colors.danger} style={styles.error}>
+          <AppText size='s' color={softRed} style={styles.error}>
             {errorMessage}
           </AppText>
         </View>
@@ -99,6 +96,7 @@ const styles = StyleSheet.create({
   errorBorder: {
     borderBottomWidth: 2,
     borderWidth: 2,
+    borderColor: softRed,
   },
   errorContainer: {
     flexDirection: 'row',

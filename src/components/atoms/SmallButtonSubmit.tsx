@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Text,
   StyleSheet,
   ActivityIndicator,
   StyleProp,
@@ -9,7 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import AppText from './AppText';
-import { useAppTheme } from '@/styles/colors';
+import { useAppTheme, white } from '@/styles/colors';
 
 interface Props {
   containerStyle?: StyleProp<ViewStyle>;
@@ -33,7 +32,6 @@ const SmallButtonSubmit: React.FC<Props> = ({
   titleColor,
 }: Props) => {
   const theme = useAppTheme();
-
   return (
     <TouchableOpacity
       style={[
@@ -45,16 +43,9 @@ const SmallButtonSubmit: React.FC<Props> = ({
       onPress={isLoading || disable ? undefined : onPress}
     >
       {isLoading ? (
-        <ActivityIndicator
-          size='small'
-          color={titleColor || theme.colors.white}
-        />
+        <ActivityIndicator size='small' color={titleColor || white} />
       ) : (
-        <AppText
-          bold
-          size='m'
-          style={[{ color: titleColor || theme.colors.white }, titleStyle]}
-        >
+        <AppText bold size='m' color={titleColor || white} style={titleStyle}>
           {title}
         </AppText>
       )}

@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { TouchableNativeFeedback, View } from 'react-native';
 import { AppText } from '@/components';
-import { fontSizeM } from '@/styles/Common';
+import { fontSizeM } from '@/styles/fonts';
 
 type Props = {
   isTitle: boolean;

@@ -1,7 +1,32 @@
 import React from 'react';
 import { TextInputProps, TextInput, StyleSheet } from 'react-native';
-import { useAppTheme } from '@/styles/colors';
-import { fontSizeM } from '@/styles/Common';
+import { borderLight, useAppTheme } from '@/styles/colors';
+import { fontSizeM } from '@/styles/fonts';
+
+type Props = {
+  isOff?: boolean;
+} & TextInputProps;
+
+const AppTextInput: React.FC<Props> = ({ style, isOff, ...props }) => {
+  const theme = useAppTheme();
+  return (
+    <TextInput
+      style={[
+        {
+          color: theme.colors.primary,
+          backgroundColor: isOff
+            ? theme.colors.backgroundOff
+            : theme.colors.background,
+        },
+        styles.textInput,
+        style,
+      ]}
+      placeholderTextColor={theme.colors.secondary}
+      underlineColorAndroid='transparent'
+      {...props}
+    />
+  );
+};
 
 const styles = StyleSheet.create({
   textInput: {
@@ -12,34 +37,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     borderRadius: 6,
     width: '100%',
+    borderColor: borderLight,
   },
 });
-
-type Props = {
-  isOff?: boolean;
-} & TextInputProps;
-
-const AppTextInput: React.FC<Props> = ({ style, isOff, ...props }) => {
-  const theme = useAppTheme();
-
-  return (
-    <TextInput
-      style={[
-        {
-          color: theme.colors.primary,
-          backgroundColor: isOff
-            ? theme.colors.backgroundOff
-            : theme.colors.background,
-          borderColor: theme.colors.borderLight,
-        },
-        styles.textInput,
-        style,
-      ]}
-      placeholderTextColor={theme.colors.secondary}
-      underlineColorAndroid='transparent' // 共通
-      {...props}
-    />
-  );
-};
 
 export default React.memo(AppTextInput);

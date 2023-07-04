@@ -36,7 +36,7 @@ import {
 } from '@/utils/grammarCheck';
 import { MyDiaryCaller } from '@/navigations/MyDiaryTabNavigator';
 import { logAnalytics } from '@/utils/Analytics';
-import { useAppTheme } from '@/styles/colors';
+import { transparentBlack, white } from '@/styles/colors';
 
 interface Props {
   isView: boolean;
@@ -80,8 +80,6 @@ const MyDiaryMain: React.FC<Props> = ({
   goToRecord,
   onPressRevise,
 }) => {
-  const theme = useAppTheme();
-
   const appState = useRef<AppStateStatus>(AppState.currentState);
   const loaded = useRef<boolean>(false);
   const pressKey = useRef<WhichDiaryKey>();
@@ -363,8 +361,8 @@ const MyDiaryMain: React.FC<Props> = ({
         visible={isAdLoading}
         text={I18n.t('myDiary.adLoading')}
         source={LoadingWhite}
-        containerStyle={{ backgroundColor: theme.colors.transparentBlack }}
-        textStyle={[styles.adTextStyle, { color: theme.colors.white }]}
+        containerStyle={{ backgroundColor: transparentBlack }}
+        textStyle={styles.adTextStyle}
       />
       {selectedItem.value == 'original' ? (
         <AiCheck
@@ -425,6 +423,7 @@ const MyDiaryMain: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
   adTextStyle: {
+    color: white,
     fontWeight: 'bold',
   },
 });

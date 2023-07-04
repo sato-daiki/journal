@@ -8,7 +8,7 @@ import {
   View,
   TouchableOpacity,
 } from 'react-native';
-import { useAppTheme } from '@/styles/colors';
+import { useAppTheme, white } from '@/styles/colors';
 import AppText from './AppText';
 
 interface Props {
@@ -43,11 +43,11 @@ const SubmitButton: React.FC<Props> = ({
       onPress={isLoading || disable ? undefined : onPress}
     >
       {isLoading ? (
-        <ActivityIndicator size='small' color={theme.colors.white} />
+        <ActivityIndicator size='small' color={white} />
       ) : (
         <>
           {icon && <View style={styles.icon}>{icon}</View>}
-          <AppText size='m' bold color={theme.colors.white} style={textStyle}>
+          <AppText size='m' bold color={white} style={textStyle}>
             {title}
           </AppText>
         </>

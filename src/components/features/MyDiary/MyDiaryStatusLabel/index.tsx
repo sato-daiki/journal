@@ -3,12 +3,14 @@ import { StyleSheet, View } from 'react-native';
 import { Diary } from '../../../../types';
 import { getMyDiaryStatus } from '@/utils/diary';
 import DiaryStatusLabel from './DiaryStatusLabel';
+import { useAppTheme } from '@/styles/colors';
 
 interface Props {
   diary: Diary;
 }
 
 const MyDiaryStatusLabel: React.FC<Props> = ({ diary }) => {
+  const theme = useAppTheme();
   const status = useMemo(() => {
     return getMyDiaryStatus(diary);
   }, [diary]);
@@ -17,7 +19,10 @@ const MyDiaryStatusLabel: React.FC<Props> = ({ diary }) => {
     return (
       <>
         <View style={styles.padding} />
-        <DiaryStatusLabel color={status.color} text={status.text} />
+        <DiaryStatusLabel
+          color={status.color || theme.colors.primary}
+          text={status.text}
+        />
       </>
     );
   }

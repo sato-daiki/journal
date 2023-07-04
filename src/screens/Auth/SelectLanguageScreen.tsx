@@ -11,7 +11,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { Layout } from '@/components/templates';
 import { AppText, Space, SubmitButton } from '@/components/atoms';
 import I18n from '@/utils/I18n';
-import LanguagePicker from '@/components/molecules/LanguageModalPicker/LanguagePicker';
+import LanguageModalPicker from '@/components/molecules/LanguageModalPicker';
 import { getLanguageToolName } from '@/utils/grammarCheck';
 import { PickerItem } from '@/components/molecules/ModalPicker';
 
@@ -64,7 +64,10 @@ const SelectLanguageScreen: React.FC<ScreenType> = ({
         {I18n.t('selectLanguage.title')}
       </AppText>
       <Space size={16} />
-      <LanguagePicker selectedItem={selectedItem} onPressItem={onPressItem} />
+      <LanguageModalPicker
+        selectedItem={selectedItem}
+        onPressItem={onPressItem}
+      />
       <Space size={32} />
       <SubmitButton title={I18n.t('common.next')} onPress={onPressNext} />
     </Layout>

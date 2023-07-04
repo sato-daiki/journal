@@ -1,5 +1,5 @@
 import React from 'react';
-import { fontSizeL } from './Common';
+import { fontSizeL } from './fonts';
 import { AppTheme } from '@/styles/colors';
 import { Platform } from 'react-native';
 import DefaultHeaderBack from '@/components/features/Header/DefaultHeaderBack';

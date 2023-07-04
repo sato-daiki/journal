@@ -1,6 +1,6 @@
-import { MarkedDates } from '@/components/features/MyDiaryList';
 import * as React from 'react';
 import { Calendar as RNCalendar, CalendarProps } from 'react-native-calendars';
+import { MarkedDates } from 'react-native-calendars/src/types';
 
 // 日本語ロケール有効化
 import './localeConfig';

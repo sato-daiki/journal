@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import I18n from '@/utils/I18n';
 import { ThemeCategory } from '@/types';
 import { SmallPill } from '@/components/atoms';
-import { useAppTheme } from '@/styles/colors';
+import { useAppTheme, white } from '@/styles/colors';
 
 interface Props {
   themeCategory: ThemeCategory;
@@ -15,7 +15,7 @@ const ThemeSmallPill: React.FC<Props> = ({ themeCategory }) => {
     <SmallPill
       containerStyle={styles.smallPill}
       text={I18n.t(`themeCategory.${themeCategory}`)}
-      color={theme.colors.white}
+      color={white}
       backgroundColor={theme.colors.secondary}
     />
   );

@@ -6,7 +6,7 @@ import {
   TabBar,
 } from 'react-native-tab-view';
 import { AppText } from '@/components/atoms';
-import { useAppTheme } from '@/styles/colors';
+import { borderLight, useAppTheme } from '@/styles/colors';
 
 type Props = SceneRendererProps & {
   navigationState: NavigationState<{
@@ -37,6 +37,11 @@ const MyDiaryTabBar: React.FC<Props> = (props) => {
         width: Math.max(width / props.navigationState.routes.length, 100),
       }}
       scrollEnabled
+      style={{
+        backgroundColor: theme.colors.background,
+        borderBottomColor: borderLight,
+        borderBottomWidth: StyleSheet.hairlineWidth,
+      }}
       renderLabel={renderLabel}
       indicatorStyle={{ backgroundColor: theme.colors.main }}
       activeColor={theme.colors.main}

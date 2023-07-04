@@ -5,16 +5,16 @@ import {
   ThemeSubcategory,
   User,
 } from '@/types';
-import { subTextColor, green, softRed, primaryColor } from '@/styles/Common';
 import firestore, {
   FirebaseFirestoreTypes,
 } from '@react-native-firebase/firestore';
 
-import { MarkedDates } from '@/components/features/MyDiaryList';
 import I18n from './I18n';
 import { getDateToStrDay, getLastMonday, getThisMonday } from './common';
 import { getDay } from './time';
 import { FetchInfoState } from '@/stores/reducers/diaryList';
+import { myStatusColor, white } from '@/styles/colors';
+import { MarkedDates } from 'react-native-calendars/src/types';
 
 export const MAX_TITLE = 100;
 export const MAX_TEXT = 1200;
@@ -125,37 +125,44 @@ export const getRunning = (user: User) => {
   return { runningDays, runningWeeks };
 };
 
-export const MY_STATUS = {
-  draft: { text: I18n.t('myDiaryStatus.draft'), color: subTextColor },
-  checked: { text: I18n.t('myDiaryStatus.checked'), color: primaryColor },
-  revised: { text: I18n.t('myDiaryStatus.revised'), color: green },
-  yet: { text: I18n.t('myDiaryStatus.yet'), color: subTextColor }, //人間の添削来待ち
-  unread: { text: I18n.t('myDiaryStatus.unread'), color: softRed }, //人間の添削来待ち
-
-  // テーマ一覧に出すよう
-  done: { text: I18n.t('myDiaryStatus.done'), color: primaryColor },
-};
-
 export const getMyDiaryStatus = (diary: Diary) => {
   if (diary.diaryStatus === 'draft') {
-    return MY_STATUS.draft;
+    return {
+      text: I18n.t('myDiaryStatus.draft'),
+      color: myStatusColor.draft,
+    };
   }
   if (diary.human?.status === 'yet') {
-    return MY_STATUS.yet;
+    return {
+      text: I18n.t('myDiaryStatus.yet'),
+      color: myStatusColor.yet,
+    };
   }
   if (diary.human?.status === 'unread') {
-    return MY_STATUS.unread;
+    return {
+      text: I18n.t('myDiaryStatus.unread'),
+      color: myStatusColor.unread,
+    };
   }
 
   if (diary.reviseText || diary.reviseTitle) {
-    return MY_STATUS.revised;
+    return {
+      text: I18n.t('myDiaryStatus.revised'),
+      color: myStatusColor.revised,
+    };
   }
 
-  return MY_STATUS.checked;
+  return {
+    text: I18n.t('myDiaryStatus.checked'),
+    color: null,
+  };
 };
 
 // 投稿済みの時はpublishedAt、下書きの時または以前verの時はcreatedAt
-export const getMarkedDates = (newDiaries: Diary[]): MarkedDates =>
+export const getMarkedDates = (
+  newDiaries: Diary[],
+  primary: string,
+): MarkedDates =>
   newDiaries.reduce((prev, d) => {
     if (!d.objectID) return prev;
     const myDiaryStatus = getMyDiaryStatus(d);
@@ -165,8 +172,8 @@ export const getMarkedDates = (newDiaries: Diary[]): MarkedDates =>
     );
     const params = {
       key: d.objectID,
-      selectedDotColor: '#fff',
-      color: myDiaryStatus?.color,
+      selectedDotColor: white,
+      color: myDiaryStatus.color || primary,
     };
 
     return {

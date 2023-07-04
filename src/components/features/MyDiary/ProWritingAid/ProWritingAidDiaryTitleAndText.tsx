@@ -1,10 +1,9 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
 import { ThemeCategory, ThemeSubcategory, Tag, LongCode } from '@/types';
 import ProWritingAidWords from './ProWritingAidWords';
 import { AppText } from '@/components/atoms';
-import { fontSizeM } from '@/styles/Common';
 import CommonDiaryTitleAndText from '../CommonAi/CommonDiaryTitleAndText';
+import DiaryText from '../DiaryText';
 
 interface Props {
   isPerfect: boolean;
@@ -21,12 +20,6 @@ interface Props {
   setTextActiveIndex?: (activeId: number | null) => void;
   onPressShare: () => void;
 }
-
-const styles = StyleSheet.create({
-  text: {
-    lineHeight: fontSizeM * 1.8,
-  },
-});
 
 const ProWritingAidDiaryTitleAndText: React.FC<Props> = ({
   isPerfect,
@@ -79,9 +72,7 @@ const ProWritingAidDiaryTitleAndText: React.FC<Props> = ({
             setOtherIndex={setTitleActiveIndex}
           />
         ) : (
-          <AppText size='m' bold style={styles.text}>
-            {text}
-          </AppText>
+          <DiaryText>{text}</DiaryText>
         )
       }
       onPressShare={onPressShare}

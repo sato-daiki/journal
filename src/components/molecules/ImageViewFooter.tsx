@@ -1,6 +1,6 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
-import { useAppTheme } from '@/styles/colors';
+import { useAppTheme, white } from '@/styles/colors';
 
 export interface Props {
   total: number;
@@ -22,9 +22,7 @@ const ImageViewFooter: React.FC<Props> = ({ total, imageIndex }) => {
                 styles.dot,
                 {
                   backgroundColor:
-                    imageIndex === i
-                      ? theme.colors.white
-                      : theme.colors.secondary,
+                    imageIndex === i ? white : theme.colors.secondary,
                 },
               ]}
             />

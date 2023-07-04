@@ -1,7 +1,40 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import Modal from 'react-native-modal';
+import RNModal from 'react-native-modal';
 import { Animation, CustomAnimation } from 'react-native-animatable';
+import { useAppTheme } from '@/styles/colors';
+
+interface Props {
+  visible: boolean;
+  animationIn?: Animation | CustomAnimation;
+  animationOut?: Animation | CustomAnimation;
+  children: React.ReactNode;
+}
+
+const Modal: React.FC<Props> = ({
+  visible,
+  animationIn = 'zoomIn',
+  animationOut = 'zoomOut',
+  children,
+}: Props) => {
+  const theme = useAppTheme();
+
+  return (
+    <View style={styles.container}>
+      <RNModal
+        isVisible={visible}
+        animationIn={animationIn}
+        animationOut={animationOut}
+      >
+        <View
+          style={[styles.modal, { backgroundColor: theme.colors.background }]}
+        >
+          {children}
+        </View>
+      </RNModal>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -10,7 +43,6 @@ const styles = StyleSheet.create({
   modal: {
     width: '100%',
     borderRadius: 8,
-    backgroundColor: '#fff',
   },
   padding0: {
     paddingVertical: 8,
@@ -20,32 +52,4 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props {
-  visible: boolean;
-  disablePadding?: boolean;
-  animationIn?: Animation | CustomAnimation;
-  animationOut?: Animation | CustomAnimation;
-  children: React.ReactNode;
-}
-
-const Modal1: React.FC<Props> = ({
-  visible,
-  disablePadding,
-  animationIn = 'zoomIn',
-  animationOut = 'zoomOut',
-  children,
-}: Props) => {
-  return (
-    <View style={styles.container}>
-      <Modal
-        isVisible={visible}
-        animationIn={animationIn}
-        animationOut={animationOut}
-      >
-        <View style={styles.modal}>{children}</View>
-      </Modal>
-    </View>
-  );
-};
-
-export default Modal1;
+export default Modal;

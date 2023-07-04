@@ -5,7 +5,7 @@ import * as Clipboard from 'expo-clipboard';
 import Toast from 'react-native-root-toast';
 import I18n from '@/utils/I18n';
 import { Icon, AppText } from '@/components';
-import { useAppTheme } from '@/styles/colors';
+import { borderLight, useAppTheme } from '@/styles/colors';
 
 interface Props {
   skipFirstRow?: boolean;
@@ -42,12 +42,7 @@ export const CardMain: React.FC<Props> = ({
   }, []);
 
   return (
-    <ScrollView
-      contentContainerStyle={[
-        styles.scrollView,
-        { borderColor: theme.colors.borderLight },
-      ]}
-    >
+    <ScrollView contentContainerStyle={styles.scrollView}>
       <View>
         {!skipFirstRow && (
           <View style={styles.firstRow}>
@@ -153,6 +148,7 @@ const styles = StyleSheet.create({
     paddingTop: 12,
     minHeight: 176,
     justifyContent: 'space-between',
+    borderColor: borderLight,
   },
   firstRow: {
     flexDirection: 'row',

@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { useAppTheme } from '@/styles/colors';
+import { borderLight, useAppTheme } from '@/styles/colors';
 
 interface Props {
   header: ReactNode;
@@ -14,7 +14,7 @@ const Card: React.FC<Props> = ({ header, main }) => {
       style={[
         styles.container,
         {
-          borderTopColor: theme.colors.borderLight,
+          borderTopColor: borderLight,
           backgroundColor: theme.colors.backgroundOff,
         },
       ]}

@@ -7,7 +7,6 @@ import {
 } from 'react-native';
 import { AppText, Icon } from '@/components/atoms';
 import ModalPicker, { PickerItem } from '../../molecules/ModalPicker';
-import { useAppTheme } from '@/styles/colors';
 
 type Props = {
   containerStyle?: StyleProp<ViewStyle>;
@@ -24,7 +23,6 @@ const MyDiaryModalPicker: React.FC<Props> = ({
   items,
   onPressItem,
 }) => {
-  const theme = useAppTheme();
   const [isVisible, setIsVisible] = useState(false);
 
   const onPress = useCallback(() => {

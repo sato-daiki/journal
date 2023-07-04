@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
-import { useAppTheme } from '@/styles/colors';
+import { borderLight, useAppTheme } from '@/styles/colors';
 import { AppText, Icon, AppSwitch } from '@/components';
 
 interface Props {
@@ -33,8 +33,6 @@ const OptionItem: React.FC<Props> = ({
       style={[
         styles.container,
         {
-          borderBottomColor: theme.colors.borderLight,
-          borderTopColor: theme.colors.borderLight,
           borderTopWidth,
         },
       ]}
@@ -72,6 +70,8 @@ const styles = StyleSheet.create({
     height: 48,
     paddingLeft: 16,
     paddingRight: 6,
+    borderBottomColor: borderLight,
+    borderTopColor: borderLight,
   },
   leftContainer: {
     flexDirection: 'row',

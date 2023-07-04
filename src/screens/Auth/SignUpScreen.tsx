@@ -203,7 +203,6 @@ const SignUpScreen: React.FC<ScreenType> = ({
             keyboardType='email-address'
             autoCapitalize='none'
             autoCorrect={false}
-            underlineColorAndroid='transparent'
             returnKeyType='done'
             isLoading={isEmailLoading}
             isCheckOk={isEmailCheckOk}
@@ -221,7 +220,6 @@ const SignUpScreen: React.FC<ScreenType> = ({
             placeholder='Password'
             autoCapitalize='none'
             autoCorrect={false}
-            underlineColorAndroid='transparent'
             returnKeyType='done'
             errorMessage={errorPassword}
           />

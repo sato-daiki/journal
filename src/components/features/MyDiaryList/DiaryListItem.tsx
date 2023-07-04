@@ -4,7 +4,7 @@ import { getDay } from '@/utils/time';
 import { Diary } from '@/types';
 import { AppText } from '@/components/atoms';
 import DiaryTitle from '../MyDiary/DiaryTitle';
-import { useAppTheme } from '@/styles/colors';
+import { borderLight, useAppTheme } from '@/styles/colors';
 import MyDiaryStatusLabel from '../MyDiary/MyDiaryStatusLabel';
 
 interface Props {
@@ -31,13 +31,7 @@ const DiaryListItem = ({ item, onPressItem }: Props) => {
   }, [item, onPressItem]);
 
   return (
-    <TouchableOpacity
-      style={[
-        styles.container,
-        { borderBottomColor: theme.colors.borderLight },
-      ]}
-      onPress={onPressRow}
-    >
+    <TouchableOpacity style={styles.container} onPress={onPressRow}>
       <View style={styles.header}>
         <AppText size='s' color={theme.colors.secondary}>
           {postDay}
@@ -69,6 +63,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: borderLight,
   },
   header: {
     flexDirection: 'row',

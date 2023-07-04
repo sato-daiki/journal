@@ -12,7 +12,7 @@ import {
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AiName, getWhatUrl } from '@/utils/grammarCheck';
 import { SaplingLogo, ProWritingAidLogo } from '@/images';
-import { useAppTheme } from '@/styles/colors';
+import { useAppTheme, white } from '@/styles/colors';
 
 interface Props {
   isPremium: boolean;
@@ -34,25 +34,13 @@ const NoAi: React.FC<Props> = ({
   const theme = useAppTheme();
 
   const iconSpellcheck = useMemo(
-    () => (
-      <MaterialCommunityIcons
-        size={22}
-        color={theme.colors.white}
-        name='spellcheck'
-      />
-    ),
-    [theme.colors.white],
+    () => <MaterialCommunityIcons size={22} color={white} name='spellcheck' />,
+    [],
   );
 
   const iconWatch = useMemo(
-    () => (
-      <MaterialCommunityIcons
-        size={22}
-        color={theme.colors.white}
-        name='play'
-      />
-    ),
-    [theme.colors.white],
+    () => <MaterialCommunityIcons size={22} color={white} name='play' />,
+    [],
   );
 
   const iconBecome = useMemo(

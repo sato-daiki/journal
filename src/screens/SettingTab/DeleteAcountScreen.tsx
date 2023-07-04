@@ -12,7 +12,7 @@ import {
 import auth from '@react-native-firebase/auth';
 import { Layout } from '@/components/templates';
 import { AppText, Space, WhiteButton } from '@/components/atoms';
-import { useAppTheme } from '@/styles/colors';
+import { softRed, useAppTheme } from '@/styles/colors';
 import ModalDeleteAcount from '@/components/features/Modal/ModalDeleteAcount';
 
 interface DispatchProps {
@@ -121,8 +121,8 @@ const DeleteAcountScreen: React.FC<ScreenType> = ({ signOut }) => {
       <AppText size='m'>{I18n.t('deleteAcount.text')}</AppText>
       <Space size={32} />
       <WhiteButton
-        containerStyle={{ borderColor: theme.colors.danger }}
-        textStyle={{ color: theme.colors.danger }}
+        containerStyle={{ borderColor: softRed }}
+        textStyle={{ color: softRed }}
         title={I18n.t('deleteAcount.withdrawal')}
         onPress={(): void => setIsModal(true)}
       />

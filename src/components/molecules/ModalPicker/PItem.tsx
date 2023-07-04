@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { PickerItem } from '.';
 import { AppText } from '@/components/atoms';
-import { useAppTheme } from '@/styles/colors';
+import { borderLight, useAppTheme } from '@/styles/colors';
 
 type Props = {
   item: PickerItem;
@@ -17,12 +17,7 @@ const PItem: React.FC<Props> = ({ item, onPressItem }) => {
   }, [item, onPressItem]);
 
   return (
-    <View
-      style={[
-        styles.container,
-        { borderBottomColor: theme.colors.borderLight },
-      ]}
-    >
+    <View style={styles.container}>
       <TouchableOpacity onPress={onPress}>
         <AppText size='m' bold style={styles.label}>
           {item.label}
@@ -35,6 +30,7 @@ const PItem: React.FC<Props> = ({ item, onPressItem }) => {
 const styles = StyleSheet.create({
   container: {
     borderBottomWidth: 1,
+    borderBottomColor: borderLight,
   },
   label: {
     paddingVertical: 12,

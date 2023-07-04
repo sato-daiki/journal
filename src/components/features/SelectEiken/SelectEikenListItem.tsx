@@ -1,12 +1,12 @@
 import React, { useCallback, useMemo } from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import { MY_STATUS } from '@/utils/diary';
 import { getDay } from '@/utils/time';
 import { ThemeDiary } from '@/types';
 import { EikentTitle } from '@/screens/Modal/SelectEikenScreen/config/title';
 import DiaryStatusLabel from '../MyDiary/MyDiaryStatusLabel/DiaryStatusLabel';
-import { useAppTheme } from '@/styles/colors';
+import { borderLight, useAppTheme } from '@/styles/colors';
 import { AppText } from '@/components/atoms';
+import I18n from '@/utils/I18n';
 
 interface Props {
   themeDiary?: ThemeDiary;
@@ -31,13 +31,7 @@ const SelectEikenListItem: React.FC<Props> = ({
   }, [item, onPress]);
 
   return (
-    <TouchableOpacity
-      style={[
-        styles.container,
-        { borderBottomColor: theme.colors.borderLight },
-      ]}
-      onPress={onPressItem}
-    >
+    <TouchableOpacity style={styles.container} onPress={onPressItem}>
       <View style={styles.header}>
         <AppText size='s' color={theme.colors.secondary}>
           {item.subTitle}
@@ -52,8 +46,8 @@ const SelectEikenListItem: React.FC<Props> = ({
               {updatedAt}
             </AppText>
             <DiaryStatusLabel
-              color={MY_STATUS.done.color}
-              text={MY_STATUS.done.text}
+              color={theme.colors.primary}
+              text={I18n.t('myDiaryStatus.done')}
             />
           </View>
         ) : null}
@@ -70,6 +64,7 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     paddingHorizontal: 16,
     borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: borderLight,
   },
   header: {
     flexDirection: 'row',

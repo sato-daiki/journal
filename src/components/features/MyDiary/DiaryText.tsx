@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { StyleSheet } from 'react-native';
 import { AppText } from '@/components/atoms';
-import { fontSizeM } from '@/styles/Common';
+import { fontSizeM } from '@/styles/fonts';
 
-interface Props {
-  text: string;
+export interface Props {
+  children: ReactNode;
 }
 
-const DiaryText: React.FC<Props> = ({ text }) => {
+const DiaryText: React.FC<Props> = ({ children }) => {
   return (
     <AppText size='m' style={styles.text}>
-      {text}
+      {children}
     </AppText>
   );
 };

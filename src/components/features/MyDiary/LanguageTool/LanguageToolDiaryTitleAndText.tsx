@@ -1,10 +1,9 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
 import { LongCode, Match, ThemeCategory, ThemeSubcategory } from '@/types';
 import LanguageToolWords from './LanguageToolWords';
 import CommonDiaryTitleAndText from '../CommonAi/CommonDiaryTitleAndText';
 import { AppText } from '@/components/atoms';
-import { fontSizeM } from '@/styles/Common';
+import DiaryText from '../DiaryText';
 
 interface Props {
   isPerfect: boolean;
@@ -73,20 +72,12 @@ const LanguageToolDiaryTitleAndText: React.FC<Props> = ({
             setOtherIndex={setTitleActiveIndex}
           />
         ) : (
-          <AppText size='m' bold style={styles.text}>
-            {text}
-          </AppText>
+          <DiaryText>{text}</DiaryText>
         )
       }
       onPressShare={onPressShare}
     />
   );
 };
-
-const styles = StyleSheet.create({
-  text: {
-    lineHeight: fontSizeM * 1.8,
-  },
-});
 
 export default LanguageToolDiaryTitleAndText;

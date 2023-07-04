@@ -6,7 +6,7 @@ import { Space, SubmitButton, WhiteButton } from '../../atoms';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { LongCode } from '@/types';
 import GrayHeader from '../../molecules/GrayHeader';
-import { useAppTheme } from '@/styles/colors';
+import { useAppTheme, white } from '@/styles/colors';
 import ModalVoice from '../Modal/ModalVoice';
 
 type Props = {
@@ -161,10 +161,8 @@ const DiaryFooter: React.FC<Props> = ({
   }, [checkPermissions, updateScreenForSoundStatus, voiceUrl]);
 
   const iconPen = useMemo(
-    () => (
-      <MaterialCommunityIcons size={22} color={theme.colors.white} name='pen' />
-    ),
-    [theme.colors.white],
+    () => <MaterialCommunityIcons size={22} color={white} name='pen' />,
+    [],
   );
 
   const iconSpellcheck = useMemo(

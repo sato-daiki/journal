@@ -129,7 +129,6 @@ const InquiryScreen: React.FC<ScreenType> = ({ navigation, user }) => {
               keyboardType='email-address'
               autoCapitalize='none'
               autoCorrect={false}
-              underlineColorAndroid='transparent'
               returnKeyType='done'
             />
             <Space size={16} />

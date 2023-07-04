@@ -7,7 +7,7 @@ import {
   ViewStyle,
 } from 'react-native';
 import AppText from '../atoms/AppText';
-import { useAppTheme } from '@/styles/colors';
+import { borderLight } from '@/styles/colors';
 
 interface Props {
   containerStyle?: StyleProp<ViewStyle>;
@@ -16,7 +16,6 @@ interface Props {
 }
 
 const Heading: React.FC<Props> = ({ containerStyle, titleStyle, title }) => {
-  const theme = useAppTheme();
   return (
     <View style={containerStyle}>
       <AppText
@@ -27,9 +26,7 @@ const Heading: React.FC<Props> = ({ containerStyle, titleStyle, title }) => {
       >
         {title}
       </AppText>
-      <View
-        style={[styles.line, { borderBottomColor: theme.colors.borderLight }]}
-      />
+      <View style={styles.line} />
     </View>
   );
 };
@@ -42,6 +39,7 @@ const styles = StyleSheet.create({
   line: {
     width: '100%',
     borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: borderLight,
   },
 });
 

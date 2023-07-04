@@ -6,8 +6,8 @@ import {
   Space,
   Heading,
   AppText,
+  Modal,
 } from '@/components';
-import { Modal } from '@/components/templates';
 import I18n from '@/utils/I18n';
 
 interface Props {

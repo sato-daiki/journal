@@ -1,13 +1,12 @@
 import React, { useCallback } from 'react';
 import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
-
-import { MY_STATUS } from '@/utils/diary';
 import { getDay } from '@/utils/time';
 import { TopicSubcategoryInfo } from '@/screens/Modal/SelectTopicSubcategoryScreen/interface';
 import { ThemeDiary } from '@/types';
 import DiaryStatusLabel from '../MyDiary/MyDiaryStatusLabel/DiaryStatusLabel';
-import { useAppTheme } from '@/styles/colors';
+import { borderLight, useAppTheme } from '@/styles/colors';
 import { AppText, Space } from '@/components/atoms';
+import I18n from '@/utils/I18n';
 
 interface Props {
   themeDiary?: ThemeDiary;
@@ -27,13 +26,7 @@ const SelectTopicSubcategoryListItem: React.FC<Props> = ({
   }, [item, onPress]);
 
   return (
-    <TouchableOpacity
-      style={[
-        styles.container,
-        { borderBottomColor: theme.colors.borderLight },
-      ]}
-      onPress={onPressItem}
-    >
+    <TouchableOpacity style={styles.container} onPress={onPressItem}>
       <Image style={styles.image} source={item.source} />
       <View style={styles.textContainer}>
         <View style={styles.column}>
@@ -53,8 +46,8 @@ const SelectTopicSubcategoryListItem: React.FC<Props> = ({
               {getDay(themeDiary.updatedAt.toDate())}
             </AppText>
             <DiaryStatusLabel
-              color={MY_STATUS.checked.color}
-              text={MY_STATUS.checked.text}
+              color={theme.colors.primary}
+              text={I18n.t('myDiaryStatus.checked')}
             />
           </View>
         ) : null}
@@ -69,6 +62,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     flexDirection: 'row',
     borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: borderLight,
   },
   textContainer: {
     flexDirection: 'row',

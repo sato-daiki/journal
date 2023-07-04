@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import I18n from '@/utils/I18n';
-import { Modal } from '@/components/templates';
 import {
+  Modal,
   WhiteButton,
   Space,
   SubmitButton,
@@ -77,7 +77,6 @@ const ModalDeleteAcount: React.FC<Props> = ({
           placeholder='Password'
           autoCapitalize='none'
           autoCorrect={false}
-          underlineColorAndroid='transparent'
           returnKeyType='done'
           errorMessage={errorMessage}
         />

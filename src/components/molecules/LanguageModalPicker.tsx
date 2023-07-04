@@ -1,33 +1,24 @@
-import React, { useCallback, useState } from 'react';
-import {
-  StyleProp,
-  StyleSheet,
-  TouchableOpacity,
-  ViewStyle,
-} from 'react-native';
-import { LongCode } from '@/types';
-import ModalPicker, { PickerItem, Size } from '../ModalPicker';
-import CountryNameWithFlag from '../CountryNameWithFlag';
-import { Icon } from '@/components/atoms';
+import React, { useCallback, useMemo, useState } from 'react';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { languageToolLanguages } from '@/utils/grammarCheck';
+import ModalPicker, { PickerItem, Size } from './ModalPicker';
 import { useAppTheme } from '@/styles/colors';
+import CountryNameWithFlag from './CountryNameWithFlag';
+import { LongCode } from '@/types';
+import { Icon } from '@/components/atoms';
 
-type Props = {
-  containerStyle?: StyleProp<ViewStyle>;
-  selectedItem: PickerItem;
-  items: PickerItem[];
+export interface Props {
   size?: Size;
+  selectedItem: PickerItem;
   onPressItem: (item: PickerItem) => void;
-};
+}
 
 const LanguageModalPicker: React.FC<Props> = ({
-  containerStyle,
-  selectedItem,
-  items,
   size = 'large',
+  selectedItem,
   onPressItem,
 }) => {
   const theme = useAppTheme();
-
   const [isVisible, setIsVisible] = useState(false);
 
   const onPress = useCallback(() => {
@@ -42,11 +33,22 @@ const LanguageModalPicker: React.FC<Props> = ({
     [onPressItem],
   );
 
+  const options: PickerItem[] = useMemo(
+    () =>
+      languageToolLanguages.map((item) => {
+        return {
+          label: item.name,
+          value: item.longCode,
+        };
+      }),
+    [],
+  );
+
   return (
-    <>
+    <View style={styles.container}>
       <TouchableOpacity
         style={[
-          styles.container,
+          styles.innerContainer,
           {
             borderColor: theme.colors.primary,
           },
@@ -59,7 +61,6 @@ const LanguageModalPicker: React.FC<Props> = ({
                 width: 136,
                 paddingLeft: 6,
               },
-          containerStyle,
         ]}
         onPress={onPress}
       >
@@ -75,15 +76,20 @@ const LanguageModalPicker: React.FC<Props> = ({
       </TouchableOpacity>
       <ModalPicker
         isVisible={isVisible}
-        items={items}
+        items={options}
         onPressItem={handlePressItem}
       />
-    </>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+  },
+  innerContainer: {
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
@@ -92,4 +98,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default React.memo(LanguageModalPicker);
+export default LanguageModalPicker;

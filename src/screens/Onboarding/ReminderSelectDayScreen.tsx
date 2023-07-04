@@ -9,7 +9,7 @@ import { getDayName } from '@/utils/time';
 import { RouteProp } from '@react-navigation/native';
 import { OnboardingStackParamList } from '@/navigations/OnboardingNavigator';
 import { SettingTabStackParamList } from '@/navigations/SettingTabNavigator';
-import HeaderText from '@/components/features/Header/HeaderText';
+import DefaultHeaderBack from '@/components/features/Header/DefaultHeaderBack';
 
 type NavigationProp = StackNavigationProp<
   OnboardingStackParamList | SettingTabStackParamList,
@@ -154,9 +154,7 @@ const ReminderSelectDayScreen: React.FC<ScreenType> = ({
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerRight: () => (
-        <HeaderText text={I18n.t('common.done')} onPress={onPressDone} />
-      ),
+      headerLeft: () => <DefaultHeaderBack onPress={onPressDone} />,
     });
   }, [navigation, onPressDone]);
 

@@ -17,7 +17,6 @@ import {
   AppSlider,
   AppText,
   Icon,
-  LoadingModal,
   SmallButtonWhite,
   Space,
 } from '@/components';
@@ -33,7 +32,7 @@ import ModalConfirm from '@/components/features/Modal/ModalConfirm';
 import HeaderText from '@/components/features/Header/HeaderText';
 import DiaryTitle from '@/components/features/MyDiary/DiaryTitle';
 import DiaryText from '@/components/features/MyDiary/DiaryText';
-import { useAppTheme } from '@/styles/colors';
+import { borderLight, softRed, useAppTheme } from '@/styles/colors';
 
 export type Props = {
   diary?: Diary;
@@ -66,29 +65,6 @@ const RecordScreen: React.FC<ScreenType> = ({
   const [sound, setSound] = useState<Audio.Sound | null>(null);
   const isSeeking = useRef<boolean>(false);
   const shouldPlayAtEndOfSeek = useRef<boolean>(false);
-  // const recordingSettings = useRef<Audio.RecordingOptions>({
-  //   android: {
-  //     extension: '.m4a',
-  //     outputFormat: Audio.AndroidOutputFormat.MPEG_4,
-  //     audioEncoder: Audio.AndroidAudioEncoder.AAC,
-  //     sampleRate: 44100,
-  //     numberOfChannels: 2,
-  //     bitRate: 128000,
-  //     maxFileSize: 12000,
-  //   },
-  //   ios: {
-  //     extension: '.m4a',
-  //     outputFormat: Audio.IOSOutputFormat.MPEG4AAC,
-  //     audioQuality: Audio.IOSAudioQuality.MAX,
-  //     sampleRate: 44100,
-  //     numberOfChannels: 2,
-  //     bitRate: 128000,
-  //     linearPCMBitDepth: 16,
-  //     linearPCMIsBigEndian: false,
-  //     linearPCMIsFloat: false,
-  //   },
-  //   web: {},
-  // });
   const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -424,7 +400,7 @@ const RecordScreen: React.FC<ScreenType> = ({
     setIsSaving(false);
     setSaved(false);
     setIsModaleVoiceDelete(false);
-  }, [diary, editDiary, isLoading, isSaving]);
+  }, [diary, editDiary, isLoading, isSaving, sound]);
 
   if (!diary) return null;
 
@@ -484,7 +460,7 @@ const RecordScreen: React.FC<ScreenType> = ({
           themeSubcategory={diary.themeSubcategory}
         />
         <Space size={16} />
-        <DiaryText text={diary.reviseText || diary.text} />
+        <DiaryText>{diary.reviseText || diary.text}</DiaryText>
       </ScrollView>
       {sound && (
         <View
@@ -519,7 +495,7 @@ const RecordScreen: React.FC<ScreenType> = ({
         style={[
           styles.recordButtonContainer,
           {
-            borderTopColor: theme.colors.borderLight,
+            borderTopColor: borderLight,
             backgroundColor: theme.colors.backgroundOff,
           },
         ]}
@@ -529,7 +505,7 @@ const RecordScreen: React.FC<ScreenType> = ({
           icon='community'
           name={isRecording ? 'stop' : 'record'}
           size={64}
-          color={theme.colors.danger}
+          color={softRed}
           onPress={onRecordPressed}
         />
         {isRecording ? (

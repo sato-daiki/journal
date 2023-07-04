@@ -3,14 +3,13 @@ import { StyleSheet, View } from 'react-native';
 import I18n from '@/utils/I18n';
 
 import TimePicker from '../../molecules/TimePicker';
-import { useAppTheme } from '@/styles/colors';
+import { borderLight } from '@/styles/colors';
 import { AppText } from '@/components/atoms';
 
 interface Props {
   day?: number;
   disable?: boolean;
   heading: string;
-  isBorrderTop?: boolean;
   timeStart: Date;
   timeEnd: Date;
   handleTimeStart: (day: number | undefined, time: Date) => void;
@@ -21,15 +20,11 @@ const SelectTimeItem = ({
   day,
   disable,
   heading,
-  isBorrderTop = false,
   timeStart,
   timeEnd,
   handleTimeStart,
   handleTimeEnd,
 }: Props) => {
-  const theme = useAppTheme();
-  const borderTopWidth = isBorrderTop ? 0.5 : undefined;
-
   const onChangeTimeStart = useCallback(
     (time: Date) => {
       handleTimeStart(day, time);
@@ -45,13 +40,7 @@ const SelectTimeItem = ({
   );
 
   return (
-    <View
-      style={[
-        styles.container,
-        { borderBottomColor: theme.colors.borderLight },
-        disable && styles.opacity,
-      ]}
-    >
+    <View style={[styles.container, disable && styles.opacity]}>
       <AppText size='m' style={styles.heading}>
         {heading}
       </AppText>
@@ -82,6 +71,7 @@ const styles = StyleSheet.create({
     paddingLeft: 16,
     paddingRight: 8,
     borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: borderLight,
   },
   row: {
     flexDirection: 'row',

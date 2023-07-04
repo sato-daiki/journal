@@ -2,10 +2,10 @@ import React, { useCallback } from 'react';
 import { View, StyleSheet, Animated, TouchableOpacity } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { Diary } from '@/types';
-import { fontSizeM } from '@/styles/Common';
+import { fontSizeM } from '@/styles/fonts';
 import I18n from '@/utils/I18n';
 import DiaryListItem from '@/components/features/MyDiaryList/DiaryListItem';
-import { useAppTheme } from '@/styles/colors';
+import { softRed, useAppTheme, white } from '@/styles/colors';
 
 interface Props {
   index: number;
@@ -40,15 +40,13 @@ const MyDiaryListItem = ({
         extrapolate: 'clamp',
       });
       return (
-        <View
-          style={[styles.rightAction, { backgroundColor: theme.colors.danger }]}
-        >
+        <View style={[styles.rightAction, { backgroundColor: softRed }]}>
           <TouchableOpacity style={styles.deleteButton} onPress={onPressDelete}>
             <Animated.Text
               style={[
                 styles.deleteText,
                 {
-                  color: theme.colors.white,
+                  color: white,
                   transform: [{ translateX: trans }],
                 },
               ]}
@@ -59,7 +57,7 @@ const MyDiaryListItem = ({
         </View>
       );
     },
-    [onPressDelete, theme.colors.danger, theme.colors.white],
+    [onPressDelete],
   );
 
   const setRef = useCallback(

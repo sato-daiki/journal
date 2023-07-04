@@ -11,8 +11,8 @@ import firestore, {
 import { firebase } from '@react-native-firebase/functions';
 import Toast from 'react-native-root-toast';
 import { addAiCheckError } from '@/utils/grammarCheck';
-import { AppText, Space, SubmitButton } from '@/components/atoms';
-import { useAppTheme } from '@/styles/colors';
+import { AppText, Icon, Space, SubmitButton } from '@/components/atoms';
+import { borderLight, softRed, useAppTheme, white } from '@/styles/colors';
 
 interface Props {
   activeHuman: boolean | undefined;
@@ -50,7 +50,6 @@ const NoHuman: React.FC<Props> = ({
   const [initialLoading, setInitialLoading] = useState(true);
   const [initialLoadError, setInitialLoadError] = useState(false);
 
-  const [loading, setLoading] = useState(false);
   const { initPaymentSheet, presentPaymentSheet } = useStripe();
   const { currentUser } = auth();
 
@@ -97,7 +96,7 @@ const NoHuman: React.FC<Props> = ({
   }, []);
 
   const iconSpellcheck = useMemo(
-    () => <MaterialCommunityIcons size={22} color={'#fff'} name='spellcheck' />,
+    () => <Icon icon='community' size={22} color={white} name='spellcheck' />,
     [],
   );
 
@@ -176,9 +175,7 @@ const NoHuman: React.FC<Props> = ({
           </AppText>
         </View>
         <Space size={8} />
-        <View
-          style={[styles.textBox, { borderColor: theme.colors.borderLight }]}
-        >
+        <View style={styles.textBox}>
           <AppText size='m'>{text}</AppText>
         </View>
 
@@ -199,7 +196,7 @@ const NoHuman: React.FC<Props> = ({
           </AppText>
         </View>
         <Space size={8} />
-        <View style={[styles.box, { borderColor: theme.colors.borderLight }]}>
+        <View style={[styles.box, { borderColor: borderLight }]}>
           <View style={styles.topBox}>
             <View style={styles.row}>
               <AppText bold size='m'>
@@ -231,12 +228,7 @@ const NoHuman: React.FC<Props> = ({
             <Space size={8} />
           </View>
 
-          <View
-            style={[
-              styles.line,
-              { borderBottomColor: theme.colors.borderLight },
-            ]}
-          />
+          <View style={styles.line} />
 
           <View style={styles.topBottom}>
             <View style={styles.row}>
@@ -274,12 +266,12 @@ const NoHuman: React.FC<Props> = ({
               title={I18n.t('noHuman.noHumanButton')}
               containerStyle={styles.submitButton}
               onPress={onPressSubmit}
-              isLoading={initialLoading || loading}
+              isLoading={initialLoading}
             />
             <Space size={16} />
             {initialLoadError && (
               <>
-                <AppText size='m' bold color={theme.colors.danger}>
+                <AppText size='m' bold color={softRed}>
                   {I18n.t('noHuman.initialLoadError')}
                 </AppText>
                 <Space size={8} />
@@ -287,7 +279,7 @@ const NoHuman: React.FC<Props> = ({
             )}
             {(!currentUser || !currentUser.email) && (
               <>
-                <AppText size='m' bold color={theme.colors.danger}>
+                <AppText size='m' bold color={softRed}>
                   {I18n.t(`noHuman.noEmail`)}
                 </AppText>
                 <Space size={8} />
@@ -320,6 +312,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingVertical: 8,
     paddingHorizontal: 16,
+    borderColor: borderLight,
   },
   box: {
     borderWidth: 1,
@@ -327,6 +320,7 @@ const styles = StyleSheet.create({
   },
   line: {
     borderBottomWidth: 1,
+    borderBottomColor: borderLight,
   },
   topBox: {
     paddingTop: 8,

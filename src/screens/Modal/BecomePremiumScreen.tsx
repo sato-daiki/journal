@@ -30,7 +30,7 @@ import {
   SubmitButton,
 } from '@/components';
 import { checkPremium } from '@/utils/purchase';
-import { useAppTheme } from '@/styles/colors';
+import { softRed, useAppTheme } from '@/styles/colors';
 import HeaderText from '@/components/features/Header/HeaderText';
 
 interface DispatchProps {
@@ -206,7 +206,7 @@ const BecomePremiumScreen: React.FC<ScreenType> = ({
       ) : (
         <>
           <Space size={16} />
-          <AppText size='m' bold color={theme.colors.danger}>
+          <AppText size='m' bold color={softRed}>
             {I18n.t(`becomePremium.noEmail`)}
           </AppText>
         </>

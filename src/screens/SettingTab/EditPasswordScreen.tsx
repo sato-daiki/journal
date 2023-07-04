@@ -83,7 +83,6 @@ const EditPasswordScreen: React.FC<ScreenType> = ({ navigation }) => {
             placeholder='Password'
             autoCapitalize='none'
             autoCorrect={false}
-            underlineColorAndroid='transparent'
             returnKeyType='done'
             errorMessage={errorCurrentPassword}
           />
@@ -99,7 +98,6 @@ const EditPasswordScreen: React.FC<ScreenType> = ({ navigation }) => {
             placeholder='Password'
             autoCapitalize='none'
             autoCorrect={false}
-            underlineColorAndroid='transparent'
             returnKeyType='done'
             errorMessage={errorNewPassword}
           />

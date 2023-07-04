@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { AppText, Checkbox } from '../atoms';
-import { useAppTheme } from '@/styles/colors';
+import { borderLight } from '@/styles/colors';
 
 interface Props {
   checked: boolean;
@@ -11,15 +11,10 @@ interface Props {
 }
 
 const CheckItem = ({ title, checked, disable, onPress }: Props) => {
-  const theme = useAppTheme();
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={[
-        styles.container,
-        { borderBottomColor: theme.colors.borderLight },
-        disable ? styles.opacity : undefined,
-      ]}
+      style={[styles.container, disable ? styles.opacity : undefined]}
     >
       <AppText size='m' style={styles.title}>
         {title}
@@ -38,6 +33,7 @@ const styles = StyleSheet.create({
     height: 48,
     paddingLeft: 16,
     paddingRight: 14,
+    borderBottomColor: borderLight,
   },
   title: {
     flex: 1,

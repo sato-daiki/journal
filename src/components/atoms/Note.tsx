@@ -21,7 +21,7 @@ const Note: React.FC<Props> = ({
   if (!visible) return null;
   return (
     <View style={[styles.container, { backgroundColor }]}>
-      <AppText size='m' color={color}>
+      <AppText style={styles.text} size='m' color={color}>
         {text}
       </AppText>
       <View style={styles.icon}>
@@ -44,6 +44,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingLeft: 16,
     paddingVertical: 16,
+    flex: 1,
+  },
+  text: {
+    flex: 1,
   },
   icon: {
     width: 50,

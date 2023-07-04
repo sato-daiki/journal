@@ -14,13 +14,13 @@ import {
   Sapling,
   Tag,
 } from '../types';
-import { softRed, softRedOpacy, yellow, yellowOpacy } from '@/styles/Common';
 import Toast from 'react-native-root-toast';
 import firestore from '@react-native-firebase/firestore';
 import I18n from '@/utils/I18n';
 import { logAnalytics } from './Analytics';
 import { WhichDiaryKey } from '@/components/features/MyDiary/MyDiaryHeaderTitle';
 import { languageToolUrl, proWritingAidUrl, saplingUrl } from '@/constants/url';
+import { softRed, softRedOpacy, yellow, yellowOpacy } from '@/styles/colors';
 
 const LANGUAGE_TOOL_ENDPOINT = 'https://api.languagetoolplus.com/v2';
 

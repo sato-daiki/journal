@@ -5,7 +5,7 @@ import { CompositeNavigationProp } from '@react-navigation/native';
 
 import { Layout } from '@/components/templates';
 import { LoadingModal, SmallButtonSubmit } from '@/components';
-import { useAppTheme } from '@/styles/colors';
+import { softRed, useAppTheme } from '@/styles/colors';
 import I18n from '@/utils/I18n';
 import { User, Diary } from '@/types';
 import {
@@ -14,7 +14,7 @@ import {
 } from '@/navigations/ModalNavigator';
 import { FetchInfoState } from '@/stores/reducers/diaryList';
 import EditMyDiaryListItem from '@/components/features/EditMyDiaryList/EditMyDiaryListItem';
-import { fontSizeS } from '@/styles/Common';
+import { fontSizeS } from '@/styles/fonts';
 import ModalConfirm from '@/components/features/Modal/ModalConfirm';
 import firestore from '@react-native-firebase/firestore';
 import { getLoadNextPage } from '@/utils/diary';
@@ -149,7 +149,7 @@ const EditMyDiaryListScreen: React.FC<ScreenType> = ({
             checkedIdsLength === 0 ? '' : `(${checkedIds.current.length})`
           }`}
           onPress={handleOpenModalDelete}
-          backgroundColor={theme.colors.danger}
+          backgroundColor={softRed}
         />
       </View>
     </Layout>

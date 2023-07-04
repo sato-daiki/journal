@@ -13,7 +13,7 @@ import {
   fontSizeM,
   fontSizeS,
   fontSizeSS,
-} from '@/styles/Common';
+} from '@/styles/fonts';
 import { useAppTheme } from '@/styles/colors';
 
 export type TextSize = 'lll' | 'll' | 'l' | 'm' | 's' | 'ss';

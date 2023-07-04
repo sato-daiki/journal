@@ -95,7 +95,6 @@ const ForegetPasswordScreen: React.FC<ScreenType> = ({ navigation }) => {
         keyboardType='email-address'
         autoCapitalize='none'
         autoCorrect={false}
-        underlineColorAndroid='transparent'
         returnKeyType='done'
         errorMessage={errorEmail}
       />

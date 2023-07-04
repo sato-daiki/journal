@@ -8,7 +8,7 @@ import {
   Text,
 } from 'react-native';
 import { ImageInfo } from '@/types';
-import { useAppTheme } from '@/styles/colors';
+import { black, white } from '@/styles/colors';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
@@ -27,8 +27,6 @@ const ThumbnailListItem: React.FC<Props> = ({
   onPressImage: propsImage,
   onPressDeleteImage: propsDeleteImage,
 }) => {
-  const theme = useAppTheme();
-
   const onPressImage = useCallback(() => {
     propsImage(index);
   }, [index, propsImage]);
@@ -40,17 +38,8 @@ const ThumbnailListItem: React.FC<Props> = ({
   return (
     <TouchableOpacity onPress={onPressImage} style={[styles.container, style]}>
       <Image source={{ uri: image.imageUrl }} style={styles.image} />
-      <TouchableOpacity
-        style={[
-          styles.closeIcon,
-          {
-            backgroundColor: theme.colors.black,
-            borderColor: theme.colors.white,
-          },
-        ]}
-        onPress={onPressDeleteImage}
-      >
-        <Text style={[styles.closeText, { color: theme.colors.white }]}>×</Text>
+      <TouchableOpacity style={styles.closeIcon} onPress={onPressDeleteImage}>
+        <Text style={styles.closeText}>×</Text>
       </TouchableOpacity>
     </TouchableOpacity>
   );
@@ -77,6 +66,8 @@ const styles = StyleSheet.create({
     height: 24,
     borderRadius: 24 / 2,
     borderWidth: 2,
+    backgroundColor: black,
+    borderColor: white,
   },
   closeText: {
     position: 'absolute',
@@ -84,6 +75,7 @@ const styles = StyleSheet.create({
     top: -2,
     left: 4.2,
     fontWeight: 'bold',
+    color: white,
   },
 });
 

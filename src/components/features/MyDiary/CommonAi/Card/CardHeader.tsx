@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Icon } from '@/components';
-import { useAppTheme } from '@/styles/colors';
+import { borderLight, useAppTheme } from '@/styles/colors';
 
 export interface Props {
   activeLeft: boolean;
@@ -28,7 +28,7 @@ const CardHeader: React.FC<Props> = ({
         icon={'community'}
         name={'arrow-left-thin'}
         size={24}
-        color={activeLeft ? theme.colors.primary : theme.colors.borderLight}
+        color={activeLeft ? theme.colors.primary : borderLight}
         onPress={activeLeft ? onPressLeft : undefined}
       />
       <Icon
@@ -36,7 +36,7 @@ const CardHeader: React.FC<Props> = ({
         icon={'community'}
         name={'arrow-right-thin'}
         size={24}
-        color={activeRight ? theme.colors.primary : theme.colors.borderLight}
+        color={activeRight ? theme.colors.primary : borderLight}
         onPress={activeRight ? onPressRight : undefined}
       />
       <Icon

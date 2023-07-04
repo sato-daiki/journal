@@ -14,7 +14,7 @@ import {
 } from '@/navigations/ModalNavigator';
 import firestore from '@react-native-firebase/firestore';
 import { getLanguageToolName } from '@/utils/grammarCheck';
-import LanguagePicker from '@/components/molecules/LanguageModalPicker/LanguagePicker';
+import LanguageModalPicker from '@/components/molecules/LanguageModalPicker';
 import { PickerItem } from '@/components/molecules/ModalPicker';
 import HeaderText from '@/components/features/Header/HeaderText';
 
@@ -95,7 +95,10 @@ const EditMyProfileScreen: React.FC<ScreenType> = ({
         {I18n.t('selectLanguage.title')}
       </AppText>
       <Space size={32} />
-      <LanguagePicker selectedItem={selectedItem} onPressItem={onPressItem} />
+      <LanguageModalPicker
+        selectedItem={selectedItem}
+        onPressItem={onPressItem}
+      />
     </Layout>
   );
 };

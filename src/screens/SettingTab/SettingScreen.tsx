@@ -10,9 +10,8 @@ import { CompositeNavigationProp } from '@react-navigation/native';
 import * as SecureStore from 'expo-secure-store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-root-toast';
-import { useAppTheme } from '@/styles/colors';
+import { borderLight, useAppTheme } from '@/styles/colors';
 
-import { primaryColor, borderLightColor } from '../../styles/Common';
 import { CountryNameWithFlag, OptionItem } from '../../components/molecules';
 import { Layout } from '@/components/templates';
 import { Space, Icon, AppText } from '@/components/atoms';
@@ -156,7 +155,6 @@ const SettingScreen: React.FC<ScreenType> = ({
                 icon='community'
                 name='star-four-points-outline'
                 size={16}
-                color={primaryColor}
               />
             }
             righComponent={
@@ -175,7 +173,6 @@ const SettingScreen: React.FC<ScreenType> = ({
                 icon='community'
                 name='star-four-points-outline'
                 size={16}
-                color={primaryColor}
               />
             }
             onPress={(): void => {
@@ -195,14 +192,7 @@ const SettingScreen: React.FC<ScreenType> = ({
           type='right'
           isBorrderTop
           title={I18n.t('setting.learn')}
-          leftIcon={
-            <Icon
-              icon='community'
-              name='pencil-outline'
-              size={16}
-              color={primaryColor}
-            />
-          }
+          leftIcon={<Icon icon='community' name='pencil-outline' size={16} />}
           righComponent={
             <CountryNameWithFlag
               containerStyle={{ paddingRight: 4 }}
@@ -219,28 +209,14 @@ const SettingScreen: React.FC<ScreenType> = ({
         <OptionItem
           type='switch'
           title={I18n.t('setting.passcodeLock')}
-          leftIcon={
-            <Icon
-              icon='community'
-              name='lock-outline'
-              size={16}
-              color={primaryColor}
-            />
-          }
+          leftIcon={<Icon icon='community' name='lock-outline' size={16} />}
           switchValue={localStatus.hasPasscode}
           onValueChange={onChangePasscodeLock}
         />
         <OptionItem
           type='right'
           title={I18n.t('setting.reminder')}
-          leftIcon={
-            <Icon
-              icon='community'
-              name='bell-outline'
-              size={16}
-              color={primaryColor}
-            />
-          }
+          leftIcon={<Icon icon='community' name='bell-outline' size={16} />}
           onPress={onPressReminder}
         />
         {currentUser && currentUser.email ? (
@@ -249,12 +225,7 @@ const SettingScreen: React.FC<ScreenType> = ({
               type='right'
               title={I18n.t('setting.editEmail')}
               leftIcon={
-                <Icon
-                  icon='community'
-                  name='email-edit-outline'
-                  size={16}
-                  color={primaryColor}
-                />
+                <Icon icon='community' name='email-edit-outline' size={16} />
               }
               onPress={(): void => {
                 navigation.navigate('EditEmail');
@@ -268,7 +239,6 @@ const SettingScreen: React.FC<ScreenType> = ({
                   icon='community'
                   name='briefcase-edit-outline'
                   size={16}
-                  color={primaryColor}
                 />
               }
               onPress={(): void => {
@@ -281,12 +251,7 @@ const SettingScreen: React.FC<ScreenType> = ({
             type='right'
             title={I18n.t('setting.registerEmailPassword')}
             leftIcon={
-              <Icon
-                icon='community'
-                name='email-edit-outline'
-                size={16}
-                color={primaryColor}
-              />
+              <Icon icon='community' name='email-edit-outline' size={16} />
             }
             onPress={(): void => {
               navigation.navigate('RegisterEmailPassword');
@@ -394,10 +359,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderTopWidth: 0.5,
     borderBottomWidth: 0.5,
-    backgroundColor: '#fff',
     height: 48,
-    borderTopColor: borderLightColor,
-    borderBottomColor: borderLightColor,
+    borderTopColor: borderLight,
+    borderBottomColor: borderLight,
   },
 });
 

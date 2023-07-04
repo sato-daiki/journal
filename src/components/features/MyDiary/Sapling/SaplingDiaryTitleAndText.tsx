@@ -1,10 +1,9 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
 import { ThemeCategory, ThemeSubcategory, Edit, LongCode } from '@/types';
 import SaplingWords from './SaplingWords';
 import { AppText } from '@/components/atoms';
-import { fontSizeM } from '@/styles/Common';
 import CommonDiaryTitleAndText from '../CommonAi/CommonDiaryTitleAndText';
+import DiaryText from '../DiaryText';
 
 interface Props {
   isPerfect: boolean;
@@ -73,20 +72,12 @@ const SaplingDiaryTitleAndText: React.FC<Props> = ({
             setOtherIndex={setTitleActiveIndex}
           />
         ) : (
-          <AppText size='m' bold style={styles.text}>
-            {text}
-          </AppText>
+          <DiaryText>{text}</DiaryText>
         )
       }
       onPressShare={onPressShare}
     />
   );
 };
-
-const styles = StyleSheet.create({
-  text: {
-    lineHeight: fontSizeM * 1.8,
-  },
-});
 
 export default SaplingDiaryTitleAndText;

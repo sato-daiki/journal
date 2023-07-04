@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import I18n from '@/utils/I18n';
 import { ThemeCategory, ThemeSubcategory } from '@/types';
-import { useAppTheme } from '@/styles/colors';
+import { useAppTheme, white } from '@/styles/colors';
 import { AppText, SmallPill } from '@/components/atoms';
 
 interface Props {
@@ -19,7 +19,7 @@ const DiaryTitle = ({ themeCategory, themeSubcategory, title }: Props) => {
         <SmallPill
           containerStyle={styles.smallPill}
           text={I18n.t(`themeCategory.${themeCategory}`)}
-          color='#fff'
+          color={white}
           backgroundColor={theme.colors.secondary}
         />
       )}
