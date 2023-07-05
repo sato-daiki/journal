@@ -319,7 +319,7 @@ const setting = {
   registerEmailPassword: 'Register Email and Password',
   deleteAcount: 'About Account Deletion',
   logout: 'Logout',
-  inquiry: 'Contact',
+  inquiry: 'Inquiry',
   about: 'What is LangJournal',
   cancel: 'Cancellation of premium membership',
 };

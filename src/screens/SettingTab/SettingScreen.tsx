@@ -134,7 +134,7 @@ const SettingScreen: React.FC<ScreenType> = ({
   }, []);
 
   return (
-    <Layout style={{ backgroundColor: theme.colors.background }}>
+    <Layout style={{ backgroundColor: theme.colors.backgroundSetting }}>
       <ScrollView
         style={styles.container}
         contentContainerStyle={styles.contentContainerStyle}
@@ -353,7 +353,7 @@ const SettingScreen: React.FC<ScreenType> = ({
             <TouchableOpacity
               style={[
                 styles.logoutButton,
-                { backgroundColor: theme.colors.backgroundOff },
+                { backgroundColor: theme.colors.option },
               ]}
               onPress={onPressLogout}
             >

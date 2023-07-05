@@ -101,12 +101,14 @@ const ReminderSelectTime: React.FC<ReminderSelectTimeProps> = ({
         {I18n.t('reminderSelectTime.title')}
       </AppText>
       <Space size={32} />
-      <RadioBox
-        textStyle={styles.bold}
-        checked={reminderType === 'fix'}
-        text={I18n.t('reminderSelectTime.fix')}
-        onPress={onPressFix}
-      />
+      <View style={styles.paddingHorizontal8}>
+        <RadioBox
+          textStyle={styles.bold}
+          checked={reminderType === 'fix'}
+          text={I18n.t('reminderSelectTime.fix')}
+          onPress={onPressFix}
+        />
+      </View>
       <Space size={16} />
       <Fix
         disable={reminderType !== 'fix'}

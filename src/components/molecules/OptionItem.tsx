@@ -37,7 +37,7 @@ const OptionItem: React.FC<Props> = ({
         styles.container,
         {
           borderTopWidth,
-          backgroundColor: backgroundColor || theme.colors.backgroundOff,
+          backgroundColor: backgroundColor || theme.colors.option,
         },
       ]}
       onPress={onPress}

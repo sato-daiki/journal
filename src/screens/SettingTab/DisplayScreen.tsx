@@ -12,6 +12,7 @@ import {
 import { DarkMode, LocalStatus, ThemeColor } from '../../types';
 import { Layout } from '@/components/templates';
 import OptionItem from '@/components/molecules/OptionItem';
+import { useAppTheme } from '@/styles/colors';
 
 export interface Props {
   localStatus: LocalStatus;
@@ -38,6 +39,7 @@ type CheckOption = {
 };
 
 const DisplayScreen: React.FC<ScreenType> = ({ localStatus, setDarkMode }) => {
+  const theme = useAppTheme();
   // ローカルで持った方が処理が早くなるため
   const [tempDarkMode, setTempDarkMode] = useState<DarkMode>(
     localStatus.darkMode || 'device',
@@ -70,7 +72,10 @@ const DisplayScreen: React.FC<ScreenType> = ({ localStatus, setDarkMode }) => {
   );
 
   return (
-    <Layout innerStyle={styles.container}>
+    <Layout
+      style={{ backgroundColor: theme.colors.backgroundSetting }}
+      innerStyle={styles.container}
+    >
       {options.map((option, index) => (
         <OptionItem
           type='check'

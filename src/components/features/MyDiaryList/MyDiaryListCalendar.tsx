@@ -26,6 +26,7 @@ interface Props {
 const custumTheme = {
   textDayFontWeight: '400' as '400',
   textDayHeaderFontWeight: '400' as '400',
+  textDayFontSize: fontSizeM,
 };
 
 const code = Localization.locale.split('-')[0];
@@ -63,7 +64,6 @@ const MyDiaryListCalendar: React.FC<Props> = ({
   const [selectedDay, setSelectedDay] = useState<string | null>(
     getDay(new Date(), 'YYYY-MM-DD'),
   );
-  const [targetDayDiaries, setTargetDayDiaries] = useState<Diary[]>([]);
 
   const markedDates = useMemo(() => {
     const newMarkedDates = getMarkedDates(diaries, theme.colors.primary);
@@ -81,18 +81,19 @@ const MyDiaryListCalendar: React.FC<Props> = ({
     };
   }, [diaries, selectedDay, theme.colors.primary]);
 
-  useEffect(() => {
-    const newDiaries = diaries.filter(
-      (item) =>
-        getDay(
-          item.publishedAt
-            ? item.publishedAt.toDate()
-            : item.createdAt.toDate(),
-          'YYYY-MM-DD',
-        ) === selectedDay,
-    );
-    setTargetDayDiaries(newDiaries);
-  }, [diaries, selectedDay]);
+  const targetDayDiaries = useMemo(
+    () =>
+      diaries.filter(
+        (item) =>
+          getDay(
+            item.publishedAt
+              ? item.publishedAt.toDate()
+              : item.createdAt.toDate(),
+            'YYYY-MM-DD',
+          ) === selectedDay,
+      ),
+    [diaries, selectedDay],
+  );
 
   const onDayPress = useCallback(
     (date) => {
@@ -116,11 +117,11 @@ const MyDiaryListCalendar: React.FC<Props> = ({
         <MaterialCommunityIcons
           name={direction === 'left' ? 'chevron-left' : 'chevron-right'}
           size={32}
-          color={theme.colors.main}
+          color={theme.colors.primary}
         />
       );
     },
-    [theme.colors.main],
+    [theme.colors.primary],
   );
 
   const refreshControl = useMemo(() => {
@@ -140,6 +141,16 @@ const MyDiaryListCalendar: React.FC<Props> = ({
     ));
   }, [elRefs, handlePressDelete, handlePressItem, targetDayDiaries]);
 
+  const [show, setShow] = useState(true);
+
+  useEffect(() => {
+    // ダークテーマに変えた時にカレンダーを強制レンダーをするため
+    setShow(false);
+    setTimeout(() => {
+      setShow(true);
+    }, 100);
+  }, [theme.colors.background]);
+
   return (
     <ScrollView style={styles.container} refreshControl={refreshControl}>
       <View style={styles.statusContainer}>
@@ -154,21 +165,23 @@ const MyDiaryListCalendar: React.FC<Props> = ({
           [status],
         )}
       </View>
-      <Calendar
-        markedDates={markedDates}
-        markingType='multi-dot'
-        onDayPress={onDayPress}
-        renderArrow={renderArrow}
-        renderHeader={renderHeader}
-        theme={{
-          todayTextColor: theme.colors.main,
-          selectedDayBackgroundColor: theme.colors.main,
-          dayTextColor: theme.colors.primary,
-          calendarBackground: theme.colors.background,
-          textDayFontSize: fontSizeM,
-          ...custumTheme,
-        }}
-      />
+
+      {show && (
+        <Calendar
+          markedDates={markedDates}
+          markingType='multi-dot'
+          onDayPress={onDayPress}
+          renderArrow={renderArrow}
+          renderHeader={renderHeader}
+          theme={{
+            ...custumTheme,
+            todayTextColor: theme.colors.main,
+            selectedDayBackgroundColor: theme.colors.main,
+            dayTextColor: theme.colors.primary,
+            calendarBackground: theme.colors.background,
+          }}
+        />
+      )}
       {targetDayDiaries.length > 0 ? (
         renderTargetDayDiaries
       ) : (

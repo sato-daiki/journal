@@ -224,7 +224,7 @@ const MyDiaryListScreen: React.FC<ScreenType> = ({
         />
       </HeaderIcon>
     ),
-    [localStatus.myDiaryListView, onPressRight],
+    [localStatus.myDiaryListView, onPressRight, theme.colors.primary],
   );
 
   useLayoutEffect(() => {

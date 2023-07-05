@@ -28,6 +28,8 @@ export const lightTheme = {
   colors: {
     ...commonColor,
     background: white,
+    backgroundSetting: offWhite, // settingのバックグランドは通常時雨のとは変える
+    option: white, // settingのoption
     backgroundOff: offWhite,
     backgroundTrans: transparentWhite,
     primary: black,
@@ -39,6 +41,8 @@ export const darkTheme = {
   colors: {
     ...commonColor,
     background: black,
+    backgroundSetting: black,
+    option: offBlack, // settingのoption
     backgroundOff: offBlack,
     backgroundTrans: transparentBlack,
     primary: white,
