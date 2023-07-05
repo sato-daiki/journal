@@ -25,7 +25,7 @@ import { deleteStorageAsync, uploadStorageAsync } from '@/utils/storage';
 import firestore from '@react-native-firebase/firestore';
 import ModalConfirm from '@/components/features/Modal/ModalConfirm';
 import HeaderText from '@/components/features/Header/HeaderText';
-import DiaryTitle from '@/components/features/MyDiary/DiaryTitle';
+import DiaryTitleWithPill from '@/components/features/MyDiary/DiaryTitleWithPill';
 import DiaryText from '@/components/features/MyDiary/DiaryText';
 import { borderLight, softRed, useAppTheme } from '@/styles/colors';
 
@@ -432,10 +432,6 @@ const RecordScreen: React.FC<ScreenType> = ({
     );
   };
 
-  // if (!fontLoaded) {
-  //   return <LoadingModal />;
-  // }
-
   return (
     <Layout>
       <ModalConfirm
@@ -449,7 +445,8 @@ const RecordScreen: React.FC<ScreenType> = ({
         }}
       />
       <ScrollView style={styles.scrollView}>
-        <DiaryTitle
+        <DiaryTitleWithPill
+          isTail={false}
           title={diary.reviseTitle || diary.title}
           themeCategory={diary.themeCategory}
           themeSubcategory={diary.themeSubcategory}

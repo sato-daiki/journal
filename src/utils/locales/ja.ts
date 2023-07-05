@@ -311,7 +311,7 @@ const setting = {
   display: '画面表示',
   app: 'アプリについて',
   learn: '勉強中の言語',
-  passcodeLock: 'パスワードロック',
+  passcodeLock: 'パスコード設定',
   reminder: 'リマインダー',
   editEmail: 'メールアドレスの変更',
   editPassword: 'パスワードの変更',

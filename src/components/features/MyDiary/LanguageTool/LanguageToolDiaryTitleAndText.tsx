@@ -2,8 +2,8 @@ import React from 'react';
 import { LongCode, Match, ThemeCategory, ThemeSubcategory } from '@/types';
 import LanguageToolWords from './LanguageToolWords';
 import CommonDiaryTitleAndText from '../CommonAi/CommonDiaryTitleAndText';
-import { AppText } from '@/components/atoms';
 import DiaryText from '../DiaryText';
+import DiaryTitle from '../DiaryTitle';
 
 interface Props {
   isPerfect: boolean;
@@ -56,9 +56,7 @@ const LanguageToolDiaryTitleAndText: React.FC<Props> = ({
             setOtherIndex={setTextActiveIndex}
           />
         ) : (
-          <AppText size='m' bold>
-            {title}
-          </AppText>
+          <DiaryTitle>{title}</DiaryTitle>
         )
       }
       textComponent={

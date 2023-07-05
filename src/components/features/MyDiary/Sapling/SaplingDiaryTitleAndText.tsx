@@ -1,9 +1,9 @@
 import React from 'react';
 import { ThemeCategory, ThemeSubcategory, Edit, LongCode } from '@/types';
 import SaplingWords from './SaplingWords';
-import { AppText } from '@/components/atoms';
 import CommonDiaryTitleAndText from '../CommonAi/CommonDiaryTitleAndText';
 import DiaryText from '../DiaryText';
+import DiaryTitle from '../DiaryTitle';
 
 interface Props {
   isPerfect: boolean;
@@ -56,9 +56,7 @@ const SaplingDiaryTitleAndText: React.FC<Props> = ({
             setOtherIndex={setTextActiveIndex}
           />
         ) : (
-          <AppText size='m' bold>
-            {title}
-          </AppText>
+          <DiaryTitle>{title}</DiaryTitle>
         )
       }
       textComponent={

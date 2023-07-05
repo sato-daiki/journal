@@ -33,6 +33,7 @@ const OptionItem: React.FC<Props> = ({
   const borderTopWidth = isBorrderTop ? 0.5 : undefined;
   return (
     <TouchableOpacity
+      disabled={!onPress}
       style={[
         styles.container,
         {

@@ -3,7 +3,7 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { getDay } from '@/utils/time';
 import { Diary } from '@/types';
 import { AppText } from '@/components/atoms';
-import DiaryTitle from '../MyDiary/DiaryTitle';
+import DiaryTitleWithPill from '../MyDiary/DiaryTitleWithPill';
 import { borderLight, useAppTheme } from '@/styles/colors';
 import MyDiaryStatusLabel from '../MyDiary/MyDiaryStatusLabel';
 
@@ -38,7 +38,8 @@ const DiaryListItem = ({ item, onPressItem }: Props) => {
         </AppText>
         <MyDiaryStatusLabel diary={item} />
       </View>
-      <DiaryTitle
+      <DiaryTitleWithPill
+        isTail
         themeCategory={themeCategory}
         themeSubcategory={themeSubcategory}
         title={reviseTitle || title}

@@ -28,6 +28,7 @@ const TextInputText: React.FC<Props> = ({
       autoCorrect={false}
       multiline
       keyboardType='default'
+      textAlignVertical='top'
       spellCheck
       onFocus={onFocus}
       onChangeText={onChangeText}

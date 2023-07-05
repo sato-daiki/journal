@@ -1,53 +1,22 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import I18n from '@/utils/I18n';
-import { ThemeCategory, ThemeSubcategory } from '@/types';
-import { useAppTheme, white } from '@/styles/colors';
-import { AppText, SmallPill } from '@/components/atoms';
+import React, { ReactNode } from 'react';
+import { TextProps, StyleSheet } from 'react-native';
+import { AppText } from '@/components/atoms';
 
-interface Props {
-  themeCategory?: ThemeCategory | null;
-  themeSubcategory?: ThemeSubcategory | null;
-  title: string;
-}
+type Props = {
+  children: ReactNode;
+} & TextProps;
 
-const DiaryTitle = ({ themeCategory, themeSubcategory, title }: Props) => {
-  const theme = useAppTheme();
+const DiaryTitle: React.FC<Props> = ({ children, ...props }) => {
   return (
-    <View style={styles.container}>
-      {themeCategory && themeSubcategory && (
-        <SmallPill
-          containerStyle={styles.smallPill}
-          text={I18n.t(`themeCategory.${themeCategory}`)}
-          color={white}
-          backgroundColor={theme.colors.secondary}
-        />
-      )}
-      <AppText
-        size='m'
-        bold
-        style={styles.title}
-        ellipsizeMode='tail'
-        numberOfLines={1}
-      >
-        {title}
-      </AppText>
-    </View>
+    <AppText size='m' bold style={styles.title} {...props}>
+      {children}
+    </AppText>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flex: 1,
-    paddingBottom: 8,
-  },
   title: {
     flex: 1,
-  },
-  smallPill: {
-    marginRight: 8,
   },
 });
 

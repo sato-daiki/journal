@@ -5,7 +5,7 @@ import { getDay } from '@/utils/time';
 import { Diary } from '@/types';
 import { borderLight, green, useAppTheme } from '@/styles/colors';
 import { AppText } from '@/components/atoms';
-import DiaryTitle from '../MyDiary/DiaryTitle';
+import DiaryTitleWithPill from '../MyDiary/DiaryTitleWithPill';
 import MyDiaryStatusLabel from '../MyDiary/MyDiaryStatusLabel';
 
 interface Props {
@@ -43,7 +43,8 @@ const EditMyDiaryListItem = ({ item, handlePress }: Props) => {
             </AppText>
             <MyDiaryStatusLabel diary={item} />
           </View>
-          <DiaryTitle
+          <DiaryTitleWithPill
+            isTail={true}
             themeCategory={themeCategory}
             themeSubcategory={themeSubcategory}
             title={title}

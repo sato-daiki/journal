@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
   title: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: 52,
+    width: 60,
   },
   headerLabel: {
     marginRight: 4,

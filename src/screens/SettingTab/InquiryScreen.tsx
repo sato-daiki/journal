@@ -144,6 +144,7 @@ const InquiryScreen: React.FC<ScreenType> = ({ navigation, user }) => {
               placeholder='Enter your message'
               spellCheck
               autoCorrect
+              textAlignVertical='top'
               returnKeyType='done'
             />
             <Space size={48} />

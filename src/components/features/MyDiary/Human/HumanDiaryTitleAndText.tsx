@@ -1,9 +1,9 @@
 import React from 'react';
 import { Diary, HumanCorrect } from '@/types';
 import HumanWords from './HumanWords';
-import { AppText } from '@/components/atoms';
 import CommonDiaryTitleAndText from '../CommonAi/CommonDiaryTitleAndText';
 import DiaryText from '../DiaryText';
+import DiaryTitle from '../DiaryTitle';
 
 interface Props {
   isPerfect: boolean;
@@ -50,9 +50,7 @@ const HumanDiaryTitleAndText: React.FC<Props> = ({
             setOtherIndex={setTextActiveIndex}
           />
         ) : (
-          <AppText size='m' bold>
-            {title}
-          </AppText>
+          <DiaryTitle>{title}</DiaryTitle>
         )
       }
       textComponent={

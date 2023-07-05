@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const AppText = ({
+const AppText: React.FC<Props> = ({
   style,
   size,
   bold,
@@ -64,7 +64,7 @@ const AppText = ({
   textAlign,
   children,
   ...props
-}: Props) => {
+}) => {
   const theme = useAppTheme();
   return (
     <Text

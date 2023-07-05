@@ -34,6 +34,8 @@ export const lightTheme = {
     backgroundTrans: transparentWhite,
     primary: black,
     primaryInactive: transparentBlack,
+    switchBackground: borderLight,
+    switchThumb: gray,
   },
 };
 
@@ -47,6 +49,8 @@ export const darkTheme = {
     backgroundTrans: transparentBlack,
     primary: white,
     primaryInactive: transparentWhite,
+    switchBackground: gray,
+    switchThumb: white,
   },
 };
 

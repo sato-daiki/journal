@@ -16,7 +16,9 @@ const WrapperStyledWord: React.FC<Props> = ({ isTitle, onPress, children }) => {
         <AppText
           size='m'
           bold={isTitle}
-          style={{ lineHeight: isTitle ? fontSizeM * 1.3 : fontSizeM * 1.8 }}
+          style={{
+            lineHeight: isTitle ? fontSizeM * 1.3 : fontSizeM * 1.8,
+          }}
         >
           {children}
         </AppText>
