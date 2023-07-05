@@ -1,9 +1,10 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { getDay } from '@/utils/time';
 import { Diary } from '@/types';
 import { borderLight, green, useAppTheme } from '@/styles/colors';
-import { AppText, Icon } from '@/components/atoms';
+import { AppText } from '@/components/atoms';
 import DiaryTitle from '../MyDiary/DiaryTitle';
 import MyDiaryStatusLabel from '../MyDiary/MyDiaryStatusLabel';
 
@@ -28,9 +29,8 @@ const EditMyDiaryListItem = ({ item, handlePress }: Props) => {
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={styles.container}>
         <View style={styles.leftContainer}>
-          <Icon
+          <MaterialCommunityIcons
             onPress={onPress}
-            icon='community'
             size={22}
             color={checked ? green : borderLight}
             name={checked ? 'check-circle' : 'checkbox-blank-circle'}

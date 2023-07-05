@@ -8,7 +8,8 @@ import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 import { Audio } from 'expo-av';
 
 import { Layout } from '@/components/templates';
-import { LoadingModal, Icon } from '@/components/atoms';
+import { LoadingModal } from '@/components/atoms';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Diary, LocalStatus, User } from '@/types';
 import {
   MyDiaryTabNavigationProp,
@@ -120,9 +121,8 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
   const headerRight = useCallback(() => {
     return (
       <HeaderIcon>
-        <Icon
+        <MaterialCommunityIcons
           size={28}
-          icon='community'
           name='dots-horizontal'
           onPress={onPressMore}
         />

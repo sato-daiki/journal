@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import Icon from './Icon';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import AppText from './AppText';
 
 interface Props {
@@ -25,8 +25,7 @@ const Note: React.FC<Props> = ({
         {text}
       </AppText>
       <View style={styles.icon}>
-        <Icon
-          icon='community'
+        <MaterialCommunityIcons
           name='close-circle-outline'
           size={32}
           color={color}

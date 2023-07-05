@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Icon } from '@/components/atoms';
+import { MaterialCommunityIcons, Feather } from '@expo/vector-icons';
 
 interface Props {
   onPressSpeech: () => void;
@@ -16,18 +16,16 @@ const CommonIcons: React.FC<Props> = ({
   return (
     <View style={styles.iconContainer}>
       {onPressShare && (
-        <Icon icon='feather' name='share' size={18} onPress={onPressShare} />
+        <Feather name='share' size={18} onPress={onPressShare} />
       )}
-      <Icon
+      <MaterialCommunityIcons
         style={styles.icon}
-        icon='community'
         name='volume-high'
         size={18}
         onPress={onPressSpeech}
       />
-      <Icon
+      <MaterialCommunityIcons
         style={styles.icon}
-        icon='community'
         name='content-copy'
         size={18}
         onPress={onPressCopy}

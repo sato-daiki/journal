@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Icon, Space, AppText } from '@/components/atoms';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Space, AppText } from '@/components/atoms';
 import I18n from '@/utils/I18n';
 import { useAppTheme } from '@/styles/colors';
 
@@ -9,8 +10,7 @@ const EmptyMyDiaryList: React.FC = () => {
   return (
     <View style={styles.container}>
       <View style={styles.emptyUpper}>
-        <Icon
-          icon='community'
+        <MaterialCommunityIcons
           name='book-open-variant'
           size={50}
           color={theme.colors.secondary}

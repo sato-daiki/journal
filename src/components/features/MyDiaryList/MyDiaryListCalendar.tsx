@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { StyleSheet, View, RefreshControl, ScrollView } from 'react-native';
 import * as Localization from 'expo-localization';
-
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Diary } from '@/types';
 import { Calendar } from '@/components/molecules';
 import { getDay } from '@/utils/time';
@@ -9,7 +9,7 @@ import { getMarkedDates } from '@/utils/diary';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import I18n from '@/utils/I18n';
 import MyDiaryListItem from './MyDiaryListItem';
-import { AppText, Icon } from '@/components/atoms';
+import { AppText } from '@/components/atoms';
 import { myStatusColor, useAppTheme } from '@/styles/colors';
 import { fontSizeM } from '@/styles/fonts';
 
@@ -113,8 +113,7 @@ const MyDiaryListCalendar: React.FC<Props> = ({
   const renderArrow = useCallback(
     (direction: 'left' | 'right') => {
       return (
-        <Icon
-          icon='community'
+        <MaterialCommunityIcons
           name={direction === 'left' ? 'chevron-left' : 'chevron-right'}
           size={32}
           color={theme.colors.main}

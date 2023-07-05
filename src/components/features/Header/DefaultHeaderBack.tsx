@@ -1,6 +1,6 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import Icon from '@/components/atoms/Icon';
+import { Feather } from '@expo/vector-icons';
 import HeaderIcon from './HeaderIcon';
 
 interface Props {
@@ -11,14 +11,14 @@ const DefaultHeaderBack: React.FC<Props> = ({ onPress }) => {
   if (Platform.OS === 'ios') {
     return (
       <HeaderIcon>
-        <Icon icon='feather' name='chevron-left' size={25} onPress={onPress} />
+        <Feather name='chevron-left' size={25} onPress={onPress} />
       </HeaderIcon>
     );
   }
 
   return (
     <HeaderIcon>
-      <Icon icon='feather' name='chevron-left' size={25} onPress={onPress} />
+      <Feather name='chevron-left' size={25} onPress={onPress} />
     </HeaderIcon>
   );
 };

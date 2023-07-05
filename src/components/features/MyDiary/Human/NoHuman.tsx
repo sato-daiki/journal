@@ -11,7 +11,7 @@ import firestore, {
 import { firebase } from '@react-native-firebase/functions';
 import Toast from 'react-native-root-toast';
 import { addAiCheckError } from '@/utils/grammarCheck';
-import { AppText, Icon, Space, SubmitButton } from '@/components/atoms';
+import { AppText, Space, SubmitButton } from '@/components/atoms';
 import { borderLight, softRed, useAppTheme, white } from '@/styles/colors';
 
 interface Props {
@@ -96,7 +96,7 @@ const NoHuman: React.FC<Props> = ({
   }, []);
 
   const iconSpellcheck = useMemo(
-    () => <Icon icon='community' size={22} color={white} name='spellcheck' />,
+    () => <MaterialCommunityIcons size={22} color={white} name='spellcheck' />,
     [],
   );
 

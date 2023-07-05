@@ -1,7 +1,8 @@
 import React, { ReactNode } from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { borderLight, useAppTheme } from '@/styles/colors';
-import { AppSwitch, AppText, Icon } from '../atoms';
+import { AppSwitch, AppText } from '../atoms';
 
 interface Props {
   type: 'right' | 'check' | 'switch' | 'nothing';
@@ -48,14 +49,13 @@ const OptionItem: React.FC<Props> = ({
       <View style={styles.rightContainer}>
         {righComponent}
         {type === 'right' ? (
-          <Icon
-            icon='community'
+          <MaterialCommunityIcons
             size={28}
             color={theme.colors.secondary}
             name='chevron-right'
           />
         ) : type === 'check' && checkValue ? (
-          <Icon icon='community' name='check' size={26} />
+          <MaterialCommunityIcons name='check' size={26} />
         ) : type === 'switch' ? (
           <AppSwitch onValueChange={onValueChange} value={switchValue} />
         ) : null}

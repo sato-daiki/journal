@@ -6,7 +6,12 @@ import {
   ActivityIndicator,
   Platform,
 } from 'react-native';
-import { AppText, Icon, AppTextInput } from '../atoms';
+import {
+  MaterialCommunityIcons,
+  MaterialIcons,
+  FontAwesome,
+} from '@expo/vector-icons';
+import { AppText, AppTextInput } from '../atoms';
 import { green, softRed, useAppTheme } from '@/styles/colors';
 
 type Props = {
@@ -49,17 +54,15 @@ const CheckTextInput = (props: Props) => {
           {isLoading ? (
             <ActivityIndicator size='small' />
           ) : isCheckOk ? (
-            <Icon
+            <MaterialIcons
               size={24}
-              icon='material'
               name='check-circle-outline'
               color={green}
             />
           ) : null}
           {isPassword && (
-            <Icon
+            <MaterialCommunityIcons
               size={24}
-              icon='community'
               name={showPassword ? 'eye' : 'eye-off'}
               color={theme.colors.secondary}
               onPress={onPressPasswordIcon}
@@ -69,12 +72,7 @@ const CheckTextInput = (props: Props) => {
       </View>
       {errorMessage.length > 0 ? (
         <View style={styles.errorContainer}>
-          <Icon
-            icon='fontAwesome'
-            size={14}
-            name='exclamation-circle'
-            color={softRed}
-          />
+          <FontAwesome size={14} name='exclamation-circle' color={softRed} />
           <AppText size='s' color={softRed} style={styles.error}>
             {errorMessage}
           </AppText>

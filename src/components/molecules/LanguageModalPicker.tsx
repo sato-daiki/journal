@@ -1,11 +1,11 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { languageToolLanguages } from '@/utils/grammarCheck';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import ModalPicker, { PickerItem, Size } from './ModalPicker';
 import { useAppTheme } from '@/styles/colors';
 import CountryNameWithFlag from './CountryNameWithFlag';
 import { LongCode } from '@/types';
-import { Icon } from '@/components/atoms';
 
 export interface Props {
   size?: Size;
@@ -68,8 +68,7 @@ const LanguageModalPicker: React.FC<Props> = ({
           size={size}
           longCode={selectedItem.value as LongCode}
         />
-        <Icon
-          icon='community'
+        <MaterialCommunityIcons
           name={size === 'large' ? 'chevron-right' : 'chevron-down'}
           size={size === 'large' ? 32 : 16}
         />

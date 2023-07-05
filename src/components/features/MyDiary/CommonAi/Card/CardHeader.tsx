@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Icon } from '@/components';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useAppTheme } from '@/styles/colors';
 
 export interface Props {
@@ -23,17 +23,15 @@ const CardHeader: React.FC<Props> = ({
     <View
       style={[styles.header, { backgroundColor: theme.colors.backgroundOff }]}
     >
-      <Icon
+      <MaterialCommunityIcons
         style={styles.iconLeft}
-        icon={'community'}
         name={'arrow-left-thin'}
         size={24}
         color={activeLeft ? theme.colors.primary : theme.colors.primaryInactive}
         onPress={activeLeft ? onPressLeft : undefined}
       />
-      <Icon
+      <MaterialCommunityIcons
         style={styles.iconRight}
-        icon={'community'}
         name={'arrow-right-thin'}
         size={24}
         color={
@@ -41,9 +39,8 @@ const CardHeader: React.FC<Props> = ({
         }
         onPress={activeRight ? onPressRight : undefined}
       />
-      <Icon
+      <MaterialCommunityIcons
         style={styles.iconClose}
-        icon='community'
         name='close-circle-outline'
         size={24}
         onPress={onPressClose}

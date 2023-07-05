@@ -6,7 +6,8 @@ import {
   Animated,
   Easing,
 } from 'react-native';
-import { AppText, Icon, Space } from '@/components/atoms';
+import { Feather } from '@expo/vector-icons';
+import { AppText, Space } from '@/components/atoms';
 import { useAppTheme } from '@/styles/colors';
 
 interface Porps {
@@ -130,7 +131,7 @@ const PasscodeLock: React.FC<Porps> = ({
                   style={styles.dummyContainer}
                   onPress={() => onPressCler()}
                 >
-                  <Icon icon='feather' name={'delete'} size={32} />
+                  <Feather name={'delete'} size={32} />
                 </TouchableOpacity>
               );
             }

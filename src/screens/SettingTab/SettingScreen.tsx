@@ -14,7 +14,8 @@ import { borderLight, useAppTheme } from '@/styles/colors';
 
 import { CountryNameWithFlag, OptionItem } from '../../components/molecules';
 import { Layout } from '@/components/templates';
-import { Space, Icon, AppText } from '@/components/atoms';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Space, AppText } from '@/components/atoms';
 import { logAnalytics, events } from '../../utils/Analytics';
 import I18n from '../../utils/I18n';
 import { alert } from '../../utils/ErrorAlert';
@@ -151,8 +152,7 @@ const SettingScreen: React.FC<ScreenType> = ({
             isBorrderTop
             title={I18n.t('setting.status')}
             leftIcon={
-              <Icon
-                icon='community'
+              <MaterialCommunityIcons
                 name='star-four-points-outline'
                 size={16}
               />
@@ -169,8 +169,7 @@ const SettingScreen: React.FC<ScreenType> = ({
             isBorrderTop
             title={I18n.t('setting.aboutPremium')}
             leftIcon={
-              <Icon
-                icon='community'
+              <MaterialCommunityIcons
                 name='star-four-points-outline'
                 size={16}
               />
@@ -191,7 +190,7 @@ const SettingScreen: React.FC<ScreenType> = ({
           type='right'
           isBorrderTop
           title={I18n.t('setting.learn')}
-          leftIcon={<Icon icon='community' name='pencil-outline' size={16} />}
+          leftIcon={<MaterialCommunityIcons name='pencil-outline' size={16} />}
           righComponent={
             <CountryNameWithFlag
               containerStyle={{ paddingRight: 4 }}
@@ -208,14 +207,14 @@ const SettingScreen: React.FC<ScreenType> = ({
         <OptionItem
           type='switch'
           title={I18n.t('setting.passcodeLock')}
-          leftIcon={<Icon icon='community' name='lock-outline' size={16} />}
+          leftIcon={<MaterialCommunityIcons name='lock-outline' size={16} />}
           switchValue={localStatus.hasPasscode}
           onValueChange={onChangePasscodeLock}
         />
         <OptionItem
           type='right'
           title={I18n.t('setting.reminder')}
-          leftIcon={<Icon icon='community' name='bell-outline' size={16} />}
+          leftIcon={<MaterialCommunityIcons name='bell-outline' size={16} />}
           onPress={onPressReminder}
         />
         {currentUser && currentUser.email ? (
@@ -224,7 +223,7 @@ const SettingScreen: React.FC<ScreenType> = ({
               type='right'
               title={I18n.t('setting.editEmail')}
               leftIcon={
-                <Icon icon='community' name='email-edit-outline' size={16} />
+                <MaterialCommunityIcons name='email-edit-outline' size={16} />
               }
               onPress={(): void => {
                 navigation.navigate('EditEmail');
@@ -234,8 +233,7 @@ const SettingScreen: React.FC<ScreenType> = ({
               type='right'
               title={I18n.t('setting.editPassword')}
               leftIcon={
-                <Icon
-                  icon='community'
+                <MaterialCommunityIcons
                   name='briefcase-edit-outline'
                   size={16}
                 />
@@ -250,7 +248,7 @@ const SettingScreen: React.FC<ScreenType> = ({
             type='right'
             title={I18n.t('setting.registerEmailPassword')}
             leftIcon={
-              <Icon icon='community' name='email-edit-outline' size={16} />
+              <MaterialCommunityIcons name='email-edit-outline' size={16} />
             }
             onPress={(): void => {
               navigation.navigate('RegisterEmailPassword');

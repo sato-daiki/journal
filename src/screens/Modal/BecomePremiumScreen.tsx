@@ -18,11 +18,9 @@ import {
   ModalBecomePremiumStackNavigationProp,
   ModalBecomePremiumStackParamList,
 } from '@/navigations/ModalNavigator';
-
 import { Layout } from '@/components/templates';
 import {
   AppText,
-  Icon,
   LinkText,
   LoadingModal,
   RadioBox,
@@ -32,6 +30,7 @@ import {
 import { checkPremium } from '@/utils/purchase';
 import { softRed, useAppTheme } from '@/styles/colors';
 import HeaderText from '@/components/features/Header/HeaderText';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 interface DispatchProps {
   setIsPremium: (isPremium: boolean) => void;
@@ -140,14 +139,14 @@ const BecomePremiumScreen: React.FC<ScreenType> = ({
         style={[styles.becomeContainer, { borderColor: theme.colors.main }]}
       >
         <View style={styles.row}>
-          <Icon icon='community' name='star-four-points-outline' size={18} />
+          <MaterialCommunityIcons name='star-four-points-outline' size={18} />
           <AppText size='ll' bold style={styles.becomeTitle}>
             {I18n.t('becomePremium.becomeTitle')}
           </AppText>
-          <Icon icon='community' name='star-four-points-outline' size={18} />
+          <MaterialCommunityIcons name='star-four-points-outline' size={18} />
         </View>
         <View style={styles.labelContainer}>
-          <Icon icon='community' name='check' size={24} />
+          <MaterialCommunityIcons name='check' size={24} />
           <View>
             <AppText size='l' bold style={styles.becomeText}>
               {I18n.t('becomePremium.props1')}
@@ -160,7 +159,7 @@ const BecomePremiumScreen: React.FC<ScreenType> = ({
         </View>
         <Space size={8} />
         <View style={styles.labelContainer}>
-          <Icon icon='community' name='check' size={24} />
+          <MaterialCommunityIcons name='check' size={24} />
           <AppText size='m' bold style={styles.becomeText}>
             {I18n.t('becomePremium.props2')}
           </AppText>

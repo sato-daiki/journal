@@ -13,19 +13,14 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 import { logAnalytics } from '@/utils/Analytics';
 import { Layout } from '@/components/templates';
-import {
-  AppSlider,
-  AppText,
-  Icon,
-  SmallButtonWhite,
-  Space,
-} from '@/components';
+import { AppSlider, AppText, SmallButtonWhite, Space } from '@/components';
 import { Diary, User } from '@/types';
 import I18n from '@/utils/I18n';
 import {
   ModalRecordStackParamList,
   ModaRecordStackNavigationProp,
 } from '@/navigations/ModalNavigator';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { deleteStorageAsync, uploadStorageAsync } from '@/utils/storage';
 import firestore from '@react-native-firebase/firestore';
 import ModalConfirm from '@/components/features/Modal/ModalConfirm';
@@ -479,9 +474,8 @@ const RecordScreen: React.FC<ScreenType> = ({
             {getPlaybackTimestamp()}
           </AppText>
           <View style={styles.playButtonContainer}>
-            <Icon
+            <MaterialCommunityIcons
               disabled={!isPlaybackAllowed || isLoading}
-              icon='community'
               name={isPlaying ? 'pause' : 'play'}
               size={56}
               onPress={onPlayPausePressed}
@@ -500,9 +494,8 @@ const RecordScreen: React.FC<ScreenType> = ({
           },
         ]}
       >
-        <Icon
+        <MaterialCommunityIcons
           disabled={isLoading}
-          icon='community'
           name={isRecording ? 'stop' : 'record'}
           size={64}
           color={softRed}

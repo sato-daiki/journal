@@ -5,7 +5,8 @@ import {
   TouchableOpacity,
   ViewStyle,
 } from 'react-native';
-import { AppText, Icon } from '@/components/atoms';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { AppText } from '@/components/atoms';
 import ModalPicker, { PickerItem } from '../../molecules/ModalPicker';
 
 type Props = {
@@ -47,7 +48,7 @@ const MyDiaryModalPicker: React.FC<Props> = ({
           {selectedItem.label}
         </AppText>
         {hasRevised && (
-          <Icon icon='community' name={'chevron-down'} size={32} />
+          <MaterialCommunityIcons name={'chevron-down'} size={32} />
         )}
       </TouchableOpacity>
       <ModalPicker

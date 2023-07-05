@@ -6,7 +6,7 @@ import {
   StyleProp,
   TextStyle,
 } from 'react-native';
-import Icon from './Icon';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useAppTheme } from '@/styles/colors';
 import AppText from './AppText';
 
@@ -29,8 +29,7 @@ const RadioBox: React.FC<Props> = ({
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={styles.container}>
-        <Icon
-          icon='community'
+        <MaterialCommunityIcons
           size={24}
           color={theme.colors.main}
           name={checked ? 'radiobox-marked' : 'radiobox-blank'}

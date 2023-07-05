@@ -3,12 +3,12 @@ import { View, StyleSheet, ScrollView, Platform } from 'react-native';
 import * as Speech from 'expo-speech';
 import { LongCode } from '@/types';
 import I18n from '@/utils/I18n';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import {
   Modal,
   WhiteButton,
   Space,
   SmallButtonWhite,
-  Icon,
   AppText,
   AppSwitch,
 } from '@/components';
@@ -99,8 +99,7 @@ const ModalSpeech: React.FC<Props> = ({
               onPress={onPressStart}
             />
           )}
-          <Icon
-            icon='community'
+          <MaterialCommunityIcons
             name={playing ? 'pause' : 'play'}
             size={48}
             onPress={playing ? onPressPause : onPressSpeak}

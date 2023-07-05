@@ -9,10 +9,11 @@ import {
   ModalSelectDiaryTypeStackParamList,
 } from '@/navigations/ModalNavigator';
 import I18n from '@/utils/I18n';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Layout } from '@/components/templates';
 import HeaderText from '@/components/features/Header/HeaderText';
 import SelecttionBox from '@/components/features/SelectDiaryType/SelecttionBox';
-import { AppImage, Icon } from '@/components';
+import { AppImage } from '@/components';
 
 type NavigationProp = CompositeNavigationProp<
   StackNavigationProp<ModalSelectDiaryTypeStackParamList, 'SelectDiaryType'>,
@@ -99,8 +100,7 @@ const SelectDiaryTypeScreen: React.FC<ScreenType> = ({ navigation }) => {
           title={I18n.t('themeCategory.eiken1')}
           text={I18n.t('selectDiaryType.textEiken1')}
           image={
-            <Icon
-              icon={'community'}
+            <MaterialCommunityIcons
               name={'numeric-1-box'}
               size={36}
               style={styles.icon}
@@ -113,8 +113,7 @@ const SelectDiaryTypeScreen: React.FC<ScreenType> = ({ navigation }) => {
           title={I18n.t('themeCategory.eikenPre1')}
           text={I18n.t('selectDiaryType.textEikenPre1')}
           image={
-            <Icon
-              icon={'community'}
+            <MaterialCommunityIcons
               name={'numeric-1-box-multiple-outline'}
               size={32}
               style={styles.icon}
@@ -130,8 +129,7 @@ const SelectDiaryTypeScreen: React.FC<ScreenType> = ({ navigation }) => {
           title={I18n.t('themeCategory.eiken2')}
           text={I18n.t('selectDiaryType.textEiken2')}
           image={
-            <Icon
-              icon={'community'}
+            <MaterialCommunityIcons
               name={'numeric-2-box'}
               size={36}
               style={styles.icon}
@@ -144,8 +142,7 @@ const SelectDiaryTypeScreen: React.FC<ScreenType> = ({ navigation }) => {
           title={I18n.t('themeCategory.eikenPre2')}
           text={I18n.t('selectDiaryType.textEikenPre2')}
           image={
-            <Icon
-              icon={'community'}
+            <MaterialCommunityIcons
               name={'numeric-2-box-multiple-outline'}
               size={32}
               style={styles.icon}

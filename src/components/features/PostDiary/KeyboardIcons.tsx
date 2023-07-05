@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { StyleSheet, Keyboard, View } from 'react-native';
 import { MAX_IMAGE_NUM } from '@/constants/common';
 import { ImageInfo } from '@/types';
-import { Icon } from '@/components/atoms';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useAppTheme } from '@/styles/colors';
 
 type Props = {
@@ -27,25 +27,22 @@ const KeyboardIcons: React.FC<Props> = ({
   return (
     <View style={styles.keybordRow}>
       <View style={styles.keybordLeftRow}>
-        <Icon
+        <MaterialCommunityIcons
           style={[styles.icon, !isAddImage && { opacity: 0.3 }]}
-          icon='community'
           name='file-image-outline'
           size={24}
           color={theme.colors.main}
           onPress={isAddImage ? onPressChooseImage : undefined}
         />
-        <Icon
+        <MaterialCommunityIcons
           style={!isAddImage && { opacity: 0.3 }}
-          icon='community'
           name='camera-outline'
           size={24}
           color={theme.colors.main}
           onPress={isAddImage ? onPressCamera : undefined}
         />
       </View>
-      <Icon
-        icon='community'
+      <MaterialCommunityIcons
         name='keyboard-close'
         size={24}
         color={theme.colors.main}

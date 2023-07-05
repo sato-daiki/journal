@@ -4,7 +4,6 @@ export { default as AppSwitch } from './AppSwitch';
 export { default as AppText } from './AppText';
 export { default as AppTextInput } from './AppTextInput';
 export { default as Checkbox } from './Checkbox';
-export { default as Icon } from './Icon';
 export { default as KeyboardSpacer } from './KeyboardSpacer';
 export { default as LinkText } from './LinkText';
 export { default as LoadingModal } from './LoadingModal';

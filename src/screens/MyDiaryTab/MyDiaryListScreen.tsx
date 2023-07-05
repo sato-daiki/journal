@@ -11,7 +11,7 @@ import { CompositeNavigationProp } from '@react-navigation/native';
 import MyDiaryListFlatList from '@/components/features/MyDiaryList/MyDiaryListFlatList';
 
 import { Layout } from '@/components/templates';
-import { Icon, LoadingModal } from '@/components/atoms';
+import { LoadingModal } from '@/components/atoms';
 import { LocalStatus, MyDiaryListView } from '@/types/localStatus';
 import I18n from '@/utils/I18n';
 import {
@@ -28,6 +28,7 @@ import { getDiaries, getDiaryNum, getLoadNextPage } from '@/utils/diary';
 import { logAnalytics } from '@/utils/Analytics';
 import HeaderIcon from '@/components/features/Header/HeaderIcon';
 import HeaderText from '@/components/features/Header/HeaderText';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export interface Props {
   user: User;
@@ -208,8 +209,7 @@ const MyDiaryListScreen: React.FC<ScreenType> = ({
   const headerRight = useCallback(
     () => (
       <HeaderIcon>
-        <Icon
-          icon='community'
+        <MaterialCommunityIcons
           size={28}
           name={
             !localStatus.myDiaryListView ||

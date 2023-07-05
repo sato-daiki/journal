@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
-import { Heading, Icon, Space } from '@/components';
 import { StyleSheet, View } from 'react-native';
+import { Heading, Space } from '@/components';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
 interface Props {
@@ -15,8 +16,7 @@ const Header: React.FC<Props> = ({ title }) => {
 
   return (
     <View>
-      <Icon
-        icon='community'
+      <MaterialCommunityIcons
         name='close'
         size={24}
         style={styles.close}
