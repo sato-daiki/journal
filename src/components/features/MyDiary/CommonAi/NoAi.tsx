@@ -12,7 +12,12 @@ import {
 } from '@/components';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AiName, getWhatUrl } from '@/utils/grammarCheck';
-import { SaplingLogo, ProWritingAidLogo } from '@/images';
+import {
+  SaplingLogo,
+  SaplingText,
+  ProWritingAidLogo,
+  ProWritingAidText,
+} from '@/images';
 import { useAppTheme, white } from '@/styles/colors';
 
 interface Props {
@@ -69,9 +74,23 @@ const NoAi: React.FC<Props> = ({
   return (
     <View style={styles.container}>
       {aiName === 'Sapling' ? (
-        <Image source={SaplingLogo} style={styles.saplingLogo} />
+        <View style={styles.iconRow}>
+          <Image source={SaplingLogo} style={styles.saplingLogo} />
+          <AppImage
+            tintColor={theme.colors.primary}
+            source={SaplingText}
+            style={styles.saplingText}
+          />
+        </View>
       ) : aiName === 'ProWritingAid' ? (
-        <Image source={ProWritingAidLogo} style={styles.proWritingAidLogo} />
+        <View style={styles.iconRow}>
+          <Image source={ProWritingAidLogo} style={styles.proWritingAidLogo} />
+          <AppImage
+            tintColor={theme.colors.primary}
+            source={ProWritingAidText}
+            style={styles.proWritingAidText}
+          />
+        </View>
       ) : null}
       <Space size={16} />
       {!active ? (
@@ -139,6 +158,10 @@ const styles = StyleSheet.create({
     paddingTop: 32,
     alignItems: 'center',
   },
+  iconRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   text: {
     alignSelf: 'flex-start',
   },
@@ -149,11 +172,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   saplingLogo: {
-    width: 300,
+    width: 95,
+    height: 76,
+  },
+  saplingText: {
+    width: 212,
     height: 76,
   },
   proWritingAidLogo: {
-    width: 300,
+    width: 64,
+    height: 64,
+  },
+  proWritingAidText: {
+    width: 234,
     height: 64,
   },
 });

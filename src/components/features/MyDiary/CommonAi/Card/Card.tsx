@@ -14,7 +14,6 @@ const Card: React.FC<Props> = ({ header, main }) => {
       style={[
         styles.container,
         {
-          borderTopColor: borderLight,
           backgroundColor: theme.colors.backgroundOff,
         },
       ]}
@@ -28,6 +27,7 @@ const styles = StyleSheet.create({
   container: {
     borderTopWidth: 1,
     height: 240,
+    borderTopColor: borderLight,
   },
 });
 

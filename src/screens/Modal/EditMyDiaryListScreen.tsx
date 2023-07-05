@@ -141,7 +141,7 @@ const EditMyDiaryListScreen: React.FC<ScreenType> = ({
           titleStyle={[
             checkedIdsLength === 0 && {
               ...styles.disableTitileText,
-              color: theme.colors.secondary,
+              color: theme.colors.primaryInactive,
             },
           ]}
           disable={checkedIdsLength === 0}

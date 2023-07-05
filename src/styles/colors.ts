@@ -7,6 +7,8 @@ export const yellowOpacy = 'rgba(198,155,3,0.2)';
 export const gray = '#7F7F7F';
 export const green = '#27AE60';
 export const black = '#2a2a2a';
+export const blackInactive = '#2a2a2a';
+
 export const white = '#fff';
 export const linkBlue = '#2469BB';
 export const borderLight = '#CCCCCC';
@@ -29,6 +31,7 @@ export const lightTheme = {
     backgroundOff: offWhite,
     backgroundTrans: transparentWhite,
     primary: black,
+    primaryInactive: transparentBlack,
   },
 };
 
@@ -39,6 +42,7 @@ export const darkTheme = {
     backgroundOff: offBlack,
     backgroundTrans: transparentBlack,
     primary: white,
+    primaryInactive: transparentWhite,
   },
 };
 

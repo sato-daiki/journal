@@ -196,7 +196,7 @@ const NoHuman: React.FC<Props> = ({
           </AppText>
         </View>
         <Space size={8} />
-        <View style={[styles.box, { borderColor: borderLight }]}>
+        <View style={styles.box}>
           <View style={styles.topBox}>
             <View style={styles.row}>
               <AppText bold size='m'>
@@ -317,6 +317,7 @@ const styles = StyleSheet.create({
   box: {
     borderWidth: 1,
     borderRadius: 8,
+    borderColor: borderLight,
   },
   line: {
     borderBottomWidth: 1,

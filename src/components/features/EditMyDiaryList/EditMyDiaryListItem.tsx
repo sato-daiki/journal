@@ -29,6 +29,7 @@ const EditMyDiaryListItem = ({ item, handlePress }: Props) => {
       <View style={styles.container}>
         <View style={styles.leftContainer}>
           <Icon
+            onPress={onPress}
             icon='community'
             size={22}
             color={checked ? green : borderLight}
