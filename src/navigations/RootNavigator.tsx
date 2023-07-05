@@ -1,12 +1,20 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { AppState, AppStateStatus } from 'react-native';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import { AppState, AppStateStatus, useColorScheme } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { getUser } from '@/utils/user';
 import { User, LocalStatus } from '@/types';
 import Purchases from 'react-native-purchases';
 import auth from '@react-native-firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import firestore from '@react-native-firebase/firestore';
+import * as Notifications from 'expo-notifications';
+import { PaperProvider } from 'react-native-paper';
 import AuthNavigator from './AuthNavigator';
 import MainNavigator from './MainNavigator';
 import OnboardingNavigator from './OnboardingNavigator';
@@ -14,6 +22,14 @@ import LoadingScreen from '@/screens/LoadingScreen';
 import { checkPremium } from '@/utils/purchase';
 import { StorageKey } from '@/constants/asyncStorage';
 import CheckPasscodeLockScreenContainer from '@/containers/CheckPasscodeLockScreenContainer';
+import MaintenanceScreen from '@/screens/MaintenanceScreen';
+import { darkTheme, lightTheme } from '@/styles/colors';
+
+type ConfigMaintenance = {
+  status: boolean;
+  messageEn: string | null;
+  messageJa: string | null;
+};
 
 export type RootStackParamList = {
   Onboarding: undefined;
@@ -44,6 +60,31 @@ const RootNavigator: React.FC<Props & DispatchProps> = ({
   const appState = useRef<AppStateStatus>(AppState.currentState);
   const temporarilyMovedToBackground = useRef<boolean>(false);
   const [isInitialLoading, setIsInitialLoading] = useState(true);
+  const [maintenance, setMaintenance] = useState<ConfigMaintenance>({
+    status: false,
+    messageEn: null,
+    messageJa: null,
+  });
+  const scheme = useColorScheme();
+  const theme = useMemo(() => {
+    if (!localStatus.darkMode || localStatus.darkMode === 'device') {
+      if (scheme === 'light') {
+        return lightTheme;
+      } else {
+        return darkTheme;
+      }
+    } else if (localStatus.darkMode === 'light') {
+      return lightTheme;
+    } else {
+      return darkTheme;
+    }
+  }, [localStatus.darkMode, scheme]);
+
+  const getMaintenance = useCallback(async () => {
+    const doc = await firestore().doc('config/maintenance').get();
+    const data = doc.data() as ConfigMaintenance;
+    setMaintenance(data);
+  }, []);
 
   const activeCheckHasPasscode = useCallback(async () => {
     const hasPasscode = await AsyncStorage.getItem(StorageKey.hasPasscode);
@@ -60,6 +101,12 @@ const RootNavigator: React.FC<Props & DispatchProps> = ({
     }
   }, [setIsLoadingPasscode]);
 
+  const initActiveFunctions = () => {
+    getMaintenance();
+    activeCheckHasPasscode();
+    Notifications.setBadgeCountAsync(0);
+  };
+
   const _handleAppStateChange = (nextAppState: AppStateStatus) => {
     console.log('RootNavigator -> nextAppState', nextAppState);
     if (
@@ -67,7 +114,7 @@ const RootNavigator: React.FC<Props & DispatchProps> = ({
       nextAppState === 'active' &&
       !temporarilyMovedToBackground.current
     ) {
-      activeCheckHasPasscode();
+      initActiveFunctions();
     } else if (
       appState.current.match(/inactive|background/) &&
       nextAppState === 'active' &&
@@ -110,7 +157,7 @@ const RootNavigator: React.FC<Props & DispatchProps> = ({
     );
     const authSubscriber = auth().onAuthStateChanged(initNavigation);
 
-    activeCheckHasPasscode();
+    initActiveFunctions();
     return () => {
       authSubscriber();
       subscription.remove();
@@ -132,29 +179,41 @@ const RootNavigator: React.FC<Props & DispatchProps> = ({
     return <Stack.Screen name='Auth' component={AuthNavigator} />;
   }, [localStatus.uid, localStatus.onboarding, Stack]);
 
+  if (maintenance.status) {
+    return (
+      <PaperProvider theme={theme}>
+        <MaintenanceScreen
+          messageEn={maintenance.messageEn}
+          messageJa={maintenance.messageJa}
+        />
+      </PaperProvider>
+    );
+  }
+
   if (isInitialLoading || localStatus.isLoadingPasscode) {
     return <LoadingScreen />;
   }
 
   if (localStatus.showCheckPasscode) {
     return (
-      <CheckPasscodeLockScreenContainer
-        temporarilyMovedToBackground={temporarilyMovedToBackground}
-      />
+      <PaperProvider theme={theme}>
+        <CheckPasscodeLockScreenContainer
+          temporarilyMovedToBackground={temporarilyMovedToBackground}
+        />
+      </PaperProvider>
     );
   }
 
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-        cardStyle: {
-          backgroundColor: '#FFFFFF',
-        },
-      }}
-    >
-      {renderScreen()}
-    </Stack.Navigator>
+    <PaperProvider theme={theme}>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        {renderScreen()}
+      </Stack.Navigator>
+    </PaperProvider>
   );
 };
 

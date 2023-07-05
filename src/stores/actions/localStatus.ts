@@ -1,5 +1,5 @@
 import { Action } from 'redux';
-import { MyDiaryListView } from '../../types/localStatus';
+import { DarkMode, MyDiaryListView, ThemeColor } from '../../types/localStatus';
 import { Types } from '../types';
 
 export interface SetMyDiaryListViewAction extends Action {
@@ -65,6 +65,26 @@ export interface RestoreUidAction extends Action {
     onboarding?: boolean;
   };
 }
+
+export interface SetDarkModeAction extends Action {
+  type: Types.SET_DARK_MODE;
+  darkMode: DarkMode;
+}
+
+export const setDarkMode = (darkMode: DarkMode): SetDarkModeAction => ({
+  type: Types.SET_DARK_MODE,
+  darkMode,
+});
+
+export interface SetThemeColorAction extends Action {
+  type: Types.SET_THEME_COLOR;
+  themeColor: ThemeColor;
+}
+
+export const setThemeColor = (themeColor: ThemeColor): SetThemeColorAction => ({
+  type: Types.SET_THEME_COLOR,
+  themeColor,
+});
 
 export const restoreUid = (
   uid: string | null,

@@ -1,4 +1,4 @@
-import { ReminderSelectTimeProps } from '@/components/organisms/ReminderSelectTime/ReminderSelectTime';
+import { ReminderSelectTimeProps } from '@/components/features/ReminderSelectTime/ReminderSelectTime';
 import { CustomTimeInfo, FixDay, FixTimeInfo } from '@/types';
 
 export type DefaultInfo = Pick<
@@ -33,5 +33,5 @@ export const initCuctomTimeInfos: CustomTimeInfo[] = [...Array(7)].map(
       timeEnd: new Date(2000, 1, 1, 21, 0, 0),
       isFocus: false,
     };
-  }
+  },
 );

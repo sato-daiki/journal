@@ -1,18 +1,11 @@
 import React, { useLayoutEffect, useCallback, useRef, useState } from 'react';
-import {
-  View,
-  StyleSheet,
-  FlatList,
-  ListRenderItem,
-  SafeAreaView,
-} from 'react-native';
+import { View, StyleSheet, FlatList, ListRenderItem } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
-import {
-  HeaderText,
-  LoadingModal,
-  SmallButtonSubmit,
-} from '@/components/atoms';
+
+import { Layout } from '@/components/templates';
+import { LoadingModal, SmallButtonSubmit } from '@/components';
+import { softRed, useAppTheme } from '@/styles/colors';
 import I18n from '@/utils/I18n';
 import { User, Diary } from '@/types';
 import {
@@ -20,12 +13,13 @@ import {
   ModalEditMyDiaryListStackParamList,
 } from '@/navigations/ModalNavigator';
 import { FetchInfoState } from '@/stores/reducers/diaryList';
-import EditMyDiaryListItem from '@/components/organisms/EditMyDiaryListItem';
-import { borderLightColor, fontSizeS, softRed } from '@/styles/Common';
-import ModalConfirm from '@/components/organisms/ModalConfirm';
+import EditMyDiaryListItem from '@/components/features/EditMyDiaryList/EditMyDiaryListItem';
+import { fontSizeS } from '@/styles/fonts';
+import ModalConfirm from '@/components/features/Modal/ModalConfirm';
 import firestore from '@react-native-firebase/firestore';
 import { getLoadNextPage } from '@/utils/diary';
 import { logAnalytics } from '@/utils/Analytics';
+import HeaderText from '@/components/features/Header/HeaderText';
 
 export interface Props {
   user: User;
@@ -49,25 +43,6 @@ type ScreenType = {
 } & Props &
   DispatchProps;
 
-const styles = StyleSheet.create({
-  safeAreaView: {
-    flex: 1,
-  },
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  buttonContainer: {
-    paddingHorizontal: 16,
-    paddingTop: 8,
-    marginBottom: 16,
-  },
-  disableTitileText: {
-    fontSize: fontSizeS,
-    color: borderLightColor,
-  },
-});
-
 const keyExtractor = (item: Diary, index: number): string => String(index);
 
 const EditMyDiaryListScreen: React.FC<ScreenType> = ({
@@ -83,6 +58,8 @@ const EditMyDiaryListScreen: React.FC<ScreenType> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [checkedIdsLength, setCheckedIdsLength] = useState(0);
   const checkedIds = useRef<string[]>([]);
+
+  const theme = useAppTheme();
 
   const loadNextPage = useCallback(async (): Promise<void> => {
     getLoadNextPage(fetchInfo, setFetchInfo, user.uid, addDiaries);
@@ -142,40 +119,52 @@ const EditMyDiaryListScreen: React.FC<ScreenType> = ({
   );
 
   return (
-    <SafeAreaView style={styles.safeAreaView}>
-      <View style={styles.container}>
-        <LoadingModal visible={isLoading} />
-        <ModalConfirm
-          visible={isModalDelete}
-          isLoading={isLoading}
-          title={I18n.t('common.confirmation')}
-          message={I18n.t('myDiary.confirmMessage')}
-          mainButtonText='OK'
-          onPressMain={onDeleteDiaries}
-          onPressClose={handleCloseModalDelete}
+    <Layout>
+      <LoadingModal visible={isLoading} />
+      <ModalConfirm
+        visible={isModalDelete}
+        isLoading={isLoading}
+        title={I18n.t('common.confirmation')}
+        message={I18n.t('myDiary.confirmMessage')}
+        mainButtonText='OK'
+        onPressMain={onDeleteDiaries}
+        onPressClose={handleCloseModalDelete}
+      />
+      <FlatList
+        data={diaries}
+        keyExtractor={keyExtractor}
+        renderItem={renderItem}
+        onEndReached={loadNextPage}
+      />
+      <View style={styles.buttonContainer}>
+        <SmallButtonSubmit
+          titleStyle={[
+            checkedIdsLength === 0 && {
+              ...styles.disableTitileText,
+              color: theme.colors.primaryInactive,
+            },
+          ]}
+          disable={checkedIdsLength === 0}
+          title={`${I18n.t('common.delete')}${
+            checkedIdsLength === 0 ? '' : `(${checkedIds.current.length})`
+          }`}
+          onPress={handleOpenModalDelete}
+          backgroundColor={softRed}
         />
-        <FlatList
-          data={diaries}
-          keyExtractor={keyExtractor}
-          renderItem={renderItem}
-          onEndReached={loadNextPage}
-        />
-        <View style={styles.buttonContainer}>
-          <SmallButtonSubmit
-            titleStyle={
-              checkedIdsLength === 0 ? styles.disableTitileText : undefined
-            }
-            disable={checkedIdsLength === 0}
-            title={`${I18n.t('common.delete')}${
-              checkedIdsLength === 0 ? '' : `(${checkedIds.current.length})`
-            }`}
-            onPress={handleOpenModalDelete}
-            backgroundColor={softRed}
-          />
-        </View>
       </View>
-    </SafeAreaView>
+    </Layout>
   );
 };
+
+const styles = StyleSheet.create({
+  buttonContainer: {
+    paddingHorizontal: 16,
+    paddingTop: 8,
+    marginBottom: 16,
+  },
+  disableTitileText: {
+    fontSize: fontSizeS,
+  },
+});
 
 export default EditMyDiaryListScreen;

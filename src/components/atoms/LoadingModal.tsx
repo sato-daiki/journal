@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   View,
-  Text,
   StyleSheet,
   Image,
   Dimensions,
@@ -10,40 +9,12 @@ import {
   StyleProp,
   TextStyle,
 } from 'react-native';
-import { primaryColor, fontSizeL } from '../../styles/Common';
 import { Loading } from '../../images';
+import AppText from './AppText';
+import { useAppTheme } from '@/styles/colors';
 
 const { height } = Dimensions.get('window');
 const size = 40;
-
-const styles = StyleSheet.create({
-  overlay: {
-    flex: 1,
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(255,255,255,0.4)',
-    height,
-    zIndex: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column',
-  },
-  centering: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 8,
-  },
-  text: {
-    fontSize: fontSizeL,
-    color: primaryColor,
-  },
-  transparent: {
-    backgroundColor: 'transparent',
-  },
-  loadingImage: {
-    width: size,
-    height: size,
-  },
-});
 
 export interface Props {
   containerStyle?: StyleProp<ViewStyle>;
@@ -62,19 +33,49 @@ const LoadingModal: React.FC<Props> = ({
   text,
   containerStyle,
   textStyle,
-}: Props) =>
-  visible ? (
+}: Props) => {
+  const theme = useAppTheme();
+  return visible ? (
     <View
       style={[
         styles.overlay,
-        { height },
+        { height, backgroundColor: theme.colors.backgroundTrans },
         transparent && styles.transparent,
         containerStyle,
       ]}
     >
       <Image source={source} style={styles.loadingImage} />
-      {text ? <Text style={[styles.text, textStyle]}>{text}</Text> : null}
+      {text ? (
+        <AppText size='l' style={textStyle}>
+          {text}
+        </AppText>
+      ) : null}
     </View>
   ) : null;
+};
+
+const styles = StyleSheet.create({
+  overlay: {
+    flex: 1,
+    ...StyleSheet.absoluteFillObject,
+    height,
+    zIndex: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+  },
+  centering: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 8,
+  },
+  transparent: {
+    backgroundColor: 'transparent',
+  },
+  loadingImage: {
+    width: size,
+    height: size,
+  },
+});
 
 export default React.memo(LoadingModal);

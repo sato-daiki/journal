@@ -10,7 +10,8 @@ import I18n from '../../utils/I18n';
 import { RouteProp } from '@react-navigation/native';
 import Toast from 'react-native-root-toast';
 import { SecureStorageKey, StorageKey } from '@/constants/asyncStorage';
-import PasscodeLock from '@/components/organisms/PasscodeLock';
+import PasscodeLock from '@/components/features/PasscodeLock';
+import { Layout } from '@/components/templates';
 
 interface DispatchProps {
   setHasPasscode: (hasPasscode: boolean) => void;
@@ -99,12 +100,14 @@ const RePasscodeLockSettingScreen: React.FC<ScreenType> = ({
   );
 
   return (
-    <PasscodeLock
-      title={I18n.t('passcodeLock.reInput')}
-      passcode={passcode}
-      setPasscode={setPasscode}
-      onCheck={onCheck}
-    />
+    <Layout>
+      <PasscodeLock
+        title={I18n.t('passcodeLock.reInput')}
+        passcode={passcode}
+        setPasscode={setPasscode}
+        onCheck={onCheck}
+      />
+    </Layout>
   );
 };
 

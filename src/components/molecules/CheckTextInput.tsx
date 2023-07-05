@@ -1,62 +1,18 @@
 import React, { useState, useCallback } from 'react';
 import {
   View,
-  Text,
-  TextInput,
   StyleSheet,
   TextInputProps,
   ActivityIndicator,
   Platform,
 } from 'react-native';
 import {
-  softRed,
-  fontSizeS,
-  fontSizeM,
-  primaryColor,
-  borderLightColor,
-  offWhite,
-  green,
-  subTextColor,
-} from '../../styles/Common';
-import { HoverableIcon, Icon } from '../atoms';
-
-const styles = StyleSheet.create({
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  iconRow: {
-    position: 'absolute',
-    right: 16,
-  },
-  errorBorder: {
-    borderColor: softRed,
-    borderBottomWidth: 2,
-    borderWidth: 2,
-  },
-  errorContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 6,
-    paddingRight: 8,
-  },
-  textInput: {
-    width: '100%',
-    fontSize: fontSizeM,
-    color: primaryColor,
-    paddingLeft: 16,
-    paddingRight: 46,
-    paddingVertical: Platform.OS === 'ios' ? 14 : 8,
-    backgroundColor: offWhite,
-    borderRadius: 6,
-    borderColor: borderLightColor,
-  },
-  error: {
-    color: softRed,
-    fontSize: fontSizeS,
-    marginLeft: 6,
-  },
-});
+  MaterialCommunityIcons,
+  MaterialIcons,
+  FontAwesome,
+} from '@expo/vector-icons';
+import { AppText, AppTextInput } from '../atoms';
+import { green, softRed, useAppTheme } from '@/styles/colors';
 
 type Props = {
   isLoading?: boolean;
@@ -66,6 +22,7 @@ type Props = {
 } & TextInputProps;
 
 const CheckTextInput = (props: Props) => {
+  const theme = useAppTheme();
   const {
     isCheckOk = false,
     isLoading = false,
@@ -82,10 +39,10 @@ const CheckTextInput = (props: Props) => {
   return (
     <>
       <View style={styles.row}>
-        <TextInput
+        <AppTextInput
+          isOff
           autoCapitalize='none'
           autoCorrect={false}
-          underlineColorAndroid='transparent'
           style={[
             styles.textInput,
             errorMessage.length > 0 ? styles.errorBorder : {},
@@ -97,19 +54,17 @@ const CheckTextInput = (props: Props) => {
           {isLoading ? (
             <ActivityIndicator size='small' />
           ) : isCheckOk ? (
-            <Icon
+            <MaterialIcons
               size={24}
-              icon='material'
               name='check-circle-outline'
               color={green}
             />
           ) : null}
           {isPassword && (
-            <HoverableIcon
+            <MaterialCommunityIcons
               size={24}
-              icon='community'
               name={showPassword ? 'eye' : 'eye-off'}
-              color={subTextColor}
+              color={theme.colors.secondary}
               onPress={onPressPasswordIcon}
             />
           )}
@@ -117,17 +72,43 @@ const CheckTextInput = (props: Props) => {
       </View>
       {errorMessage.length > 0 ? (
         <View style={styles.errorContainer}>
-          <Icon
-            icon='fontAwesome'
-            size={fontSizeM}
-            name='exclamation-circle'
-            color={softRed}
-          />
-          <Text style={styles.error}>{errorMessage}</Text>
+          <FontAwesome size={14} name='exclamation-circle' color={softRed} />
+          <AppText size='s' color={softRed} style={styles.error}>
+            {errorMessage}
+          </AppText>
         </View>
       ) : null}
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  iconRow: {
+    position: 'absolute',
+    right: 16,
+  },
+  errorBorder: {
+    borderBottomWidth: 2,
+    borderWidth: 2,
+    borderColor: softRed,
+  },
+  errorContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 6,
+    paddingRight: 8,
+  },
+  textInput: {
+    paddingRight: 46,
+    paddingVertical: Platform.OS === 'ios' ? 14 : 8,
+  },
+  error: {
+    marginLeft: 6,
+  },
+});
 
 export default CheckTextInput;

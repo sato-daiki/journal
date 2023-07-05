@@ -3,6 +3,7 @@ import {
   createStackNavigator,
   StackNavigationProp,
 } from '@react-navigation/stack';
+import { useAppTheme } from '@/styles/colors';
 
 /* screens */
 import InitializeScreen from '@/screens/Auth/InitializeScreen';
@@ -11,13 +12,10 @@ import SignUpScreenContainer from '@/containers/SignUpScreenContainer';
 import SignInScreen from '@/screens/Auth/SignInScreen';
 import ForegetPasswordScreen from '@/screens/Auth/ForegetPasswordScreen';
 
-import {
-  DefaultAuthLayoutOptions,
-  DefaultNavigationOptions,
-} from '@/constants/NavigationOptions';
 import I18n from '@/utils/I18n';
 import { RootStackParamList } from './RootNavigator';
 import { WebViewNavParams, WebViewScreen } from '@/screens/WebViewScreen';
+import { getDefaultScreenOptions } from '@/styles/navigationOptions';
 
 export type AuthNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -36,15 +34,12 @@ export type AuthStackParamList = {
 const Stack = createStackNavigator<AuthStackParamList>();
 
 export const AuthNavigator = () => {
+  const theme = useAppTheme();
+  const DefaultScreenOptions = getDefaultScreenOptions(theme);
   return (
     <Stack.Navigator
       initialRouteName='Initialize'
-      screenOptions={{
-        ...DefaultNavigationOptions,
-        cardStyle: {
-          backgroundColor: '#FFFFFF',
-        },
-      }}
+      screenOptions={DefaultScreenOptions}
     >
       <Stack.Screen
         name='Initialize'
@@ -55,7 +50,6 @@ export const AuthNavigator = () => {
         name='SelectLanguage'
         component={SelectLanguageScreenContainer}
         options={{
-          ...DefaultAuthLayoutOptions,
           title: I18n.t('selectLanguage.headerTitle'),
         }}
       />
@@ -63,7 +57,6 @@ export const AuthNavigator = () => {
         name='SignIn'
         component={SignInScreen}
         options={{
-          ...DefaultAuthLayoutOptions,
           title: I18n.t('signIn.headerTitle'),
         }}
       />
@@ -71,7 +64,6 @@ export const AuthNavigator = () => {
         name='SignUp'
         component={SignUpScreenContainer}
         options={{
-          ...DefaultAuthLayoutOptions,
           title: I18n.t('signUp.headerTitle'),
         }}
       />
@@ -79,7 +71,6 @@ export const AuthNavigator = () => {
         name='ForegetPassword'
         component={ForegetPasswordScreen}
         options={{
-          ...DefaultAuthLayoutOptions,
           title: I18n.t('foregetPassword.headerTitle'),
         }}
       />

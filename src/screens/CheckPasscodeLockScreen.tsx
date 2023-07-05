@@ -1,15 +1,15 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
 import I18n from '@/utils/I18n';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as LocalAuthentication from 'expo-local-authentication';
 import { SecureStorageKey, StorageKey } from '@/constants/asyncStorage';
 import * as SecureStore from 'expo-secure-store';
 import { LoadingModal } from '@/components/atoms';
-import PasscodeLock from '@/components/organisms/PasscodeLock';
+import PasscodeLock from '@/components/features/PasscodeLock';
 import { User } from '@/types';
 import firestore from '@react-native-firebase/firestore';
 import { checWithinkHourDiff } from '@/utils/time';
+import { Layout } from '@/components/templates';
 
 export interface Props {
   user: User;
@@ -23,15 +23,6 @@ interface DispatchProps {
   setUser: (user: User) => void;
   setShowCheckPasscode: (showCheckPasscode: boolean) => void;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    paddingHorizontal: 16,
-    paddingTop: 32,
-  },
-});
 
 const ERROR_MAX_NUM = 10;
 const WAIT_HOUR = 24;
@@ -206,7 +197,7 @@ const CheckPasscodeLockScreen: React.FC<Props & DispatchProps & OwnProps> = ({
   );
 
   return (
-    <View style={styles.container}>
+    <Layout>
       <LoadingModal visible={isInitialLoading} />
       <PasscodeLock
         disabled={isForceLock}
@@ -216,7 +207,8 @@ const CheckPasscodeLockScreen: React.FC<Props & DispatchProps & OwnProps> = ({
         title={I18n.t('passcodeLock.input')}
         onCheck={onCheck}
       />
-    </View>
+    </Layout>
   );
 };
+
 export default CheckPasscodeLockScreen;

@@ -1,5 +1,5 @@
 import React, { useCallback, useLayoutEffect, useMemo } from 'react';
-import { FlatList, ListRenderItem, StyleSheet, View } from 'react-native';
+import { FlatList, ListRenderItem } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 import {
@@ -7,8 +7,9 @@ import {
   ModalSelectDiaryTypeStackNavigationProp,
 } from '@/navigations/ModalNavigator';
 import { User } from '@/types';
-import SelectEikenListItem from '@/components/molecules/SelectEikenListItem';
+import SelectEikenListItem from '@/components/features/SelectEiken/SelectEikenListItem';
 import { EikentTitle, geEikentTitles } from './config/title';
+import { Layout } from '@/components/templates';
 
 export interface Props {
   user: User;
@@ -28,13 +29,6 @@ type ScreenType = {
   navigation: NavigationProp;
   route: SelectEikenRouteProp;
 } & Props;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});
 
 const keyExtractor = (item: EikentTitle, index: number): string =>
   String(index);
@@ -91,14 +85,14 @@ const SelectEikenScreen: React.FC<ScreenType> = ({
   );
 
   return (
-    <View style={styles.container}>
+    <Layout>
       <FlatList
         data={data}
         contentContainerStyle={{ paddingBottom: 32 }}
         keyExtractor={keyExtractor}
         renderItem={renderItem}
       />
-    </View>
+    </Layout>
   );
 };
 

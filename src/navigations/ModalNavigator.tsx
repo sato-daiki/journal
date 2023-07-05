@@ -4,15 +4,11 @@ import {
   StackNavigationProp,
 } from '@react-navigation/stack';
 
-import {
-  DefaultNavigationOptions,
-  DefaultModalLayoutOptions,
-} from '@/constants/NavigationOptions';
+import { getDefaultScreenOptions } from '@/styles/navigationOptions';
 import I18n from '@/utils/I18n';
 import {
   Diary,
   EikenCategory,
-  ImageInfo,
   ThemeCategory,
   ThemeSubcategory,
   TopicCategory,
@@ -34,6 +30,7 @@ import SelectEikenScreenContainer from '@/containers/SelectEikenScreenContainer'
 import TopicGuideScreenContainer from '@/containers/TopicGuideScreenContainer';
 import ViewMyDiaryScreenContainer from '@/containers/ViewMyDiaryScreenContainer';
 import BecomePremiumScreenContainer from '@/containers/BecomePremiumScreenContainer';
+import { useAppTheme } from '@/styles/colors';
 
 export type ModalEditMyDiaryListStackParamList = {
   EditMyDiaryList: undefined;
@@ -165,14 +162,17 @@ const ModalBecomePremiumStack =
 const ModalRecordStack = createStackNavigator<ModalRecordStackParamList>();
 
 export const ModalEditMyDiaryListNavigator = () => {
+  const theme = useAppTheme();
+  const DefaultScreenOptions = getDefaultScreenOptions(theme);
   return (
-    <ModalEditMyDiaryListStack.Navigator initialRouteName='EditMyDiaryList'>
+    <ModalEditMyDiaryListStack.Navigator
+      initialRouteName='EditMyDiaryList'
+      screenOptions={DefaultScreenOptions}
+    >
       <ModalEditMyDiaryListStack.Screen
         name='EditMyDiaryList'
         component={EditMyDiaryListScreenContainer}
         options={{
-          ...DefaultNavigationOptions,
-          ...DefaultModalLayoutOptions,
           title: I18n.t('editMyDiaryList.headerTitle'),
         }}
       />
@@ -180,14 +180,17 @@ export const ModalEditMyDiaryListNavigator = () => {
   );
 };
 export const ModalSelectDiaryTypeNavigator = () => {
+  const theme = useAppTheme();
+  const DefaultScreenOptions = getDefaultScreenOptions(theme);
   return (
-    <ModalSelectDiaryTypeStack.Navigator initialRouteName='SelectDiaryType'>
+    <ModalSelectDiaryTypeStack.Navigator
+      initialRouteName='SelectDiaryType'
+      screenOptions={DefaultScreenOptions}
+    >
       <ModalSelectDiaryTypeStack.Screen
         name='SelectDiaryType'
         component={SelectDiaryTypeScreen}
         options={{
-          ...DefaultNavigationOptions,
-          ...DefaultModalLayoutOptions,
           title: I18n.t('selectDiaryType.headerTitle'),
         }}
       />
@@ -195,18 +198,12 @@ export const ModalSelectDiaryTypeNavigator = () => {
         name='SelectTopicSubcategory'
         component={SelectTopicSubcategoryScreenContainer}
         options={{
-          ...DefaultNavigationOptions,
-          ...DefaultModalLayoutOptions,
           title: I18n.t('selectTopicSubcategory.headerTitle'),
         }}
       />
       <ModalSelectDiaryTypeStack.Screen
         name='SelectEiken'
         component={SelectEikenScreenContainer}
-        options={{
-          ...DefaultNavigationOptions,
-          ...DefaultModalLayoutOptions,
-        }}
       />
     </ModalSelectDiaryTypeStack.Navigator>
   );
@@ -220,69 +217,92 @@ export const ModalTopicGuideNavigator = () => {
       <ModalTopicGuideStack.Screen
         name='TopicGuide'
         component={TopicGuideScreenContainer}
-        options={{
-          ...DefaultNavigationOptions,
-          ...DefaultModalLayoutOptions,
-        }}
       />
     </ModalTopicGuideStack.Navigator>
   );
 };
 export const ModalPostDiaryNavigator = () => {
+  const theme = useAppTheme();
+  const DefaultScreenOptions = getDefaultScreenOptions(theme);
   return (
-    <ModalPostDiaryStack.Navigator initialRouteName='PostDiary'>
+    <ModalPostDiaryStack.Navigator
+      initialRouteName='PostDiary'
+      screenOptions={DefaultScreenOptions}
+    >
       <ModalPostDiaryStack.Screen
         name='PostDiary'
         // @ts-ignore
         component={PostDiaryScreenContainer}
+        options={{
+          title: I18n.t('postDiary.headerTitle'),
+        }}
       />
     </ModalPostDiaryStack.Navigator>
   );
 };
 export const ModalPostDraftDiaryNavigator = () => {
+  const theme = useAppTheme();
+  const DefaultScreenOptions = getDefaultScreenOptions(theme);
   return (
-    <ModalPostDraftDiaryStack.Navigator initialRouteName='PostDraftDiary'>
+    <ModalPostDraftDiaryStack.Navigator
+      initialRouteName='PostDraftDiary'
+      screenOptions={DefaultScreenOptions}
+    >
       <ModalPostDraftDiaryStack.Screen
         name='PostDraftDiary'
         component={PostDraftDiaryScreenContainer}
-        // optionはweb/nativeで違うのでscreen側で設定する
+        options={{
+          title: I18n.t('postDraftDiary.headerTitle'),
+        }}
       />
     </ModalPostDraftDiaryStack.Navigator>
   );
 };
 export const ModalPostReviseDiaryNavigator = () => {
+  const theme = useAppTheme();
+  const DefaultScreenOptions = getDefaultScreenOptions(theme);
   return (
-    <ModalPostReviseDiaryStack.Navigator initialRouteName='PostReviseDiary'>
+    <ModalPostReviseDiaryStack.Navigator
+      initialRouteName='PostReviseDiary'
+      screenOptions={DefaultScreenOptions}
+    >
       <ModalPostReviseDiaryStack.Screen
         name='PostReviseDiary'
         component={PostReviseDiaryScreenContainer}
+        options={{
+          title: I18n.t('postReviseDiary.headerTitle'),
+        }}
       />
     </ModalPostReviseDiaryStack.Navigator>
   );
 };
 export const ModalViewMyDiaryNavigator = () => {
+  const theme = useAppTheme();
+  const DefaultScreenOptions = getDefaultScreenOptions(theme);
   return (
-    <ModalViewMyDiaryStack.Navigator initialRouteName='ViewMyDiary'>
+    <ModalViewMyDiaryStack.Navigator
+      initialRouteName='ViewMyDiary'
+      screenOptions={DefaultScreenOptions}
+    >
       <ModalViewMyDiaryStack.Screen
         name='ViewMyDiary'
         component={ViewMyDiaryScreenContainer}
-        options={{
-          ...DefaultNavigationOptions,
-          ...DefaultModalLayoutOptions,
-        }}
       />
     </ModalViewMyDiaryStack.Navigator>
   );
 };
 export const ModalEditMyProfileNavigator = () => {
+  const theme = useAppTheme();
+  const DefaultScreenOptions = getDefaultScreenOptions(theme);
   return (
-    <ModalEditMyProfileStack.Navigator initialRouteName='EditMyProfile'>
+    <ModalEditMyProfileStack.Navigator
+      initialRouteName='EditMyProfile'
+      screenOptions={DefaultScreenOptions}
+    >
       <ModalEditMyProfileStack.Screen
         name='EditMyProfile'
         component={EditMyProfileScreenContainer}
         options={{
-          ...DefaultNavigationOptions,
-          ...DefaultModalLayoutOptions,
           title: I18n.t('editMyProfile.headerTitle'),
         }}
       />
@@ -290,25 +310,36 @@ export const ModalEditMyProfileNavigator = () => {
   );
 };
 export const ModalBecomePremiumeNavigator = () => {
+  const theme = useAppTheme();
+  const DefaultScreenOptions = getDefaultScreenOptions(theme);
   return (
-    <ModalBecomePremiumStack.Navigator initialRouteName='BecomePremium'>
+    <ModalBecomePremiumStack.Navigator
+      initialRouteName='BecomePremium'
+      screenOptions={DefaultScreenOptions}
+    >
       <ModalBecomePremiumStack.Screen
         name='BecomePremium'
         component={BecomePremiumScreenContainer}
+        options={{
+          title: I18n.t('becomePremium.headerTitle'),
+        }}
       />
     </ModalBecomePremiumStack.Navigator>
   );
 };
 
 export const ModalRecordNavigator = () => {
+  const theme = useAppTheme();
+  const DefaultScreenOptions = getDefaultScreenOptions(theme);
   return (
-    <ModalRecordStack.Navigator initialRouteName='Record'>
+    <ModalRecordStack.Navigator
+      initialRouteName='Record'
+      screenOptions={DefaultScreenOptions}
+    >
       <ModalRecordStack.Screen
         name='Record'
         component={RecordScreenContainer}
         options={{
-          ...DefaultNavigationOptions,
-          ...DefaultModalLayoutOptions,
           title: I18n.t('record.headerTitle'),
         }}
       />

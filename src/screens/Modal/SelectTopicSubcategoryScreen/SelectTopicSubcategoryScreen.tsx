@@ -1,9 +1,7 @@
 import React, { useCallback } from 'react';
-import { View, FlatList, StyleSheet, ListRenderItem } from 'react-native';
+import { FlatList, ListRenderItem } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
-
-import { SelectTopicSubcategoryListItem } from '@/components/molecules';
 
 import {
   ModalSelectDiaryTypeStackNavigationProp,
@@ -12,6 +10,8 @@ import {
 import { User } from '@/types';
 import { TopicSubcategoryInfo } from './interface';
 import { first } from './config/first';
+import { Layout } from '@/components/templates';
+import SelectTopicSubcategoryListItem from '@/components/features/SelectTopicSubcategory/SelectTopicSubcategoryListItem';
 
 export interface Props {
   user: User;
@@ -28,12 +28,6 @@ type NavigationProp = CompositeNavigationProp<
 type ScreenType = {
   navigation: NavigationProp;
 } & Props;
-const styles = StyleSheet.create({
-  contaner: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});
 
 const keyExtractor = (item: TopicSubcategoryInfo, index: number): string =>
   String(index);
@@ -78,7 +72,7 @@ const SelectTopicSubcategoryScreen: React.FC<ScreenType> = ({
   );
 
   return (
-    <View style={styles.contaner}>
+    <Layout>
       <FlatList
         data={first({
           learnLanguage: user.learnLanguage,
@@ -86,7 +80,7 @@ const SelectTopicSubcategoryScreen: React.FC<ScreenType> = ({
         keyExtractor={keyExtractor}
         renderItem={renderItem}
       />
-    </View>
+    </Layout>
   );
 };
 
