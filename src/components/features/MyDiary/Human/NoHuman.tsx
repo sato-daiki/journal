@@ -248,7 +248,7 @@ const NoHuman: React.FC<Props> = ({
             <Space size={8} />
             {amount === MINIMUM_PRICE && (
               <AppText size='s' color={theme.colors.secondary}>
-                {I18n.t('noHuman.unitYen', {
+                {I18n.t('noHuman.describe', {
                   minimumPrice: MINIMUM_PRICE,
                   minimumLength: MINIMUM_PRICE / AMOUNT_PER_LENGTH,
                 })}

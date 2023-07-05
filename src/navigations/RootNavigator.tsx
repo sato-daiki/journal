@@ -24,6 +24,7 @@ import { StorageKey } from '@/constants/asyncStorage';
 import CheckPasscodeLockScreenContainer from '@/containers/CheckPasscodeLockScreenContainer';
 import MaintenanceScreen from '@/screens/MaintenanceScreen';
 import { darkTheme, lightTheme } from '@/styles/colors';
+import { StatusBar } from 'expo-status-bar';
 
 type ConfigMaintenance = {
   status: boolean;
@@ -206,6 +207,10 @@ const RootNavigator: React.FC<Props & DispatchProps> = ({
 
   return (
     <PaperProvider theme={theme}>
+      <StatusBar
+        backgroundColor={theme.colors.background}
+        style={theme.dark ? 'light' : 'dark'}
+      />
       <Stack.Navigator
         screenOptions={{
           headerShown: false,

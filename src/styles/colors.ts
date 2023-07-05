@@ -25,6 +25,7 @@ const commonColor = {
 };
 
 export const lightTheme = {
+  dark: false,
   colors: {
     ...commonColor,
     background: white,
@@ -40,6 +41,7 @@ export const lightTheme = {
 };
 
 export const darkTheme = {
+  dark: true,
   colors: {
     ...commonColor,
     background: black,

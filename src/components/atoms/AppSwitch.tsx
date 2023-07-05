@@ -4,19 +4,18 @@ import { useAppTheme, white } from '@/styles/colors';
 
 const AppSwitch: React.FC<SwitchProps> = ({ ...props }) => {
   const theme = useAppTheme();
-  return (
-    <Switch
-      thumbColor={
-        Platform.OS === 'android' ? theme.colors.switchThumb : undefined
-      }
-      trackColor={{
-        true: theme.colors.main,
-        false: theme.colors.switchBackground,
-      }}
-      ios_backgroundColor={theme.colors.switchBackground}
-      {...props}
-    />
-  );
+  if (Platform.OS === 'ios') {
+    return (
+      <Switch
+        trackColor={{
+          true: theme.colors.main,
+        }}
+        ios_backgroundColor={theme.colors.switchBackground}
+        {...props}
+      />
+    );
+  }
+  return <Switch {...props} />;
 };
 
 export default React.memo(AppSwitch);

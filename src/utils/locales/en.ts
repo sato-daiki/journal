@@ -165,6 +165,8 @@ const noHuman = {
   labelLength: '文字数',
   unitLength: '文字',
   labelSum: '合計',
+  describe:
+    '※最低料金は{{minimumPrice}}円のため、{{minimumLength}}文字以下でも上記の料金になります。',
   error:
     '支払いプロセスでエラーが発生しました。再度時間を置いてから試してください。',
 };
