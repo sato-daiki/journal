@@ -43,6 +43,7 @@ const CardHeader: React.FC<Props> = ({
         style={styles.iconClose}
         name='close-circle-outline'
         size={24}
+        color={theme.colors.primary}
         onPress={onPressClose}
       />
     </View>

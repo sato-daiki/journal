@@ -155,6 +155,7 @@ const SettingScreen: React.FC<ScreenType> = ({
               <MaterialCommunityIcons
                 name='star-four-points-outline'
                 size={16}
+                color={theme.colors.primary}
               />
             }
             righComponent={
@@ -172,6 +173,7 @@ const SettingScreen: React.FC<ScreenType> = ({
               <MaterialCommunityIcons
                 name='star-four-points-outline'
                 size={16}
+                color={theme.colors.primary}
               />
             }
             onPress={(): void => {
@@ -190,7 +192,13 @@ const SettingScreen: React.FC<ScreenType> = ({
           type='right'
           isBorrderTop
           title={I18n.t('setting.learn')}
-          leftIcon={<MaterialCommunityIcons name='pencil-outline' size={16} />}
+          leftIcon={
+            <MaterialCommunityIcons
+              name='pencil-outline'
+              size={16}
+              color={theme.colors.primary}
+            />
+          }
           righComponent={
             <CountryNameWithFlag
               containerStyle={{ paddingRight: 4 }}
@@ -207,14 +215,26 @@ const SettingScreen: React.FC<ScreenType> = ({
         <OptionItem
           type='switch'
           title={I18n.t('setting.passcodeLock')}
-          leftIcon={<MaterialCommunityIcons name='lock-outline' size={16} />}
+          leftIcon={
+            <MaterialCommunityIcons
+              name='lock-outline'
+              size={16}
+              color={theme.colors.primary}
+            />
+          }
           switchValue={localStatus.hasPasscode}
           onValueChange={onChangePasscodeLock}
         />
         <OptionItem
           type='right'
           title={I18n.t('setting.reminder')}
-          leftIcon={<MaterialCommunityIcons name='bell-outline' size={16} />}
+          leftIcon={
+            <MaterialCommunityIcons
+              name='bell-outline'
+              size={16}
+              color={theme.colors.primary}
+            />
+          }
           onPress={onPressReminder}
         />
         {currentUser && currentUser.email ? (
@@ -223,7 +243,11 @@ const SettingScreen: React.FC<ScreenType> = ({
               type='right'
               title={I18n.t('setting.editEmail')}
               leftIcon={
-                <MaterialCommunityIcons name='email-edit-outline' size={16} />
+                <MaterialCommunityIcons
+                  name='email-edit-outline'
+                  size={16}
+                  color={theme.colors.primary}
+                />
               }
               onPress={(): void => {
                 navigation.navigate('EditEmail');
@@ -236,6 +260,7 @@ const SettingScreen: React.FC<ScreenType> = ({
                 <MaterialCommunityIcons
                   name='briefcase-edit-outline'
                   size={16}
+                  color={theme.colors.primary}
                 />
               }
               onPress={(): void => {
@@ -248,7 +273,11 @@ const SettingScreen: React.FC<ScreenType> = ({
             type='right'
             title={I18n.t('setting.registerEmailPassword')}
             leftIcon={
-              <MaterialCommunityIcons name='email-edit-outline' size={16} />
+              <MaterialCommunityIcons
+                name='email-edit-outline'
+                size={16}
+                color={theme.colors.primary}
+              />
             }
             onPress={(): void => {
               navigation.navigate('RegisterEmailPassword');

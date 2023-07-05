@@ -131,7 +131,11 @@ const PasscodeLock: React.FC<Porps> = ({
                   style={styles.dummyContainer}
                   onPress={() => onPressCler()}
                 >
-                  <Feather name={'delete'} size={32} />
+                  <Feather
+                    name={'delete'}
+                    size={32}
+                    color={theme.colors.primary}
+                  />
                 </TouchableOpacity>
               );
             }

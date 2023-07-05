@@ -139,14 +139,26 @@ const BecomePremiumScreen: React.FC<ScreenType> = ({
         style={[styles.becomeContainer, { borderColor: theme.colors.main }]}
       >
         <View style={styles.row}>
-          <MaterialCommunityIcons name='star-four-points-outline' size={18} />
+          <MaterialCommunityIcons
+            name='star-four-points-outline'
+            size={18}
+            color={theme.colors.primary}
+          />
           <AppText size='ll' bold style={styles.becomeTitle}>
             {I18n.t('becomePremium.becomeTitle')}
           </AppText>
-          <MaterialCommunityIcons name='star-four-points-outline' size={18} />
+          <MaterialCommunityIcons
+            name='star-four-points-outline'
+            size={18}
+            color={theme.colors.primary}
+          />
         </View>
         <View style={styles.labelContainer}>
-          <MaterialCommunityIcons name='check' size={24} />
+          <MaterialCommunityIcons
+            name='check'
+            size={24}
+            color={theme.colors.primary}
+          />
           <View>
             <AppText size='l' bold style={styles.becomeText}>
               {I18n.t('becomePremium.props1')}
@@ -159,7 +171,11 @@ const BecomePremiumScreen: React.FC<ScreenType> = ({
         </View>
         <Space size={8} />
         <View style={styles.labelContainer}>
-          <MaterialCommunityIcons name='check' size={24} />
+          <MaterialCommunityIcons
+            name='check'
+            size={24}
+            color={theme.colors.primary}
+          />
           <AppText size='m' bold style={styles.becomeText}>
             {I18n.t('becomePremium.props2')}
           </AppText>

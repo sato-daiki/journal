@@ -104,6 +104,7 @@ const SelectDiaryTypeScreen: React.FC<ScreenType> = ({ navigation }) => {
               name={'numeric-1-box'}
               size={36}
               style={styles.icon}
+              color={theme.colors.primary}
             />
           }
           onPress={onPressEiken1}
@@ -117,6 +118,7 @@ const SelectDiaryTypeScreen: React.FC<ScreenType> = ({ navigation }) => {
               name={'numeric-1-box-multiple-outline'}
               size={32}
               style={styles.icon}
+              color={theme.colors.primary}
             />
           }
           onPress={onPressEikenPre1}
@@ -133,6 +135,7 @@ const SelectDiaryTypeScreen: React.FC<ScreenType> = ({ navigation }) => {
               name={'numeric-2-box'}
               size={36}
               style={styles.icon}
+              color={theme.colors.primary}
             />
           }
           onPress={onPressEiken2}
@@ -146,6 +149,7 @@ const SelectDiaryTypeScreen: React.FC<ScreenType> = ({ navigation }) => {
               name={'numeric-2-box-multiple-outline'}
               size={32}
               style={styles.icon}
+              color={theme.colors.primary}
             />
           }
           onPress={onPressEikenPre2}

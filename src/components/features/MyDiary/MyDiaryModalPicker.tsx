@@ -8,6 +8,7 @@ import {
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AppText } from '@/components/atoms';
 import ModalPicker, { PickerItem } from '../../molecules/ModalPicker';
+import { useAppTheme } from '@/styles/colors';
 
 type Props = {
   containerStyle?: StyleProp<ViewStyle>;
@@ -24,6 +25,7 @@ const MyDiaryModalPicker: React.FC<Props> = ({
   items,
   onPressItem,
 }) => {
+  const theme = useAppTheme();
   const [isVisible, setIsVisible] = useState(false);
 
   const onPress = useCallback(() => {
@@ -48,7 +50,11 @@ const MyDiaryModalPicker: React.FC<Props> = ({
           {selectedItem.label}
         </AppText>
         {hasRevised && (
-          <MaterialCommunityIcons name={'chevron-down'} size={32} />
+          <MaterialCommunityIcons
+            name={'chevron-down'}
+            size={32}
+            color={theme.colors.primary}
+          />
         )}
       </TouchableOpacity>
       <ModalPicker

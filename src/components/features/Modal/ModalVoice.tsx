@@ -10,6 +10,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Modal, WhiteButton, Space, AppText } from '@/components';
 import I18n from '@/utils/I18n';
 import AppSlider from '@/components/atoms/AppSlider';
+import { useAppTheme } from '@/styles/colors';
 
 const { height } = Dimensions.get('window');
 
@@ -40,6 +41,7 @@ const ModalVoice: React.FC<Props> = ({
   onPlayPausePressed,
   onPressClose,
 }: Props) => {
+  const theme = useAppTheme();
   return (
     <Modal visible={visible}>
       <View style={styles.container}>
@@ -63,9 +65,10 @@ const ModalVoice: React.FC<Props> = ({
               <ActivityIndicator />
             ) : (
               <MaterialCommunityIcons
-                name={isPlaying ? 'pause' : 'play'}
                 disabled={!isPlaybackAllowed || isLoading}
+                name={isPlaying ? 'pause' : 'play'}
                 size={56}
+                color={theme.colors.primary}
                 onPress={onPlayPausePressed}
               />
             )}

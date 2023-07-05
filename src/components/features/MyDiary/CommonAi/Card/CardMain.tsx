@@ -81,6 +81,7 @@ export const CardMain: React.FC<Props> = ({
               <MaterialCommunityIcons
                 name='content-copy'
                 size={18}
+                color={theme.colors.primary}
                 onPress={() => onPressCopy(replacement.value)}
               />
               {index !== replacements.length - 1 && (
@@ -125,7 +126,12 @@ export const CardMain: React.FC<Props> = ({
             ))}
         </View>
         {onPressIgnore && (
-          <Feather name='trash-2' size={24} onPress={onPressIgnore} />
+          <Feather
+            name='trash-2'
+            size={24}
+            color={theme.colors.primary}
+            onPress={onPressIgnore}
+          />
         )}
       </View>
     </ScrollView>

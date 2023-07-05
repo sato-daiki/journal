@@ -3,12 +3,14 @@ import { StyleSheet, View } from 'react-native';
 import { Heading, Space } from '@/components';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { useAppTheme } from '@/styles/colors';
 
 interface Props {
   title: string;
 }
 
 const Header: React.FC<Props> = ({ title }) => {
+  const theme = useAppTheme();
   const navigation = useNavigation();
   const onPressClose = useCallback(() => {
     navigation.goBack();
@@ -19,6 +21,7 @@ const Header: React.FC<Props> = ({ title }) => {
       <MaterialCommunityIcons
         name='close'
         size={24}
+        color={theme.colors.primary}
         style={styles.close}
         onPress={onPressClose}
       />

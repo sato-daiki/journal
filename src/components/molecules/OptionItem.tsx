@@ -55,7 +55,11 @@ const OptionItem: React.FC<Props> = ({
             name='chevron-right'
           />
         ) : type === 'check' && checkValue ? (
-          <MaterialCommunityIcons name='check' size={26} />
+          <MaterialCommunityIcons
+            name='check'
+            size={26}
+            color={theme.colors.primary}
+          />
         ) : type === 'switch' ? (
           <AppSwitch onValueChange={onValueChange} value={switchValue} />
         ) : null}

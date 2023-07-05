@@ -150,6 +150,7 @@ const NoHuman: React.FC<Props> = ({
           size={80}
           name='face-man-shimmer'
           style={styles.image}
+          color={theme.colors.primary}
         />
         <Space size={16} />
         <AppText size='m'>

@@ -29,6 +29,7 @@ import { logAnalytics } from '@/utils/Analytics';
 import HeaderIcon from '@/components/features/Header/HeaderIcon';
 import HeaderText from '@/components/features/Header/HeaderText';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useAppTheme } from '@/styles/colors';
 
 export interface Props {
   user: User;
@@ -77,6 +78,7 @@ const MyDiaryListScreen: React.FC<ScreenType> = ({
   setMyDiaryListView,
   navigation,
 }) => {
+  const theme = useAppTheme();
   const elRefs = useRef<Swipeable[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
@@ -217,6 +219,7 @@ const MyDiaryListScreen: React.FC<ScreenType> = ({
               ? 'calendar'
               : 'format-list-bulleted'
           }
+          color={theme.colors.primary}
           onPress={onPressRight}
         />
       </HeaderIcon>

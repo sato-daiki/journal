@@ -478,6 +478,7 @@ const RecordScreen: React.FC<ScreenType> = ({
               disabled={!isPlaybackAllowed || isLoading}
               name={isPlaying ? 'pause' : 'play'}
               size={56}
+              color={theme.colors.primary}
               onPress={onPlayPausePressed}
             />
             {SaveButton()}

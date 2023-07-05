@@ -102,6 +102,7 @@ const ModalSpeech: React.FC<Props> = ({
           <MaterialCommunityIcons
             name={playing ? 'pause' : 'play'}
             size={48}
+            color={theme.colors.primary}
             onPress={playing ? onPressPause : onPressSpeak}
           />
           <View style={styles.switchContainer}>

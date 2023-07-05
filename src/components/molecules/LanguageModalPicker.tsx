@@ -69,6 +69,7 @@ const LanguageModalPicker: React.FC<Props> = ({
           longCode={selectedItem.value as LongCode}
         />
         <MaterialCommunityIcons
+          color={theme.colors.primary}
           name={size === 'large' ? 'chevron-right' : 'chevron-down'}
           size={size === 'large' ? 32 : 16}
         />
