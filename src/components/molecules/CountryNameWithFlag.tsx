@@ -23,11 +23,13 @@ const CountryNameWithFlag: React.FC<Props> = ({
   size,
   longCode,
 }) => {
-  const [deviceType, setDeviceType] = useState<Device.DeviceType>();
+  const [flagSize, setFlagSize] = useState<number>(24);
   useEffect(() => {
     const f = async () => {
       const newDeviceType = await Device.getDeviceTypeAsync();
-      setDeviceType(newDeviceType);
+      if (newDeviceType === Device.DeviceType.TABLET) {
+        setFlagSize(32);
+      }
     };
     f();
   }, []);
@@ -43,10 +45,7 @@ const CountryNameWithFlag: React.FC<Props> = ({
 
   return (
     <View style={[styles.container, containerStyle]}>
-      <Flag
-        code={nationalityCode}
-        size={deviceType === Device.DeviceType.TABLET ? 24 : 16}
-      />
+      <Flag code={nationalityCode} size={flagSize} />
       <AppText size='m' style={styles.nationality}>
         {shortName}
       </AppText>
