@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import AppText from '../atoms/AppText';
 import { borderLight } from '@/styles/colors';
+import { verticalScale } from '@/styles/metrics';
 
 interface Props {
   containerStyle?: StyleProp<ViewStyle>;
@@ -33,8 +34,8 @@ const Heading: React.FC<Props> = ({ containerStyle, titleStyle, title }) => {
 
 const styles = StyleSheet.create({
   title: {
-    marginVertical: 6,
-    paddingBottom: 16,
+    marginVertical: verticalScale(6),
+    paddingBottom: verticalScale(16),
   },
   line: {
     width: '100%',

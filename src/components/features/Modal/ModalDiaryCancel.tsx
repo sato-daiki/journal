@@ -9,6 +9,7 @@ import {
   Modal,
 } from '@/components';
 import I18n from '@/utils/I18n';
+import { horizontalScale, verticalScale } from '@/styles/metrics';
 
 interface Props {
   visible: boolean;
@@ -56,7 +57,8 @@ const ModalDiaryCancel: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
+    paddingHorizontal: horizontalScale(16),
+    paddingVertical: verticalScale(16),
   },
 });
 

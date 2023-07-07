@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react';
 import { View, StyleSheet } from 'react-native';
 import AppText from '../atoms/AppText';
 import { useAppTheme } from '@/styles/colors';
+import { horizontalScale, verticalScale } from '@/styles/metrics';
 
 interface Props {
   icon?: ReactNode;
@@ -22,12 +23,13 @@ const GrayHeader: React.FC<Props> = ({ title, icon }: Props) => {
 
 const styles = StyleSheet.create({
   row: {
-    padding: 16,
+    paddingHorizontal: horizontalScale(16),
+    paddingVertical: verticalScale(16),
     alignItems: 'center',
     flexDirection: 'row',
   },
   icon: {
-    marginRight: 8,
+    marginRight: horizontalScale(8),
   },
 });
 

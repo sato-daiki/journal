@@ -4,6 +4,7 @@ import { Heading, Icon, Space } from '@/components';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { useAppTheme } from '@/styles/colors';
+import { moderateScale, verticalScale } from '@/styles/metrics';
 
 interface Props {
   title: string;
@@ -20,10 +21,10 @@ const Header: React.FC<Props> = ({ title }) => {
     <View>
       <Icon onPress={onPressClose}>
         <MaterialCommunityIcons
-          name='close'
-          size={24}
-          color={theme.colors.primary}
           style={styles.close}
+          size={moderateScale(24)}
+          color={theme.colors.primary}
+          name='close'
         />
       </Icon>
       <Space size={24} />
@@ -36,12 +37,12 @@ const Header: React.FC<Props> = ({ title }) => {
 const styles = StyleSheet.create({
   close: {
     position: 'absolute',
-    top: 20,
+    top: verticalScale(20),
     zIndex: 100,
   },
   heading: {
     marginVertical: 0,
-    paddingBottom: 12,
+    paddingBottom: verticalScale(12),
   },
 });
 

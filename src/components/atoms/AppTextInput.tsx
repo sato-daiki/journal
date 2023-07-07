@@ -2,6 +2,11 @@ import React from 'react';
 import { TextInputProps, TextInput, StyleSheet } from 'react-native';
 import { borderLight, useAppTheme } from '@/styles/colors';
 import { fontSizeM } from '@/styles/fonts';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '@/styles/metrics';
 
 type Props = {
   isOff?: boolean;
@@ -30,12 +35,12 @@ const AppTextInput: React.FC<Props> = ({ style, isOff, ...props }) => {
 
 const styles = StyleSheet.create({
   textInput: {
-    fontSize: fontSizeM,
-    lineHeight: fontSizeM * 1.3,
-    paddingTop: 12,
-    paddingBottom: 12, // paddingVerticalとやると効かない（react nativeのバグ）
-    paddingHorizontal: 16,
-    borderRadius: 6,
+    fontSize: moderateScale(fontSizeM, 0.2),
+    lineHeight: moderateScale(fontSizeM * 1.3, 0.2),
+    paddingTop: verticalScale(12),
+    paddingBottom: verticalScale(12), // paddingVerticalとやると効かない（react nativeのバグ）
+    paddingHorizontal: horizontalScale(16),
+    borderRadius: moderateScale(6),
     width: '100%',
     borderColor: borderLight,
   },

@@ -14,6 +14,11 @@ import {
 import { AppText, AppTextInput } from '../atoms';
 import { green, softRed, useAppTheme } from '@/styles/colors';
 import { Icon } from '../templates';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '@/styles/metrics';
 
 type Props = {
   isLoading?: boolean;
@@ -56,17 +61,17 @@ const CheckTextInput = (props: Props) => {
             <ActivityIndicator size='small' />
           ) : isCheckOk ? (
             <MaterialIcons
-              size={24}
-              name='check-circle-outline'
+              size={moderateScale(24)}
               color={green}
+              name='check-circle-outline'
             />
           ) : null}
           {isPassword && (
             <Icon onPress={onPressPasswordIcon}>
               <MaterialCommunityIcons
-                size={24}
-                name={showPassword ? 'eye' : 'eye-off'}
+                size={moderateScale(24)}
                 color={theme.colors.secondary}
+                name={showPassword ? 'eye' : 'eye-off'}
               />
             </Icon>
           )}
@@ -74,7 +79,11 @@ const CheckTextInput = (props: Props) => {
       </View>
       {errorMessage.length > 0 ? (
         <View style={styles.errorContainer}>
-          <FontAwesome size={14} name='exclamation-circle' color={softRed} />
+          <FontAwesome
+            size={moderateScale(14)}
+            color={softRed}
+            name='exclamation-circle'
+          />
           <AppText size='s' color={softRed} style={styles.error}>
             {errorMessage}
           </AppText>
@@ -91,25 +100,26 @@ const styles = StyleSheet.create({
   },
   iconRow: {
     position: 'absolute',
-    right: 16,
+    right: horizontalScale(16),
   },
   errorBorder: {
-    borderBottomWidth: 2,
-    borderWidth: 2,
+    borderBottomWidth: moderateScale(2),
+    borderWidth: moderateScale(2),
     borderColor: softRed,
   },
   errorContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 6,
-    paddingRight: 8,
+    marginTop: verticalScale(6),
+    paddingRight: horizontalScale(8),
   },
   textInput: {
-    paddingRight: 46,
-    paddingVertical: Platform.OS === 'ios' ? 14 : 8,
+    paddingRight: horizontalScale(46),
+    paddingVertical:
+      Platform.OS === 'ios' ? verticalScale(14) : verticalScale(8),
   },
   error: {
-    marginLeft: 6,
+    marginLeft: horizontalScale(6),
   },
 });
 

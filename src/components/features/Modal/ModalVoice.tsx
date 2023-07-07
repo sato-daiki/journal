@@ -11,6 +11,11 @@ import { Modal, WhiteButton, Space, AppText, Icon } from '@/components';
 import I18n from '@/utils/I18n';
 import AppSlider from '@/components/atoms/AppSlider';
 import { useAppTheme } from '@/styles/colors';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '@/styles/metrics';
 
 const { height } = Dimensions.get('window');
 
@@ -69,9 +74,9 @@ const ModalVoice: React.FC<Props> = ({
                 disabled={!isPlaybackAllowed || isLoading}
               >
                 <MaterialCommunityIcons
-                  name={isPlaying ? 'pause' : 'play'}
-                  size={56}
+                  size={moderateScale(56)}
                   color={theme.colors.primary}
+                  name={isPlaying ? 'pause' : 'play'}
                 />
               </Icon>
             )}
@@ -86,18 +91,18 @@ const ModalVoice: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
   container: {
-    maxHeight: height - 200,
-    paddingVertical: 16,
+    maxHeight: height - verticalScale(200),
+    paddingVertical: verticalScale(16),
   },
   scrollView: {
-    paddingHorizontal: 16,
+    paddingHorizontal: horizontalScale(16),
   },
   mainContainer: {
-    paddingHorizontal: 16,
+    paddingHorizontal: horizontalScale(16),
   },
   playButtonContainer: {
     alignItems: 'center',
-    height: 100,
+    height: verticalScale(100),
   },
   timestampText: {
     textAlignVertical: 'center',

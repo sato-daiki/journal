@@ -20,6 +20,11 @@ import {
   OnboardingStackParamList,
 } from '@/navigations/OnboardingNavigator';
 import { CompositeNavigationProp } from '@react-navigation/native';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '@/styles/metrics';
 
 export interface Props {
   user: User;
@@ -102,23 +107,23 @@ const PushSettingScreen: React.FC<ScreenType> = ({
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 16,
-    paddingTop: 64,
+    paddingHorizontal: horizontalScale(16),
+    paddingTop: verticalScale(64),
   },
   main: {
     flex: 1,
   },
   linkContainer: {
-    height: 100,
+    height: verticalScale(100),
   },
   img: {
     alignSelf: 'center',
-    width: 120,
-    height: 207,
+    width: moderateScale(120),
+    height: moderateScale(207),
   },
   imgContainer: {
     flex: 2,
-    paddingTop: 16,
+    paddingTop: verticalScale(16),
   },
 });
 export default PushSettingScreen;

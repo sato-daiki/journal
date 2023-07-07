@@ -20,6 +20,7 @@ import firestore from '@react-native-firebase/firestore';
 import { getLoadNextPage } from '@/utils/diary';
 import { logAnalytics } from '@/utils/Analytics';
 import HeaderText from '@/components/features/Header/HeaderText';
+import { horizontalScale, moderateScale, verticalScale } from '@/styles/metrics';
 
 export interface Props {
   user: User;
@@ -158,12 +159,12 @@ const EditMyDiaryListScreen: React.FC<ScreenType> = ({
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    paddingHorizontal: 16,
-    paddingTop: 8,
-    marginBottom: 16,
+    paddingHorizontal: horizontalScale(16),
+    paddingTop: verticalScale(8),
+    marginBottom: verticalScale(16),
   },
   disableTitileText: {
-    fontSize: fontSizeS,
+    fontSize: moderateScale(fontSizeS),
   },
 });
 

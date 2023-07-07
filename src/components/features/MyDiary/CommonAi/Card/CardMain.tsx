@@ -7,6 +7,11 @@ import I18n from '@/utils/I18n';
 import { AppText, Icon } from '@/components';
 import { MaterialCommunityIcons, Feather } from '@expo/vector-icons';
 import { borderLight, useAppTheme } from '@/styles/colors';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '@/styles/metrics';
 
 interface Props {
   skipFirstRow?: boolean;
@@ -80,9 +85,9 @@ export const CardMain: React.FC<Props> = ({
               </AppText>
               <Icon onPress={() => onPressCopy(replacement.value)}>
                 <MaterialCommunityIcons
-                  name='content-copy'
-                  size={18}
+                  size={moderateScale(18)}
                   color={theme.colors.primary}
+                  name='content-copy'
                 />
               </Icon>
               {index !== replacements.length - 1 && (
@@ -115,9 +120,9 @@ export const CardMain: React.FC<Props> = ({
               >
                 <View style={styles.iconInfo}>
                   <MaterialCommunityIcons
+                    size={moderateScale(18)}
                     color={theme.colors.secondary}
                     name='information-outline'
-                    size={18}
                   />
                 </View>
                 <AppText size='m' color={theme.colors.secondary}>
@@ -128,7 +133,11 @@ export const CardMain: React.FC<Props> = ({
         </View>
         {onPressIgnore && (
           <Icon onPress={onPressIgnore}>
-            <Feather name='trash-2' size={24} color={theme.colors.primary} />
+            <Feather
+              size={moderateScale(24)}
+              color={theme.colors.primary}
+              name='trash-2'
+            />
           </Icon>
         )}
       </View>
@@ -138,26 +147,26 @@ export const CardMain: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
   scrollView: {
-    paddingBottom: 20,
-    paddingHorizontal: 8,
-    marginHorizontal: 8,
-    borderWidth: 1,
-    borderRadius: 8,
-    paddingTop: 12,
-    minHeight: 176,
+    paddingBottom: verticalScale(20),
+    paddingHorizontal: horizontalScale(8),
+    marginHorizontal: horizontalScale(8),
+    borderWidth: moderateScale(1),
+    borderRadius: moderateScale(8),
+    paddingTop: verticalScale(12),
+    minHeight: verticalScale(176),
     justifyContent: 'space-between',
     borderColor: borderLight,
   },
   firstRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingBottom: 8,
+    paddingBottom: verticalScale(8),
   },
   circle: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    marginRight: 12,
+    width: horizontalScale(8),
+    height: verticalScale(8),
+    borderRadius: moderateScale(4),
+    marginRight: horizontalScale(12),
   },
   secondRow: {
     flexDirection: 'row',
@@ -168,25 +177,25 @@ const styles = StyleSheet.create({
     textDecorationLine: 'line-through',
   },
   right: {
-    marginHorizontal: 6,
+    marginHorizontal: horizontalScale(6),
   },
   replacementContaienr: {
-    marginRight: 8,
-    marginBottom: 8,
+    marginRight: horizontalScale(8),
+    marginBottom: verticalScale(8),
     flexDirection: 'row',
     alignItems: 'center',
   },
   replacement: {
-    marginRight: 2,
+    marginRight: horizontalScale(2),
   },
   or: {
-    marginLeft: 8,
+    marginLeft: horizontalScale(8),
   },
   message: {
-    marginTop: 8,
+    marginTop: verticalScale(8),
   },
   bottomRow: {
-    marginTop: 8,
+    marginTop: verticalScale(8),
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -198,9 +207,9 @@ const styles = StyleSheet.create({
   urlContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginRight: 16,
+    marginRight: horizontalScale(16),
   },
   iconInfo: {
-    marginRight: 4,
+    marginRight: horizontalScale(4),
   },
 });

@@ -3,6 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import RNModal from 'react-native-modal';
 import { Animation, CustomAnimation } from 'react-native-animatable';
 import { useAppTheme } from '@/styles/colors';
+import { moderateScale, verticalScale } from '@/styles/metrics';
 
 interface Props {
   visible: boolean;
@@ -42,13 +43,10 @@ const styles = StyleSheet.create({
   },
   modal: {
     width: '100%',
-    borderRadius: 8,
-  },
-  padding0: {
-    paddingVertical: 8,
+    borderRadius: moderateScale(8),
   },
   padding32: {
-    paddingVertical: 32,
+    paddingVertical: verticalScale(32),
   },
 });
 

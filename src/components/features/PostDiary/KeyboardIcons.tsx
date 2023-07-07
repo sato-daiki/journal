@@ -5,6 +5,11 @@ import { ImageInfo } from '@/types';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useAppTheme } from '@/styles/colors';
 import { Icon } from '@/components';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '@/styles/metrics';
 
 type Props = {
   images: ImageInfo[] | null | undefined;
@@ -31,25 +36,25 @@ const KeyboardIcons: React.FC<Props> = ({
         <Icon onPress={onPressChooseImage} disabled={!isAddImage}>
           <MaterialCommunityIcons
             style={[styles.icon, !isAddImage && { opacity: 0.3 }]}
-            name='file-image-outline'
-            size={24}
+            size={moderateScale(24)}
             color={theme.colors.main}
+            name='file-image-outline'
           />
         </Icon>
         <Icon onPress={onPressCamera} disabled={!isAddImage}>
           <MaterialCommunityIcons
             style={!isAddImage && { opacity: 0.3 }}
-            name='camera-outline'
-            size={24}
+            size={moderateScale(24)}
             color={theme.colors.main}
+            name='camera-outline'
           />
         </Icon>
       </View>
       <Icon onPress={Keyboard.dismiss}>
         <MaterialCommunityIcons
-          name='keyboard-close'
-          size={24}
+          size={moderateScale(24)}
           color={theme.colors.main}
+          name='keyboard-close'
         />
       </Icon>
     </View>
@@ -61,16 +66,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingRight: 8,
-    paddingLeft: 16,
-    paddingVertical: 4,
+    paddingRight: horizontalScale(8),
+    paddingLeft: horizontalScale(16),
+    paddingVertical: verticalScale(4),
   },
   keybordLeftRow: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   icon: {
-    paddingRight: 16,
+    paddingRight: horizontalScale(16),
   },
 });
 

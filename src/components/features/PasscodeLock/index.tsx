@@ -10,6 +10,11 @@ import { Feather } from '@expo/vector-icons';
 import { AppText, Space } from '@/components/atoms';
 import { useAppTheme } from '@/styles/colors';
 import { Icon } from '@/components/templates';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '@/styles/metrics';
 
 interface Porps {
   disabled?: boolean;
@@ -133,9 +138,9 @@ const PasscodeLock: React.FC<Porps> = ({
                   onPress={onPressCler}
                 >
                   <Feather
-                    name={'delete'}
-                    size={32}
+                    size={moderateScale(32)}
                     color={theme.colors.primary}
+                    name={'delete'}
                   />
                 </Icon>
               );
@@ -170,31 +175,31 @@ const styles = StyleSheet.create({
   },
   dotRow: {
     flexDirection: 'row',
-    marginBottom: 48,
+    marginBottom: verticalScale(48),
   },
   dot: {
-    borderWidth: 1,
-    borderRadius: DOT_CIRCLE_WIDTH / 2,
-    width: DOT_CIRCLE_WIDTH,
-    height: DOT_CIRCLE_WIDTH,
-    marginHorizontal: DOT_CIRCLE_MARGIN,
+    borderWidth: moderateScale(1),
+    borderRadius: moderateScale(DOT_CIRCLE_WIDTH / 2),
+    width: horizontalScale(DOT_CIRCLE_WIDTH),
+    height: verticalScale(DOT_CIRCLE_WIDTH),
+    marginHorizontal: horizontalScale(DOT_CIRCLE_MARGIN),
   },
   row: {
     flexDirection: 'row',
-    marginBottom: 16,
+    marginBottom: verticalScale(16),
   },
   dummyContainer: {
-    width: NUM_CIRCLE_WIDTH,
-    marginHorizontal: NUM_CIRCLE_MARGIN,
+    width: horizontalScale(NUM_CIRCLE_WIDTH),
+    marginHorizontal: horizontalScale(NUM_CIRCLE_MARGIN),
     alignItems: 'center',
     justifyContent: 'center',
   },
   numContainer: {
-    borderWidth: 1,
-    borderRadius: NUM_CIRCLE_WIDTH / 2,
-    width: NUM_CIRCLE_WIDTH,
-    height: NUM_CIRCLE_WIDTH,
-    marginHorizontal: NUM_CIRCLE_MARGIN,
+    borderWidth: moderateScale(1),
+    borderRadius: moderateScale(NUM_CIRCLE_WIDTH / 2),
+    width: horizontalScale(NUM_CIRCLE_WIDTH),
+    height: verticalScale(NUM_CIRCLE_WIDTH),
+    marginHorizontal: horizontalScale(NUM_CIRCLE_MARGIN),
     alignItems: 'center',
     justifyContent: 'center',
   },

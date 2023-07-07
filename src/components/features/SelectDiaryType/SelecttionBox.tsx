@@ -9,6 +9,11 @@ import {
 } from 'react-native';
 import { AppText, Pill } from '@/components/atoms';
 import { softRed, useAppTheme, white } from '@/styles/colors';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '@/styles/metrics';
 
 interface Props {
   containerStyle?: StyleProp<ViewStyle>;
@@ -48,9 +53,10 @@ const SelecttionBox: React.FC<Props> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    borderRadius: 8,
-    borderWidth: 1,
-    padding: 8,
+    borderRadius: moderateScale(8),
+    borderWidth: moderateScale(1),
+    paddingHorizontal: horizontalScale(8),
+    paddingVertical: verticalScale(8),
     alignItems: 'center',
   },
   main: {
@@ -58,7 +64,7 @@ const styles = StyleSheet.create({
   },
   pill: {
     position: 'absolute',
-    top: Platform.OS === 'web' ? -40 : -32,
+    top: verticalScale(-32),
   },
 });
 

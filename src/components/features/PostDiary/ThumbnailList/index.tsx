@@ -9,6 +9,7 @@ import {
 import ThumbnailListItem, { THUMBNAIL_WIDTH } from './ThumbnailListItem';
 import { ImageInfo } from '@/types/diary';
 import { useAppTheme } from '@/styles/colors';
+import { horizontalScale, verticalScale } from '@/styles/metrics';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
@@ -37,7 +38,7 @@ const ThumbnailList: React.FC<Props> = ({
       {images?.map((image, index) => (
         <ThumbnailListItem
           key={index}
-          style={{ marginRight: 16 }}
+          style={{ marginRight: horizontalScale(16) }}
           index={index}
           image={image}
           onPressImage={onPressImage}
@@ -55,17 +56,17 @@ const ThumbnailList: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingHorizontal: horizontalScale(16),
+    paddingVertical: verticalScale(8),
     flexDirection: 'row',
     alignItems: 'center',
   },
   activityIndicator: {
-    width: THUMBNAIL_WIDTH,
-    height: THUMBNAIL_WIDTH,
+    width: horizontalScale(THUMBNAIL_WIDTH),
+    height: verticalScale(THUMBNAIL_WIDTH),
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 4,
+    marginRight: horizontalScale(4),
   },
 });
 

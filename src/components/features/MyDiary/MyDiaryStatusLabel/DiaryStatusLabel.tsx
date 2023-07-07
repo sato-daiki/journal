@@ -1,6 +1,11 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { AppText } from '../../../atoms';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '@/styles/metrics';
 
 interface Props {
   color: string;
@@ -22,10 +27,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   circle: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    marginRight: 4,
+    width: horizontalScale(8),
+    height: verticalScale(8),
+    borderRadius: moderateScale(4),
+    marginRight: horizontalScale(4),
   },
 });
 

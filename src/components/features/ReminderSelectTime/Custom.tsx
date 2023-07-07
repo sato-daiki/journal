@@ -8,6 +8,7 @@ import { CustomTimeInfo } from '@/types';
 import { AppText } from '@/components/atoms';
 import { useAppTheme } from '@/styles/colors';
 import SelectTimeItem from './SelectTimeItem';
+import { horizontalScale } from '@/styles/metrics';
 
 interface Props {
   disable: boolean;
@@ -118,7 +119,7 @@ const Custom: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
   subText: {
-    marginRight: 8,
+    marginRight: horizontalScale(8),
   },
 });
 

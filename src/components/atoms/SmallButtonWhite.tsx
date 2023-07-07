@@ -9,6 +9,11 @@ import {
 } from 'react-native';
 import AppText from './AppText';
 import { useAppTheme } from '@/styles/colors';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '@/styles/metrics';
 
 interface Props {
   containerStyle?: StyleProp<ViewStyle>;
@@ -56,16 +61,16 @@ const SmallButtonWhite: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
   contaner: {
-    borderRadius: 8,
-    borderWidth: 1,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
+    borderRadius: moderateScale(8),
+    borderWidth: moderateScale(1),
+    paddingHorizontal: horizontalScale(12),
+    paddingVertical: verticalScale(8),
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
   },
   icon: {
-    marginRight: 4,
+    marginRight: horizontalScale(4),
   },
 });
 

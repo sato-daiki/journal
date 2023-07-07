@@ -12,6 +12,7 @@ import ThumbnailList from './ThumbnailList';
 import KeyboardIcons from './KeyboardIcons';
 import TextInputTitle from '../MyDiary/TextInputTitle';
 import TextInputText from '../MyDiary/TextInputText';
+import { verticalScale } from '@/styles/metrics';
 
 const PostDiaryKeyboard: React.FC<PostDiaryKeyboardProps> = ({
   isImageLoading,
@@ -83,7 +84,9 @@ const PostDiaryKeyboard: React.FC<PostDiaryKeyboardProps> = ({
           {(isImageLoading || (images && images.length > 0)) && (
             <ThumbnailList
               isImageLoading={isImageLoading}
-              style={[{ marginBottom: isKeyboard ? 0 : FOOTER_HEIGHT }]}
+              style={[
+                { marginBottom: isKeyboard ? 0 : verticalScale(FOOTER_HEIGHT) },
+              ]}
               images={images}
               onPressImage={onPressImage}
               onPressDeleteImage={onPressDeleteImage}
@@ -120,7 +123,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   textInput: {
-    height: 400,
+    height: verticalScale(400),
   },
 });
 

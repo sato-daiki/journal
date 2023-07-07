@@ -9,6 +9,11 @@ import {
 } from 'react-native';
 import { ImageInfo } from '@/types';
 import { black, white } from '@/styles/colors';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '@/styles/metrics';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
@@ -47,33 +52,33 @@ const ThumbnailListItem: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
   container: {
-    width: THUMBNAIL_WIDTH,
-    height: THUMBNAIL_WIDTH,
+    width: horizontalScale(THUMBNAIL_WIDTH),
+    height: verticalScale(THUMBNAIL_WIDTH),
     position: 'relative',
-    marginRight: 4,
+    marginRight: horizontalScale(4),
   },
   image: {
-    width: THUMBNAIL_WIDTH,
-    height: THUMBNAIL_WIDTH,
-    borderRadius: 8,
+    width: moderateScale(THUMBNAIL_WIDTH),
+    height: moderateScale(THUMBNAIL_WIDTH),
+    borderRadius: moderateScale(8),
   },
   closeIcon: {
     position: 'absolute',
-    right: -10,
-    top: -10,
+    right: horizontalScale(-10),
+    top: verticalScale(-10),
     zIndex: 10,
-    width: 24,
-    height: 24,
-    borderRadius: 24 / 2,
-    borderWidth: 2,
+    width: moderateScale(24),
+    height: moderateScale(24),
+    borderRadius: moderateScale(24 / 2),
+    borderWidth: moderateScale(2),
     backgroundColor: black,
     borderColor: white,
   },
   closeText: {
     position: 'absolute',
-    fontSize: 18,
-    top: -2,
-    left: 4.2,
+    fontSize: moderateScale(18),
+    top: verticalScale(-2),
+    left: horizontalScale(4.2),
     fontWeight: 'bold',
     color: white,
   },

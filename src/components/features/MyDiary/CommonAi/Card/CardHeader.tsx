@@ -3,6 +3,11 @@ import { StyleSheet, View } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useAppTheme } from '@/styles/colors';
 import { Icon } from '@/components';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '@/styles/metrics';
 
 export interface Props {
   activeLeft: boolean;
@@ -27,29 +32,29 @@ const CardHeader: React.FC<Props> = ({
       <Icon onPress={onPressLeft} disabled={!activeLeft}>
         <MaterialCommunityIcons
           style={styles.iconLeft}
-          name={'arrow-left-thin'}
-          size={24}
+          size={moderateScale(24)}
           color={
             activeLeft ? theme.colors.primary : theme.colors.primaryInactive
           }
+          name={'arrow-left-thin'}
         />
       </Icon>
       <Icon onPress={onPressRight} disabled={!activeRight}>
         <MaterialCommunityIcons
           style={styles.iconRight}
-          name={'arrow-right-thin'}
-          size={24}
+          size={moderateScale(24)}
           color={
             activeRight ? theme.colors.primary : theme.colors.primaryInactive
           }
+          name={'arrow-right-thin'}
         />
       </Icon>
       <Icon onPress={onPressClose}>
         <MaterialCommunityIcons
           style={styles.iconClose}
-          name='close-circle-outline'
-          size={24}
+          size={moderateScale(24)}
           color={theme.colors.primary}
+          name='close-circle-outline'
         />
       </Icon>
     </View>
@@ -58,22 +63,22 @@ const CardHeader: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
   header: {
-    height: 32,
+    height: verticalScale(32),
   },
   iconLeft: {
     position: 'absolute',
-    top: 3,
-    right: 88,
+    top: verticalScale(30),
+    right: horizontalScale(88),
   },
   iconRight: {
     position: 'absolute',
-    top: 3,
-    right: 48,
+    top: verticalScale(3),
+    right: horizontalScale(48),
   },
   iconClose: {
     position: 'absolute',
-    top: 3,
-    right: 8,
+    top: verticalScale(3),
+    right: horizontalScale(8),
   },
 });
 

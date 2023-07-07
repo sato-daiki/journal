@@ -7,6 +7,7 @@ import { getLanguageToolCode } from '@/utils/grammarCheck';
 import { LongCode } from '@/types';
 import { AppText } from '@/components/atoms';
 import { Layout } from '@/components/templates';
+import { horizontalScale, verticalScale } from '@/styles/metrics';
 
 type Props = {
   messageEn: string | null;
@@ -43,12 +44,12 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 16,
+    paddingHorizontal: horizontalScale(16),
   },
   lottie: {
-    width: 120,
-    height: 120,
-    marginBottom: 32,
+    width: horizontalScale(120),
+    height: verticalScale(120),
+    marginBottom: verticalScale(32),
   },
 });
 

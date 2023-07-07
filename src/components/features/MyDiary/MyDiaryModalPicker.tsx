@@ -9,6 +9,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AppText } from '@/components/atoms';
 import ModalPicker, { PickerItem } from '../../molecules/ModalPicker';
 import { useAppTheme } from '@/styles/colors';
+import { moderateScale } from '@/styles/metrics';
 
 type Props = {
   containerStyle?: StyleProp<ViewStyle>;
@@ -51,9 +52,9 @@ const MyDiaryModalPicker: React.FC<Props> = ({
         </AppText>
         {hasRevised && (
           <MaterialCommunityIcons
-            name={'chevron-down'}
-            size={32}
+            size={moderateScale(32)}
             color={theme.colors.primary}
+            name={'chevron-down'}
           />
         )}
       </TouchableOpacity>

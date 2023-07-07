@@ -5,6 +5,7 @@ import { ThemeCategory, ThemeSubcategory } from '@/types';
 import { useAppTheme, white } from '@/styles/colors';
 import { SmallPill } from '@/components/atoms';
 import DiaryTitle from './DiaryTitle';
+import { horizontalScale, verticalScale } from '@/styles/metrics';
 
 interface Props {
   isTail: boolean;
@@ -46,10 +47,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     flex: 1,
-    paddingBottom: 8,
+    paddingBottom: verticalScale(8),
   },
   smallPill: {
-    marginRight: 8,
+    marginRight: horizontalScale(8),
   },
 });
 

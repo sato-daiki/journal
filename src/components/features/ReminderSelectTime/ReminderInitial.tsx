@@ -3,6 +3,11 @@ import { View, StyleSheet } from 'react-native';
 import I18n from '@/utils/I18n';
 import { Time } from '@/images';
 import { AppText, Space, AppImage } from '@/components/atoms';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '@/styles/metrics';
 
 const ReminderInitial: React.FC = () => {
   return (
@@ -29,12 +34,12 @@ const styles = StyleSheet.create({
   },
   imgContainer: {
     flex: 2,
-    paddingTop: 16,
+    paddingTop: verticalScale(16),
   },
   img: {
     alignSelf: 'center',
-    width: 120,
-    height: 120,
+    width: moderateScale(120),
+    height: moderateScale(120),
   },
 });
 

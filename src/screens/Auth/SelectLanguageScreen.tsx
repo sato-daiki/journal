@@ -14,6 +14,7 @@ import I18n from '@/utils/I18n';
 import LanguageModalPicker from '@/components/molecules/LanguageModalPicker';
 import { getLanguageToolName } from '@/utils/grammarCheck';
 import { PickerItem } from '@/components/molecules/ModalPicker';
+import { horizontalScale, verticalScale } from '@/styles/metrics';
 
 export interface Props {
   user: User;
@@ -77,8 +78,8 @@ const SelectLanguageScreen: React.FC<ScreenType> = ({
 const styles = StyleSheet.create({
   contaner: {
     flex: 1,
-    paddingHorizontal: 16,
-    paddingTop: 32,
+    paddingHorizontal: horizontalScale(16),
+    paddingTop: verticalScale(32),
   },
 });
 

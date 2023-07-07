@@ -115,31 +115,6 @@ export const appShare = async (): Promise<void> => {
   });
 };
 
-interface EachOS {
-  ios: number | string | undefined;
-  android: number | string | undefined;
-  web: number | string | undefined;
-  other?: number | string | undefined;
-}
-
-export const getEachOS = ({
-  ios,
-  android,
-  web,
-  other,
-}: EachOS): number | string | undefined => {
-  if (Platform.OS === 'ios') {
-    return ios;
-  }
-  if (Platform.OS === 'android') {
-    return android;
-  }
-  if (Platform.OS === 'web') {
-    return web;
-  }
-  return other || ios;
-};
-
 // 何日前かをチェックする
 export const getIsAfterDay = (targetAt: any, days: number): boolean => {
   try {

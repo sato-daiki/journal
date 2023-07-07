@@ -5,6 +5,7 @@ import { WordParams } from './interface';
 import Header from './Header';
 import { AppText, Space } from '@/components/atoms';
 import { useAppTheme } from '@/styles/colors';
+import { horizontalScale, verticalScale } from '@/styles/metrics';
 
 interface Props {
   params: WordParams;
@@ -39,14 +40,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   contentContainerStyle: {
-    paddingHorizontal: 16,
-    paddingTop: 16,
+    paddingHorizontal: horizontalScale(16),
+    paddingTop: verticalScale(16),
   },
   text: {
     flexWrap: 'wrap',
   },
   marginBottom: {
-    marginBottom: 12,
+    marginBottom: verticalScale(12),
   },
 });
 

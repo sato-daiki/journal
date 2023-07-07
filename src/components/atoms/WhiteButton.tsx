@@ -10,6 +10,11 @@ import {
 } from 'react-native';
 import { useAppTheme } from '@/styles/colors';
 import AppText from './AppText';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '@/styles/metrics';
 
 interface Props {
   containerStyle?: StyleProp<ViewStyle>;
@@ -59,16 +64,16 @@ const WhiteButton: React.FC<Props> = ({
 const styles = StyleSheet.create({
   contaner: {
     flexDirection: 'row',
-    borderRadius: 22,
-    borderWidth: 1,
+    borderRadius: moderateScale(22),
+    borderWidth: moderateScale(1),
     width: '100%',
-    height: 44,
+    height: verticalScale(44),
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
   },
   icon: {
-    marginRight: 6,
+    marginRight: horizontalScale(6),
   },
 });
 

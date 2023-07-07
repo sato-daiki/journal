@@ -10,6 +10,11 @@ import {
 } from 'react-native';
 import { useAppTheme, white } from '@/styles/colors';
 import AppText from './AppText';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '@/styles/metrics';
 
 interface Props {
   containerStyle?: StyleProp<ViewStyle>;
@@ -58,16 +63,16 @@ const SubmitButton: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
   contaner: {
-    borderRadius: 22,
+    borderRadius: moderateScale(22),
     width: '100%',
-    height: 44,
+    height: verticalScale(44),
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
     flexDirection: 'row',
   },
   icon: {
-    marginRight: 6,
+    marginRight: horizontalScale(6),
   },
 });
 

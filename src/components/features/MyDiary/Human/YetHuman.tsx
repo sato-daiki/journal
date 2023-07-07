@@ -5,6 +5,11 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useAppTheme } from '@/styles/colors';
 import { AppText, Space } from '../../../atoms';
 import { BUSINESS_DAYS } from './NoHuman';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '@/styles/metrics';
 
 interface Props {}
 
@@ -13,10 +18,10 @@ const YetHuman: React.FC<Props> = () => {
   return (
     <View style={styles.container}>
       <MaterialCommunityIcons
-        name='face-man-shimmer'
-        size={80}
         style={styles.image}
+        size={moderateScale(80)}
         color={theme.colors.primary}
+        name='face-man-shimmer'
       />
       <Space size={16} />
       <AppText size='m'>
@@ -28,8 +33,8 @@ const YetHuman: React.FC<Props> = () => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 16,
-    paddingTop: 32,
+    paddingHorizontal: horizontalScale(16),
+    paddingTop: verticalScale(32),
   },
   image: {
     alignSelf: 'center',

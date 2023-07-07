@@ -6,6 +6,7 @@ import { fontSizeM } from '@/styles/fonts';
 import I18n from '@/utils/I18n';
 import DiaryListItem from '@/components/features/MyDiaryList/DiaryListItem';
 import { softRed, useAppTheme, white } from '@/styles/colors';
+import { horizontalScale, moderateScale } from '@/styles/metrics';
 
 interface Props {
   index: number;
@@ -85,8 +86,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   deleteText: {
-    fontSize: fontSizeM,
-    paddingHorizontal: 32,
+    fontSize: moderateScale(fontSizeM),
+    paddingHorizontal: horizontalScale(32),
     fontWeight: 'bold',
   },
 });
