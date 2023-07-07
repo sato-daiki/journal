@@ -4,7 +4,7 @@ import * as Linking from 'expo-linking';
 import * as Clipboard from 'expo-clipboard';
 import Toast from 'react-native-root-toast';
 import I18n from '@/utils/I18n';
-import { AppText } from '@/components';
+import { AppText, Icon } from '@/components';
 import { MaterialCommunityIcons, Feather } from '@expo/vector-icons';
 import { borderLight, useAppTheme } from '@/styles/colors';
 
@@ -78,12 +78,13 @@ export const CardMain: React.FC<Props> = ({
               <AppText size='m' bold style={styles.replacement}>
                 {replacement.value}
               </AppText>
-              <MaterialCommunityIcons
-                name='content-copy'
-                size={18}
-                color={theme.colors.primary}
-                onPress={() => onPressCopy(replacement.value)}
-              />
+              <Icon onPress={() => onPressCopy(replacement.value)}>
+                <MaterialCommunityIcons
+                  name='content-copy'
+                  size={18}
+                  color={theme.colors.primary}
+                />
+              </Icon>
               {index !== replacements.length - 1 && (
                 <AppText
                   size='m'
@@ -126,12 +127,9 @@ export const CardMain: React.FC<Props> = ({
             ))}
         </View>
         {onPressIgnore && (
-          <Feather
-            name='trash-2'
-            size={24}
-            color={theme.colors.primary}
-            onPress={onPressIgnore}
-          />
+          <Icon onPress={onPressIgnore}>
+            <Feather name='trash-2' size={24} color={theme.colors.primary} />
+          </Icon>
         )}
       </View>
     </ScrollView>

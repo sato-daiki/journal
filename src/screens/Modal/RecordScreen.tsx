@@ -12,7 +12,7 @@ import { CompositeNavigationProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { logAnalytics } from '@/utils/Analytics';
-import { Layout } from '@/components/templates';
+import { Icon, Layout } from '@/components/templates';
 import { AppSlider, AppText, SmallButtonWhite, Space } from '@/components';
 import { Diary, User } from '@/types';
 import I18n from '@/utils/I18n';
@@ -471,13 +471,16 @@ const RecordScreen: React.FC<ScreenType> = ({
             {getPlaybackTimestamp()}
           </AppText>
           <View style={styles.playButtonContainer}>
-            <MaterialCommunityIcons
-              disabled={!isPlaybackAllowed || isLoading}
-              name={isPlaying ? 'pause' : 'play'}
-              size={56}
-              color={theme.colors.primary}
+            <Icon
               onPress={onPlayPausePressed}
-            />
+              disabled={!isPlaybackAllowed || isLoading}
+            >
+              <MaterialCommunityIcons
+                name={isPlaying ? 'pause' : 'play'}
+                size={56}
+                color={theme.colors.primary}
+              />
+            </Icon>
             {SaveButton()}
           </View>
         </View>
@@ -492,13 +495,14 @@ const RecordScreen: React.FC<ScreenType> = ({
           },
         ]}
       >
-        <MaterialCommunityIcons
-          disabled={isLoading}
-          name={isRecording ? 'stop' : 'record'}
-          size={64}
-          color={softRed}
-          onPress={onRecordPressed}
-        />
+        <Icon onPress={onRecordPressed} disabled={isLoading}>
+          <MaterialCommunityIcons
+            name={isRecording ? 'stop' : 'record'}
+            size={64}
+            color={softRed}
+            onPress={onRecordPressed}
+          />
+        </Icon>
         {isRecording ? (
           <AppText
             size='s'

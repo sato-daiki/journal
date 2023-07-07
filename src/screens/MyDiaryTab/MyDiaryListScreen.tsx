@@ -10,7 +10,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
 import MyDiaryListFlatList from '@/components/features/MyDiaryList/MyDiaryListFlatList';
 
-import { Layout } from '@/components/templates';
+import { Icon, Layout } from '@/components/templates';
 import { LoadingModal } from '@/components/atoms';
 import { LocalStatus, MyDiaryListView } from '@/types/localStatus';
 import I18n from '@/utils/I18n';
@@ -211,17 +211,18 @@ const MyDiaryListScreen: React.FC<ScreenType> = ({
   const headerRight = useCallback(
     () => (
       <HeaderIcon>
-        <MaterialCommunityIcons
-          size={28}
-          name={
-            !localStatus.myDiaryListView ||
-            localStatus.myDiaryListView === 'list'
-              ? 'calendar'
-              : 'format-list-bulleted'
-          }
-          color={theme.colors.primary}
-          onPress={onPressRight}
-        />
+        <Icon onPress={onPressRight}>
+          <MaterialCommunityIcons
+            size={28}
+            name={
+              !localStatus.myDiaryListView ||
+              localStatus.myDiaryListView === 'list'
+                ? 'calendar'
+                : 'format-list-bulleted'
+            }
+            color={theme.colors.primary}
+          />
+        </Icon>
       </HeaderIcon>
     ),
     [localStatus.myDiaryListView, onPressRight, theme.colors.primary],

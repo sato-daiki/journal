@@ -4,6 +4,7 @@ import { MAX_IMAGE_NUM } from '@/constants/common';
 import { ImageInfo } from '@/types';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useAppTheme } from '@/styles/colors';
+import { Icon } from '@/components';
 
 type Props = {
   images: ImageInfo[] | null | undefined;
@@ -27,27 +28,30 @@ const KeyboardIcons: React.FC<Props> = ({
   return (
     <View style={styles.keybordRow}>
       <View style={styles.keybordLeftRow}>
-        <MaterialCommunityIcons
-          style={[styles.icon, !isAddImage && { opacity: 0.3 }]}
-          name='file-image-outline'
-          size={24}
-          color={theme.colors.main}
-          onPress={isAddImage ? onPressChooseImage : undefined}
-        />
-        <MaterialCommunityIcons
-          style={!isAddImage && { opacity: 0.3 }}
-          name='camera-outline'
-          size={24}
-          color={theme.colors.main}
-          onPress={isAddImage ? onPressCamera : undefined}
-        />
+        <Icon onPress={onPressChooseImage} disabled={!isAddImage}>
+          <MaterialCommunityIcons
+            style={[styles.icon, !isAddImage && { opacity: 0.3 }]}
+            name='file-image-outline'
+            size={24}
+            color={theme.colors.main}
+          />
+        </Icon>
+        <Icon onPress={onPressCamera} disabled={!isAddImage}>
+          <MaterialCommunityIcons
+            style={!isAddImage && { opacity: 0.3 }}
+            name='camera-outline'
+            size={24}
+            color={theme.colors.main}
+          />
+        </Icon>
       </View>
-      <MaterialCommunityIcons
-        name='keyboard-close'
-        size={24}
-        color={theme.colors.main}
-        onPress={Keyboard.dismiss}
-      />
+      <Icon onPress={Keyboard.dismiss}>
+        <MaterialCommunityIcons
+          name='keyboard-close'
+          size={24}
+          color={theme.colors.main}
+        />
+      </Icon>
     </View>
   );
 };

@@ -3,6 +3,7 @@ import { Platform } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import HeaderIcon from './HeaderIcon';
 import { useAppTheme } from '@/styles/colors';
+import Icon from '@/components/templates/Icon';
 
 interface Props {
   onPress: () => void;
@@ -13,24 +14,18 @@ const DefaultHeaderBack: React.FC<Props> = ({ onPress }) => {
   if (Platform.OS === 'ios') {
     return (
       <HeaderIcon>
-        <Feather
-          name='chevron-left'
-          size={25}
-          color={theme.colors.primary}
-          onPress={onPress}
-        />
+        <Icon onPress={onPress}>
+          <Feather name='chevron-left' size={25} color={theme.colors.primary} />
+        </Icon>
       </HeaderIcon>
     );
   }
 
   return (
     <HeaderIcon>
-      <Feather
-        name='chevron-left'
-        size={25}
-        color={theme.colors.primary}
-        onPress={onPress}
-      />
+      <Icon onPress={onPress}>
+        <Feather name='chevron-left' size={25} color={theme.colors.primary} />
+      </Icon>
     </HeaderIcon>
   );
 };

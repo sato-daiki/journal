@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import AppText from './AppText';
+import { Icon } from '../templates';
 
 interface Props {
   text: string;
@@ -25,12 +26,13 @@ const Note: React.FC<Props> = ({
         {text}
       </AppText>
       <View style={styles.icon}>
-        <MaterialCommunityIcons
-          name='close-circle-outline'
-          size={32}
-          color={color}
-          onPress={onPressClose}
-        />
+        <Icon onPress={onPressClose}>
+          <MaterialCommunityIcons
+            name='close-circle-outline'
+            size={32}
+            color={color}
+          />
+        </Icon>
       </View>
     </View>
   );

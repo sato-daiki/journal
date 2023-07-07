@@ -11,6 +11,7 @@ import {
   SmallButtonWhite,
   AppText,
   AppSwitch,
+  Icon,
 } from '@/components';
 import { useAppTheme } from '@/styles/colors';
 
@@ -99,12 +100,13 @@ const ModalSpeech: React.FC<Props> = ({
               onPress={onPressStart}
             />
           )}
-          <MaterialCommunityIcons
-            name={playing ? 'pause' : 'play'}
-            size={48}
-            color={theme.colors.primary}
-            onPress={playing ? onPressPause : onPressSpeak}
-          />
+          <Icon onPress={playing ? onPressPause : onPressSpeak}>
+            <MaterialCommunityIcons
+              name={playing ? 'pause' : 'play'}
+              size={48}
+              color={theme.colors.primary}
+            />
+          </Icon>
           <View style={styles.switchContainer}>
             <AppSwitch
               onValueChange={(): void => setIsSlow(!isSlow)}

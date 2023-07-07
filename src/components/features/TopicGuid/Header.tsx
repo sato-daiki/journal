@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Heading, Space } from '@/components';
+import { Heading, Icon, Space } from '@/components';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { useAppTheme } from '@/styles/colors';
@@ -18,13 +18,14 @@ const Header: React.FC<Props> = ({ title }) => {
 
   return (
     <View>
-      <MaterialCommunityIcons
-        name='close'
-        size={24}
-        color={theme.colors.primary}
-        style={styles.close}
-        onPress={onPressClose}
-      />
+      <Icon onPress={onPressClose}>
+        <MaterialCommunityIcons
+          name='close'
+          size={24}
+          color={theme.colors.primary}
+          style={styles.close}
+        />
+      </Icon>
       <Space size={24} />
       <Heading title={title} titleStyle={styles.heading} />
       <Space size={16} />

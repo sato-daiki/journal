@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Modal, WhiteButton, Space, AppText } from '@/components';
+import { Modal, WhiteButton, Space, AppText, Icon } from '@/components';
 import I18n from '@/utils/I18n';
 import AppSlider from '@/components/atoms/AppSlider';
 import { useAppTheme } from '@/styles/colors';
@@ -64,13 +64,16 @@ const ModalVoice: React.FC<Props> = ({
             {isLoading ? (
               <ActivityIndicator />
             ) : (
-              <MaterialCommunityIcons
-                disabled={!isPlaybackAllowed || isLoading}
-                name={isPlaying ? 'pause' : 'play'}
-                size={56}
-                color={theme.colors.primary}
+              <Icon
                 onPress={onPlayPausePressed}
-              />
+                disabled={!isPlaybackAllowed || isLoading}
+              >
+                <MaterialCommunityIcons
+                  name={isPlaying ? 'pause' : 'play'}
+                  size={56}
+                  color={theme.colors.primary}
+                />
+              </Icon>
             )}
           </View>
           <Space size={32} />

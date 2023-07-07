@@ -7,6 +7,7 @@ import { borderLight, green, useAppTheme } from '@/styles/colors';
 import { AppText } from '@/components/atoms';
 import DiaryTitleWithPill from '../MyDiary/DiaryTitleWithPill';
 import MyDiaryStatusLabel from '../MyDiary/MyDiaryStatusLabel';
+import { Icon } from '@/components/templates';
 
 interface Props {
   item: Diary;
@@ -29,12 +30,13 @@ const EditMyDiaryListItem = ({ item, handlePress }: Props) => {
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={styles.container}>
         <View style={styles.leftContainer}>
-          <MaterialCommunityIcons
-            onPress={onPress}
-            size={22}
-            color={checked ? green : borderLight}
-            name={checked ? 'check-circle' : 'checkbox-blank-circle'}
-          />
+          <Icon onPress={onPress}>
+            <MaterialCommunityIcons
+              size={22}
+              color={checked ? green : borderLight}
+              name={checked ? 'check-circle' : 'checkbox-blank-circle'}
+            />
+          </Icon>
         </View>
         <View style={styles.rightContainer}>
           <View style={styles.header}>

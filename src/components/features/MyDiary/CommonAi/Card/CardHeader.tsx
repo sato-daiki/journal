@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useAppTheme } from '@/styles/colors';
+import { Icon } from '@/components';
 
 export interface Props {
   activeLeft: boolean;
@@ -23,29 +24,34 @@ const CardHeader: React.FC<Props> = ({
     <View
       style={[styles.header, { backgroundColor: theme.colors.backgroundOff }]}
     >
-      <MaterialCommunityIcons
-        style={styles.iconLeft}
-        name={'arrow-left-thin'}
-        size={24}
-        color={activeLeft ? theme.colors.primary : theme.colors.primaryInactive}
-        onPress={activeLeft ? onPressLeft : undefined}
-      />
-      <MaterialCommunityIcons
-        style={styles.iconRight}
-        name={'arrow-right-thin'}
-        size={24}
-        color={
-          activeRight ? theme.colors.primary : theme.colors.primaryInactive
-        }
-        onPress={activeRight ? onPressRight : undefined}
-      />
-      <MaterialCommunityIcons
-        style={styles.iconClose}
-        name='close-circle-outline'
-        size={24}
-        color={theme.colors.primary}
-        onPress={onPressClose}
-      />
+      <Icon onPress={onPressLeft} disabled={!activeLeft}>
+        <MaterialCommunityIcons
+          style={styles.iconLeft}
+          name={'arrow-left-thin'}
+          size={24}
+          color={
+            activeLeft ? theme.colors.primary : theme.colors.primaryInactive
+          }
+        />
+      </Icon>
+      <Icon onPress={onPressRight} disabled={!activeRight}>
+        <MaterialCommunityIcons
+          style={styles.iconRight}
+          name={'arrow-right-thin'}
+          size={24}
+          color={
+            activeRight ? theme.colors.primary : theme.colors.primaryInactive
+          }
+        />
+      </Icon>
+      <Icon onPress={onPressClose}>
+        <MaterialCommunityIcons
+          style={styles.iconClose}
+          name='close-circle-outline'
+          size={24}
+          color={theme.colors.primary}
+        />
+      </Icon>
     </View>
   );
 };

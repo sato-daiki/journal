@@ -9,6 +9,7 @@ import {
 import { Feather } from '@expo/vector-icons';
 import { AppText, Space } from '@/components/atoms';
 import { useAppTheme } from '@/styles/colors';
+import { Icon } from '@/components/templates';
 
 interface Porps {
   disabled?: boolean;
@@ -125,18 +126,18 @@ const PasscodeLock: React.FC<Porps> = ({
               return <View style={styles.dummyContainer} key={num} />;
             } else if (num === 'clear') {
               return (
-                <TouchableOpacity
+                <Icon
                   key={num}
                   disabled={disabled}
                   style={styles.dummyContainer}
-                  onPress={() => onPressCler()}
+                  onPress={onPressCler}
                 >
                   <Feather
                     name={'delete'}
                     size={32}
                     color={theme.colors.primary}
                   />
-                </TouchableOpacity>
+                </Icon>
               );
             }
             return (

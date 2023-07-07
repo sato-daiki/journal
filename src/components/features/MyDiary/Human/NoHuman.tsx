@@ -147,8 +147,8 @@ const NoHuman: React.FC<Props> = ({
     <ScrollView>
       <View style={styles.container}>
         <MaterialCommunityIcons
-          size={80}
           name='face-man-shimmer'
+          size={80}
           style={styles.image}
           color={theme.colors.primary}
         />

@@ -7,7 +7,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 import { Audio } from 'expo-av';
 
-import { Layout } from '@/components/templates';
+import { Icon, Layout } from '@/components/templates';
 import { LoadingModal } from '@/components/atoms';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Diary, LocalStatus, User } from '@/types';
@@ -123,12 +123,13 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
   const headerRight = useCallback(() => {
     return (
       <HeaderIcon>
-        <MaterialCommunityIcons
-          size={28}
-          name='dots-horizontal'
-          color={theme.colors.primary}
-          onPress={onPressMore}
-        />
+        <Icon onPress={onPressMore}>
+          <MaterialCommunityIcons
+            size={28}
+            name='dots-horizontal'
+            color={theme.colors.primary}
+          />
+        </Icon>
       </HeaderIcon>
     );
   }, [onPressMore, theme.colors.primary]);

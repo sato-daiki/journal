@@ -13,6 +13,7 @@ import {
 } from '@expo/vector-icons';
 import { AppText, AppTextInput } from '../atoms';
 import { green, softRed, useAppTheme } from '@/styles/colors';
+import { Icon } from '../templates';
 
 type Props = {
   isLoading?: boolean;
@@ -61,12 +62,13 @@ const CheckTextInput = (props: Props) => {
             />
           ) : null}
           {isPassword && (
-            <MaterialCommunityIcons
-              size={24}
-              name={showPassword ? 'eye' : 'eye-off'}
-              color={theme.colors.secondary}
-              onPress={onPressPasswordIcon}
-            />
+            <Icon onPress={onPressPasswordIcon}>
+              <MaterialCommunityIcons
+                size={24}
+                name={showPassword ? 'eye' : 'eye-off'}
+                color={theme.colors.secondary}
+              />
+            </Icon>
           )}
         </View>
       </View>
