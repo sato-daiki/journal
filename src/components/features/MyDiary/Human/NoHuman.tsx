@@ -55,38 +55,42 @@ const NoHuman: React.FC<Props> = ({
 
   useEffect(() => {
     const f = async () => {
-      const response = await firebase
-        .app()
-        .functions('asia-northeast1')
-        .httpsCallable('onPaymentSheet')({
-        isDebug: __DEV__,
-        amount,
-        currency: 'jpy',
-        stripeCustomerId: user.stripeCustomerId || null,
-      });
-      const { paymentIntent, ephemeralKey, customerId } = response.data;
-
-      if (!user.stripeCustomerId) {
-        await firestore().doc(`users/${user.uid}`).update({
-          stripeCustomerId: customerId,
-          updatedAt: firestore.FieldValue.serverTimestamp(),
+      try {
+        const response = await firebase
+          .app()
+          .functions('asia-northeast1')
+          .httpsCallable('onPaymentSheet')({
+          isDebug: __DEV__,
+          amount,
+          currency: 'jpy',
+          stripeCustomerId: user.stripeCustomerId || null,
         });
-        setUser({
-          ...user,
-          stripeCustomerId: customerId,
-        });
-      }
+        const { paymentIntent, ephemeralKey, customerId } = response.data;
 
-      const { error } = await initPaymentSheet({
-        merchantDisplayName: 'LangJournal',
-        customerId: customerId,
-        customerEphemeralKeySecret: ephemeralKey,
-        paymentIntentClientSecret: paymentIntent,
-        allowsDelayedPaymentMethods: true,
-      });
-      if (!error) {
-        setInitialLoading(false);
-      } else {
+        if (!user.stripeCustomerId) {
+          await firestore().doc(`users/${user.uid}`).update({
+            stripeCustomerId: customerId,
+            updatedAt: firestore.FieldValue.serverTimestamp(),
+          });
+          setUser({
+            ...user,
+            stripeCustomerId: customerId,
+          });
+        }
+
+        const { error } = await initPaymentSheet({
+          merchantDisplayName: 'LangJournal',
+          customerId: customerId,
+          customerEphemeralKeySecret: ephemeralKey,
+          paymentIntentClientSecret: paymentIntent,
+          allowsDelayedPaymentMethods: true,
+        });
+        if (!error) {
+          setInitialLoading(false);
+        } else {
+          setInitialLoadError(true);
+        }
+      } catch (err) {
         setInitialLoadError(true);
       }
     };
