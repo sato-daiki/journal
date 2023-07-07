@@ -2,6 +2,7 @@ import React, {
   useCallback,
   useEffect,
   useLayoutEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -13,7 +14,13 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 import { logAnalytics } from '@/utils/Analytics';
 import { Icon, Layout } from '@/components/templates';
-import { AppSlider, AppText, SmallButtonWhite, Space } from '@/components';
+import {
+  AppSlider,
+  AppText,
+  LoadingModal,
+  SmallButtonWhite,
+  Space,
+} from '@/components';
 import { Diary, User } from '@/types';
 import I18n from '@/utils/I18n';
 import {
@@ -73,7 +80,6 @@ const RecordScreen: React.FC<ScreenType> = ({
   const [shouldPlay, setShouldPlay] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
-  // const [fontLoaded, setFontLoaded] = useState(false);
   const [isModaleVoiceDelete, setIsModaleVoiceDelete] = useState(false);
   const [shouldCorrectPitch, setShouldCorrectPitch] = useState(true);
   const [volume, setVolume] = useState(1.0);
@@ -135,10 +141,10 @@ const RecordScreen: React.FC<ScreenType> = ({
 
   const stopRecordingAndEnablePlayback =
     useCallback(async (): Promise<void> => {
-      setIsLoading(true);
       if (!recording.current) {
         return;
       }
+      setIsLoading(true);
       try {
         await recording.current.stopAndUnloadAsync();
       } catch (error: any) {
@@ -198,8 +204,6 @@ const RecordScreen: React.FC<ScreenType> = ({
   const stopPlaybackAndBeginRecording = useCallback(async (): Promise<void> => {
     setIsLoading(true);
     if (sound !== null) {
-      console.log('stopPlaybackAndBeginRecording 1');
-
       await sound.unloadAsync();
       sound.setOnPlaybackStatusUpdate(null);
       setSound(null);
@@ -246,8 +250,6 @@ const RecordScreen: React.FC<ScreenType> = ({
     recording.current = newRecording;
     await recording.current.startAsync(); // Will call updateScreenForRecordingStatus.current to update the screen.
     setIsLoading(false);
-
-    console.log('stopPlaybackAndBeginRecording 3', recording.current);
   }, [sound, updateScreenForRecordingStatus]);
 
   const onRecordPressed = useCallback((): void => {
@@ -263,7 +265,7 @@ const RecordScreen: React.FC<ScreenType> = ({
     stopRecordingAndEnablePlayback,
   ]);
 
-  const getSeekSliderPosition = useCallback((): number => {
+  const seekSliderPosition = useMemo((): number => {
     if (sound != null && soundPosition != null && soundDuration != null) {
       return soundPosition / soundDuration;
     }
@@ -275,13 +277,13 @@ const RecordScreen: React.FC<ScreenType> = ({
       if (isPlaying) {
         sound.pauseAsync();
       } else {
-        if (getSeekSliderPosition() === 1) {
+        if (seekSliderPosition === 1) {
           await sound.stopAsync();
         }
         sound.playAsync();
       }
     }
-  }, [getSeekSliderPosition, isPlaying, sound]);
+  }, [seekSliderPosition, isPlaying, sound]);
 
   const onSeekSliderValueChange = useCallback((): void => {
     if (sound != null && !isSeeking.current) {
@@ -321,7 +323,7 @@ const RecordScreen: React.FC<ScreenType> = ({
     return `${padWithZero(minutes)}:${padWithZero(seconds)}`;
   }, []);
 
-  const getPlaybackTimestamp = useCallback((): string => {
+  const playbackTimestamp = useMemo((): string => {
     if (sound != null && soundPosition != null && soundDuration != null) {
       return `${getMMSSFromMillis(soundPosition)} / ${getMMSSFromMillis(
         soundDuration,
@@ -330,7 +332,7 @@ const RecordScreen: React.FC<ScreenType> = ({
     return '';
   }, [getMMSSFromMillis, sound, soundDuration, soundPosition]);
 
-  const getRecordingTimestamp = useCallback((): string => {
+  const recordingTimestamp = useMemo((): string => {
     if (recordingDuration != null) {
       return `${getMMSSFromMillis(recordingDuration)}`;
     }
@@ -364,6 +366,14 @@ const RecordScreen: React.FC<ScreenType> = ({
     setIsSaving(false);
     setSaved(true);
   }, [diary, editDiary, isLoading, isSaving, user.uid]);
+
+  const onPressOpenVoiceDelete = useCallback(() => {
+    setIsModaleVoiceDelete(true);
+  }, []);
+
+  const onPressCloseVoiceDelete = useCallback(() => {
+    setIsModaleVoiceDelete(false);
+  }, []);
 
   const onPressVoiceDelete = useCallback(async (): Promise<void> => {
     if (!recording.current || !diary || !diary.objectID) return;
@@ -399,50 +409,16 @@ const RecordScreen: React.FC<ScreenType> = ({
 
   if (!diary) return null;
 
-  const SaveButton = () => {
-    if (saved) {
-      return (
-        <SmallButtonWhite
-          containerStyle={styles.saveButton}
-          isLoading={isSaving}
-          color={theme.colors.primary}
-          title={I18n.t('record.delete')}
-          onPress={(): void => {
-            setIsModaleVoiceDelete(true);
-          }}
-        />
-      );
-    }
-
-    if (soundDuration && soundDuration / 1000 >= 120) {
-      return (
-        <AppText size='s' color={theme.colors.secondary}>
-          {I18n.t('record.notSave')}
-        </AppText>
-      );
-    }
-    return (
-      <SmallButtonWhite
-        containerStyle={styles.saveButton}
-        isLoading={isSaving}
-        color={theme.colors.primary}
-        title={I18n.t('record.save')}
-        onPress={onPressSave}
-      />
-    );
-  };
-
   return (
     <Layout>
+      <LoadingModal visible={isLoading} />
       <ModalConfirm
         visible={isModaleVoiceDelete}
         title={I18n.t('common.confirmation')}
         message={I18n.t('record.confirmMessage')}
         mainButtonText='OK'
         onPressMain={onPressVoiceDelete}
-        onPressClose={(): void => {
-          setIsModaleVoiceDelete(false);
-        }}
+        onPressClose={onPressCloseVoiceDelete}
       />
       <ScrollView style={styles.scrollView}>
         <DiaryTitleWithPill
@@ -462,13 +438,13 @@ const RecordScreen: React.FC<ScreenType> = ({
           ]}
         >
           <AppSlider
-            value={getSeekSliderPosition()}
+            value={seekSliderPosition}
             onValueChange={onSeekSliderValueChange}
             onSlidingComplete={onSeekSliderSlidingComplete}
             disabled={!isPlaybackAllowed || isLoading}
           />
           <AppText size='s' textAlign='center' style={styles.timestampText}>
-            {getPlaybackTimestamp()}
+            {playbackTimestamp}
           </AppText>
           <View style={styles.playButtonContainer}>
             <Icon
@@ -481,7 +457,27 @@ const RecordScreen: React.FC<ScreenType> = ({
                 color={theme.colors.primary}
               />
             </Icon>
-            {SaveButton()}
+            {saved ? (
+              <SmallButtonWhite
+                containerStyle={styles.saveButton}
+                isLoading={isSaving}
+                color={theme.colors.primary}
+                title={I18n.t('record.delete')}
+                onPress={onPressOpenVoiceDelete}
+              />
+            ) : soundDuration && soundDuration / 1000 >= 120 ? (
+              <AppText size='s' color={theme.colors.secondary}>
+                {I18n.t('record.notSave')}
+              </AppText>
+            ) : (
+              <SmallButtonWhite
+                containerStyle={styles.saveButton}
+                isLoading={isSaving}
+                color={theme.colors.primary}
+                title={I18n.t('record.save')}
+                onPress={onPressSave}
+              />
+            )}
           </View>
         </View>
       )}
@@ -509,7 +505,7 @@ const RecordScreen: React.FC<ScreenType> = ({
             textAlign='center'
             style={[styles.timestampText, styles.recordingText]}
           >
-            {getRecordingTimestamp()}
+            {recordingTimestamp}
           </AppText>
         ) : null}
       </View>
