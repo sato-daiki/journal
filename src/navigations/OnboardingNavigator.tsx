@@ -12,6 +12,7 @@ import { CustomTimeInfo, FixDay } from '@/types';
 import { RootStackParamList } from './RootNavigator';
 import { useAppTheme } from '@/styles/colors';
 import { getDefaultScreenOptions } from '@/styles/navigationOptions';
+import { Platform } from 'react-native';
 
 export type OnboardingNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -35,7 +36,9 @@ export const OnboardingNavigator = () => {
   const DefaultScreenOptions = getDefaultScreenOptions(theme);
   return (
     <Stack.Navigator
-      initialRouteName='PushSetting'
+      initialRouteName={
+        Platform.OS === 'ios' ? 'PushSetting' : 'ReminderInitialOnboarding'
+      }
       screenOptions={DefaultScreenOptions}
     >
       <Stack.Screen
