@@ -1,6 +1,6 @@
 // https://github.com/Andr3wHur5t/react-native-keyboard-spacer/* eslint-disable react/static-property-placement */
-// このソースを丸々コピーしてきた
-import React, { useEffect, useState } from 'react';
+// このソースをベースにしている
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   Keyboard,
   LayoutAnimation,
@@ -39,8 +39,11 @@ const defaultAnimation = {
 const KeyboardSpacer: React.FC<Props> = ({ style }) => {
   const insets = useSafeAreaInsets();
   const [keyboardSpace, setKeyboardSpace] = useState<number>(0);
+  const isKeyboardOpened = useRef<boolean>(false);
 
-  const updateKeyboardSpace = (event) => {
+  const updateKeyboardSpace = useCallback((event) => {
+    if (isKeyboardOpened.current) return;
+
     if (!event.endCoordinates) {
       return;
     }
@@ -59,9 +62,11 @@ const KeyboardSpacer: React.FC<Props> = ({ style }) => {
     const newKeyboardSpace = screenHeight - event.endCoordinates.screenY;
 
     setKeyboardSpace(newKeyboardSpace);
-  };
+    isKeyboardOpened.current = true;
+  }, []);
 
-  const resetKeyboardSpace = (event) => {
+  const resetKeyboardSpace = useCallback((event) => {
+    if (!isKeyboardOpened.current) return;
     let animationConfig: any = defaultAnimation;
     if (Platform.OS === 'ios') {
       animationConfig = LayoutAnimation.create(
@@ -73,7 +78,8 @@ const KeyboardSpacer: React.FC<Props> = ({ style }) => {
     LayoutAnimation.configureNext(animationConfig);
 
     setKeyboardSpace(0);
-  };
+    isKeyboardOpened.current = false;
+  }, []);
 
   useEffect(() => {
     const updateListener =
