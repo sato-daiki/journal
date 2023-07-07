@@ -1,17 +1,17 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { View, Text, StyleSheet, Platform } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { StackNavigationProp } from '@react-navigation/stack';
 
+import { Layout } from '@/components/templates';
 import { CheckTextInput } from '@/components/molecules';
 import {
   LoadingModal,
   Space,
   SubmitButton,
   LinkText,
+  AppText,
 } from '@/components/atoms';
-
-import { primaryColor, fontSizeM } from '@/styles/Common';
 import { emailInputError, emailValidate } from '@/utils/common';
 import { logAnalytics, events } from '@/utils/Analytics';
 import I18n from '@/utils/I18n';
@@ -30,32 +30,6 @@ export type NavigationProp = CompositeNavigationProp<
 type ScreenType = {
   navigation: NavigationProp;
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  main: {
-    flex: 1,
-    paddingHorizontal: 16,
-    paddingTop: 32,
-  },
-  label: {
-    color: primaryColor,
-    fontSize: fontSizeM,
-    paddingBottom: 6,
-    textAlign: Platform.OS === 'web' ? 'center' : 'left',
-  },
-  forgetText: {
-    color: primaryColor,
-    fontSize: fontSizeM,
-  },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-});
 
 /**
  * 概要：ログイン画面
@@ -119,58 +93,79 @@ const SignInScreen: React.FC<ScreenType> = ({ navigation }) => {
   }, []);
 
   return (
-    <KeyboardAwareScrollView style={styles.container}>
-      <View style={styles.main}>
-        <LoadingModal visible={isLoading} />
-        <Text style={styles.label}>{I18n.t('signIn.email')}</Text>
-        <CheckTextInput
-          autoFocus
-          value={email}
-          onChangeText={onChangeTextEmail}
-          onBlur={onBlurEmail}
-          maxLength={50}
-          placeholder='Email'
-          keyboardType='email-address'
-          autoCapitalize='none'
-          autoCorrect={false}
-          underlineColorAndroid='transparent'
-          returnKeyType='done'
-          errorMessage={errorEmail}
-        />
-        <Space size={16} />
-        <Text style={styles.label}>{I18n.t('signIn.password')}</Text>
-        <CheckTextInput
-          isPassword
-          value={password}
-          onChangeText={onChangeTextPassword}
-          onBlur={onBlurPassword}
-          maxLength={20}
-          placeholder='Password'
-          autoCapitalize='none'
-          autoCorrect={false}
-          underlineColorAndroid='transparent'
-          returnKeyType='done'
-          errorMessage={errorPassword}
-        />
-        <Space size={32} />
-        <SubmitButton
-          title={I18n.t('signIn.login')}
-          onPress={onPressLogin}
-          disable={
-            errorEmail !== '' ||
-            errorPassword !== '' ||
-            email === '' ||
-            password === ''
-          }
-        />
-        <Space size={16} />
-        <View style={styles.row}>
-          <Text style={styles.forgetText}>{I18n.t('signIn.forgetText')}</Text>
-          <LinkText onPress={onPressForget} text={`${I18n.t('signIn.link')}`} />
+    <Layout>
+      <KeyboardAwareScrollView style={styles.container}>
+        <View style={styles.main}>
+          <LoadingModal visible={isLoading} />
+          <AppText size='m'>{I18n.t('signIn.email')}</AppText>
+          <Space size={6} />
+          <CheckTextInput
+            autoFocus
+            value={email}
+            onChangeText={onChangeTextEmail}
+            onBlur={onBlurEmail}
+            maxLength={50}
+            placeholder='Email'
+            keyboardType='email-address'
+            autoCapitalize='none'
+            autoCorrect={false}
+            returnKeyType='done'
+            errorMessage={errorEmail}
+          />
+          <Space size={16} />
+          <AppText size='m'>{I18n.t('signIn.password')}</AppText>
+          <Space size={6} />
+          <CheckTextInput
+            isPassword
+            value={password}
+            onChangeText={onChangeTextPassword}
+            onBlur={onBlurPassword}
+            maxLength={20}
+            placeholder='Password'
+            autoCapitalize='none'
+            autoCorrect={false}
+            returnKeyType='done'
+            errorMessage={errorPassword}
+          />
+          <Space size={32} />
+          <SubmitButton
+            title={I18n.t('signIn.login')}
+            onPress={onPressLogin}
+            disable={
+              errorEmail !== '' ||
+              errorPassword !== '' ||
+              email === '' ||
+              password === ''
+            }
+          />
+          <Space size={16} />
+          <View style={styles.row}>
+            <AppText size='m'>{I18n.t('signIn.forgetText')}</AppText>
+            <LinkText
+              size='m'
+              text={`${I18n.t('signIn.link')}`}
+              onPress={onPressForget}
+            />
+          </View>
         </View>
-      </View>
-    </KeyboardAwareScrollView>
+      </KeyboardAwareScrollView>
+    </Layout>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  main: {
+    flex: 1,
+    paddingHorizontal: 16,
+    paddingTop: 32,
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+});
 
 export default SignInScreen;

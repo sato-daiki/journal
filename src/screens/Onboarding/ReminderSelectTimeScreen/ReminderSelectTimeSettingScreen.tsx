@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react';
-import ReminderSelectTime from '@/components/organisms/ReminderSelectTime/ReminderSelectTime';
 import { Reminder, User } from '@/types';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { SettingTabStackParamList } from '@/navigations/SettingTabNavigator';
@@ -9,6 +8,8 @@ import {
   initFixDays,
   initFixTimeInfo,
 } from './interface';
+import { Layout } from '@/components/templates';
+import ReminderSelectTime from '@/components/features/ReminderSelectTime/ReminderSelectTime';
 
 export interface Props {
   user: User;
@@ -93,19 +94,21 @@ const ReminderSelectTimeSettingScreen: React.FC<ScreenType> = ({
   );
 
   return (
-    <ReminderSelectTime
-      navigation={navigation}
-      defaultReminderType={defaultReminderType}
-      defaultNotificationStart={defaultNotificationStart}
-      defaultNotificationEnd={defaultNotificationEnd}
-      defaultFixDays={defaultFixDays}
-      defaultFixTimeInfo={defaultFixTimeInfo}
-      defaultCuctomTimeInfos={defaultCuctomTimeInfos}
-      user={user}
-      setUser={setUser}
-      gotoReminderSelectDay={gotoReminderSelectDay}
-      afterSave={afterSave}
-    />
+    <Layout>
+      <ReminderSelectTime
+        navigation={navigation}
+        defaultReminderType={defaultReminderType}
+        defaultNotificationStart={defaultNotificationStart}
+        defaultNotificationEnd={defaultNotificationEnd}
+        defaultFixDays={defaultFixDays}
+        defaultFixTimeInfo={defaultFixTimeInfo}
+        defaultCuctomTimeInfos={defaultCuctomTimeInfos}
+        user={user}
+        setUser={setUser}
+        gotoReminderSelectDay={gotoReminderSelectDay}
+        afterSave={afterSave}
+      />
+    </Layout>
   );
 };
 

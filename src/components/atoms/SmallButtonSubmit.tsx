@@ -1,14 +1,14 @@
 import React from 'react';
 import {
-  Text,
   StyleSheet,
   ActivityIndicator,
   StyleProp,
   ViewStyle,
   TextStyle,
+  TouchableOpacity,
 } from 'react-native';
-import { mainColor, fontSizeM } from '../../styles/Common';
-import Hoverable from './Hoverable';
+import AppText from './AppText';
+import { useAppTheme, white } from '@/styles/colors';
 
 interface Props {
   containerStyle?: StyleProp<ViewStyle>;
@@ -21,6 +21,38 @@ interface Props {
   onPress: () => void;
 }
 
+const SmallButtonSubmit: React.FC<Props> = ({
+  containerStyle,
+  titleStyle,
+  isLoading = false,
+  disable = false,
+  title,
+  onPress,
+  backgroundColor,
+  titleColor,
+}: Props) => {
+  const theme = useAppTheme();
+  return (
+    <TouchableOpacity
+      style={[
+        styles.contaner,
+        containerStyle,
+        { backgroundColor: backgroundColor || theme.colors.main },
+      ]}
+      activeOpacity={isLoading || disable ? 1 : 0.2}
+      onPress={isLoading || disable ? undefined : onPress}
+    >
+      {isLoading ? (
+        <ActivityIndicator size='small' color={titleColor || white} />
+      ) : (
+        <AppText bold size='m' color={titleColor || white} style={titleStyle}>
+          {title}
+        </AppText>
+      )}
+    </TouchableOpacity>
+  );
+};
+
 const styles = StyleSheet.create({
   contaner: {
     borderRadius: 8,
@@ -29,37 +61,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  title: {
-    fontSize: fontSizeM,
-    fontWeight: 'bold',
-  },
 });
-
-const SmallButtonSubmit: React.FC<Props> = ({
-  containerStyle,
-  titleStyle,
-  isLoading = false,
-  disable = false,
-  title,
-  onPress,
-  backgroundColor = mainColor,
-  titleColor = '#fff',
-}: Props) => {
-  return (
-    <Hoverable
-      style={[styles.contaner, containerStyle, { backgroundColor }]}
-      activeOpacity={isLoading || disable ? 1 : 0.2}
-      onPress={isLoading || disable ? undefined : onPress}
-    >
-      {isLoading ? (
-        <ActivityIndicator size='small' color='#fff' />
-      ) : (
-        <Text style={[styles.title, { color: titleColor }, titleStyle]}>
-          {title}
-        </Text>
-      )}
-    </Hoverable>
-  );
-};
 
 export default React.memo(SmallButtonSubmit);

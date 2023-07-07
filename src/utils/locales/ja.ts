@@ -10,17 +10,12 @@ const common = {
   sending: '送信',
   next: '次へ',
   check: '添削',
-  draft: '下書き保存',
   skip: 'スキップ',
   save: '保存',
-  add: '追加',
   delete: '削除',
-  translation: '翻訳',
-  speech: '読む',
   slow: '遅く',
   back: '戻る',
   begin: 'はじめる',
-  time: '時刻を選択して下さい',
 };
 
 const day = {
@@ -43,16 +38,13 @@ const shortDay = {
   saturday: '土',
 };
 
-// タブ
 const mainTab = {
   myDiary: 'マイ日記',
   postDiary: '日記を書く',
   setting: '設定',
 };
 
-// 共通のエラーメッセージ
 const errorMessage = {
-  other: 'エラーが発生しました',
   wrongPassword: 'パスワードが違います',
   invalidEmail: 'メールアドレスの形式が正しくありません',
   weakPassword: 'パスワードは6桁以上で入力してください',
@@ -62,28 +54,11 @@ const errorMessage = {
     'エラーの数が一定数を超えました。時間をおいてから再度お試しください',
   network: '通信エラーが発生しました。時間をおいて再度お試し下さい。',
   defaultError: 'エラーが発生しました。{{message}}',
-  emptyUserName: 'ユーザーネームを入力してください',
-  invalidUserName:
-    'ユーザーネームは半角英数字と_（アンダーバー）と.（ピリオド）以外使えません',
-  initialUserName: '先頭の文字は半角英数字以外使えません',
-  userNameAlreadyInUse:
-    'すでにこのユーザーネームを使用しているユーザーがいます',
-  notFound: 'ページが開けません。エラーが発生しました',
   cantLogout: 'メールアドレスが登録されていないため、ログアウトできません。',
-  invalidRaiting: '星は1〜5で入力してください',
-  correctionAlready:
-    'この日記は他の人が添削を始めました。他の日記を再度検索ください。',
-  deleteTargetUser:
-    'このページは開けません。対象のユーザは削除された可能性があります。',
-  deleteTargetPage:
-    'このページは開けません。対象のページは削除された可能性があります。',
   emptyTitile: 'Titleが入力されていません',
   emptyText: '本文が入力されていません',
   emptyEmail: 'メールアドレスが入力されていません',
   emptyMessage: 'メッセージが入力されていません',
-  lackPointsTitle: 'ポイント不足',
-  lackPointsText:
-    '文字数{{textLength}}の日記を投稿するには{{usePoint}}ポイントが必要です。ポイントは日記を添削することで溜めることができます',
   exceedingTitleCharacter:
     '文字数オーバーです。Titleは{{textLength}}文字以下で投稿してください',
   exceedingTextCharacter:
@@ -96,16 +71,6 @@ const deleteAcount = {
   text: '退会すると投稿した日記の情報が完全に消去され、復元することはできません。\n\nそれでも退会を希望する方は下のボタンから退会してください。',
   withdrawal: '退会する',
   confirmation: '本当に退会してもよろしいですか？',
-};
-
-const draftDiary = {
-  headerTitle: '下書き',
-  diaryList: {
-    one: '下書き一覧{{count}}件',
-    other: '下書き一覧{{count}}件',
-    zero: '下書き一覧',
-  },
-  empty: '下書き一覧はありません',
 };
 
 const editEmail = {
@@ -156,7 +121,6 @@ const myDiary = {
   voiceTitle: '音読トレーニング',
   myVoice: '自分の音声を聞く',
   record: '録音する',
-  recommend: '効率的な勉強方法とは？',
   start: '最初から',
   revise: '添削結果を元に修正する',
   check: 'AI②でも添削する',
@@ -191,7 +155,6 @@ const noHuman = {
     '支払いの読み込み処理で失敗しました。再度このページをロードしてください。',
   noEmail:
     '翻訳依頼をする場合は、メールアドレスとパスワードの登録が必要です。「マイページ」「設定」から登録してください。',
-  labelText: '修正依頼する文章',
   labelAmount: '料金',
   labelAmountPerLength: '1文字あたりの料金',
   unitYen: '円',
@@ -199,7 +162,7 @@ const noHuman = {
   unitLength: '文字',
   labelSum: '合計',
   describe:
-    '※最低料金は{minimumPrice}円のため、{minimumLength}文字以下でも上記の料金になります。',
+    '※最低料金は{{minimumPrice}}円のため、{{minimumLength}}文字以下でも上記の料金になります。',
   error:
     '支払いプロセスでエラーが発生しました。再度時間を置いてから試してください。',
 };
@@ -350,8 +313,7 @@ const setting = {
   display: '画面表示',
   app: 'アプリについて',
   learn: '勉強中の言語',
-  passcodeLock: 'パスワードロック',
-  notice: '通知',
+  passcodeLock: 'パスコード設定',
   reminder: 'リマインダー',
   editEmail: 'メールアドレスの変更',
   editPassword: 'パスワードの変更',
@@ -394,20 +356,6 @@ const signUp = {
   agree3: 'に同意する必要があります',
 };
 
-const userProfile = {
-  headerTitle: 'プロフィール',
-  moreRead: '{{count}}件のレビューを全部見る',
-  blocked: 'ブロック',
-  unBlocked: 'ブロックを解除する',
-  report: '報告する',
-  diaryList: {
-    one: '日記一覧{{count}}件',
-    other: '日記一覧{{count}}件',
-    zero: '日記一覧',
-  },
-  topReview: 'トップレビュー',
-};
-
 const record = {
   headerTitle: '録音',
   confirmMessage: '削除してよろしいでしょうか？',
@@ -417,10 +365,6 @@ const record = {
 };
 
 //  molecules
-const emptyDiary = {
-  empty: '日記がまだ投稿されていません。',
-};
-
 const inquiry = {
   headerTitle: 'お問い合わせ',
   email: 'メールアドレス',
@@ -458,11 +402,6 @@ const postDiaryComponent = {
   correct: '以前の添削結果を見る',
 };
 
-const sns = {
-  app: 'アプリをSNSでシェア',
-  diary: '日記をSNSでシェア',
-};
-
 const myDiaryStatus = {
   draft: '下書き',
   checked: '添削完了',
@@ -472,15 +411,6 @@ const myDiaryStatus = {
   done: '完了',
 };
 
-const language = {
-  en: '英語',
-  de: 'ドイツ語	',
-  es: 'スペイン語',
-  fr: 'フランス語	',
-  pt: 'ポルトガル語	',
-  nl: 'オランダ語	',
-};
-
 const maintenance = {
   defaultMessage:
     '現在メンテナンス中です。\nご不便をおかけして申し訳ございません。\nしばらくお時間が経ってから\n再度ご利用ください',
@@ -488,7 +418,6 @@ const maintenance = {
 
 const selectDiaryType = {
   headerTitle: '型の選択',
-  recommend: 'おススメ',
   titleFree: '自由作文',
   titleTheme: 'テーマ作文',
   textFree:
@@ -694,7 +623,6 @@ const ja = {
   errorMessage,
   mainTab,
   deleteAcount,
-  draftDiary,
   editEmail,
   editMyProfile,
   editPassword,
@@ -726,17 +654,13 @@ const ja = {
   display,
   signIn,
   signUp,
-  userProfile,
   record,
-  emptyDiary,
   emptyMyDiaryList,
   modalDeleteAcount,
   modalDiaryCancel,
   modalSendEmail,
   postDiaryComponent,
-  sns,
   myDiaryStatus,
-  language,
   inquiry,
   first,
   maintenance,

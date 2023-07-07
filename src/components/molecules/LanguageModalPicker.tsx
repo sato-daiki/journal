@@ -1,31 +1,24 @@
-import React, { useCallback, useState } from 'react';
-import {
-  StyleProp,
-  StyleSheet,
-  TouchableOpacity,
-  ViewStyle,
-} from 'react-native';
-import { CountryNameWithFlag, HoverableIcon } from '@/components/atoms';
-import { primaryColor } from '@/styles/Common';
+import React, { useCallback, useMemo, useState } from 'react';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { languageToolLanguages } from '@/utils/grammarCheck';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import ModalPicker, { PickerItem, Size } from './ModalPicker';
+import { useAppTheme } from '@/styles/colors';
+import CountryNameWithFlag from './CountryNameWithFlag';
 import { LongCode } from '@/types';
-import PModal from './ModalPicker/PModal';
-import { PickerItem, Size } from './ModalPicker';
 
-type Props = {
-  containerStyle?: StyleProp<ViewStyle>;
-  selectedItem: PickerItem;
-  items: PickerItem[];
+export interface Props {
   size?: Size;
+  selectedItem: PickerItem;
   onPressItem: (item: PickerItem) => void;
-};
+}
 
 const LanguageModalPicker: React.FC<Props> = ({
-  containerStyle,
-  selectedItem,
-  items,
   size = 'large',
+  selectedItem,
   onPressItem,
 }) => {
+  const theme = useAppTheme();
   const [isVisible, setIsVisible] = useState(false);
 
   const onPress = useCallback(() => {
@@ -40,11 +33,25 @@ const LanguageModalPicker: React.FC<Props> = ({
     [onPressItem],
   );
 
+  const options: PickerItem[] = useMemo(
+    () =>
+      languageToolLanguages.map((item) => {
+        return {
+          label: item.name,
+          value: item.longCode,
+        };
+      }),
+    [],
+  );
+
   return (
-    <>
+    <View style={styles.container}>
       <TouchableOpacity
         style={[
-          styles.container,
+          styles.innerContainer,
+          {
+            borderColor: theme.colors.primary,
+          },
           size === 'large'
             ? {
                 flex: 1,
@@ -54,7 +61,6 @@ const LanguageModalPicker: React.FC<Props> = ({
                 width: 136,
                 paddingLeft: 6,
               },
-          containerStyle,
         ]}
         onPress={onPress}
       >
@@ -62,32 +68,34 @@ const LanguageModalPicker: React.FC<Props> = ({
           size={size}
           longCode={selectedItem.value as LongCode}
         />
-        <HoverableIcon
-          icon='community'
+        <MaterialCommunityIcons
+          color={theme.colors.primary}
           name={size === 'large' ? 'chevron-right' : 'chevron-down'}
           size={size === 'large' ? 32 : 16}
-          color={primaryColor}
         />
       </TouchableOpacity>
-      <PModal
+      <ModalPicker
         isVisible={isVisible}
-        items={items}
+        items={options}
         onPressItem={handlePressItem}
       />
-    </>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+  },
+  innerContainer: {
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
     borderWidth: 1,
     borderRadius: 8,
-    backgroundColor: '#fff',
-    borderColor: primaryColor,
   },
 });
 
-export default React.memo(LanguageModalPicker);
+export default LanguageModalPicker;

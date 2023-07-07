@@ -25,6 +25,8 @@ import {
   SetShowCheckPasscodeAction,
   SetIsLoadingPasscodeAction,
   SetIsPremiumAction,
+  SetDarkModeAction,
+  SetThemeColorAction,
 } from '../stores/actions/localStatus';
 
 export interface State {
@@ -41,6 +43,8 @@ export type Actions =
   | SetShowCheckPasscodeAction
   | SetIsLoadingPasscodeAction
   | SetIsPremiumAction
+  | SetDarkModeAction
+  | SetThemeColorAction
   | RestoreUidAction
   | CompletedOnboardingAction
   | SignInAction

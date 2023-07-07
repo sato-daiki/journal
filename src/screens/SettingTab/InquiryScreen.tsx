@@ -1,19 +1,19 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import { StyleSheet, View, Text, TextInput } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
-import { Space, SubmitButton, LoadingModal } from '../../components/atoms';
+import { Layout } from '@/components/templates';
+import {
+  Space,
+  SubmitButton,
+  LoadingModal,
+  AppText,
+  AppTextInput,
+} from '@/components/atoms';
 import { User } from '../../types';
 import I18n from '../../utils/I18n';
 import { emailValidate } from '../../utils/common';
-import {
-  primaryColor,
-  fontSizeM,
-  fontSizeL,
-  borderLightColor,
-  offWhite,
-} from '../../styles/Common';
 import { alert } from '../../utils/ErrorAlert';
 import {
   SettingTabNavigationProp,
@@ -21,8 +21,7 @@ import {
 } from '../../navigations/SettingTabNavigator';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import ModalConfirm from '@/components/organisms/ModalConfirm';
-import EmailTextInput from '@/components/organisms/EmailTextInput';
+import ModalConfirm from '@/components/features/Modal/ModalConfirm';
 
 export interface Props {
   user: User;
@@ -36,56 +35,6 @@ type InquiryNavigationProp = CompositeNavigationProp<
 type ScreenType = {
   navigation: InquiryNavigationProp;
 } & Props;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  main: {
-    flex: 1,
-    padding: 16,
-  },
-  label: {
-    fontSize: fontSizeM,
-    color: primaryColor,
-    marginBottom: 8,
-  },
-  textInput: {
-    width: '100%',
-    fontSize: fontSizeM,
-    color: primaryColor,
-    paddingHorizontal: 16,
-    paddingTop: 12,
-    paddingBottom: 12,
-    backgroundColor: offWhite,
-    borderRadius: 6,
-    borderColor: borderLightColor,
-    marginBottom: 16,
-  },
-  message: {
-    height: 300,
-    textAlignVertical: 'top',
-  },
-  successContainer: {
-    paddingTop: 32,
-    paddingHorizontal: 16,
-  },
-  thanksTitle: {
-    textAlign: 'center',
-    fontSize: fontSizeL,
-    fontWeight: 'bold',
-    color: primaryColor,
-    marginBottom: 8,
-  },
-  thanksText: {
-    fontSize: fontSizeM,
-    textAlign: 'center',
-    color: primaryColor,
-    lineHeight: fontSizeM * 1.3,
-    marginBottom: 32,
-  },
-});
 
 const InquiryScreen: React.FC<ScreenType> = ({ navigation, user }) => {
   const [email, setEmail] = useState('');
@@ -157,52 +106,91 @@ const InquiryScreen: React.FC<ScreenType> = ({ navigation, user }) => {
   };
 
   return (
-    <KeyboardAwareScrollView style={styles.container}>
-      <LoadingModal visible={isLoading} />
-      <ModalConfirm
-        visible={isModalError}
-        title={I18n.t('common.error')}
-        message={errorMessage}
-        mainButtonText={I18n.t('common.close')}
-        onPressMain={onPressCloseError}
-      />
-      {!isSuccess ? (
-        <View style={styles.main}>
-          <Text style={styles.label}>{I18n.t('inquiry.email')}</Text>
-          <EmailTextInput value={email} onChangeText={setEmail} />
-          <Text style={styles.label}>{I18n.t('inquiry.message')}</Text>
-          <TextInput
-            style={[styles.textInput, styles.message]}
-            multiline
-            value={message}
-            onChangeText={(text: string): void => setMessage(text)}
-            maxLength={500}
-            placeholder='Enter your message'
-            spellCheck
-            autoCorrect
-            underlineColorAndroid='transparent'
-            returnKeyType='done'
-          />
-          <Space size={32} />
-          <SubmitButton
-            title={I18n.t('common.sending')}
-            onPress={onPressSend}
-          />
-        </View>
-      ) : (
-        <View style={styles.successContainer}>
-          <Text style={styles.thanksTitle}>{I18n.t('inquiry.title')}</Text>
-          <Text style={styles.thanksText}>{I18n.t('inquiry.thanks')}</Text>
-          <SubmitButton
-            title={I18n.t('common.back')}
-            onPress={(): void => {
-              navigation.goBack();
-            }}
-          />
-        </View>
-      )}
-    </KeyboardAwareScrollView>
+    <Layout>
+      <KeyboardAwareScrollView style={styles.container}>
+        <LoadingModal visible={isLoading} />
+        <ModalConfirm
+          visible={isModalError}
+          title={I18n.t('common.error')}
+          message={errorMessage}
+          mainButtonText={I18n.t('common.close')}
+          onPressMain={onPressCloseError}
+        />
+        {!isSuccess ? (
+          <View style={styles.main}>
+            <AppText size='m'>{I18n.t('inquiry.email')}</AppText>
+            <Space size={6} />
+            <AppTextInput
+              isOff
+              value={email}
+              onChangeText={setEmail}
+              maxLength={50}
+              placeholder='Enter your email address'
+              keyboardType='email-address'
+              autoCapitalize='none'
+              autoCorrect={false}
+              returnKeyType='done'
+            />
+            <Space size={16} />
+            <AppText size='m'>{I18n.t('inquiry.message')}</AppText>
+            <Space size={6} />
+            <AppTextInput
+              isOff
+              style={styles.message}
+              multiline
+              value={message}
+              onChangeText={setMessage}
+              maxLength={500}
+              placeholder='Enter your message'
+              spellCheck
+              autoCorrect
+              textAlignVertical='top'
+              returnKeyType='done'
+            />
+            <Space size={48} />
+            <SubmitButton
+              title={I18n.t('common.sending')}
+              onPress={onPressSend}
+            />
+          </View>
+        ) : (
+          <View style={styles.successContainer}>
+            <AppText bold size='l' textAlign='center'>
+              {I18n.t('inquiry.title')}
+            </AppText>
+            <Space size={8} />
+            <AppText size='m' textAlign='center'>
+              {I18n.t('inquiry.thanks')}
+            </AppText>
+            <Space size={32} />
+            <SubmitButton
+              title={I18n.t('common.back')}
+              onPress={(): void => {
+                navigation.goBack();
+              }}
+            />
+          </View>
+        )}
+      </KeyboardAwareScrollView>
+    </Layout>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  main: {
+    flex: 1,
+    padding: 16,
+  },
+  message: {
+    height: 300,
+  },
+  successContainer: {
+    paddingTop: 32,
+    paddingHorizontal: 16,
+  },
+});
 
 export default InquiryScreen;

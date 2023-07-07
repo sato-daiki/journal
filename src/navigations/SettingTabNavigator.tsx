@@ -18,7 +18,7 @@ import RegisterEmailPasswordScreen from '../screens/SettingTab/RegisterEmailPass
 import DeleteAcountScreenContainer from '../containers/DeleteAcountScreenContainer';
 import ForegetPasswordScreen from '../screens/Auth/ForegetPasswordScreen';
 import InquiryScreenContainer from '../containers/InquiryScreenContainer';
-import { DefaultNavigationOptions } from '../constants/NavigationOptions';
+import { getDefaultScreenOptions } from '../styles/navigationOptions';
 import {
   HomeBottomParamList,
   HomeBottomNavigationProp,
@@ -27,6 +27,7 @@ import { WebViewNavParams, WebViewScreen } from '@/screens/WebViewScreen';
 import PasscodeLockSettingScreen from '@/screens/SettingTab/PasscodeLockSetting';
 import RePasscodeLockSettingScreenContainer from '@/containers/RePasscodeLockSettingScreenContainer';
 import DisplayScreenContainer from '@/containers/DisplayScreenContainer';
+import { useAppTheme } from '@/styles/colors';
 
 export type SettingTabNavigationProp = CompositeNavigationProp<
   StackNavigationProp<HomeBottomParamList, 'SettingTab'>,
@@ -56,10 +57,13 @@ export type SettingTabStackParamList = {
 const SettingTabStack = createStackNavigator<SettingTabStackParamList>();
 
 const SettingTabNavigator = () => {
+  const theme = useAppTheme();
+  const DefaultScreenOptions = getDefaultScreenOptions(theme);
+
   return (
     <SettingTabStack.Navigator
       initialRouteName='Setting'
-      screenOptions={DefaultNavigationOptions}
+      screenOptions={DefaultScreenOptions}
     >
       <SettingTabStack.Screen
         name='Display'

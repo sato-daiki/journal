@@ -1,7 +1,7 @@
 import React from 'react';
-import { Text, StyleSheet, ActivityIndicator } from 'react-native';
-import { mainColor, fontSizeM, subTextColor } from '../../styles/Common';
-import Hoverable from './Hoverable';
+import { StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { useAppTheme } from '@/styles/colors';
+import AppText from './AppText';
 
 interface Props {
   isBorrderTop?: boolean;
@@ -12,22 +12,6 @@ interface Props {
   onPress: () => void;
 }
 
-const styles = StyleSheet.create({
-  contaner: {
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 36,
-    backgroundColor: '#fff',
-    borderBottomColor: subTextColor,
-    borderTopColor: subTextColor,
-  },
-  title: {
-    color: mainColor,
-    fontSize: fontSizeM,
-  },
-});
-
 const TextButtun: React.FC<Props> = ({
   isBorrderTop = false,
   isBorrderBottom = false,
@@ -36,24 +20,45 @@ const TextButtun: React.FC<Props> = ({
   title,
   onPress,
 }: Props) => {
+  const theme = useAppTheme();
+
   const borderTopWidth = isBorrderTop ? StyleSheet.hairlineWidth : undefined;
   const borderBottomWidth = isBorrderBottom
     ? StyleSheet.hairlineWidth
     : undefined;
 
   return (
-    <Hoverable
-      style={[styles.contaner, { borderTopWidth, borderBottomWidth }]}
+    <TouchableOpacity
+      style={[
+        styles.contaner,
+        {
+          borderBottomColor: theme.colors.secondary,
+          borderTopColor: theme.colors.secondary,
+          borderTopWidth,
+          borderBottomWidth,
+        },
+      ]}
       activeOpacity={isLoading || disable ? 1 : 0.2}
       onPress={isLoading || disable ? undefined : onPress}
     >
       {isLoading ? (
         <ActivityIndicator size='small' />
       ) : (
-        <Text style={styles.title}>{title}</Text>
+        <AppText size='m' color={theme.colors.main}>
+          {title}
+        </AppText>
       )}
-    </Hoverable>
+    </TouchableOpacity>
   );
 };
+
+const styles = StyleSheet.create({
+  contaner: {
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 36,
+  },
+});
 
 export default React.memo(TextButtun);

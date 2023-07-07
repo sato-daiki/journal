@@ -1,11 +1,12 @@
 import React, { useMemo } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { MaintenanceJson } from '@/images';
-import { fontSizeM, primaryColor } from '@/styles/Common';
 import I18n from '@/utils/I18n';
 import { getLanguageToolCode } from '@/utils/grammarCheck';
 import { LongCode } from '@/types';
+import { AppText } from '@/components/atoms';
+import { Layout } from '@/components/templates';
 
 type Props = {
   messageEn: string | null;
@@ -26,21 +27,20 @@ const MaintenanceScreen: React.FC<Props> = ({ messageEn, messageJa }) => {
   }, [messageEn, messageJa]);
 
   return (
-    <View style={styles.container}>
+    <Layout innerStyle={styles.container}>
       <LottieView
         style={styles.lottie}
         source={MaintenanceJson}
         autoPlay
         loop
       />
-      <Text style={styles.text}>{message}</Text>
-    </View>
+      <AppText size='m'>{message}</AppText>
+    </Layout>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 16,
@@ -49,11 +49,6 @@ const styles = StyleSheet.create({
     width: 120,
     height: 120,
     marginBottom: 32,
-  },
-  text: {
-    fontSize: fontSizeM,
-    lineHeight: fontSizeM * 1.3,
-    color: primaryColor,
   },
 });
 

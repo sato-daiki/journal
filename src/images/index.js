@@ -1,6 +1,8 @@
 module.exports = {
   SaplingLogo: require('./sapling-logo.png'),
+  SaplingText: require('./sapling-text.png'),
   ProWritingAidLogo: require('./pro-writing-aid-logo.png'),
+  ProWritingAidText: require('./pro-writing-aid-text.png'),
   Airplane: require('./airplane.png'),
   Baseball: require('./baseball.png'),
   GraduationSpeech: require('./graduationSpeech.png'),

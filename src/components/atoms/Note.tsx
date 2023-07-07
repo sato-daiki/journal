@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { fontSizeM } from '@/styles/Common';
-import HoverableIcon from './HoverableIcon';
+import { StyleSheet, View } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import AppText from './AppText';
+import { Icon } from '../templates';
 
 interface Props {
   text: string;
@@ -10,28 +11,6 @@ interface Props {
   visible: boolean | undefined;
   onPressClose: () => void;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingLeft: 16,
-    paddingVertical: 16,
-  },
-  text: {
-    flex: 1,
-    fontSize: fontSizeM,
-    lineHeight: fontSizeM * 1.3,
-    color: '#fff',
-  },
-  hoverableIcon: {
-    width: 50,
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 const Note: React.FC<Props> = ({
   text,
@@ -43,18 +22,40 @@ const Note: React.FC<Props> = ({
   if (!visible) return null;
   return (
     <View style={[styles.container, { backgroundColor }]}>
-      <Text style={[styles.text, { color }]}>{text}</Text>
-      <View style={styles.hoverableIcon}>
-        <HoverableIcon
-          icon='community'
-          name='close-circle-outline'
-          size={32}
-          color={color}
-          onPress={onPressClose}
-        />
+      <AppText style={styles.text} size='m' color={color}>
+        {text}
+      </AppText>
+      <View style={styles.icon}>
+        <Icon onPress={onPressClose}>
+          <MaterialCommunityIcons
+            name='close-circle-outline'
+            size={32}
+            color={color}
+          />
+        </Icon>
       </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingLeft: 16,
+    paddingVertical: 16,
+    flex: 1,
+  },
+  text: {
+    flex: 1,
+  },
+  icon: {
+    width: 50,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
 
 export default React.memo(Note);

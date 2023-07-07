@@ -10,17 +10,12 @@ const common = {
   sending: 'Send',
   next: 'Next',
   check: 'Correct',
-  draft: 'Save',
   skip: 'Skip',
   save: 'Save',
-  add: 'Add',
   delete: 'Delete',
-  translation: 'Translation',
-  speech: 'Speak',
   slow: 'Slow',
   back: 'Back',
   begin: 'Begin',
-  time: 'Please select a time',
 };
 
 const day = {
@@ -43,16 +38,13 @@ const shortDay = {
   saturday: 'S',
 };
 
-// タブ
 const mainTab = {
   myDiary: 'My Entries',
   postDiary: 'Write',
   setting: 'Setting',
 };
 
-// 共通のエラーメッセージ
 const errorMessage = {
-  other: 'There is an error.',
   wrongPassword: 'This password is incorrect.',
   invalidEmail: 'Please enter a valid email address',
   weakPassword: 'Please enter a password with at least 6 digits',
@@ -62,26 +54,12 @@ const errorMessage = {
     'You have made too many failed attempts. Please try again later.',
   network: 'There has been a network error.',
   defaultError: 'There is an error. {{message}}',
-  emptyUserName: 'Please enter a username.',
-  invalidUserName:
-    'Only alphanumeric characters, _ (the underbar), and . (period) can be used.',
-  initialUserName: 'The first character must be an alphanumeric character.',
-  userNameAlreadyInUse: 'This username has already been taken.',
-  notFound: 'This page cannot be opened. There is an error.',
   cantLogout:
     'Because you have not registered an email address, you cannot logout.',
-  invalidRaiting: 'Please rate between 1~5.',
-  correctionAlready:
-    'Someone else has started correcting this entry. Please search for another entry.',
-  deleteTargetPage: 'This page cannot be opened.',
-  deleteTargetUser: 'This page cannot be opened. The user may have deleted it.',
   emptyTitile: 'There is no title.',
   emptyText: 'There is no text.',
   emptyEmail: 'There is no email address.',
   emptyMessage: 'There is no message.',
-  lackPointsTitle: 'You do not have enough points.',
-  lackPointsText:
-    '{{usePoint}} points are needed to publish an entry with {{textLength}} characters. You can earn more points by correcting entries.',
   exceedingTitleCharacter:
     'Exceeding maximum character count. Please enter a title within {{textLength}} characters',
   exceedingTextCharacter:
@@ -94,16 +72,6 @@ const deleteAcount = {
   text: 'If you delete your account, all information about the journal entries you published will be deleted and cannot be retrieved. If you would still like to delete your account, please tap the button below.',
   withdrawal: 'Delete Account',
   confirmation: 'Are you sure you want to delete this account?',
-};
-
-const draftDiary = {
-  headerTitle: 'Drafts',
-  diaryList: {
-    one: 'List of Drafts: {{count}} entry',
-    other: 'List of Drafts: {{count}} entries',
-    zero: 'List of Drafts',
-  },
-  empty: 'You do not have any drafts.',
 };
 
 const editEmail = {
@@ -157,7 +125,6 @@ const myDiary = {
   voiceTitle: 'Read Out Loud',
   myVoice: 'Listen to Your Recorded Voice',
   record: 'Voice Recording',
-  recommend: 'What is an efficient study method?',
   start: 'Initially',
   revise: 'Revise based on the correction',
   check: 'Correct with AI2',
@@ -192,7 +159,6 @@ const noHuman = {
     '支払いの読み込み処理で失敗しました。再度このページをロードしてください。',
   noEmail:
     '翻訳依頼をする場合は、メールアドレスとパスワードの登録が必要です。「マイページ」「設定」から登録してください。',
-  labelText: '修正依頼する文章',
   labelAmount: '料金',
   labelAmountPerLength: '1文字あたりの料金',
   unitYen: '円',
@@ -200,7 +166,7 @@ const noHuman = {
   unitLength: '文字',
   labelSum: '合計',
   describe:
-    '※最低料金は{minimumPrice}円のため、{minimumLength}文字以下でも上記の料金になります。',
+    '※最低料金は{{minimumPrice}}円のため、{{minimumLength}}文字以下でも上記の料金になります。',
   error:
     '支払いプロセスでエラーが発生しました。再度時間を置いてから試してください。',
 };
@@ -349,14 +315,13 @@ const setting = {
   app: 'About the app',
   learn: 'Learning',
   passcodeLock: 'Passcode',
-  notice: 'Notifications',
   reminder: 'Reminder',
   editEmail: 'Edit Email Address',
   editPassword: 'Edit Password',
   registerEmailPassword: 'Register Email and Password',
   deleteAcount: 'About Account Deletion',
   logout: 'Logout',
-  inquiry: 'Contact',
+  inquiry: 'Inquiry',
   about: 'What is LangJournal',
   cancel: 'Cancellation of premium membership',
 };
@@ -392,20 +357,6 @@ const signUp = {
   agree3: 'to start using the service',
 };
 
-const userProfile = {
-  headerTitle: 'User',
-  moreRead: 'View All {{count}} Reviews',
-  blocked: 'Block',
-  unBlocked: 'Unblock',
-  report: 'Report',
-  diaryList: {
-    one: '{{count}} Journal Entry',
-    other: '{{count}} Journal Entries',
-    zero: 'Journal Entries',
-  },
-  topReview: 'Top Reviews',
-};
-
 const record = {
   headerTitle: 'Recording',
   confirmMessage: 'Are you sure you want to delete the recording?',
@@ -415,10 +366,6 @@ const record = {
 };
 
 //  molecules
-const emptyDiary = {
-  empty: 'You haven’t posted any journal entries.',
-};
-
 const inquiry = {
   headerTitle: 'Inquiry',
   email: 'Email Address',
@@ -458,11 +405,6 @@ const postDiaryComponent = {
   correct: 'View previous corrections',
 };
 
-const sns = {
-  app: 'Share the app on SNS',
-  diary: 'Share your entry on SNS',
-};
-
 const myDiaryStatus = {
   draft: 'Draft',
   checked: 'Corrected',
@@ -472,15 +414,6 @@ const myDiaryStatus = {
   done: 'Finished',
 };
 
-const language = {
-  en: 'English',
-  de: 'German	',
-  es: 'Spanish',
-  fr: 'French	',
-  pt: 'Portugues	',
-  nl: 'Dutch	',
-};
-
 const maintenance = {
   defaultMessage:
     'Currently under maintenance.\nWe apologize for the inconvenience.\nPlease try again after a while.',
@@ -488,7 +421,6 @@ const maintenance = {
 
 const selectDiaryType = {
   headerTitle: 'Type Selection',
-  recommend: 'Recommend',
   titleFree: 'Topic of your choice',
   titleTheme: 'Choose from topics',
   textFree:
@@ -698,7 +630,6 @@ const en = {
   errorMessage,
   mainTab,
   deleteAcount,
-  draftDiary,
   editEmail,
   editMyProfile,
   editPassword,
@@ -730,17 +661,13 @@ const en = {
   display,
   signIn,
   signUp,
-  userProfile,
   record,
-  emptyDiary,
   emptyMyDiaryList,
   modalDeleteAcount,
   modalDiaryCancel,
   modalSendEmail,
   postDiaryComponent,
-  sns,
   myDiaryStatus,
-  language,
   inquiry,
   first,
   maintenance,

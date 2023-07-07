@@ -1,25 +1,19 @@
 import React, { useCallback, useState } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
-import {
-  subTextColor,
-  fontSizeS,
-  offWhite,
-  fontSizeM,
-  borderLightColor,
-  softRed,
-} from '../../styles/Common';
 import { logAnalytics, events } from '../../utils/Analytics';
-import ModalDeleteAcount from '../../components/organisms/ModalDeleteAcount';
 import I18n from '../../utils/I18n';
 import { alert } from '../../utils/ErrorAlert';
 import {
   SettingTabNavigationProp,
   SettingTabStackParamList,
 } from '../../navigations/SettingTabNavigator';
-import { Hoverable } from '../../components/atoms';
 import auth from '@react-native-firebase/auth';
+import { Layout } from '@/components/templates';
+import { AppText, Space, WhiteButton } from '@/components/atoms';
+import { softRed, useAppTheme } from '@/styles/colors';
+import ModalDeleteAcount from '@/components/features/Modal/ModalDeleteAcount';
 
 interface DispatchProps {
   signOut: () => void;
@@ -34,47 +28,14 @@ type ScreenType = {
   navigation: DeleteAcountNavigationProp;
 } & DispatchProps;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: offWhite,
-    paddingTop: 32,
-  },
-  main: {
-    paddingTop: 16,
-    borderTopWidth: 0.5,
-    borderTopColor: borderLightColor,
-    backgroundColor: '#fff',
-  },
-  text: {
-    color: subTextColor,
-    fontSize: fontSizeS,
-    lineHeight: fontSizeS * 1.3,
-    paddingHorizontal: 16,
-    paddingBottom: 16,
-  },
-  deleteButton: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderTopWidth: 0.5,
-    borderBottomWidth: 0.5,
-    backgroundColor: '#fff',
-    height: 48,
-    borderTopColor: borderLightColor,
-    borderBottomColor: borderLightColor,
-  },
-  delete: {
-    color: softRed,
-    fontSize: fontSizeM,
-  },
-});
-
 const DeleteAcountScreen: React.FC<ScreenType> = ({ signOut }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isModal, setIsModal] = useState(false);
   const [isPasswordInput, setIsPasswordInput] = useState(false);
   const [password, setPassword] = useState('');
   const [errorPassword, setErrorPassword] = useState('');
+
+  const theme = useAppTheme();
 
   const onPressDelete1 = useCallback(() => {
     const f = async (): Promise<void> => {
@@ -144,7 +105,7 @@ const DeleteAcountScreen: React.FC<ScreenType> = ({ signOut }) => {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <Layout innerStyle={styles.container}>
       <ModalDeleteAcount
         visible={isModal}
         isPasswordInput={isPasswordInput}
@@ -157,17 +118,23 @@ const DeleteAcountScreen: React.FC<ScreenType> = ({ signOut }) => {
         onBlur={onBlurPassword}
         onPressClose={onPressClose}
       />
-      <View style={styles.main}>
-        <Text style={styles.text}>{I18n.t('deleteAcount.text')}</Text>
-        <Hoverable
-          style={styles.deleteButton}
-          onPress={(): void => setIsModal(true)}
-        >
-          <Text style={styles.delete}>{I18n.t('deleteAcount.withdrawal')}</Text>
-        </Hoverable>
-      </View>
-    </View>
+      <AppText size='m'>{I18n.t('deleteAcount.text')}</AppText>
+      <Space size={32} />
+      <WhiteButton
+        containerStyle={{ borderColor: softRed }}
+        textStyle={{ color: softRed }}
+        title={I18n.t('deleteAcount.withdrawal')}
+        onPress={(): void => setIsModal(true)}
+      />
+    </Layout>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    paddingTop: 32,
+    paddingHorizontal: 16,
+  },
+});
 
 export default DeleteAcountScreen;

@@ -1,9 +1,10 @@
 import React, { useCallback, useState, useLayoutEffect } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
 
-import { HeaderText } from '@/components/atoms';
+import { Layout } from '@/components/templates';
+import { AppText, Space } from '@/components';
 import { LongCode, User } from '@/types';
 import I18n from '@/utils/I18n';
 import { SettingTabNavigationProp } from '@/navigations/SettingTabNavigator';
@@ -12,10 +13,10 @@ import {
   ModalEditMyProfileStackParamList,
 } from '@/navigations/ModalNavigator';
 import firestore from '@react-native-firebase/firestore';
-import { fontSizeL, primaryColor } from '@/styles/Common';
 import { getLanguageToolName } from '@/utils/grammarCheck';
-import LanguagePicker from '@/components/organisms/LanguagePicker';
+import LanguageModalPicker from '@/components/molecules/LanguageModalPicker';
 import { PickerItem } from '@/components/molecules/ModalPicker';
+import HeaderText from '@/components/features/Header/HeaderText';
 
 export interface Props {
   user: User;
@@ -34,20 +35,6 @@ type ScreenType = {
   navigation: NavigationProp & SettingTabNavigationProp;
 } & Props &
   DispatchProps;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: '#fff',
-  },
-  title: {
-    color: primaryColor,
-    fontSize: fontSizeL,
-    fontWeight: 'bold',
-    paddingBottom: 32,
-  },
-});
 
 /**
  * マイページ編集画面
@@ -103,11 +90,24 @@ const EditMyProfileScreen: React.FC<ScreenType> = ({
   }, [navigation, onPressGoBack, onPressSubmit]);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{I18n.t('selectLanguage.title')}</Text>
-      <LanguagePicker selectedItem={selectedItem} onPressItem={onPressItem} />
-    </View>
+    <Layout innerStyle={styles.container}>
+      <AppText size='l' bold>
+        {I18n.t('selectLanguage.title')}
+      </AppText>
+      <Space size={32} />
+      <LanguageModalPicker
+        selectedItem={selectedItem}
+        onPressItem={onPressItem}
+      />
+    </Layout>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: 16,
+    paddingTop: 32,
+  },
+});
 
 export default EditMyProfileScreen;

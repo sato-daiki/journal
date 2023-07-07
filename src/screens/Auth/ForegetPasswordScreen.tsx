@@ -1,18 +1,10 @@
 import React, { useState, useCallback } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp } from '@react-navigation/native';
 
-import ModalSendEmail from '@/components/organisms/ModalSendEmail';
 import { CheckTextInput } from '@/components/molecules';
-import { Space, SubmitButton, LoadingModal } from '@/components/atoms';
-
-import {
-  primaryColor,
-  fontSizeM,
-  fontSizeL,
-  subTextColor,
-} from '@/styles/Common';
+import { Space, SubmitButton, LoadingModal, AppText } from '@/components/atoms';
 import I18n from '@/utils/I18n';
 import { emailInputError, emailValidate } from '@/utils/common';
 import {
@@ -22,6 +14,9 @@ import {
 import auth from '@react-native-firebase/auth';
 import { getLanguageToolCode } from '@/utils/grammarCheck';
 import { LongCode } from '@/types';
+import { useAppTheme } from '@/styles/colors';
+import { Layout } from '@/components/templates';
+import ModalSendEmail from '@/components/features/Modal/ModalSendEmail';
 
 type NavigationProp = CompositeNavigationProp<
   StackNavigationProp<SettingTabStackParamList, 'ForegetPassword'>,
@@ -32,36 +27,13 @@ type ScreenType = {
   navigation: NavigationProp;
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    paddingHorizontal: 16,
-    paddingTop: 32,
-  },
-  title: {
-    color: primaryColor,
-    fontSize: fontSizeL,
-    fontWeight: 'bold',
-    paddingBottom: 16,
-  },
-  subText: {
-    color: subTextColor,
-    fontSize: fontSizeM,
-    paddingBottom: 16,
-  },
-  label: {
-    color: primaryColor,
-    fontSize: fontSizeM,
-    paddingBottom: 6,
-  },
-});
-
 const ForegetPasswordScreen: React.FC<ScreenType> = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isModal, setIsModal] = useState(false);
   const [email, setEmail] = useState('');
   const [errorEmail, setErrorEmail] = useState('');
+
+  const theme = useAppTheme();
 
   const clearErrorMessage = useCallback((): void => {
     setErrorEmail('');
@@ -101,12 +73,19 @@ const ForegetPasswordScreen: React.FC<ScreenType> = ({ navigation }) => {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <Layout innerStyle={styles.container}>
       <LoadingModal visible={isLoading} />
       <ModalSendEmail visible={isModal} onPressClose={onPressClose} />
-      <Text style={styles.title}>{I18n.t('foregetPassword.title')}</Text>
-      <Text style={styles.subText}>{I18n.t('foregetPassword.subText')}</Text>
-      <Text style={styles.label}>{I18n.t('foregetPassword.email')}</Text>
+      <AppText size='l' bold>
+        {I18n.t('foregetPassword.title')}
+      </AppText>
+      <Space size={16} />
+      <AppText size='m' color={theme.colors.secondary}>
+        {I18n.t('foregetPassword.subText')}
+      </AppText>
+      <Space size={16} />
+      <AppText size='m'>{I18n.t('foregetPassword.email')}</AppText>
+      <Space size={6} />
       <CheckTextInput
         value={email}
         onChangeText={onChangeText}
@@ -116,7 +95,6 @@ const ForegetPasswordScreen: React.FC<ScreenType> = ({ navigation }) => {
         keyboardType='email-address'
         autoCapitalize='none'
         autoCorrect={false}
-        underlineColorAndroid='transparent'
         returnKeyType='done'
         errorMessage={errorEmail}
       />
@@ -127,8 +105,15 @@ const ForegetPasswordScreen: React.FC<ScreenType> = ({ navigation }) => {
         disable={errorEmail !== '' || email === ''}
       />
       <Space size={16} />
-    </View>
+    </Layout>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: 16,
+    paddingTop: 32,
+  },
+});
 
 export default ForegetPasswordScreen;

@@ -1,5 +1,4 @@
 import React, { useCallback, useState, useLayoutEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
 import {
   connectActionSheet,
   useActionSheet,
@@ -7,8 +6,10 @@ import {
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 import { Audio } from 'expo-av';
-import { LoadingModal, HeaderIcon, Layout } from '@/components/atoms';
 
+import { Icon, Layout } from '@/components/templates';
+import { LoadingModal } from '@/components/atoms';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Diary, LocalStatus, User } from '@/types';
 import {
   MyDiaryTabNavigationProp,
@@ -16,10 +17,11 @@ import {
 } from '@/navigations/MyDiaryTabNavigator';
 import I18n from '@/utils/I18n';
 import firestore from '@react-native-firebase/firestore';
-import ModalConfirm from '@/components/organisms/ModalConfirm';
-import MyDiary from '@/components/organisms/MyDiary/MyDiary';
-import { transparentBlack } from '@/styles/Common';
+import ModalConfirm from '@/components/features/Modal/ModalConfirm';
 import { logAnalytics } from '@/utils/Analytics';
+import HeaderIcon from '@/components/features/Header/HeaderIcon';
+import MyDiaryMain from '@/components/features/MyDiary/MyDiaryMain';
+import { useAppTheme } from '@/styles/colors';
 
 export interface Props {
   diary?: Diary;
@@ -44,20 +46,6 @@ type ScreenType = {
 } & Props &
   DispatchProps;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  adContainerStyle: {
-    backgroundColor: transparentBlack,
-  },
-  adTextStyle: {
-    fontWeight: 'bold',
-    color: '#fff',
-  },
-});
-
 const MyDiaryScreen: React.FC<ScreenType> = ({
   navigation,
   route,
@@ -68,6 +56,7 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
   editDiary,
   setUser,
 }) => {
+  const theme = useAppTheme();
   const { showActionSheetWithOptions } = useActionSheet();
   const [isLoading, setIsLoading] = useState(false);
   const [isModalDelete, setIsModalDelete] = useState(false);
@@ -133,13 +122,17 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
 
   const headerRight = useCallback(() => {
     return (
-      <HeaderIcon
-        icon='community'
-        name='dots-horizontal'
-        onPress={onPressMore}
-      />
+      <HeaderIcon>
+        <Icon onPress={onPressMore}>
+          <MaterialCommunityIcons
+            size={28}
+            name='dots-horizontal'
+            color={theme.colors.primary}
+          />
+        </Icon>
+      </HeaderIcon>
     );
-  }, [onPressMore]);
+  }, [onPressMore, theme.colors.primary]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -187,7 +180,7 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
   }
 
   return (
-    <View style={styles.container}>
+    <Layout>
       <LoadingModal visible={isLoading} />
       <ModalConfirm
         visible={isModalDelete}
@@ -214,7 +207,7 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
         onPressMain={onPressCloseModalAlertAudio}
         onPressClose={onPressCloseModalAlertAudio}
       />
-      <MyDiary
+      <MyDiaryMain
         isView={false}
         isPremium={localStatus.isPremium}
         caller={route.params.caller}
@@ -227,7 +220,8 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
         onPressRevise={onPressRevise}
         setUser={setUser}
       />
-    </View>
+    </Layout>
   );
 };
+
 export default connectActionSheet(MyDiaryScreen);

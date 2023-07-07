@@ -1,14 +1,15 @@
 import React, { useCallback, useLayoutEffect, useMemo, useState } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import I18n from '@/utils/I18n';
-import { fontSizeL, primaryColor } from '@/styles/Common';
 import { CheckItemDay } from '@/components/molecules';
-import { HeaderText, LoadingModal } from '@/components/atoms';
+import { Layout } from '@/components/templates';
+import { AppText, LoadingModal, Space } from '@/components';
 import { getDayName } from '@/utils/time';
 import { RouteProp } from '@react-navigation/native';
 import { OnboardingStackParamList } from '@/navigations/OnboardingNavigator';
 import { SettingTabStackParamList } from '@/navigations/SettingTabNavigator';
+import DefaultHeaderBack from '@/components/features/Header/DefaultHeaderBack';
 
 type NavigationProp = StackNavigationProp<
   OnboardingStackParamList | SettingTabStackParamList,
@@ -19,21 +20,6 @@ type ScreenType = {
   navigation: NavigationProp;
   route: RouteProp<OnboardingStackParamList, 'ReminderSelectDay'>;
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  title: {
-    paddingTop: 32,
-    paddingHorizontal: 16,
-    color: primaryColor,
-    fontSize: fontSizeL,
-    fontWeight: 'bold',
-    marginBottom: 32,
-  },
-});
 
 const ReminderSelectDayScreen: React.FC<ScreenType> = ({
   navigation,
@@ -168,16 +154,17 @@ const ReminderSelectDayScreen: React.FC<ScreenType> = ({
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerRight: () => (
-        <HeaderText text={I18n.t('common.done')} onPress={onPressDone} />
-      ),
+      headerLeft: () => <DefaultHeaderBack onPress={onPressDone} />,
     });
   }, [navigation, onPressDone]);
 
   return (
-    <View style={styles.container}>
+    <Layout innerStyle={styles.container}>
       <LoadingModal visible={loading} />
-      <Text style={styles.title}>{I18n.t('reminderSelectDay.title')}</Text>
+      <AppText size='l' bold style={styles.title}>
+        {I18n.t('reminderSelectDay.title')}
+      </AppText>
+      <Space size={32} />
       <CheckItemDay {...checkItemDayPills.sun} />
       <CheckItemDay {...checkItemDayPills.mon} />
       <CheckItemDay {...checkItemDayPills.tue} />
@@ -185,8 +172,17 @@ const ReminderSelectDayScreen: React.FC<ScreenType> = ({
       <CheckItemDay {...checkItemDayPills.thu} />
       <CheckItemDay {...checkItemDayPills.fri} />
       <CheckItemDay {...checkItemDayPills.sat} />
-    </View>
+    </Layout>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    paddingTop: 32,
+  },
+  title: {
+    paddingHorizontal: 16,
+  },
+});
 
 export default ReminderSelectDayScreen;

@@ -1,5 +1,5 @@
 import React, { useCallback, useLayoutEffect, useMemo, useState } from 'react';
-import { View, StyleSheet, ListRenderItem, Dimensions } from 'react-native';
+import { ListRenderItem, Dimensions } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 
 import {
@@ -8,10 +8,7 @@ import {
   getEntries,
   Entry,
   TopicGuideEnd,
-} from '@/components/organisms/TopicGuide';
-
-import TopicGuideWord from '@/components/organisms/TopicGuide/TopicGuideWord';
-import { mainColor, primaryColor } from '@/styles/Common';
+} from '@/components/features/TopicGuid';
 
 import {
   ModalTopicGuideStackNavigationProp,
@@ -20,6 +17,9 @@ import {
 import { User } from '@/types';
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { Layout } from '@/components/templates';
+import TopicGuideWord from '@/components/features/TopicGuid/TopicGuideWord';
+import { useAppTheme } from '@/styles/colors';
 
 export interface Props {
   user: User;
@@ -40,13 +40,6 @@ export type ScreenType = {
   route: TopicGuideRouteProp;
 } & Props;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});
-
 const { width } = Dimensions.get('window');
 
 const TopicGuideScreen: React.FC<ScreenType> = ({
@@ -54,6 +47,7 @@ const TopicGuideScreen: React.FC<ScreenType> = ({
   route,
   user,
 }) => {
+  const theme = useAppTheme();
   const { themeTitle, topicCategory, topicSubcategory, caller } = route.params;
 
   const entries = useMemo(() => {
@@ -114,7 +108,7 @@ const TopicGuideScreen: React.FC<ScreenType> = ({
   );
 
   return (
-    <View style={styles.container}>
+    <Layout>
       <Carousel
         data={entries}
         // @ts-ignore
@@ -128,10 +122,10 @@ const TopicGuideScreen: React.FC<ScreenType> = ({
       <Pagination
         activeDotIndex={activeSlide}
         dotsLength={entries.length}
-        dotColor={mainColor}
-        inactiveDotColor={primaryColor}
+        dotColor={theme.colors.main}
+        inactiveDotColor={theme.colors.primary}
       />
-    </View>
+    </Layout>
   );
 };
 

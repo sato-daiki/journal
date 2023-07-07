@@ -4,9 +4,7 @@ import { RouteProp } from '@react-navigation/native';
 import { State } from '../types/state';
 import { editDiary } from '@/stores/actions/diaryList';
 import { setUser } from '@/stores/actions/user';
-import ViewMyDiaryScreen, {
-  Props,
-} from '@/screens/Modal/ViewMyDiaryScreen/ViewMyDiaryScreen';
+import ViewMyDiaryScreen, { Props } from '@/screens/Modal/ViewMyDiaryScreen';
 import { ModalViewMyDiaryStackParamList } from '@/navigations/ModalNavigator';
 
 interface OwnProps {
