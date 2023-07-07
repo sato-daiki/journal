@@ -31,7 +31,7 @@ const CommonIcons: React.FC<Props> = ({
       <Icon onPress={onPressSpeech}>
         <MaterialCommunityIcons
           style={styles.icon}
-          size={moderateScale(180)}
+          size={moderateScale(18)}
           color={theme.colors.primary}
           name='volume-high'
         />

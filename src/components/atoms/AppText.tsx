@@ -15,6 +15,7 @@ import {
   fontSizeSS,
 } from '@/styles/fonts';
 import { useAppTheme } from '@/styles/colors';
+import { moderateScale } from '@/styles/metrics';
 
 export type TextSize = 'lll' | 'll' | 'l' | 'm' | 's' | 'ss';
 type Props = {
@@ -28,28 +29,28 @@ type Props = {
 
 const styles = StyleSheet.create({
   lllText: {
-    fontSize: fontSizeLLL,
-    lineHeight: fontSizeLLL * 1.3,
+    fontSize: moderateScale(fontSizeLLL),
+    lineHeight: moderateScale(fontSizeLLL) * 1.3,
   },
   llText: {
-    fontSize: fontSizeLL,
-    lineHeight: fontSizeLL * 1.3,
+    fontSize: moderateScale(fontSizeLL),
+    lineHeight: moderateScale(fontSizeLL) * 1.3,
   },
   lText: {
-    fontSize: fontSizeL,
-    lineHeight: fontSizeL * 1.3,
+    fontSize: moderateScale(fontSizeL),
+    lineHeight: moderateScale(fontSizeL) * 1.3,
   },
   mText: {
-    fontSize: fontSizeM,
-    lineHeight: fontSizeM * 1.3,
+    fontSize: moderateScale(fontSizeM),
+    lineHeight: moderateScale(fontSizeM) * 1.3,
   },
   sText: {
-    fontSize: fontSizeS,
-    lineHeight: fontSizeS * 1.3,
+    fontSize: moderateScale(fontSizeS),
+    lineHeight: moderateScale(fontSizeS) * 1.3,
   },
   ssText: {
-    fontSize: fontSizeSS,
-    lineHeight: fontSizeSS * 1.3,
+    fontSize: moderateScale(fontSizeSS),
+    lineHeight: moderateScale(fontSizeSS) * 1.3,
   },
   bold: {
     fontWeight: 'bold',

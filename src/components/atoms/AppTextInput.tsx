@@ -35,8 +35,8 @@ const AppTextInput: React.FC<Props> = ({ style, isOff, ...props }) => {
 
 const styles = StyleSheet.create({
   textInput: {
-    fontSize: moderateScale(fontSizeM, 0.2),
-    lineHeight: moderateScale(fontSizeM * 1.3, 0.2),
+    fontSize: moderateScale(fontSizeM),
+    lineHeight: moderateScale(fontSizeM) * 1.3,
     paddingTop: verticalScale(12),
     paddingBottom: verticalScale(12), // paddingVerticalとやると効かない（react nativeのバグ）
     paddingHorizontal: horizontalScale(16),

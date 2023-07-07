@@ -9,7 +9,11 @@ import {
 import ThumbnailListItem, { THUMBNAIL_WIDTH } from './ThumbnailListItem';
 import { ImageInfo } from '@/types/diary';
 import { useAppTheme } from '@/styles/colors';
-import { horizontalScale, verticalScale } from '@/styles/metrics';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '@/styles/metrics';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
@@ -62,8 +66,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   activityIndicator: {
-    width: horizontalScale(THUMBNAIL_WIDTH),
-    height: verticalScale(THUMBNAIL_WIDTH),
+    width: moderateScale(THUMBNAIL_WIDTH),
+    height: moderateScale(THUMBNAIL_WIDTH),
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: horizontalScale(4),

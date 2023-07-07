@@ -52,8 +52,8 @@ const ThumbnailListItem: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
   container: {
-    width: horizontalScale(THUMBNAIL_WIDTH),
-    height: verticalScale(THUMBNAIL_WIDTH),
+    width: moderateScale(THUMBNAIL_WIDTH),
+    height: moderateScale(THUMBNAIL_WIDTH),
     position: 'relative',
     marginRight: horizontalScale(4),
   },

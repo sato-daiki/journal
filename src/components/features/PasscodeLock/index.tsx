@@ -180,8 +180,8 @@ const styles = StyleSheet.create({
   dot: {
     borderWidth: moderateScale(1),
     borderRadius: moderateScale(DOT_CIRCLE_WIDTH / 2),
-    width: horizontalScale(DOT_CIRCLE_WIDTH),
-    height: verticalScale(DOT_CIRCLE_WIDTH),
+    width: moderateScale(DOT_CIRCLE_WIDTH),
+    height: moderateScale(DOT_CIRCLE_WIDTH),
     marginHorizontal: horizontalScale(DOT_CIRCLE_MARGIN),
   },
   row: {
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
     marginBottom: verticalScale(16),
   },
   dummyContainer: {
-    width: horizontalScale(NUM_CIRCLE_WIDTH),
+    width: moderateScale(NUM_CIRCLE_WIDTH),
     marginHorizontal: horizontalScale(NUM_CIRCLE_MARGIN),
     alignItems: 'center',
     justifyContent: 'center',
@@ -197,8 +197,8 @@ const styles = StyleSheet.create({
   numContainer: {
     borderWidth: moderateScale(1),
     borderRadius: moderateScale(NUM_CIRCLE_WIDTH / 2),
-    width: horizontalScale(NUM_CIRCLE_WIDTH),
-    height: verticalScale(NUM_CIRCLE_WIDTH),
+    width: moderateScale(NUM_CIRCLE_WIDTH),
+    height: moderateScale(NUM_CIRCLE_WIDTH),
     marginHorizontal: horizontalScale(NUM_CIRCLE_MARGIN),
     alignItems: 'center',
     justifyContent: 'center',

@@ -18,7 +18,7 @@ const DiaryText: React.FC<Props> = ({ children }) => {
 
 const styles = StyleSheet.create({
   text: {
-    lineHeight: moderateScale(fontSizeM * 1.8),
+    lineHeight: moderateScale(fontSizeM) * 1.8,
   },
 });
 

@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   deleteText: {
-    fontSize: moderateScale(fontSizeM),
+    fontSize: fontSizeM,
     paddingHorizontal: horizontalScale(32),
     fontWeight: 'bold',
   },
