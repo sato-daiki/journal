@@ -1,6 +1,6 @@
-import { horizontalScale } from '@/styles/metrics';
 import React, { ReactNode } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { horizontalScale } from '@/styles/metrics';
 
 interface Props {
   children: ReactNode;
