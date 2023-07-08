@@ -64,8 +64,8 @@ const styles = StyleSheet.create({
   },
   closeIcon: {
     position: 'absolute',
-    right: horizontalScale(-10),
-    top: verticalScale(-10),
+    right: moderateScale(-10),
+    top: moderateScale(-10),
     zIndex: 10,
     width: moderateScale(24),
     height: moderateScale(24),
@@ -77,8 +77,8 @@ const styles = StyleSheet.create({
   closeText: {
     position: 'absolute',
     fontSize: moderateScale(18),
-    top: verticalScale(-2),
-    left: horizontalScale(4.2),
+    top: moderateScale(-2),
+    left: moderateScale(4.2),
     fontWeight: 'bold',
     color: white,
   },

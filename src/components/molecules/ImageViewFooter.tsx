@@ -48,8 +48,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   dot: {
-    height: verticalScale(10),
-    width: horizontalScale(10),
+    height: moderateScale(10),
+    width: moderateScale(10),
     marginHorizontal: horizontalScale(6),
     borderRadius: moderateScale(5),
   },

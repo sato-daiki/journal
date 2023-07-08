@@ -217,8 +217,8 @@ const styles = StyleSheet.create({
     marginLeft: horizontalScale(8),
   },
   dot: {
-    width: horizontalScale(8),
-    height: verticalScale(8),
+    width: moderateScale(8),
+    height: moderateScale(8),
     borderRadius: moderateScale(4),
     marginRight: horizontalScale(4),
   },

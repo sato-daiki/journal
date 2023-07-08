@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Image, ImageStyle, Pressable, StyleProp } from 'react-native';
-import { moderateScale } from '@/styles/metrics';
 
 export interface Props {
   style?: StyleProp<ImageStyle>;
@@ -35,10 +34,7 @@ const ImageItem: React.FC<Props> = ({
   return (
     <Pressable onPress={onPress}>
       <Image
-        style={[
-          { width: moderateScale(width), height: moderateScale(imgHeight) },
-          style,
-        ]}
+        style={[{ width, height: imgHeight }, style]}
         source={{ uri: imageUrl }}
       />
     </Pressable>

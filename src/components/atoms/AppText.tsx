@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TextStyle,
   StyleProp,
+  Platform,
 } from 'react-native';
 import {
   fontSizeL,
