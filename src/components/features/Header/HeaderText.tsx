@@ -27,7 +27,7 @@ const HeaderText: React.FC<Props> = ({
       style={[styles.container, containerStyle]}
       onPress={onPress}
     >
-      {/* ヘッダーの文字サイズは固定したい */}
+      {/* ヘッダーの文字サイズは固定 */}
       <AppText style={styles.text} size='m' color={theme.colors.main}>
         {text}
       </AppText>

@@ -1,13 +1,10 @@
 import React, { ReactNode } from 'react';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { borderLight, useAppTheme } from '@/styles/colors';
-import { AppSwitch, AppText } from '../atoms';
-import {
-  horizontalScale,
-  moderateScale,
-  verticalScale,
-} from '@/styles/metrics';
+import { useAppTheme } from '@/styles/colors';
+import { AppSwitch, AppText } from '../../atoms';
+import { horizontalScale, moderateScale } from '@/styles/metrics';
+import OptionItemContainer from './OptionItemContainer';
 
 interface Props {
   type: 'right' | 'check' | 'switch' | 'nothing';
@@ -35,17 +32,10 @@ const OptionItem: React.FC<Props> = ({
   onValueChange,
 }) => {
   const theme = useAppTheme();
-  const borderTopWidth = isBorrderTop ? moderateScale(0.5) : undefined;
   return (
-    <TouchableOpacity
-      disabled={!onPress}
-      style={[
-        styles.container,
-        {
-          borderTopWidth,
-          backgroundColor: backgroundColor || theme.colors.option,
-        },
-      ]}
+    <OptionItemContainer
+      isBorrderTop={isBorrderTop}
+      backgroundColor={backgroundColor}
       onPress={onPress}
     >
       <View style={styles.leftContainer}>
@@ -70,22 +60,11 @@ const OptionItem: React.FC<Props> = ({
           <AppSwitch onValueChange={onValueChange} value={switchValue} />
         ) : null}
       </View>
-    </TouchableOpacity>
+    </OptionItemContainer>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    borderBottomWidth: moderateScale(0.5),
-    height: verticalScale(48),
-    paddingLeft: horizontalScale(16),
-    paddingRight: horizontalScale(6),
-    borderBottomColor: borderLight,
-    borderTopColor: borderLight,
-  },
   leftContainer: {
     flexDirection: 'row',
     alignItems: 'center',
