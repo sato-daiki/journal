@@ -1,6 +1,6 @@
-import { verticalScale } from '@/styles/metrics';
 import React from 'react';
 import { View } from 'react-native';
+import { verticalScale } from '@/styles/metrics';
 
 interface Props {
   size: number;
