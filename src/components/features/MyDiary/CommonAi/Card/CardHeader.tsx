@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   },
   iconLeft: {
     position: 'absolute',
-    top: verticalScale(30),
+    top: verticalScale(3),
     right: horizontalScale(88),
   },
   iconRight: {

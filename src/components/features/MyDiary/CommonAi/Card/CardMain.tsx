@@ -48,7 +48,12 @@ export const CardMain: React.FC<Props> = ({
   }, []);
 
   return (
-    <ScrollView contentContainerStyle={styles.scrollView}>
+    <ScrollView
+      contentContainerStyle={[
+        styles.scrollView,
+        { backgroundColor: theme.colors.background },
+      ]}
+    >
       <View>
         {!skipFirstRow && (
           <View style={styles.firstRow}>
@@ -163,8 +168,8 @@ const styles = StyleSheet.create({
     paddingBottom: verticalScale(8),
   },
   circle: {
-    width: horizontalScale(8),
-    height: verticalScale(8),
+    width: moderateScale(8),
+    height: moderateScale(8),
     borderRadius: moderateScale(4),
     marginRight: horizontalScale(12),
   },

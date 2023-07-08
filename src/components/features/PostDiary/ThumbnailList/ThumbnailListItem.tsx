@@ -5,15 +5,12 @@ import {
   Image,
   StyleProp,
   ViewStyle,
-  Text,
 } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { ImageInfo } from '@/types';
-import { black, white } from '@/styles/colors';
-import {
-  horizontalScale,
-  moderateScale,
-  verticalScale,
-} from '@/styles/metrics';
+import { useAppTheme } from '@/styles/colors';
+import { horizontalScale, moderateScale } from '@/styles/metrics';
+import { Icon } from '@/components/templates';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
@@ -32,6 +29,8 @@ const ThumbnailListItem: React.FC<Props> = ({
   onPressImage: propsImage,
   onPressDeleteImage: propsDeleteImage,
 }) => {
+  const theme = useAppTheme();
+
   const onPressImage = useCallback(() => {
     propsImage(index);
   }, [index, propsImage]);
@@ -43,9 +42,13 @@ const ThumbnailListItem: React.FC<Props> = ({
   return (
     <TouchableOpacity onPress={onPressImage} style={[styles.container, style]}>
       <Image source={{ uri: image.imageUrl }} style={styles.image} />
-      <TouchableOpacity style={styles.closeIcon} onPress={onPressDeleteImage}>
-        <Text style={styles.closeText}>×</Text>
-      </TouchableOpacity>
+      <Icon style={styles.closeIcon} onPress={onPressDeleteImage}>
+        <MaterialCommunityIcons
+          size={moderateScale(28)}
+          color={theme.colors.primary}
+          name='close-circle'
+        />
+      </Icon>
     </TouchableOpacity>
   );
 };
@@ -67,20 +70,6 @@ const styles = StyleSheet.create({
     right: moderateScale(-10),
     top: moderateScale(-10),
     zIndex: 10,
-    width: moderateScale(24),
-    height: moderateScale(24),
-    borderRadius: moderateScale(24 / 2),
-    borderWidth: moderateScale(2),
-    backgroundColor: black,
-    borderColor: white,
-  },
-  closeText: {
-    position: 'absolute',
-    fontSize: moderateScale(18),
-    top: moderateScale(-2),
-    left: moderateScale(4.2),
-    fontWeight: 'bold',
-    color: white,
   },
 });
 
