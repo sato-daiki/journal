@@ -14,6 +14,7 @@ import LanguageModalPicker from '@/components/molecules/LanguageModalPicker';
 import { borderLight, softRed, useAppTheme } from '@/styles/colors';
 import ModalConfirm from '../Modal/ModalConfirm';
 import ModalDiaryCancel from '../Modal/ModalDiaryCancel';
+import { horizontalScale, verticalScale } from '@/styles/metrics';
 
 const PostDiary: React.FC<PostDiaryProps> = ({
   navigation,
@@ -199,8 +200,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
+    paddingVertical: verticalScale(12),
+    paddingHorizontal: horizontalScale(16),
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderColor: borderLight,
   },
@@ -215,13 +216,13 @@ const styles = StyleSheet.create({
   title: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: 60,
+    width: horizontalScale(60),
   },
   headerLabel: {
-    marginRight: 4,
+    marginRight: horizontalScale(4),
   },
   headerValue: {
-    marginRight: 8,
+    marginRight: horizontalScale(8),
   },
 });
 

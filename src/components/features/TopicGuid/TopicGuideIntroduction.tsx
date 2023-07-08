@@ -5,6 +5,11 @@ import { IntroductionParams } from './interface';
 import Header from './Header';
 import { AppImage, AppText, Space } from '@/components/atoms';
 import SwipeGuid from './SwipeGuid';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '@/styles/metrics';
 
 interface Props {
   params: IntroductionParams;
@@ -25,14 +30,14 @@ const TopicGuideIntroduction = ({ params }: Props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 16,
-    paddingTop: 16,
+    paddingHorizontal: horizontalScale(16),
+    paddingTop: verticalScale(16),
   },
   image: {
-    marginTop: 16,
+    marginTop: verticalScale(16),
     alignSelf: 'center',
-    width: 80,
-    height: 80,
+    width: moderateScale(80),
+    height: moderateScale(80),
   },
 });
 

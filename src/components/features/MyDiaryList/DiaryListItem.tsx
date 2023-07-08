@@ -6,6 +6,7 @@ import { AppText } from '@/components/atoms';
 import DiaryTitleWithPill from '../MyDiary/DiaryTitleWithPill';
 import { borderLight, useAppTheme } from '@/styles/colors';
 import MyDiaryStatusLabel from '../MyDiary/MyDiaryStatusLabel';
+import { horizontalScale, verticalScale } from '@/styles/metrics';
 
 interface Props {
   mine?: boolean;
@@ -61,8 +62,8 @@ const DiaryListItem = ({ item, onPressItem }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 8,
-    paddingHorizontal: 16,
+    paddingVertical: verticalScale(8),
+    paddingHorizontal: horizontalScale(16),
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: borderLight,
   },
@@ -70,7 +71,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingBottom: 4,
+    paddingBottom: verticalScale(4),
   },
   content: {
     flexDirection: 'row',

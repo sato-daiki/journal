@@ -3,6 +3,11 @@ import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { borderLight, useAppTheme } from '@/styles/colors';
 import { AppSwitch, AppText } from '../atoms';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '@/styles/metrics';
 
 interface Props {
   type: 'right' | 'check' | 'switch' | 'nothing';
@@ -30,7 +35,7 @@ const OptionItem: React.FC<Props> = ({
   onValueChange,
 }) => {
   const theme = useAppTheme();
-  const borderTopWidth = isBorrderTop ? 0.5 : undefined;
+  const borderTopWidth = isBorrderTop ? moderateScale(0.5) : undefined;
   return (
     <TouchableOpacity
       disabled={!onPress}
@@ -51,15 +56,15 @@ const OptionItem: React.FC<Props> = ({
         {righComponent}
         {type === 'right' ? (
           <MaterialCommunityIcons
-            size={28}
+            size={moderateScale(28)}
             color={theme.colors.secondary}
             name='chevron-right'
           />
         ) : type === 'check' && checkValue ? (
           <MaterialCommunityIcons
-            name='check'
-            size={26}
+            size={moderateScale(26)}
             color={theme.colors.primary}
+            name='check'
           />
         ) : type === 'switch' ? (
           <AppSwitch onValueChange={onValueChange} value={switchValue} />
@@ -74,10 +79,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    borderBottomWidth: 0.5,
-    height: 48,
-    paddingLeft: 16,
-    paddingRight: 6,
+    borderBottomWidth: moderateScale(0.5),
+    height: verticalScale(48),
+    paddingLeft: horizontalScale(16),
+    paddingRight: horizontalScale(6),
     borderBottomColor: borderLight,
     borderTopColor: borderLight,
   },
@@ -86,7 +91,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   leftIcon: {
-    width: 22,
+    width: horizontalScale(22),
   },
   rightContainer: {
     flexDirection: 'row',

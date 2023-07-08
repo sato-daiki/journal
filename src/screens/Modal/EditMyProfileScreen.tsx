@@ -17,6 +17,7 @@ import { getLanguageToolName } from '@/utils/grammarCheck';
 import LanguageModalPicker from '@/components/molecules/LanguageModalPicker';
 import { PickerItem } from '@/components/molecules/ModalPicker';
 import HeaderText from '@/components/features/Header/HeaderText';
+import { horizontalScale, verticalScale } from '@/styles/metrics';
 
 export interface Props {
   user: User;
@@ -105,8 +106,8 @@ const EditMyProfileScreen: React.FC<ScreenType> = ({
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 16,
-    paddingTop: 32,
+    paddingHorizontal: horizontalScale(16),
+    paddingTop: verticalScale(32),
   },
 });
 

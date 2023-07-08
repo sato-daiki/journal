@@ -5,6 +5,7 @@ import I18n from '@/utils/I18n';
 import TimePicker from '../../molecules/TimePicker';
 import { borderLight } from '@/styles/colors';
 import { AppText } from '@/components/atoms';
+import { horizontalScale, verticalScale } from '@/styles/metrics';
 
 interface Props {
   day?: number;
@@ -67,9 +68,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    height: 48,
-    paddingLeft: 16,
-    paddingRight: 8,
+    height: verticalScale(48),
+    paddingLeft: horizontalScale(16),
+    paddingRight: horizontalScale(8),
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: borderLight,
   },
@@ -78,13 +79,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   marginRight8: {
-    marginRight: 8,
+    marginRight: horizontalScale(8),
   },
   marginRight12: {
-    marginRight: 12,
+    marginRight: horizontalScale(12),
   },
   heading: {
-    marginRight: 16,
+    marginRight: horizontalScale(16),
   },
   opacity: {
     opacity: 0.4,

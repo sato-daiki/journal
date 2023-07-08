@@ -3,6 +3,7 @@ import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { PickerItem } from '.';
 import { AppText } from '@/components/atoms';
 import { borderLight, useAppTheme } from '@/styles/colors';
+import { moderateScale, verticalScale } from '@/styles/metrics';
 
 type Props = {
   item: PickerItem;
@@ -29,11 +30,11 @@ const PItem: React.FC<Props> = ({ item, onPressItem }) => {
 
 const styles = StyleSheet.create({
   container: {
-    borderBottomWidth: 1,
+    borderBottomWidth: moderateScale(1),
     borderBottomColor: borderLight,
   },
   label: {
-    paddingVertical: 12,
+    paddingVertical: verticalScale(12),
   },
 });
 

@@ -4,6 +4,7 @@ import I18n from '@/utils/I18n';
 import { ThemeCategory } from '@/types';
 import { SmallPill } from '@/components/atoms';
 import { useAppTheme, white } from '@/styles/colors';
+import { horizontalScale } from '@/styles/metrics';
 
 interface Props {
   themeCategory: ThemeCategory;
@@ -23,7 +24,7 @@ const ThemeSmallPill: React.FC<Props> = ({ themeCategory }) => {
 
 const styles = StyleSheet.create({
   smallPill: {
-    marginRight: 8,
+    marginRight: horizontalScale(8),
   },
 });
 

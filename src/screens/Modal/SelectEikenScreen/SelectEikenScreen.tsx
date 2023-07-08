@@ -10,6 +10,7 @@ import { User } from '@/types';
 import SelectEikenListItem from '@/components/features/SelectEiken/SelectEikenListItem';
 import { EikentTitle, geEikentTitles } from './config/title';
 import { Layout } from '@/components/templates';
+import { verticalScale } from '@/styles/metrics';
 
 export interface Props {
   user: User;
@@ -88,7 +89,7 @@ const SelectEikenScreen: React.FC<ScreenType> = ({
     <Layout>
       <FlatList
         data={data}
-        contentContainerStyle={{ paddingBottom: 32 }}
+        contentContainerStyle={{ paddingBottom: verticalScale(32) }}
         keyExtractor={keyExtractor}
         renderItem={renderItem}
       />

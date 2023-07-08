@@ -10,6 +10,7 @@ import {
   CheckTextInput,
   AppText,
 } from '@/components';
+import { horizontalScale, verticalScale } from '@/styles/metrics';
 
 interface Props {
   visible: boolean;
@@ -97,10 +98,11 @@ const ModalDeleteAcount: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
+    paddingHorizontal: horizontalScale(16),
+    paddingVertical: verticalScale(16),
   },
   button: {
-    paddingHorizontal: 16,
+    paddingHorizontal: horizontalScale(16),
   },
 });
 

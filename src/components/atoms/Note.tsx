@@ -3,6 +3,11 @@ import { StyleSheet, View } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import AppText from './AppText';
 import { Icon } from '../templates';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '@/styles/metrics';
 
 interface Props {
   text: string;
@@ -28,9 +33,9 @@ const Note: React.FC<Props> = ({
       <View style={styles.icon}>
         <Icon onPress={onPressClose}>
           <MaterialCommunityIcons
-            name='close-circle-outline'
-            size={32}
+            size={moderateScale(32)}
             color={color}
+            name='close-circle-outline'
           />
         </Icon>
       </View>
@@ -43,16 +48,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingLeft: 16,
-    paddingVertical: 16,
+    paddingLeft: horizontalScale(16),
+    paddingVertical: verticalScale(16),
     flex: 1,
   },
   text: {
     flex: 1,
   },
   icon: {
-    width: 50,
-    height: 50,
+    width: horizontalScale(50),
+    height: verticalScale(50),
     alignItems: 'center',
     justifyContent: 'center',
   },

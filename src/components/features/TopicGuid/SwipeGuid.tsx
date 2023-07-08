@@ -3,6 +3,11 @@ import { StyleSheet, View } from 'react-native';
 import { Swipe } from '@/images';
 import I18n from '@/utils/I18n';
 import { AppImage, AppText } from '@/components/atoms';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '@/styles/metrics';
 
 type SwipeGuidType = 'end' | 'start';
 
@@ -32,15 +37,15 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   right: {
-    right: 16,
+    right: horizontalScale(16),
   },
   left: {
-    left: 16,
+    left: horizontalScale(16),
   },
   icon: {
-    width: 40,
-    height: 32,
-    marginBottom: 12,
+    width: moderateScale(40),
+    height: moderateScale(32),
+    marginBottom: verticalScale(12),
   },
 });
 

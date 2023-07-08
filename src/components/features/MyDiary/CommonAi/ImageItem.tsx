@@ -34,7 +34,7 @@ const ImageItem: React.FC<Props> = ({
   return (
     <Pressable onPress={onPress}>
       <Image
-        style={[{ width: width, height: imgHeight }, style]}
+        style={[{ width, height: imgHeight }, style]}
         source={{ uri: imageUrl }}
       />
     </Pressable>

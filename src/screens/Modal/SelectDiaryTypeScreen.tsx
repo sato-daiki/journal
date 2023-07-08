@@ -14,6 +14,11 @@ import { Layout } from '@/components/templates';
 import HeaderText from '@/components/features/Header/HeaderText';
 import SelecttionBox from '@/components/features/SelectDiaryType/SelecttionBox';
 import { AppImage } from '@/components';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '@/styles/metrics';
 
 type NavigationProp = CompositeNavigationProp<
   StackNavigationProp<ModalSelectDiaryTypeStackParamList, 'SelectDiaryType'>,
@@ -101,10 +106,10 @@ const SelectDiaryTypeScreen: React.FC<ScreenType> = ({ navigation }) => {
           text={I18n.t('selectDiaryType.textEiken1')}
           image={
             <MaterialCommunityIcons
-              name={'numeric-1-box'}
-              size={36}
               style={styles.icon}
+              size={moderateScale(36)}
               color={theme.colors.primary}
+              name={'numeric-1-box'}
             />
           }
           onPress={onPressEiken1}
@@ -115,10 +120,10 @@ const SelectDiaryTypeScreen: React.FC<ScreenType> = ({ navigation }) => {
           text={I18n.t('selectDiaryType.textEikenPre1')}
           image={
             <MaterialCommunityIcons
-              name={'numeric-1-box-multiple-outline'}
-              size={32}
               style={styles.icon}
+              size={moderateScale(32)}
               color={theme.colors.primary}
+              name={'numeric-1-box-multiple-outline'}
             />
           }
           onPress={onPressEikenPre1}
@@ -132,10 +137,10 @@ const SelectDiaryTypeScreen: React.FC<ScreenType> = ({ navigation }) => {
           text={I18n.t('selectDiaryType.textEiken2')}
           image={
             <MaterialCommunityIcons
-              name={'numeric-2-box'}
-              size={36}
               style={styles.icon}
+              size={moderateScale(36)}
               color={theme.colors.primary}
+              name={'numeric-2-box'}
             />
           }
           onPress={onPressEiken2}
@@ -146,10 +151,10 @@ const SelectDiaryTypeScreen: React.FC<ScreenType> = ({ navigation }) => {
           text={I18n.t('selectDiaryType.textEikenPre2')}
           image={
             <MaterialCommunityIcons
-              name={'numeric-2-box-multiple-outline'}
-              size={32}
               style={styles.icon}
+              size={moderateScale(32)}
               color={theme.colors.primary}
+              name={'numeric-2-box-multiple-outline'}
             />
           }
           onPress={onPressEikenPre2}
@@ -161,29 +166,29 @@ const SelectDiaryTypeScreen: React.FC<ScreenType> = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 32,
+    paddingTop: verticalScale(32),
     alignItems: 'center',
   },
   row: {
-    paddingHorizontal: 16,
+    paddingHorizontal: horizontalScale(16),
     flexDirection: 'row',
-    marginBottom: 16,
+    marginBottom: verticalScale(16),
   },
   marginRight: {
-    marginRight: 8,
+    marginRight: horizontalScale(8),
   },
   marginLeft: {
-    marginLeft: 8,
+    marginLeft: horizontalScale(8),
   },
   image: {
-    width: 40,
-    height: 40,
-    marginTop: 16,
-    marginBottom: 16,
+    width: moderateScale(40),
+    height: moderateScale(40),
+    marginTop: verticalScale(16),
+    marginBottom: verticalScale(16),
   },
   icon: {
-    marginTop: 8,
-    marginBottom: 4,
+    marginTop: verticalScale(8),
+    marginBottom: verticalScale(4),
   },
 });
 

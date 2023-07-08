@@ -2,6 +2,7 @@ import React from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useAppTheme } from '@/styles/colors';
 import { Icon } from '../templates';
+import { moderateScale } from '@/styles/metrics';
 
 interface Props {
   checked?: boolean;
@@ -15,7 +16,7 @@ const Checkbox: React.FC<Props> = ({ checked, disable, onPress }: Props) => {
     return (
       <Icon onPress={onPress} disabled={!onPress}>
         <MaterialCommunityIcons
-          size={28}
+          size={moderateScale(28)}
           color={theme.colors.main}
           name='checkbox-blank-outline'
         />
@@ -25,7 +26,7 @@ const Checkbox: React.FC<Props> = ({ checked, disable, onPress }: Props) => {
   return (
     <Icon onPress={onPress} disabled={!onPress}>
       <MaterialCommunityIcons
-        size={28}
+        size={moderateScale(28)}
         color={theme.colors.main}
         name='checkbox-marked'
       />

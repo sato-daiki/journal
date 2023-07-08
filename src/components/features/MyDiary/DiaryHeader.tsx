@@ -6,6 +6,7 @@ import { getDate } from '@/utils/time';
 import CountryNameWithFlag from '../../molecules/CountryNameWithFlag';
 import { AppText } from '@/components/atoms';
 import { useAppTheme } from '@/styles/colors';
+import { horizontalScale, verticalScale } from '@/styles/metrics';
 
 type Props = {
   diary: Diary;
@@ -39,14 +40,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingBottom: 4,
+    paddingBottom: verticalScale(4),
   },
   right: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   countryNameWithFlag: {
-    paddingRight: 8,
+    paddingRight: horizontalScale(8),
   },
 });
 

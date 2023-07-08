@@ -4,6 +4,11 @@ import { AppImage, AppText, Space, SubmitButton } from '@/components/atoms';
 import I18n from '@/utils/I18n';
 import { Write } from '@/images';
 import SwipeGuid from '@/components/features/TopicGuid/SwipeGuid';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '@/styles/metrics';
 
 interface Props {
   onPressSubmit: () => void;
@@ -27,13 +32,13 @@ const TopicGuideEnd: React.FC<Props> = ({ onPressSubmit }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 16,
+    paddingHorizontal: horizontalScale(16),
     justifyContent: 'center',
     alignItems: 'center',
   },
   image: {
-    width: 70,
-    height: 70,
+    width: moderateScale(70),
+    height: moderateScale(70),
   },
 });
 

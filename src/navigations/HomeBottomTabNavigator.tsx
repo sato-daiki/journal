@@ -52,7 +52,7 @@ const HomeBottomTabNavigator: React.FC<Props> = ({ user }) => {
         options={{
           tabBarLabel: I18n.t('mainTab.myDiary'),
           tabBarIcon: ({ color }: { color: string }) => (
-            <MaterialCommunityIcons name='book-open' size={25} color={color} />
+            <MaterialCommunityIcons size={25} color={color} name='book-open' />
           ),
         }}
       />
@@ -63,7 +63,7 @@ const HomeBottomTabNavigator: React.FC<Props> = ({ user }) => {
         options={{
           tabBarLabel: I18n.t('mainTab.postDiary'),
           tabBarIcon: ({ color }: { color: string }) => (
-            <MaterialCommunityIcons name='pencil' size={25} color={color} />
+            <MaterialCommunityIcons size={25} color={color} name='pencil' />
           ),
         }}
         listeners={({
@@ -92,7 +92,7 @@ const HomeBottomTabNavigator: React.FC<Props> = ({ user }) => {
         options={{
           tabBarLabel: I18n.t('mainTab.setting'),
           tabBarIcon: ({ color }: { color: string }) => (
-            <MaterialIcons name='settings' size={25} color={color} />
+            <MaterialIcons size={25} color={color} name='settings' />
           ),
         }}
       />

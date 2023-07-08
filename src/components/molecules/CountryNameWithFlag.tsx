@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { StyleSheet, View, StyleProp, ViewStyle } from 'react-native';
 import Flag from 'react-native-flags';
 import { LongCode } from '@/types';
@@ -9,6 +9,8 @@ import {
 } from '@/utils/grammarCheck';
 import { Size } from './ModalPicker';
 import { AppText } from '../atoms';
+import { horizontalScale } from '@/styles/metrics';
+import * as Device from 'expo-device';
 
 interface Props {
   containerStyle?: StyleProp<ViewStyle>;
@@ -21,6 +23,16 @@ const CountryNameWithFlag: React.FC<Props> = ({
   size,
   longCode,
 }) => {
+  const [flagSize, setFlagSize] = useState<number>(24);
+  useEffect(() => {
+    const f = async () => {
+      const newDeviceType = await Device.getDeviceTypeAsync();
+      if (newDeviceType === Device.DeviceType.TABLET) {
+        setFlagSize(32);
+      }
+    };
+    f();
+  }, []);
   const nationalityCode = useMemo(() => {
     return getLanguageToolNationalityCode(longCode);
   }, [longCode]);
@@ -33,7 +45,7 @@ const CountryNameWithFlag: React.FC<Props> = ({
 
   return (
     <View style={[styles.container, containerStyle]}>
-      <Flag code={nationalityCode} size={24} />
+      <Flag code={nationalityCode} size={flagSize} />
       <AppText size='m' style={styles.nationality}>
         {shortName}
       </AppText>
@@ -47,7 +59,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   nationality: {
-    marginLeft: 8,
+    marginLeft: horizontalScale(8),
   },
 });
 

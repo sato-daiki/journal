@@ -17,6 +17,7 @@ import { LongCode } from '@/types';
 import { useAppTheme } from '@/styles/colors';
 import { Layout } from '@/components/templates';
 import ModalSendEmail from '@/components/features/Modal/ModalSendEmail';
+import { horizontalScale, verticalScale } from '@/styles/metrics';
 
 type NavigationProp = CompositeNavigationProp<
   StackNavigationProp<SettingTabStackParamList, 'ForegetPassword'>,
@@ -111,8 +112,8 @@ const ForegetPasswordScreen: React.FC<ScreenType> = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 16,
-    paddingTop: 32,
+    paddingHorizontal: horizontalScale(16),
+    paddingTop: verticalScale(32),
   },
 });
 

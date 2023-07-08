@@ -33,6 +33,7 @@ import firestore, {
 } from '@react-native-firebase/firestore';
 import { PRIVACY_POLICY, TERMS } from '@/constants/url';
 import { useAppTheme } from '@/styles/colors';
+import { horizontalScale, moderateScale, verticalScale } from '@/styles/metrics';
 
 export interface Props {
   user: User;
@@ -292,8 +293,8 @@ const styles = StyleSheet.create({
   },
   main: {
     flex: 1,
-    paddingTop: 32,
-    paddingHorizontal: 16,
+    paddingTop: verticalScale(32),
+    paddingHorizontal: horizontalScale(16),
   },
   row: {
     flexDirection: 'row',
@@ -302,11 +303,11 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   line: {
-    borderBottomWidth: 1,
+    borderBottomWidth: moderateScale(1),
     flex: 1,
   },
   or: {
-    paddingHorizontal: 16,
+    paddingHorizontal: horizontalScale(16),
   },
 });
 

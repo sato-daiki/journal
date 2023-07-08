@@ -30,6 +30,7 @@ import HeaderIcon from '@/components/features/Header/HeaderIcon';
 import HeaderText from '@/components/features/Header/HeaderText';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useAppTheme } from '@/styles/colors';
+import { moderateScale } from '@/styles/metrics';
 
 export interface Props {
   user: User;
@@ -214,13 +215,13 @@ const MyDiaryListScreen: React.FC<ScreenType> = ({
         <Icon onPress={onPressRight}>
           <MaterialCommunityIcons
             size={28}
+            color={theme.colors.primary}
             name={
               !localStatus.myDiaryListView ||
               localStatus.myDiaryListView === 'list'
                 ? 'calendar'
                 : 'format-list-bulleted'
             }
-            color={theme.colors.primary}
           />
         </Icon>
       </HeaderIcon>

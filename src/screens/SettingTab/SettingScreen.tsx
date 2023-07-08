@@ -37,6 +37,11 @@ import {
 } from '@/constants/url';
 import { SecureStorageKey, StorageKey } from '@/constants/asyncStorage';
 import { getLanguageToolCode } from '@/utils/grammarCheck';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '@/styles/metrics';
 
 export interface Props {
   user: User;
@@ -153,9 +158,9 @@ const SettingScreen: React.FC<ScreenType> = ({
             title={I18n.t('setting.status')}
             leftIcon={
               <MaterialCommunityIcons
-                name='star-four-points-outline'
-                size={16}
+                size={moderateScale(16)}
                 color={theme.colors.primary}
+                name='star-four-points-outline'
               />
             }
             righComponent={
@@ -171,9 +176,9 @@ const SettingScreen: React.FC<ScreenType> = ({
             title={I18n.t('setting.aboutPremium')}
             leftIcon={
               <MaterialCommunityIcons
-                name='star-four-points-outline'
-                size={16}
+                size={moderateScale(16)}
                 color={theme.colors.primary}
+                name='star-four-points-outline'
               />
             }
             onPress={(): void => {
@@ -194,14 +199,14 @@ const SettingScreen: React.FC<ScreenType> = ({
           title={I18n.t('setting.learn')}
           leftIcon={
             <MaterialCommunityIcons
-              name='pencil-outline'
-              size={16}
+              size={moderateScale(16)}
               color={theme.colors.primary}
+              name='pencil-outline'
             />
           }
           righComponent={
             <CountryNameWithFlag
-              containerStyle={{ paddingRight: 4 }}
+              containerStyle={{ paddingRight: horizontalScale(4) }}
               size={'large'}
               longCode={user.learnLanguage}
             />
@@ -217,9 +222,9 @@ const SettingScreen: React.FC<ScreenType> = ({
           title={I18n.t('setting.passcodeLock')}
           leftIcon={
             <MaterialCommunityIcons
-              name='lock-outline'
-              size={16}
+              size={moderateScale(16)}
               color={theme.colors.primary}
+              name='lock-outline'
             />
           }
           switchValue={localStatus.hasPasscode}
@@ -230,9 +235,9 @@ const SettingScreen: React.FC<ScreenType> = ({
           title={I18n.t('setting.reminder')}
           leftIcon={
             <MaterialCommunityIcons
-              name='bell-outline'
-              size={16}
+              size={moderateScale(16)}
               color={theme.colors.primary}
+              name='bell-outline'
             />
           }
           onPress={onPressReminder}
@@ -244,9 +249,9 @@ const SettingScreen: React.FC<ScreenType> = ({
               title={I18n.t('setting.editEmail')}
               leftIcon={
                 <MaterialCommunityIcons
-                  name='email-edit-outline'
-                  size={16}
+                  size={moderateScale(16)}
                   color={theme.colors.primary}
+                  name='email-edit-outline'
                 />
               }
               onPress={(): void => {
@@ -258,9 +263,9 @@ const SettingScreen: React.FC<ScreenType> = ({
               title={I18n.t('setting.editPassword')}
               leftIcon={
                 <MaterialCommunityIcons
-                  name='briefcase-edit-outline'
-                  size={16}
+                  size={moderateScale(16)}
                   color={theme.colors.primary}
+                  name='briefcase-edit-outline'
                 />
               }
               onPress={(): void => {
@@ -274,9 +279,9 @@ const SettingScreen: React.FC<ScreenType> = ({
             title={I18n.t('setting.registerEmailPassword')}
             leftIcon={
               <MaterialCommunityIcons
-                name='email-edit-outline'
-                size={16}
+                size={moderateScale(16)}
                 color={theme.colors.primary}
+                name='email-edit-outline'
               />
             }
             onPress={(): void => {
@@ -375,20 +380,20 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   contentContainerStyle: {
-    paddingTop: 32,
+    paddingTop: verticalScale(32),
   },
   title: {
-    paddingLeft: 16,
+    paddingLeft: horizontalScale(16),
   },
   premiumText: {
-    paddingRight: 4,
+    paddingRight: horizontalScale(4),
   },
   logoutButton: {
     alignItems: 'center',
     justifyContent: 'center',
-    borderTopWidth: 0.5,
-    borderBottomWidth: 0.5,
-    height: 48,
+    borderTopWidth: moderateScale(0.5),
+    borderBottomWidth: moderateScale(0.5),
+    height: verticalScale(48),
     borderTopColor: borderLight,
     borderBottomColor: borderLight,
   },

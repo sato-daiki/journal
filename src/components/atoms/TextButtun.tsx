@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { useAppTheme } from '@/styles/colors';
 import AppText from './AppText';
+import { verticalScale } from '@/styles/metrics';
 
 interface Props {
   isBorrderTop?: boolean;
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    height: 36,
+    height: verticalScale(36),
   },
 });
 

@@ -14,6 +14,7 @@ import { Layout } from '@/components/templates';
 import { AppText, Space, WhiteButton } from '@/components/atoms';
 import { softRed, useAppTheme } from '@/styles/colors';
 import ModalDeleteAcount from '@/components/features/Modal/ModalDeleteAcount';
+import { horizontalScale, verticalScale } from '@/styles/metrics';
 
 interface DispatchProps {
   signOut: () => void;
@@ -132,8 +133,8 @@ const DeleteAcountScreen: React.FC<ScreenType> = ({ signOut }) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 32,
-    paddingHorizontal: 16,
+    paddingTop: verticalScale(32),
+    paddingHorizontal: horizontalScale(16),
   },
 });
 

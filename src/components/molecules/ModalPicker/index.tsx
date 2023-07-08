@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import { FlatList, ListRenderItem } from 'react-native';
 import PItem from './PItem';
 import Modal from '@/components/templates/Modal';
+import { horizontalScale } from '@/styles/metrics';
 
 export type PickerItem = {
   value: string;
@@ -32,7 +33,7 @@ const ModalPicker: React.FC<Props> = ({ isVisible, items, onPressItem }) => {
         keyExtractor={(_item, index) => String(index)}
         data={items}
         renderItem={renderItem}
-        contentContainerStyle={{ paddingHorizontal: 20 }}
+        contentContainerStyle={{ paddingHorizontal: horizontalScale(20) }}
       />
     </Modal>
   );

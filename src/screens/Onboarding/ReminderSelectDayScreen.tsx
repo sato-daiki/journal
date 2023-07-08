@@ -10,6 +10,7 @@ import { RouteProp } from '@react-navigation/native';
 import { OnboardingStackParamList } from '@/navigations/OnboardingNavigator';
 import { SettingTabStackParamList } from '@/navigations/SettingTabNavigator';
 import DefaultHeaderBack from '@/components/features/Header/DefaultHeaderBack';
+import { horizontalScale, verticalScale } from '@/styles/metrics';
 
 type NavigationProp = StackNavigationProp<
   OnboardingStackParamList | SettingTabStackParamList,
@@ -178,10 +179,10 @@ const ReminderSelectDayScreen: React.FC<ScreenType> = ({
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 32,
+    paddingTop: verticalScale(32),
   },
   title: {
-    paddingHorizontal: 16,
+    paddingHorizontal: horizontalScale(16),
   },
 });
 

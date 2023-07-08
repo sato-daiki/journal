@@ -4,6 +4,7 @@ import { StyleSheet, TouchableOpacity } from 'react-native';
 import { getTime } from '@/utils/time';
 import { useAppTheme } from '@/styles/colors';
 import { AppText } from '@/components/atoms';
+import { horizontalScale, moderateScale, verticalScale } from '@/styles/metrics';
 
 type Props = {
   date: Date;
@@ -24,10 +25,10 @@ const TimeBox: React.FC<Props> = ({ onPress, date }) => {
 
 const styles = StyleSheet.create({
   border: {
-    borderRadius: 4,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderWidth: 1,
+    borderRadius: moderateScale(4),
+    paddingHorizontal: horizontalScale(8),
+    paddingVertical: verticalScale(4),
+    borderWidth: moderateScale(1),
   },
 });
 

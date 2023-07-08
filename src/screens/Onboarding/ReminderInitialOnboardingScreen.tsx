@@ -8,6 +8,7 @@ import { User } from '@/types';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { OnboardingStackParamList } from '@/navigations/OnboardingNavigator';
 import firestore from '@react-native-firebase/firestore';
+import { horizontalScale, verticalScale } from '@/styles/metrics';
 
 export interface Props {
   user: User;
@@ -66,11 +67,11 @@ const ReminderInitialOnboardingScreen: React.FC<ScreenType> = ({
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 16,
-    paddingTop: 64,
+    paddingHorizontal: horizontalScale(16),
+    paddingTop: verticalScale(64),
   },
   linkContainer: {
-    height: 100,
+    height: verticalScale(100),
   },
 });
 

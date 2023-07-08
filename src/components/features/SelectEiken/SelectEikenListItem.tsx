@@ -7,6 +7,7 @@ import DiaryStatusLabel from '../MyDiary/MyDiaryStatusLabel/DiaryStatusLabel';
 import { borderLight, useAppTheme } from '@/styles/colors';
 import { AppText } from '@/components/atoms';
 import I18n from '@/utils/I18n';
+import { horizontalScale, verticalScale } from '@/styles/metrics';
 
 interface Props {
   themeDiary?: ThemeDiary;
@@ -61,8 +62,8 @@ const SelectEikenListItem: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 16,
-    paddingHorizontal: 16,
+    paddingVertical: verticalScale(16),
+    paddingHorizontal: horizontalScale(16),
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: borderLight,
   },
@@ -70,16 +71,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 4,
+    marginBottom: verticalScale(4),
   },
   textRight: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    marginLeft: 8,
+    marginLeft: horizontalScale(8),
   },
   postDayText: {
-    marginRight: 8,
+    marginRight: horizontalScale(8),
   },
 });
 

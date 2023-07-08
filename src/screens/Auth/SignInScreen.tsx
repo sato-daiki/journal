@@ -21,6 +21,7 @@ import {
 } from '@/navigations/AuthNavigator';
 import { CompositeNavigationProp } from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
+import { horizontalScale, verticalScale } from '@/styles/metrics';
 
 export type NavigationProp = CompositeNavigationProp<
   StackNavigationProp<AuthStackParamList, 'SignIn'>,
@@ -159,8 +160,8 @@ const styles = StyleSheet.create({
   },
   main: {
     flex: 1,
-    paddingHorizontal: 16,
-    paddingTop: 32,
+    paddingHorizontal: horizontalScale(16),
+    paddingTop: verticalScale(32),
   },
   row: {
     flexDirection: 'row',

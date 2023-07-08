@@ -13,6 +13,7 @@ import { DarkMode, LocalStatus, ThemeColor } from '../../types';
 import { Layout } from '@/components/templates';
 import OptionItem from '@/components/molecules/OptionItem';
 import { useAppTheme } from '@/styles/colors';
+import { verticalScale } from '@/styles/metrics';
 
 export interface Props {
   localStatus: LocalStatus;
@@ -92,7 +93,7 @@ const DisplayScreen: React.FC<ScreenType> = ({ localStatus, setDarkMode }) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 32,
+    paddingTop: verticalScale(32),
   },
 });
 
