@@ -311,6 +311,8 @@ const setting = {
   aboutPremium: 'プレミアム会員について',
   basic: '基本設定',
   display: '画面表示',
+  darkMode: 'ダークモード',
+  fontSize: '文字サイズ',
   app: 'アプリについて',
   learn: '勉強中の言語',
   passcodeLock: 'パスコード設定',
@@ -330,6 +332,10 @@ const display = {
   device: '端末の設定を使う',
   light: 'ライトモード',
   dark: 'ダークモード',
+};
+
+const fontSize = {
+  headerTitle: '文字サイズ',
 };
 
 const signIn = {
@@ -652,6 +658,7 @@ const ja = {
   topicGuide,
   setting,
   display,
+  fontSize,
   signIn,
   signUp,
   record,

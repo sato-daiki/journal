@@ -42,6 +42,7 @@ import {
   moderateScale,
   verticalScale,
 } from '@/styles/metrics';
+import OptionItemContainer from '@/components/molecules/OptionItem/OptionItemContainer';
 
 export interface Props {
   user: User;
@@ -297,11 +298,18 @@ const SettingScreen: React.FC<ScreenType> = ({
         <OptionItem
           type='right'
           isBorrderTop
-          title={I18n.t('setting.display')}
+          title={I18n.t('setting.darkMode')}
           onPress={(): void => {
             navigation.navigate('Display');
           }}
         />
+        {/* <OptionItem
+          type='right'
+          title={I18n.t('setting.fontSize')}
+          onPress={(): void => {
+            navigation.navigate('FontSize');
+          }}
+        /> */}
         <Space size={24} />
         <AppText size='s' style={styles.title} color={theme.colors.secondary}>
           {I18n.t('setting.app')}
@@ -355,15 +363,13 @@ const SettingScreen: React.FC<ScreenType> = ({
         {currentUser && currentUser.email && (
           <>
             <Space size={32} />
-            <TouchableOpacity
-              style={[
-                styles.logoutButton,
-                { backgroundColor: theme.colors.option },
-              ]}
+            <OptionItemContainer
+              isBorrderTop
+              style={styles.logoutButton}
               onPress={onPressLogout}
             >
               <AppText size='m'>{I18n.t('setting.logout')}</AppText>
-            </TouchableOpacity>
+            </OptionItemContainer>
           </>
         )}
         <Space size={16} />
@@ -389,13 +395,7 @@ const styles = StyleSheet.create({
     paddingRight: horizontalScale(4),
   },
   logoutButton: {
-    alignItems: 'center',
     justifyContent: 'center',
-    borderTopWidth: moderateScale(0.5),
-    borderBottomWidth: moderateScale(0.5),
-    height: verticalScale(48),
-    borderTopColor: borderLight,
-    borderBottomColor: borderLight,
   },
 });
 

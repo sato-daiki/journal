@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useAppTheme } from '@/styles/colors';
 import { AppSwitch, AppText } from '../../atoms';
-import { horizontalScale, moderateScale } from '@/styles/metrics';
+import { moderateScale } from '@/styles/metrics';
 import OptionItemContainer from './OptionItemContainer';
 
 interface Props {
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   leftIcon: {
-    width: horizontalScale(22),
+    width: moderateScale(22),
   },
   rightContainer: {
     flexDirection: 'row',
