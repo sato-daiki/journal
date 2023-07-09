@@ -5,6 +5,12 @@ import { EikentTitle } from '@/screens/Modal/SelectEikenScreen/config/title';
 export const getEiken1 = (): EikentTitle[] => {
   return [
     {
+      subTitle: '2023年度第1回',
+      title:
+        "Is investment from foreign companies necessary for the success of Japan's economy?",
+      subcategory: '1-2023-1',
+    },
+    {
       subTitle: '2022年度第3回',
       title:
         'Agree or disagree: Industrialization has had an overall beneficial effect on humankind',
@@ -120,6 +126,11 @@ export const getEikenPre1 = (): EikentTitle[] => {
   return [
     // 公式
     {
+      subTitle: '2023年度第1回',
+      title: 'Should businesses provide more online services?',
+      subcategory: 'pre1-2023-1',
+    },
+    {
       subTitle: '2022年度第3回',
       title:
         'Agree or disagree: The government should do more to promote reusable products',
@@ -231,6 +242,12 @@ export const getEikenPre1 = (): EikentTitle[] => {
 export const getEiken2 = (): EikentTitle[] => {
   return [
     // 公式
+    {
+      subTitle: '2023年度第1回',
+      title:
+        'Today, many buildings collect rainwater and then use it in various ways, such as giving water to plants. Do you think such buildings will become more common in the future?',
+      subcategory: '2-2023-1',
+    },
     {
       subTitle: '2022年度第3回',
       title:
@@ -351,6 +368,11 @@ export const getEiken2 = (): EikentTitle[] => {
 export const getEikenPre2 = (): EikentTitle[] => {
   return [
     // 公式
+    {
+      subTitle: '2023年度第1回',
+      title: 'Do you think hospitals should be open on weekends?',
+      subcategory: 'pre2-2023-1',
+    },
     {
       subTitle: '2022年度第3回',
       title:
