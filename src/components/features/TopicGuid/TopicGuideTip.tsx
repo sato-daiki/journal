@@ -6,6 +6,7 @@ import Header from './Header';
 import { getStyle } from './util';
 import { AppText, Space } from '@/components/atoms';
 import { useAppTheme } from '@/styles/colors';
+import { horizontalScale, verticalScale } from '@/styles/metrics';
 
 interface Props {
   params: TipParams;
@@ -67,12 +68,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   contentContainerStyle: {
-    paddingHorizontal: 16,
-    paddingTop: 16,
+    paddingHorizontal: horizontalScale(16),
+    paddingTop: verticalScale(16),
   },
   text: {
     flexWrap: 'wrap',
-    marginBottom: 2,
+    marginBottom: verticalScale(2),
   },
   row: {
     flexDirection: 'row',
@@ -80,10 +81,10 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   marginBottom4: {
-    marginBottom: 4,
+    marginBottom: verticalScale(4),
   },
   marginBottom12: {
-    marginBottom: 12,
+    marginBottom: verticalScale(12),
   },
 });
 

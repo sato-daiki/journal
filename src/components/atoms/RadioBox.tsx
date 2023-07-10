@@ -9,6 +9,7 @@ import {
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useAppTheme } from '@/styles/colors';
 import AppText from './AppText';
+import { horizontalScale, moderateScale } from '@/styles/metrics';
 
 interface Props {
   textStyle?: StyleProp<TextStyle>;
@@ -30,7 +31,7 @@ const RadioBox: React.FC<Props> = ({
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={styles.container}>
         <MaterialCommunityIcons
-          size={24}
+          size={moderateScale(24)}
           color={theme.colors.main}
           name={checked ? 'radiobox-marked' : 'radiobox-blank'}
         />
@@ -51,7 +52,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   radioBoxText: {
-    paddingLeft: 4,
+    paddingLeft: horizontalScale(4),
   },
 });
 

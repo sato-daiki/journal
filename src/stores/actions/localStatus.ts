@@ -86,6 +86,16 @@ export const setThemeColor = (themeColor: ThemeColor): SetThemeColorAction => ({
   themeColor,
 });
 
+export interface SetFontSizeAction extends Action {
+  type: Types.SET_FONT_SIZE;
+  fontSize: number;
+}
+
+export const setFontSize = (fontSize: number): SetFontSizeAction => ({
+  type: Types.SET_FONT_SIZE,
+  fontSize,
+});
+
 export const restoreUid = (
   uid: string | null,
   onboarding?: boolean,

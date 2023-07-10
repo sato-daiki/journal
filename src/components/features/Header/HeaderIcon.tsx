@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { horizontalScale } from '@/styles/metrics';
 
 interface Props {
   children: ReactNode;
@@ -11,7 +12,7 @@ const HeaderIcon: React.FC<Props> = ({ children }) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 10,
+    marginHorizontal: horizontalScale(10),
   },
 });
 

@@ -17,6 +17,7 @@ import {
 import auth from '@react-native-firebase/auth';
 import { AppText, LoadingModal, Space, SubmitButton } from '@/components/atoms';
 import { Layout } from '@/components/templates';
+import { horizontalScale, verticalScale } from '@/styles/metrics';
 
 type EditEmailNavigationProp = CompositeNavigationProp<
   StackNavigationProp<SettingTabStackParamList, 'EditEmail'>,
@@ -161,8 +162,8 @@ const styles = StyleSheet.create({
   },
   main: {
     flex: 1,
-    paddingHorizontal: 16,
-    paddingTop: 32,
+    paddingHorizontal: horizontalScale(16),
+    paddingTop: verticalScale(32),
   },
 });
 

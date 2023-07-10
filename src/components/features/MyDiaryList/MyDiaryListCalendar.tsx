@@ -12,6 +12,11 @@ import MyDiaryListItem from './MyDiaryListItem';
 import { AppText } from '@/components/atoms';
 import { myStatusColor, useAppTheme } from '@/styles/colors';
 import { fontSizeM } from '@/styles/fonts';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '@/styles/metrics';
 
 interface Props {
   elRefs: React.MutableRefObject<Swipeable[]>;
@@ -26,7 +31,7 @@ interface Props {
 const custumTheme = {
   textDayFontWeight: '400' as '400',
   textDayHeaderFontWeight: '400' as '400',
-  textDayFontSize: fontSizeM,
+  textDayFontSize: moderateScale(fontSizeM),
 };
 
 const code = Localization.locale.split('-')[0];
@@ -115,9 +120,9 @@ const MyDiaryListCalendar: React.FC<Props> = ({
     (direction: 'left' | 'right') => {
       return (
         <MaterialCommunityIcons
-          name={direction === 'left' ? 'chevron-left' : 'chevron-right'}
-          size={32}
+          size={moderateScale(32)}
           color={theme.colors.primary}
+          name={direction === 'left' ? 'chevron-left' : 'chevron-right'}
         />
       );
     },
@@ -200,28 +205,28 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   statusContainer: {
-    marginTop: 16,
-    paddingHorizontal: 8,
+    marginTop: verticalScale(16),
+    paddingHorizontal: horizontalScale(8),
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 16,
+    marginBottom: verticalScale(16),
   },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginLeft: 8,
+    marginLeft: horizontalScale(8),
   },
   dot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    marginRight: 4,
+    width: moderateScale(8),
+    height: moderateScale(8),
+    borderRadius: moderateScale(4),
+    marginRight: horizontalScale(4),
   },
   emptyContainer: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 32,
+    marginTop: verticalScale(32),
   },
 });
 

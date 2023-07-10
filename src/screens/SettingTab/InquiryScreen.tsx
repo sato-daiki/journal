@@ -22,6 +22,7 @@ import {
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import ModalConfirm from '@/components/features/Modal/ModalConfirm';
+import { horizontalScale, verticalScale } from '@/styles/metrics';
 
 export interface Props {
   user: User;
@@ -182,14 +183,15 @@ const styles = StyleSheet.create({
   },
   main: {
     flex: 1,
-    padding: 16,
+    paddingHorizontal: horizontalScale(16),
+    paddingVertical: verticalScale(16),
   },
   message: {
-    height: 300,
+    height: verticalScale(300),
   },
   successContainer: {
-    paddingTop: 32,
-    paddingHorizontal: 16,
+    paddingTop: verticalScale(32),
+    paddingHorizontal: horizontalScale(16),
   },
 });
 

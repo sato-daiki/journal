@@ -5,10 +5,12 @@ import {
   Image,
   StyleProp,
   ViewStyle,
-  Text,
 } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { ImageInfo } from '@/types';
-import { black, white } from '@/styles/colors';
+import { useAppTheme } from '@/styles/colors';
+import { horizontalScale, moderateScale } from '@/styles/metrics';
+import { Icon } from '@/components/templates';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
@@ -27,6 +29,8 @@ const ThumbnailListItem: React.FC<Props> = ({
   onPressImage: propsImage,
   onPressDeleteImage: propsDeleteImage,
 }) => {
+  const theme = useAppTheme();
+
   const onPressImage = useCallback(() => {
     propsImage(index);
   }, [index, propsImage]);
@@ -38,44 +42,34 @@ const ThumbnailListItem: React.FC<Props> = ({
   return (
     <TouchableOpacity onPress={onPressImage} style={[styles.container, style]}>
       <Image source={{ uri: image.imageUrl }} style={styles.image} />
-      <TouchableOpacity style={styles.closeIcon} onPress={onPressDeleteImage}>
-        <Text style={styles.closeText}>×</Text>
-      </TouchableOpacity>
+      <Icon style={styles.closeIcon} onPress={onPressDeleteImage}>
+        <MaterialCommunityIcons
+          size={moderateScale(28)}
+          color={theme.colors.primary}
+          name='close-circle'
+        />
+      </Icon>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    width: THUMBNAIL_WIDTH,
-    height: THUMBNAIL_WIDTH,
+    width: moderateScale(THUMBNAIL_WIDTH),
+    height: moderateScale(THUMBNAIL_WIDTH),
     position: 'relative',
-    marginRight: 4,
+    marginRight: horizontalScale(4),
   },
   image: {
-    width: THUMBNAIL_WIDTH,
-    height: THUMBNAIL_WIDTH,
-    borderRadius: 8,
+    width: moderateScale(THUMBNAIL_WIDTH),
+    height: moderateScale(THUMBNAIL_WIDTH),
+    borderRadius: moderateScale(8),
   },
   closeIcon: {
     position: 'absolute',
-    right: -10,
-    top: -10,
+    right: moderateScale(-10),
+    top: moderateScale(-10),
     zIndex: 10,
-    width: 24,
-    height: 24,
-    borderRadius: 24 / 2,
-    borderWidth: 2,
-    backgroundColor: black,
-    borderColor: white,
-  },
-  closeText: {
-    position: 'absolute',
-    fontSize: 18,
-    top: -2,
-    left: 4.2,
-    fontWeight: 'bold',
-    color: white,
   },
 });
 

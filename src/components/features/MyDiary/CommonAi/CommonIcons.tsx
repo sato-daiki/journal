@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { MaterialCommunityIcons, Feather } from '@expo/vector-icons';
 import { useAppTheme } from '@/styles/colors';
 import { Icon } from '@/components/templates';
+import { horizontalScale, moderateScale } from '@/styles/metrics';
 
 interface Props {
   onPressSpeech: () => void;
@@ -20,23 +21,27 @@ const CommonIcons: React.FC<Props> = ({
     <View style={styles.iconContainer}>
       {onPressShare && (
         <Icon onPress={onPressShare}>
-          <Feather name='share' size={18} color={theme.colors.primary} />
+          <Feather
+            size={moderateScale(18)}
+            color={theme.colors.primary}
+            name='share'
+          />
         </Icon>
       )}
       <Icon onPress={onPressSpeech}>
         <MaterialCommunityIcons
           style={styles.icon}
-          name='volume-high'
-          size={18}
+          size={moderateScale(18)}
           color={theme.colors.primary}
+          name='volume-high'
         />
       </Icon>
       <Icon onPress={onPressCopy}>
         <MaterialCommunityIcons
           style={styles.icon}
-          name='content-copy'
+          size={moderateScale(18)}
           color={theme.colors.primary}
-          size={18}
+          name='content-copy'
         />
       </Icon>
     </View>
@@ -50,7 +55,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
   },
   icon: {
-    marginLeft: 16,
+    marginLeft: horizontalScale(16),
   },
 });
 

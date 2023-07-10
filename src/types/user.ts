@@ -19,6 +19,7 @@ export type FirstSubcategory =
 export type SecondSubcategory = 'test1' | 'test2';
 
 export type Eiken1Subcategory =
+  | '1-2023-1'
   | '1-2022-3'
   | '1-2022-2'
   | '1-2022-1'
@@ -39,6 +40,7 @@ export type Eiken1Subcategory =
   | '1-2017-1';
 
 export type EikenPre1Subcategory =
+  | 'pre1-2023-1'
   | 'pre1-2022-3'
   | 'pre1-2022-2'
   | 'pre1-2022-1'
@@ -59,6 +61,7 @@ export type EikenPre1Subcategory =
   | 'pre1-2017-1';
 
 export type Eiken2Subcategory =
+  | '2-2023-1'
   | '2-2022-3'
   | '2-2022-2'
   | '2-2022-1'
@@ -79,6 +82,7 @@ export type Eiken2Subcategory =
   | '2-2017-1';
 
 export type EikenPre2Subcategory =
+  | 'pre2-2023-1'
   | 'pre2-2022-3'
   | 'pre2-2022-2'
   | 'pre2-2022-1'

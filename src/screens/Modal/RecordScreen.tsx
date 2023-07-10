@@ -35,6 +35,11 @@ import HeaderText from '@/components/features/Header/HeaderText';
 import DiaryTitleWithPill from '@/components/features/MyDiary/DiaryTitleWithPill';
 import DiaryText from '@/components/features/MyDiary/DiaryText';
 import { borderLight, softRed, useAppTheme } from '@/styles/colors';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '@/styles/metrics';
 
 export type Props = {
   diary?: Diary;
@@ -452,9 +457,9 @@ const RecordScreen: React.FC<ScreenType> = ({
               disabled={!isPlaybackAllowed || isLoading}
             >
               <MaterialCommunityIcons
-                name={isPlaying ? 'pause' : 'play'}
-                size={56}
+                size={moderateScale(56)}
                 color={theme.colors.primary}
+                name={isPlaying ? 'pause' : 'play'}
               />
             </Icon>
             {saved ? (
@@ -493,10 +498,9 @@ const RecordScreen: React.FC<ScreenType> = ({
       >
         <Icon onPress={onRecordPressed} disabled={isLoading}>
           <MaterialCommunityIcons
-            name={isRecording ? 'stop' : 'record'}
-            size={64}
+            size={moderateScale(64)}
             color={softRed}
-            onPress={onRecordPressed}
+            name={isRecording ? 'stop' : 'record'}
           />
         </Icon>
         {isRecording ? (
@@ -516,21 +520,21 @@ const RecordScreen: React.FC<ScreenType> = ({
 const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingHorizontal: horizontalScale(16),
+    paddingVertical: verticalScale(12),
   },
   playContaier: {
-    paddingVertical: 16,
-    paddingHorizontal: 32,
+    paddingVertical: verticalScale(16),
+    paddingHorizontal: horizontalScale(32),
   },
   playButtonContainer: {
-    marginTop: 16,
+    marginTop: verticalScale(16),
     alignItems: 'center',
     justifyContent: 'center',
   },
   recordButtonContainer: {
-    height: 70,
-    borderTopWidth: 1,
+    height: verticalScale(70),
+    borderTopWidth: moderateScale(1),
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -539,13 +543,13 @@ const styles = StyleSheet.create({
   },
   recordingText: {
     position: 'absolute',
-    right: 20,
-    paddingTop: 4,
+    right: horizontalScale(20),
+    paddingTop: verticalScale(4),
   },
   saveButton: {
     position: 'absolute',
-    right: 5,
-    width: 100,
+    right: horizontalScale(5),
+    width: horizontalScale(100),
   },
 });
 

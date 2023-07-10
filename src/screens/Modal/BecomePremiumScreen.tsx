@@ -31,6 +31,11 @@ import { checkPremium } from '@/utils/purchase';
 import { softRed, useAppTheme } from '@/styles/colors';
 import HeaderText from '@/components/features/Header/HeaderText';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '@/styles/metrics';
 
 interface DispatchProps {
   setIsPremium: (isPremium: boolean) => void;
@@ -140,24 +145,24 @@ const BecomePremiumScreen: React.FC<ScreenType> = ({
       >
         <View style={styles.row}>
           <MaterialCommunityIcons
-            name='star-four-points-outline'
-            size={18}
+            size={moderateScale(18)}
             color={theme.colors.primary}
+            name='star-four-points-outline'
           />
           <AppText size='ll' bold style={styles.becomeTitle}>
             {I18n.t('becomePremium.becomeTitle')}
           </AppText>
           <MaterialCommunityIcons
-            name='star-four-points-outline'
-            size={18}
+            size={moderateScale(18)}
             color={theme.colors.primary}
+            name='star-four-points-outline'
           />
         </View>
         <View style={styles.labelContainer}>
           <MaterialCommunityIcons
-            name='check'
-            size={24}
+            size={moderateScale(24)}
             color={theme.colors.primary}
+            name='check'
           />
           <View>
             <AppText size='l' bold style={styles.becomeText}>
@@ -172,9 +177,9 @@ const BecomePremiumScreen: React.FC<ScreenType> = ({
         <Space size={8} />
         <View style={styles.labelContainer}>
           <MaterialCommunityIcons
-            name='check'
-            size={24}
+            size={moderateScale(24)}
             color={theme.colors.primary}
+            name='check'
           />
           <AppText size='m' bold style={styles.becomeText}>
             {I18n.t('becomePremium.props2')}
@@ -232,36 +237,36 @@ const BecomePremiumScreen: React.FC<ScreenType> = ({
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 16,
-    paddingTop: 16,
+    paddingHorizontal: horizontalScale(16),
+    paddingTop: verticalScale(16),
   },
   becomeContainer: {
-    marginTop: 16,
-    borderRadius: 8,
-    paddingLeft: 16,
-    paddingRight: 24,
-    paddingVertical: 16,
-    borderWidth: 3,
+    marginTop: verticalScale(16),
+    borderRadius: moderateScale(8),
+    paddingLeft: horizontalScale(16),
+    paddingRight: horizontalScale(24),
+    paddingVertical: verticalScale(16),
+    borderWidth: moderateScale(3),
   },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 24,
+    marginBottom: verticalScale(24),
   },
   becomeTitle: {
-    marginHorizontal: 4,
+    marginHorizontal: horizontalScale(4),
   },
   becomeText: {
-    marginLeft: 8,
+    marginLeft: horizontalScale(8),
   },
   labelContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 8,
+    marginBottom: verticalScale(8),
   },
   linkTextContaienr: {
-    paddingTop: 16,
+    paddingTop: verticalScale(16),
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -271,7 +276,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingLeft: 8,
+    paddingLeft: horizontalScale(8),
   },
 });
 

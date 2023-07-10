@@ -27,6 +27,7 @@ import {
   SetIsPremiumAction,
   SetDarkModeAction,
   SetThemeColorAction,
+  SetFontSizeAction,
 } from '../stores/actions/localStatus';
 
 export interface State {
@@ -45,6 +46,7 @@ export type Actions =
   | SetIsPremiumAction
   | SetDarkModeAction
   | SetThemeColorAction
+  | SetFontSizeAction
   | RestoreUidAction
   | CompletedOnboardingAction
   | SignInAction

@@ -19,6 +19,11 @@ import {
   ProWritingAidText,
 } from '@/images';
 import { useAppTheme, white } from '@/styles/colors';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '@/styles/metrics';
 
 interface Props {
   isPremium: boolean;
@@ -40,18 +45,34 @@ const NoAi: React.FC<Props> = ({
   const theme = useAppTheme();
 
   const iconSpellcheck = useMemo(
-    () => <MaterialCommunityIcons size={22} color={white} name='spellcheck' />,
+    () => (
+      <MaterialCommunityIcons
+        size={moderateScale(22)}
+        color={white}
+        name='spellcheck'
+      />
+    ),
     [],
   );
 
   const iconWatch = useMemo(
-    () => <MaterialCommunityIcons size={22} color={white} name='play' />,
+    () => (
+      <MaterialCommunityIcons
+        size={moderateScale(22)}
+        color={white}
+        name='play'
+      />
+    ),
     [],
   );
 
   const iconBecome = useMemo(
     () => (
-      <MaterialCommunityIcons size={18} color={theme.colors.main} name='star' />
+      <MaterialCommunityIcons
+        size={moderateScale(18)}
+        color={theme.colors.main}
+        name='star'
+      />
     ),
     [theme.colors.main],
   );
@@ -154,8 +175,8 @@ const NoAi: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 16,
-    paddingTop: 32,
+    paddingHorizontal: horizontalScale(16),
+    paddingTop: verticalScale(32),
     alignItems: 'center',
   },
   iconRow: {
@@ -169,23 +190,23 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
   },
   submitButton: {
-    paddingHorizontal: 16,
+    paddingHorizontal: horizontalScale(16),
   },
   saplingLogo: {
-    width: 95,
-    height: 76,
+    width: moderateScale(95),
+    height: moderateScale(76),
   },
   saplingText: {
-    width: 212,
-    height: 76,
+    width: moderateScale(212),
+    height: moderateScale(76),
   },
   proWritingAidLogo: {
-    width: 64,
-    height: 64,
+    width: moderateScale(64),
+    height: moderateScale(64),
   },
   proWritingAidText: {
-    width: 234,
-    height: 64,
+    width: moderateScale(234),
+    height: moderateScale(64),
   },
 });
 

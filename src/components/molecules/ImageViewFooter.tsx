@@ -1,6 +1,11 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { useAppTheme, white } from '@/styles/colors';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '@/styles/metrics';
 
 export interface Props {
   total: number;
@@ -36,17 +41,17 @@ const ImageViewFooter: React.FC<Props> = ({ total, imageIndex }) => {
 const styles = StyleSheet.create({
   row: {
     position: 'absolute',
-    bottom: 80,
+    bottom: verticalScale(80),
     alignSelf: 'center',
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
   },
   dot: {
-    height: 10,
-    width: 10,
-    marginHorizontal: 6,
-    borderRadius: 5,
+    height: moderateScale(10),
+    width: moderateScale(10),
+    marginHorizontal: horizontalScale(6),
+    borderRadius: moderateScale(5),
   },
 });
 

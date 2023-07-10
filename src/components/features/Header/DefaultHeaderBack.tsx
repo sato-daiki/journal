@@ -4,6 +4,7 @@ import { Feather } from '@expo/vector-icons';
 import HeaderIcon from './HeaderIcon';
 import { useAppTheme } from '@/styles/colors';
 import Icon from '@/components/templates/Icon';
+import { moderateScale } from '@/styles/metrics';
 
 interface Props {
   onPress: () => void;
@@ -15,7 +16,7 @@ const DefaultHeaderBack: React.FC<Props> = ({ onPress }) => {
     return (
       <HeaderIcon>
         <Icon onPress={onPress}>
-          <Feather name='chevron-left' size={25} color={theme.colors.primary} />
+          <Feather size={25} color={theme.colors.primary} name='chevron-left' />
         </Icon>
       </HeaderIcon>
     );
@@ -24,7 +25,7 @@ const DefaultHeaderBack: React.FC<Props> = ({ onPress }) => {
   return (
     <HeaderIcon>
       <Icon onPress={onPress}>
-        <Feather name='chevron-left' size={25} color={theme.colors.primary} />
+        <Feather size={25} color={theme.colors.primary} name='chevron-left' />
       </Icon>
     </HeaderIcon>
   );

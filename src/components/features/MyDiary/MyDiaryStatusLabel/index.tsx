@@ -4,6 +4,7 @@ import { Diary } from '../../../../types';
 import { getMyDiaryStatus } from '@/utils/diary';
 import DiaryStatusLabel from './DiaryStatusLabel';
 import { useAppTheme } from '@/styles/colors';
+import { horizontalScale } from '@/styles/metrics';
 
 interface Props {
   diary: Diary;
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   padding: {
-    paddingLeft: 8,
+    paddingLeft: horizontalScale(8),
   },
 });
 

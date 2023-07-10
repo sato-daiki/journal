@@ -11,6 +11,7 @@ import CommonIcons from './CommonIcons';
 import { AiName, getWhatUrl } from '@/utils/grammarCheck';
 import { useAppTheme } from '@/styles/colors';
 import ModalSpeech from '../../Modal/ModalSpeech';
+import { verticalScale } from '@/styles/metrics';
 
 interface Props {
   isPerfect?: boolean;
@@ -138,8 +139,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     flex: 1,
-    paddingTop: 8,
-    paddingBottom: 8,
+    paddingVertical: verticalScale(8),
   },
   row: {
     flexDirection: 'row',

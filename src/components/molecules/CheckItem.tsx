@@ -2,6 +2,11 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { AppText, Checkbox } from '../atoms';
 import { borderLight } from '@/styles/colors';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '@/styles/metrics';
 
 interface Props {
   checked: boolean;
@@ -29,10 +34,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    borderBottomWidth: 0.5,
-    height: 48,
-    paddingLeft: 16,
-    paddingRight: 14,
+    borderBottomWidth: moderateScale(0.5),
+    height: verticalScale(48),
+    paddingLeft: horizontalScale(16),
+    paddingRight: horizontalScale(14),
     borderBottomColor: borderLight,
   },
   title: {

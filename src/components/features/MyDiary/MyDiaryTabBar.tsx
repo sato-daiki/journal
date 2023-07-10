@@ -7,6 +7,7 @@ import {
 } from 'react-native-tab-view';
 import { AppText } from '@/components/atoms';
 import { borderLight, useAppTheme } from '@/styles/colors';
+import { horizontalScale } from '@/styles/metrics';
 
 type Props = SceneRendererProps & {
   navigationState: NavigationState<{
@@ -34,7 +35,10 @@ const MyDiaryTabBar: React.FC<Props> = (props) => {
     <TabBar
       {...props}
       tabStyle={{
-        width: Math.max(width / props.navigationState.routes.length, 100),
+        width: Math.max(
+          width / props.navigationState.routes.length,
+          horizontalScale(100),
+        ),
       }}
       scrollEnabled
       style={{
@@ -56,7 +60,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   labelText: {
-    marginLeft: 4,
+    marginLeft: horizontalScale(4),
   },
 });
 

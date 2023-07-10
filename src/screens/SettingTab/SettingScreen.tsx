@@ -37,6 +37,12 @@ import {
 } from '@/constants/url';
 import { SecureStorageKey, StorageKey } from '@/constants/asyncStorage';
 import { getLanguageToolCode } from '@/utils/grammarCheck';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '@/styles/metrics';
+import OptionItemContainer from '@/components/molecules/OptionItem/OptionItemContainer';
 
 export interface Props {
   user: User;
@@ -153,9 +159,9 @@ const SettingScreen: React.FC<ScreenType> = ({
             title={I18n.t('setting.status')}
             leftIcon={
               <MaterialCommunityIcons
-                name='star-four-points-outline'
-                size={16}
+                size={moderateScale(16)}
                 color={theme.colors.primary}
+                name='star-four-points-outline'
               />
             }
             righComponent={
@@ -171,9 +177,9 @@ const SettingScreen: React.FC<ScreenType> = ({
             title={I18n.t('setting.aboutPremium')}
             leftIcon={
               <MaterialCommunityIcons
-                name='star-four-points-outline'
-                size={16}
+                size={moderateScale(16)}
                 color={theme.colors.primary}
+                name='star-four-points-outline'
               />
             }
             onPress={(): void => {
@@ -194,14 +200,14 @@ const SettingScreen: React.FC<ScreenType> = ({
           title={I18n.t('setting.learn')}
           leftIcon={
             <MaterialCommunityIcons
-              name='pencil-outline'
-              size={16}
+              size={moderateScale(16)}
               color={theme.colors.primary}
+              name='pencil-outline'
             />
           }
           righComponent={
             <CountryNameWithFlag
-              containerStyle={{ paddingRight: 4 }}
+              containerStyle={{ paddingRight: horizontalScale(4) }}
               size={'large'}
               longCode={user.learnLanguage}
             />
@@ -217,9 +223,9 @@ const SettingScreen: React.FC<ScreenType> = ({
           title={I18n.t('setting.passcodeLock')}
           leftIcon={
             <MaterialCommunityIcons
-              name='lock-outline'
-              size={16}
+              size={moderateScale(16)}
               color={theme.colors.primary}
+              name='lock-outline'
             />
           }
           switchValue={localStatus.hasPasscode}
@@ -230,9 +236,9 @@ const SettingScreen: React.FC<ScreenType> = ({
           title={I18n.t('setting.reminder')}
           leftIcon={
             <MaterialCommunityIcons
-              name='bell-outline'
-              size={16}
+              size={moderateScale(16)}
               color={theme.colors.primary}
+              name='bell-outline'
             />
           }
           onPress={onPressReminder}
@@ -244,9 +250,9 @@ const SettingScreen: React.FC<ScreenType> = ({
               title={I18n.t('setting.editEmail')}
               leftIcon={
                 <MaterialCommunityIcons
-                  name='email-edit-outline'
-                  size={16}
+                  size={moderateScale(16)}
                   color={theme.colors.primary}
+                  name='email-edit-outline'
                 />
               }
               onPress={(): void => {
@@ -258,9 +264,9 @@ const SettingScreen: React.FC<ScreenType> = ({
               title={I18n.t('setting.editPassword')}
               leftIcon={
                 <MaterialCommunityIcons
-                  name='briefcase-edit-outline'
-                  size={16}
+                  size={moderateScale(16)}
                   color={theme.colors.primary}
+                  name='briefcase-edit-outline'
                 />
               }
               onPress={(): void => {
@@ -274,9 +280,9 @@ const SettingScreen: React.FC<ScreenType> = ({
             title={I18n.t('setting.registerEmailPassword')}
             leftIcon={
               <MaterialCommunityIcons
-                name='email-edit-outline'
-                size={16}
+                size={moderateScale(16)}
                 color={theme.colors.primary}
+                name='email-edit-outline'
               />
             }
             onPress={(): void => {
@@ -292,11 +298,18 @@ const SettingScreen: React.FC<ScreenType> = ({
         <OptionItem
           type='right'
           isBorrderTop
-          title={I18n.t('setting.display')}
+          title={I18n.t('setting.darkMode')}
           onPress={(): void => {
             navigation.navigate('Display');
           }}
         />
+        {/* <OptionItem
+          type='right'
+          title={I18n.t('setting.fontSize')}
+          onPress={(): void => {
+            navigation.navigate('FontSize');
+          }}
+        /> */}
         <Space size={24} />
         <AppText size='s' style={styles.title} color={theme.colors.secondary}>
           {I18n.t('setting.app')}
@@ -350,15 +363,13 @@ const SettingScreen: React.FC<ScreenType> = ({
         {currentUser && currentUser.email && (
           <>
             <Space size={32} />
-            <TouchableOpacity
-              style={[
-                styles.logoutButton,
-                { backgroundColor: theme.colors.option },
-              ]}
+            <OptionItemContainer
+              isBorrderTop
+              style={styles.logoutButton}
               onPress={onPressLogout}
             >
               <AppText size='m'>{I18n.t('setting.logout')}</AppText>
-            </TouchableOpacity>
+            </OptionItemContainer>
           </>
         )}
         <Space size={16} />
@@ -375,22 +386,16 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   contentContainerStyle: {
-    paddingTop: 32,
+    paddingTop: verticalScale(32),
   },
   title: {
-    paddingLeft: 16,
+    paddingLeft: horizontalScale(16),
   },
   premiumText: {
-    paddingRight: 4,
+    paddingRight: horizontalScale(4),
   },
   logoutButton: {
-    alignItems: 'center',
     justifyContent: 'center',
-    borderTopWidth: 0.5,
-    borderBottomWidth: 0.5,
-    height: 48,
-    borderTopColor: borderLight,
-    borderBottomColor: borderLight,
   },
 });
 

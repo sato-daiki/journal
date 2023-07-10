@@ -15,6 +15,7 @@ import I18n from '@/utils/I18n';
 import { passwordInputError } from '@/utils/common';
 import { SettingTabStackParamList } from '@/navigations/SettingTabNavigator';
 import auth from '@react-native-firebase/auth';
+import { horizontalScale, verticalScale } from '@/styles/metrics';
 
 type ScreenType = StackScreenProps<SettingTabStackParamList, 'EditPassword'>;
 
@@ -135,8 +136,8 @@ const styles = StyleSheet.create({
   },
   main: {
     flex: 1,
-    paddingHorizontal: 16,
-    paddingTop: 32,
+    paddingHorizontal: horizontalScale(16),
+    paddingTop: verticalScale(32),
   },
   footer: {
     alignItems: 'center',

@@ -7,6 +7,11 @@ import { AuthStackParamList } from '@/navigations/AuthNavigator';
 import { Logo } from '@/images';
 import { logAnalytics, events } from '@/utils/Analytics';
 import I18n from '@/utils/I18n';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '@/styles/metrics';
 
 type ScreenType = StackScreenProps<AuthStackParamList, 'Initialize'>;
 
@@ -56,19 +61,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   img: {
-    width: 200,
-    height: 200,
+    width: moderateScale(200),
+    height: moderateScale(200),
   },
   footer: {
     alignItems: 'center',
     justifyContent: 'flex-end',
-    paddingHorizontal: 16,
-    paddingBottom: 32,
+    paddingHorizontal: horizontalScale(16),
+    paddingBottom: verticalScale(32),
     width: '100%',
   },
   row: {
     flexDirection: 'row',
-    paddingTop: 16,
+    paddingTop: verticalScale(16),
     alignItems: 'center',
   },
 });

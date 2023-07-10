@@ -1,6 +1,7 @@
 import { Actions } from '../../types/state';
 import { Types } from '../types';
 import { LocalStatus } from '../../types';
+import { DEFAULT_FONT_SIZE } from '@/constants/common';
 
 const initialState: LocalStatus = {
   isLoading: true,
@@ -12,6 +13,7 @@ const initialState: LocalStatus = {
   firstLogin: false,
   myDiaryListView: 'list',
   darkMode: 'device',
+  fontSize: DEFAULT_FONT_SIZE,
   themeColor: 'default',
   uid: null,
 };
@@ -52,6 +54,11 @@ const localStatus = (state = initialState, action: Actions): LocalStatus => {
       return {
         ...state,
         themeColor: action.themeColor,
+      };
+    case Types.SET_FONT_SIZE:
+      return {
+        ...state,
+        fontSize: action.fontSize,
       };
     case Types.RESTORE_UID:
       return {

@@ -7,6 +7,8 @@ import {
 } from 'react-native';
 import AppText from '../../atoms/AppText';
 import { useAppTheme } from '@/styles/colors';
+import { horizontalScale, verticalScale } from '@/styles/metrics';
+import { fontSizeM } from '@/styles/fonts';
 
 interface Props {
   containerStyle?: StyleProp<ViewStyle>;
@@ -25,18 +27,24 @@ const HeaderText: React.FC<Props> = ({
       style={[styles.container, containerStyle]}
       onPress={onPress}
     >
-      <AppText size='m' color={theme.colors.main}>
+      {/* ヘッダーの文字サイズは固定 */}
+      <AppText style={styles.text} size='m' color={theme.colors.main}>
         {text}
       </AppText>
     </TouchableOpacity>
   );
 };
 
+// 左右は調整OK、縦はNG
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 4,
-    paddingHorizontal: 12,
+    marginHorizontal: horizontalScale(4),
+    paddingHorizontal: horizontalScale(12),
     paddingVertical: 6,
+  },
+  text: {
+    fontSize: fontSizeM,
+    lineHeight: fontSizeM * 1.3,
   },
 });
 

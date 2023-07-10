@@ -9,6 +9,7 @@ import DiaryFooter from '@/components/features/MyDiary/DiaryFooter';
 import ImageItem from './ImageItem';
 import LargeThumbnailList from './LargeThumbnailList';
 import { useAppTheme } from '@/styles/colors';
+import { horizontalScale, verticalScale } from '@/styles/metrics';
 
 export interface Props {
   viewShotRef?: React.MutableRefObject<ViewShot | null>;
@@ -28,7 +29,7 @@ export interface Props {
   cardText?: ReactNode;
   titleAndText: ReactNode;
 }
-const IMAGE_WIDTH = Dimensions.get('window').width - 32;
+const IMAGE_WIDTH = Dimensions.get('window').width - horizontalScale(32);
 
 const CommonMain: React.FC<Props> = ({
   viewShotRef,
@@ -68,7 +69,7 @@ const CommonMain: React.FC<Props> = ({
         <ScrollView style={styles.scrollView}>
           <ViewShot
             style={{
-              paddingTop: 12,
+              paddingTop: verticalScale(12),
               backgroundColor: theme.colors.background,
             }}
             ref={viewShotRef}
@@ -143,13 +144,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   mainContainer: {
-    paddingHorizontal: 16,
+    paddingHorizontal: horizontalScale(16),
   },
   scrollView: {
     flex: 1,
   },
   image: {
-    marginBottom: 8,
+    marginBottom: verticalScale(8),
   },
 });
 

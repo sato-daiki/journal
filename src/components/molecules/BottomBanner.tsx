@@ -24,7 +24,7 @@ const BottomBanner: React.FC = () => {
         <View style={styles.adMobBanner}>
           <BannerAd
             unitId={unitId}
-            size={BannerAdSize.BANNER}
+            size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
             requestOptions={{
               requestNonPersonalizedAdsOnly: true,
             }}

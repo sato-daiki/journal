@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { borderLight, useAppTheme } from '@/styles/colors';
+import { moderateScale, verticalScale } from '@/styles/metrics';
 
 interface Props {
   header: ReactNode;
@@ -25,8 +26,8 @@ const Card: React.FC<Props> = ({ header, main }) => {
 };
 const styles = StyleSheet.create({
   container: {
-    borderTopWidth: 1,
-    height: 250,
+    borderTopWidth: moderateScale(1),
+    height: verticalScale(250),
     borderTopColor: borderLight,
   },
 });

@@ -18,6 +18,7 @@ import {
 } from '../../navigations/SettingTabNavigator';
 import auth from '@react-native-firebase/auth';
 import { useAppTheme } from '@/styles/colors';
+import { horizontalScale, verticalScale } from '@/styles/metrics';
 
 type RegisterEmailPasswordNavigationProp = CompositeNavigationProp<
   StackNavigationProp<SettingTabStackParamList, 'RegisterEmailPassword'>,
@@ -176,8 +177,8 @@ const styles = StyleSheet.create({
   },
   main: {
     flex: 1,
-    paddingHorizontal: 16,
-    paddingTop: 32,
+    paddingHorizontal: horizontalScale(16),
+    paddingTop: verticalScale(32),
   },
 });
 

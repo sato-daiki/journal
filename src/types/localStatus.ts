@@ -13,6 +13,7 @@ export interface LocalStatus {
   firstLogin: boolean;
   myDiaryListView: MyDiaryListView;
   darkMode?: DarkMode;
+  fontSize?: number;
   themeColor?: ThemeColor;
   uid: string | null;
 }

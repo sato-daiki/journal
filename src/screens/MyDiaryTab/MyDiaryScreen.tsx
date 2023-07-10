@@ -126,8 +126,8 @@ const MyDiaryScreen: React.FC<ScreenType> = ({
         <Icon onPress={onPressMore}>
           <MaterialCommunityIcons
             size={28}
-            name='dots-horizontal'
             color={theme.colors.primary}
+            name='dots-horizontal'
           />
         </Icon>
       </HeaderIcon>

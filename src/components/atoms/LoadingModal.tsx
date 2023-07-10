@@ -12,6 +12,11 @@ import {
 import { Loading } from '../../images';
 import AppText from './AppText';
 import { useAppTheme } from '@/styles/colors';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '@/styles/metrics';
 
 const { height } = Dimensions.get('window');
 const size = 40;
@@ -67,14 +72,15 @@ const styles = StyleSheet.create({
   centering: {
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 8,
+    paddingHorizontal: horizontalScale(8),
+    paddingVertical: verticalScale(8),
   },
   transparent: {
     backgroundColor: 'transparent',
   },
   loadingImage: {
-    width: size,
-    height: size,
+    width: moderateScale(size),
+    height: moderateScale(size),
   },
 });
 

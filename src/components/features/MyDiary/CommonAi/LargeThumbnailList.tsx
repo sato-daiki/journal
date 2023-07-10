@@ -1,6 +1,11 @@
 import React from 'react';
 import { StyleSheet, View, Image, ScrollView, Pressable } from 'react-native';
 import { ImageInfo } from '@/types/diary';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '@/styles/metrics';
 
 interface Props {
   images: ImageInfo[];
@@ -29,10 +34,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   image: {
-    width: IMAGE_WIDTH,
-    height: IMAGE_WIDTH,
-    marginRight: 16,
-    borderRadius: 8,
+    width: moderateScale(IMAGE_WIDTH),
+    height: moderateScale(IMAGE_WIDTH),
+    marginRight: horizontalScale(16),
+    borderRadius: moderateScale(8),
   },
 });
 

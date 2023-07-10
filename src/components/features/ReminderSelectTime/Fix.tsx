@@ -7,6 +7,7 @@ import { FixDay, FixTimeInfo } from '@/types';
 import { AppText } from '@/components/atoms';
 import SelectTimeItem from './SelectTimeItem';
 import { useAppTheme } from '@/styles/colors';
+import { horizontalScale } from '@/styles/metrics';
 
 interface Props {
   disable: boolean;
@@ -105,7 +106,7 @@ const Fix: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
   subText: {
-    marginRight: 8,
+    marginRight: horizontalScale(8),
   },
 });
 

@@ -7,6 +7,7 @@ import ThumbnailList from './ThumbnailList';
 import KeyboardIcons from './KeyboardIcons';
 import TextInputTitle from '../MyDiary/TextInputTitle';
 import TextInputText from '../MyDiary/TextInputText';
+import { verticalScale } from '@/styles/metrics';
 
 const PostDiaryKeyboard: React.FC<PostDiaryKeyboardProps> = ({
   isImageLoading,
@@ -49,7 +50,7 @@ const PostDiaryKeyboard: React.FC<PostDiaryKeyboardProps> = ({
       {(isImageLoading || (images && images.length > 0)) && (
         <ThumbnailList
           isImageLoading={isImageLoading}
-          style={[{ marginBottom: isForce ? 0 : FOOTER_HEIGHT }]}
+          style={[{ marginBottom: isForce ? 0 : verticalScale(FOOTER_HEIGHT) }]}
           images={images}
           onPressImage={onPressImage}
           onPressDeleteImage={onPressDeleteImage}

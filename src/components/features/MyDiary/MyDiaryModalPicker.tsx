@@ -9,6 +9,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AppText } from '@/components/atoms';
 import ModalPicker, { PickerItem } from '../../molecules/ModalPicker';
 import { useAppTheme } from '@/styles/colors';
+import { fontSizeL } from '@/styles/fonts';
 
 type Props = {
   containerStyle?: StyleProp<ViewStyle>;
@@ -46,14 +47,15 @@ const MyDiaryModalPicker: React.FC<Props> = ({
         style={[styles.container, containerStyle]}
         onPress={() => hasRevised && onPress()}
       >
-        <AppText size='l' bold={hasRevised}>
+        {/* ヘッダーの文字サイズは固定 */}
+        <AppText style={styles.text} size='l' bold={hasRevised}>
           {selectedItem.label}
         </AppText>
         {hasRevised && (
           <MaterialCommunityIcons
-            name={'chevron-down'}
             size={32}
             color={theme.colors.primary}
+            name={'chevron-down'}
           />
         )}
       </TouchableOpacity>
@@ -71,6 +73,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
+  },
+  text: {
+    fontSize: fontSizeL,
+    lineHeight: fontSizeL * 1.3,
   },
 });
 

@@ -8,6 +8,11 @@ import { LongCode } from '@/types';
 import GrayHeader from '../../molecules/GrayHeader';
 import { useAppTheme, white } from '@/styles/colors';
 import ModalVoice from '../Modal/ModalVoice';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '@/styles/metrics';
 
 type Props = {
   isPremium?: boolean;
@@ -161,14 +166,20 @@ const DiaryFooter: React.FC<Props> = ({
   }, [checkPermissions, updateScreenForSoundStatus, voiceUrl]);
 
   const iconPen = useMemo(
-    () => <MaterialCommunityIcons size={22} color={white} name='pen' />,
+    () => (
+      <MaterialCommunityIcons
+        size={moderateScale(22)}
+        color={white}
+        name='pen'
+      />
+    ),
     [],
   );
 
   const iconSpellcheck = useMemo(
     () => (
       <MaterialCommunityIcons
-        size={22}
+        size={moderateScale(22)}
         color={theme.colors.main}
         name='spellcheck'
       />
@@ -178,14 +189,22 @@ const DiaryFooter: React.FC<Props> = ({
 
   const iconWatch = useMemo(
     () => (
-      <MaterialCommunityIcons size={22} color={theme.colors.main} name='play' />
+      <MaterialCommunityIcons
+        size={moderateScale(22)}
+        color={theme.colors.main}
+        name='play'
+      />
     ),
     [theme.colors.main],
   );
 
   const iconBecome = useMemo(
     () => (
-      <MaterialCommunityIcons size={18} color={theme.colors.main} name='star' />
+      <MaterialCommunityIcons
+        size={moderateScale(18)}
+        color={theme.colors.main}
+        name='star'
+      />
     ),
     [theme.colors.main],
   );
@@ -193,7 +212,7 @@ const DiaryFooter: React.FC<Props> = ({
   const iconHeader = useMemo(
     () => (
       <MaterialCommunityIcons
-        size={22}
+        size={moderateScale(22)}
         color={theme.colors.primary}
         name='account-voice'
       />
@@ -204,7 +223,7 @@ const DiaryFooter: React.FC<Props> = ({
   const iconRecord = useMemo(
     () => (
       <MaterialCommunityIcons
-        size={24}
+        size={moderateScale(24)}
         color={theme.colors.main}
         name='microphone'
       />
@@ -215,7 +234,7 @@ const DiaryFooter: React.FC<Props> = ({
   const iconHeadphones = useMemo(
     () => (
       <MaterialCommunityIcons
-        size={22}
+        size={moderateScale(22)}
         color={theme.colors.main}
         name='headphones'
       />
@@ -254,7 +273,7 @@ const DiaryFooter: React.FC<Props> = ({
           {onPressAdReward && (
             <View style={styles.button}>
               <WhiteButton
-                containerStyle={{ paddingHorizontal: 16 }}
+                containerStyle={{ paddingHorizontal: horizontalScale(16) }}
                 icon={iconWatch}
                 title={I18n.t('myDiary.adReward')}
                 onPress={onPressAdReward}
@@ -316,8 +335,8 @@ const DiaryFooter: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
   button: {
-    marginHorizontal: 16,
-    marginBottom: 16,
+    marginHorizontal: horizontalScale(16),
+    marginBottom: verticalScale(16),
   },
 });
 

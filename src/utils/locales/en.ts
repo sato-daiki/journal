@@ -312,6 +312,8 @@ const setting = {
   aboutPremium: 'About Premium Membership',
   basic: 'Basic',
   display: 'Display',
+  darkMode: 'Dark Mode',
+  fontSize: 'Font Size',
   app: 'About the app',
   learn: 'Learning',
   passcodeLock: 'Passcode',
@@ -331,6 +333,10 @@ const display = {
   device: 'Use device settings',
   light: 'Light mode',
   dark: 'Dark mode',
+};
+
+const fontSize = {
+  headerTitle: 'Font Size',
 };
 
 const signIn = {
@@ -659,6 +665,7 @@ const en = {
   topicGuide,
   setting,
   display,
+  fontSize,
   signIn,
   signUp,
   record,

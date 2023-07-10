@@ -7,6 +7,7 @@ import { SubmitButton } from '@/components/atoms';
 import I18n from '@/utils/I18n';
 import ReminderInitial from '@/components/features/ReminderSelectTime/ReminderInitial';
 import { SettingTabStackParamList } from '@/navigations/SettingTabNavigator';
+import { horizontalScale, verticalScale } from '@/styles/metrics';
 
 type ScreenType = StackScreenProps<
   SettingTabStackParamList,
@@ -33,11 +34,11 @@ const ReminderInitialSettingScreen: React.FC<ScreenType> = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 16,
-    paddingTop: 64,
+    paddingHorizontal: horizontalScale(16),
+    paddingTop: verticalScale(64),
   },
   linkContainer: {
-    height: 100,
+    height: verticalScale(100),
   },
 });
 

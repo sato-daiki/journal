@@ -14,6 +14,11 @@ import {
   Icon,
 } from '@/components';
 import { useAppTheme } from '@/styles/colors';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '@/styles/metrics';
 
 interface Props {
   visible: boolean;
@@ -102,9 +107,9 @@ const ModalSpeech: React.FC<Props> = ({
           )}
           <Icon onPress={playing ? onPressPause : onPressSpeak}>
             <MaterialCommunityIcons
-              name={playing ? 'pause' : 'play'}
-              size={48}
+              size={moderateScale(48)}
               color={theme.colors.primary}
+              name={playing ? 'pause' : 'play'}
             />
           </Icon>
           <View style={styles.switchContainer}>
@@ -128,24 +133,25 @@ const ModalSpeech: React.FC<Props> = ({
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    padding: 16,
+    paddingHorizontal: horizontalScale(16),
+    paddingVertical: verticalScale(16),
   },
   startContainer: {
     position: 'absolute',
-    left: 16,
-    bottom: 100,
+    left: horizontalScale(16),
+    bottom: verticalScale(100),
     flexDirection: 'row',
     alignItems: 'center',
   },
   switchContainer: {
     position: 'absolute',
-    right: 16,
-    bottom: 100,
+    right: horizontalScale(16),
+    bottom: verticalScale(100),
     flexDirection: 'row',
     alignItems: 'center',
   },
   switchText: {
-    marginLeft: 8,
+    marginLeft: horizontalScale(8),
   },
 });
 

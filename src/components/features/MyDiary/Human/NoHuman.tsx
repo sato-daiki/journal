@@ -13,6 +13,11 @@ import Toast from 'react-native-root-toast';
 import { addAiCheckError } from '@/utils/grammarCheck';
 import { AppText, Space, SubmitButton } from '@/components/atoms';
 import { borderLight, softRed, useAppTheme, white } from '@/styles/colors';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '@/styles/metrics';
 
 interface Props {
   activeHuman: boolean | undefined;
@@ -100,7 +105,13 @@ const NoHuman: React.FC<Props> = ({
   }, []);
 
   const iconSpellcheck = useMemo(
-    () => <MaterialCommunityIcons size={22} color={white} name='spellcheck' />,
+    () => (
+      <MaterialCommunityIcons
+        size={moderateScale(22)}
+        color={white}
+        name='spellcheck'
+      />
+    ),
     [],
   );
 
@@ -151,10 +162,10 @@ const NoHuman: React.FC<Props> = ({
     <ScrollView>
       <View style={styles.container}>
         <MaterialCommunityIcons
-          name='face-man-shimmer'
-          size={80}
           style={styles.image}
+          size={moderateScale(80)}
           color={theme.colors.primary}
+          name='face-man-shimmer'
         />
         <Space size={16} />
         <AppText size='m'>
@@ -162,12 +173,10 @@ const NoHuman: React.FC<Props> = ({
             ? I18n.t('noHuman.noHuman')
             : I18n.t('noHuman.noHumanInactive')}
         </AppText>
-
         <Space size={32} />
-
         <View style={styles.rowLabel}>
           <MaterialCommunityIcons
-            size={14}
+            size={moderateScale(14)}
             color={theme.colors.secondary}
             name='file-document-outline'
           />
@@ -188,7 +197,7 @@ const NoHuman: React.FC<Props> = ({
 
         <View style={styles.rowLabel}>
           <MaterialIcons
-            size={14}
+            size={moderateScale(14)}
             color={theme.colors.secondary}
             name='attach-money'
           />
@@ -299,8 +308,8 @@ const NoHuman: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 16,
-    paddingTop: 32,
+    paddingHorizontal: horizontalScale(16),
+    paddingTop: verticalScale(32),
   },
   image: {
     alignSelf: 'center',
@@ -310,32 +319,32 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   textLabel: {
-    paddingLeft: 4,
+    paddingLeft: horizontalScale(4),
   },
   textBox: {
-    borderWidth: 1,
-    borderRadius: 8,
-    paddingVertical: 8,
-    paddingHorizontal: 16,
+    borderWidth: moderateScale(1),
+    borderRadius: moderateScale(8),
+    paddingVertical: verticalScale(8),
+    paddingHorizontal: horizontalScale(16),
     borderColor: borderLight,
   },
   box: {
-    borderWidth: 1,
-    borderRadius: 8,
+    borderWidth: moderateScale(1),
+    borderRadius: moderateScale(8),
     borderColor: borderLight,
   },
   line: {
-    borderBottomWidth: 1,
+    borderBottomWidth: moderateScale(1),
     borderBottomColor: borderLight,
   },
   topBox: {
-    paddingTop: 8,
-    paddingHorizontal: 16,
+    paddingTop: verticalScale(8),
+    paddingHorizontal: horizontalScale(16),
   },
   topBottom: {
-    paddingTop: 16,
-    paddingBottom: 16,
-    paddingHorizontal: 16,
+    paddingTop: verticalScale(16),
+    paddingBottom: verticalScale(16),
+    paddingHorizontal: horizontalScale(16),
   },
   row: {
     flexDirection: 'row',
@@ -347,15 +356,15 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   unit: {
-    paddingLeft: 4,
+    paddingLeft: horizontalScale(4),
     alignSelf: 'flex-end',
   },
   unitL: {
-    paddingLeft: 4,
+    paddingLeft: horizontalScale(4),
     alignSelf: 'flex-end',
   },
   submitButton: {
-    paddingHorizontal: 16,
+    paddingHorizontal: horizontalScale(16),
   },
 });
 

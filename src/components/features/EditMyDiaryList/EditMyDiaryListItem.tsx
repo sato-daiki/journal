@@ -8,6 +8,11 @@ import { AppText } from '@/components/atoms';
 import DiaryTitleWithPill from '../MyDiary/DiaryTitleWithPill';
 import MyDiaryStatusLabel from '../MyDiary/MyDiaryStatusLabel';
 import { Icon } from '@/components/templates';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '@/styles/metrics';
 
 interface Props {
   item: Diary;
@@ -32,7 +37,7 @@ const EditMyDiaryListItem = ({ item, handlePress }: Props) => {
         <View style={styles.leftContainer}>
           <Icon onPress={onPress}>
             <MaterialCommunityIcons
-              size={22}
+              size={moderateScale(22)}
               color={checked ? green : borderLight}
               name={checked ? 'check-circle' : 'checkbox-blank-circle'}
             />
@@ -71,14 +76,14 @@ const EditMyDiaryListItem = ({ item, handlePress }: Props) => {
 const styles = StyleSheet.create({
   container: {
     borderBottomWidth: StyleSheet.hairlineWidth,
-    paddingVertical: 8,
-    paddingHorizontal: 16,
+    paddingVertical: verticalScale(8),
+    paddingHorizontal: horizontalScale(16),
     flexDirection: 'row',
     alignItems: 'center',
     borderBottomColor: borderLight,
   },
   leftContainer: {
-    paddingRight: 16,
+    paddingRight: horizontalScale(16),
   },
   rightContainer: {
     flex: 1,
@@ -87,7 +92,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingBottom: 4,
+    paddingBottom: verticalScale(4),
   },
   content: {
     flexDirection: 'row',

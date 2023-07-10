@@ -21,6 +21,7 @@ import { useAppTheme } from '@/styles/colors';
 import HeaderText from '../Header/HeaderText';
 import NotficationReminder from './NotficationReminder';
 import Fix from './Fix';
+import { horizontalScale } from '@/styles/metrics';
 
 export interface ReminderSelectTimeProps {
   navigation:
@@ -160,10 +161,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   paddingHorizontal16: {
-    paddingHorizontal: 16,
+    paddingHorizontal: horizontalScale(16),
   },
   paddingHorizontal8: {
-    paddingHorizontal: 8,
+    paddingHorizontal: horizontalScale(8),
   },
   bold: {
     fontWeight: 'bold',
